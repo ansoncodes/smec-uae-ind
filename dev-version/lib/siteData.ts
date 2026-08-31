@@ -1,0 +1,454 @@
+/**
+ * Content extracted from the saved reference page
+ * (reference/Best SMEC OIL AND GAS Company in India, GCC Countries.html).
+ * Keeping it in one place lets the section components stay purely presentational.
+ */
+
+const SITE = "https://smecoilandgas.com";
+
+export type NavItem = {
+  label: string;
+  href: string;
+  children?: NavItem[];
+};
+
+export const navItems: NavItem[] = [
+  { label: "About Us", href: `${SITE}/about-us` },
+  {
+    label: "Products",
+    href: `${SITE}/#`,
+    children: [
+      {
+        label: "Power House",
+        href: `${SITE}/power-house`,
+        children: [
+          { label: "VFD Houses", href: `${SITE}/vfd-houses` },
+          { label: "SCR Houses", href: `${SITE}/scr-houses` },
+        ],
+      },
+      { label: "Drill Monitoring System – DMS 3000", href: `${SITE}/drill-monitor` },
+      { label: "BOP Control System", href: `${SITE}/bop-control-system` },
+      { label: "Gas Watch Panel", href: `${SITE}/gas-detection-system` },
+      { label: "Jacking Control System", href: `${SITE}/jacking-control-system` },
+      { label: "RPD System", href: `${SITE}/rpd-system` },
+      { label: "Load Monitoring System", href: `${SITE}/load-monitoring-system` },
+      { label: "PAGA System – Public Adress General Alarm", href: `${SITE}/paga-system` },
+      { label: "Battery Charger", href: `${SITE}/battery-charger` },
+      {
+        label: "CCTV Advanced Perimeter Security Systems",
+        href: `${SITE}/advanced-perimeter-security-systems`,
+      },
+      {
+        label: "Flare Boom Ignition | Pilot Ignition System",
+        href: `${SITE}/flare-boom-ignition-system`,
+      },
+      {
+        label: "Integrated Drilling Control System",
+        href: `${SITE}/integrated-drilling-control-system`,
+      },
+    ],
+  },
+  { label: "Solutions and Services", href: `${SITE}/solutions-and-services` },
+  { label: "Research & Development", href: `${SITE}/research-and-developement` },
+  { label: "Careers", href: `${SITE}/careers` },
+  { label: "Contact Us", href: `${SITE}/contact-us` },
+];
+
+export const contact = {
+  email: "info@smecong.com",
+  phone: "+971 54 549 6420",
+  phoneHref: "tel:+971545496420",
+  whatsapp: "https://wa.me/971545496420",
+};
+
+export const hero = {
+  title: "SMEC OIL AND GAS",
+  subtitle: "TURNKEY SOLUTIONS FOR OIL AND GAS INDUSTRY",
+  lines: [
+    "Delivering solutions for onshore and offshore Rigs",
+    "We understand that your needs are unique and we assure you customized solutions",
+  ],
+  ctaLabel: "Contact Us",
+  ctaHref: `${SITE}/contact-us`,
+  badge: {
+    src: "/images/misc/749986-middle-1.png",
+    alt: "ADNOC In-Country Value Certified",
+    width: 465,
+    height: 270,
+  },
+};
+
+export const partners = [
+  {
+    src: "/images/partners/taqa_small_logo-rru8ulgnlu8td7wvqij424kredlu1nqzy7gjyuthnk.webp",
+    alt: "TAQA",
+  },
+  {
+    src: "/images/partners/SNOC_Logo_Horizontal-rru8zeexxffn4rixn6740ffedj1np17caty87jpx7c.png",
+    alt: "SNOC",
+  },
+  {
+    src: "/images/partners/Logo_of_DEWA-rru8yaxrs63eb9cg5yeuh5wkel3dsjpf2v6u8l9txq.png",
+    alt: "DEWA",
+  },
+  {
+    src: "/images/partners/ADNOC_1200X630-1664370288755-rru90xvfqkxhqgp3or9ge0xrr0c103xrtlzjl3etn0.webp",
+    alt: "ADNOC",
+  },
+];
+
+export type Product = {
+  image: string;
+  title: string;
+  tagline: string;
+  text: string;
+  href: string;
+};
+
+export const productsIntro =
+  "SMEC Oil & Gas provides comprehensive engineering, procurement, construction, and maintenance solutions for the oil and gas industry. We focus on delivering reliable, cost-effective, and innovative services while maintaining the highest standards of safety, quality, efficiency, sustainability, and customer satisfaction across every project.";
+
+export const products: Product[] = [
+  {
+    image: "/images/products/Power-House-SMEC.png",
+    title: "POWER HOUSES",
+    tagline: "PCR House | SCR House | VFD House",
+    text: "Tailored Solutions for Optimal Performance with PCR, SCR, and VFD Technologies.",
+    href: `${SITE}/power-house`,
+  },
+  {
+    image: "/images/products/Advanced-Perimeter-Security-System.png",
+    title: "Advanced Perimeter Security System",
+    tagline: "Secure Your Boundaries with SMEC's Advanced Perimeter Security System!",
+    text: "Custom-Built Surveillance Systems for Extreme Environments – Tailored, Tested, and Trained by SMEC Experts",
+    href: `${SITE}/advanced-perimeter-security-systems`,
+  },
+  {
+    image: "/images/products/Drill-Monitor-System-1.png",
+    title: "Drill Monitor System",
+    tagline: "Stay Alert, Stay Safe: Gas Watch Panel by SMEC",
+    text: "Revolutionize Your Drilling Operations with SMEC’s Cutting-Edge Gas Detection Solutions: Prioritizing Safety and Efficiency in the Oil and Gas Industry!",
+    href: `${SITE}/drill-monitor`,
+  },
+  {
+    image: "/images/products/Integrated-Drilling-Control-System-768x460.png",
+    title: "Integrated Drilling Control System",
+    tagline:
+      "Elevate Your Drilling: Precision Meets Innovation with SMEC’s Integrated Control System!",
+    text: "Maximize Drilling Efficiency with the SMEC Integrated Drilling Control System: Your Command Center for High-Availability Rig Operations!",
+    href: `${SITE}/integrated-drilling-control-system`,
+  },
+  {
+    image: "/images/products/RPD-System-Jacking-Control-System-768x460.png",
+    title: "RPD System Jacking Control System",
+    tagline: "Precision Control for Unmatched Performance!",
+    text: "Optimize Jack-Up Rig Performance with RPD System: Ensure Precision in Rack Phase Differential Monitoring to Prevent Over-Stresses!",
+    href: `${SITE}/jacking-control-system`,
+  },
+  {
+    image: "/images/products/Flare-Boom-Pilot-Ignition-System-768x460.png",
+    title: "Flare Boom Pilot Ignition System",
+    tagline: "Ignite Efficiency with SMEC's Flare Boom Pilot Ignition System!",
+    text: "Upgrade Your Performance with SMEC’s Reliable Ignition Systems – Tested, Fired, and Ready for Long-Lasting Results! New, Retrofit, or Replacement Flare Boom Pilot Ignitions Available",
+    href: `${SITE}/flare-boom-ignition-system`,
+  },
+  {
+    image: "/images/products/BOP-Control-System-768x460.png",
+    title: "BOP Control System",
+    tagline: "Protect Your Rig, Prevent Well Kicks & Explosions!",
+    text: "Protect Your Oil Rig with SMEC’s Advanced BOP Control System – Prevent Well Kicks & Explosions on Land, Platforms, & Subsea!",
+    href: `${SITE}/bop-control-system`,
+  },
+  {
+    image: "/images/products/Gas-Watch-Panel-768x460.webp",
+    title: "Gas Watch Panel",
+    tagline: "Stay Alert, Stay Safe: Gas Watch Panel by SMEC",
+    text: "Revolutionize Your Drilling Operations with SMEC’s Cutting-Edge Gas Detection Solutions: Prioritizing Safety and Efficiency in the Oil and Gas Industry!",
+    href: `${SITE}/gas-detection-system`,
+  },
+];
+
+export const stats = [
+  { title: "Years", value: 25, suffix: "+" },
+  { title: "Countries", value: 10, suffix: "+" },
+  { title: "Employees", value: 500, suffix: "+" },
+  { title: "Projects", value: 10000, suffix: "+" },
+];
+
+export const whoWeAre = {
+  heading: "Who We Are",
+  body: "SMEC is a complete EPC company delivering turnkey solutions. Design, Estimation, Build, Installation and Commissioning all done under one roof. A team of professionals with superior skill is the key asset of SMEC, teams with system integration of the leading OEMs in the  bulbs our strength.",
+};
+
+export const certifications = [
+  {
+    src: "/images/certifications/ISO-SMEC-Oil-and-Gas-Solutions-L.L.C-S-724x1024.png",
+    alt: "ISO certificate – SMEC Oil and Gas Solutions L.L.C S.P 9001",
+    width: 724,
+    height: 1024,
+  },
+  {
+    src: "/images/certifications/ISO-SMEC-Oil-and-Gas-Solutions-L.L.C-S.P-14001.png",
+    alt: "ISO 14001 certificate – SMEC Oil and Gas Solutions L.L.C S.P",
+    width: 800,
+    height: 1132,
+  },
+  {
+    src: "/images/certifications/ISO-SMEC-Oil-and-Gas-Solutions-L.L.C-S.P-45001-724x1024.png",
+    alt: "ISO 45001 certificate – SMEC Oil and Gas Solutions L.L.C S.P",
+    width: 724,
+    height: 1024,
+  },
+  {
+    src: "/images/certifications/ISO-SMEC-Oil-and-Gas-Solutions-L.L.C-S.P-50001-724x1024.png",
+    alt: "ISO 50001 certificate – SMEC Oil and Gas Solutions L.L.C S.P",
+    width: 724,
+    height: 1024,
+  },
+];
+
+export const clients = [
+  "ades-energy4099-1.png",
+  "2.png",
+  "3.png",
+  "4.png",
+  "5.png",
+  "6.png",
+  "7.png",
+  "8.png",
+  "9.png",
+  "1-1.png",
+  "2-2.png",
+  "3-2.png",
+  "4-2.png",
+  "5-2.png",
+].map((f, i) => ({ src: `/images/clients/${f}`, alt: `Client logo ${i + 1}` }));
+
+/** Pin coordinates copied verbatim from the reference's inline `.map-list` CSS. */
+export const mapPins = [
+  { code: "sg", label: "SINGAPORE", bottom: "43%", left: "82%" },
+  { code: "jp", label: "UAE", bottom: "58%", left: "64%" },
+  { code: "ad", label: "ABU DHABI", bottom: "57%", left: "64.5%" },
+  { code: "ut", label: "INDIA", bottom: "55%", left: "73%" },
+  { code: "sr", label: "SRI LANKA", bottom: "44%", left: "75%" },
+  { code: "qa", label: "QATAR", bottom: "62%", left: "63%" },
+  { code: "ba", label: "BAHRAIN", bottom: "64%", left: "62%" },
+  { code: "om", label: "OMAN", bottom: "55%", left: "65%" },
+  { code: "ku", label: "KUWAIT", bottom: "65%", left: "62%" },
+  { code: "eg", label: "EGYPT", bottom: "58%", left: "58%" },
+  { code: "ng", label: "NIGERIA", bottom: "45%", left: "50%" },
+  { code: "ch", label: "CHINA", bottom: "65%", left: "85%" },
+];
+
+export const marqueeCountries = [
+  "India",
+  "UAE",
+  "Qatar",
+  "Egypt",
+  "Kuwait",
+  "Baharin",
+  "Singapore",
+  "China",
+  "Srilanka",
+];
+
+export const rdFocus = {
+  heading: "R&D Focus",
+  body: "Developing cutting-edge automation technologies to optimise oil and gas operations.",
+};
+
+export const solutions = {
+  heading: "Solutions & Services",
+  lines: [
+    "Over the years, SMEC has built robust expertise in",
+    "providing services tailored for upstream, midstream, and",
+    "downstream oil field operators.",
+  ],
+  youtubeId: "kpJS9AnysBA",
+};
+
+export const sustainability = {
+  heading: "Promoting Sustainable Energy Awareness",
+  body: "SMEC Automation’s Commitment to Innovative Energy Solutions.",
+  image: "/images/misc/SMEoilandgas-green-3.webp",
+};
+
+export type Article = {
+  image: string;
+  title: string;
+  text: string;
+  href: string;
+  external: boolean;
+};
+
+export const articles: Article[] = [
+  {
+    image: "/images/articles/SMEC-VARD.webp",
+    title: "SMEC – VARD",
+    text: "India's Turnkey Partner for Next-Generation Marine Electrical Integration",
+    href: "https://www.smec.in/electric-propulsion-sov-cochin-shipyard-smec-vard",
+    external: true,
+  },
+  {
+    image: "/images/articles/Middle-East-Is-Engineering-Energy.webp",
+    title: "How the Middle East Is Engineering Energy 2030–2050.",
+    text: "SMEC Automation | #EnergyTransition #OilAndGas #ReliabilityEngineering",
+    href: `${SITE}/how-the-middle-east-is-engineering-energy`,
+    external: true,
+  },
+  {
+    image: "/images/articles/From-Shores-to-Sea-Legs-ONGC-Rig-Frontier.webp",
+    title: "From Shores to Sea Legs – How ONGC Built India’s Rig Frontier",
+    text: "Shores to Sea Legs ONGC",
+    href: `${SITE}/from-shores-to-sea-legs-how-ongc-built-india`,
+    external: true,
+  },
+  {
+    image: "/images/articles/From-Shores-to-Sea-Legs-How-ONGC-Built-Indias-Rig-Frontier.webp",
+    title:
+      "A technical deep-dive into the critical systems that define reliability in Oil & Gas operations.",
+    text: "",
+    href: `${SITE}/a-technical-deep-dive-into-the-critical-systems-that-define-reliability-in-oil-gas-operations`,
+    external: true,
+  },
+  {
+    image: "/images/articles/Seepages-to-Sensors.webp",
+    title: "From Seepages to Sensors",
+    text: "The Complete Timeline of Oil & Gas ‘Firsts’ (Global + India).",
+    href: `${SITE}/from-seepages-to-sensors-the-complete-timeline-of-oil-gas-firsts-global-india`,
+    external: true,
+  },
+  {
+    image: "/images/articles/1-2.png",
+    title: "Digital Oilfields",
+    text: "How Digital Oilfields are Transforming Exploration and Production in Oil & Gas",
+    href: `${SITE}/fueling-the-future`,
+    external: false,
+  },
+  {
+    image: "/images/articles/Naharkatiya-Noonmati-Barauni-1962.webp",
+    title: "The Pipeline That Changed India!",
+    text: "Naharkatiya–Noonmati–Barauni (1962)",
+    href: `${SITE}/the-pipeline-that-changed-india-naharkatiya-noonmati-barauni-1962`,
+    external: true,
+  },
+  {
+    image: "/images/articles/11113.png",
+    title: "Digboi: The Forgotten Flame That Lit India’s Oil & Gas Story!",
+    text: "SMEC Automation Pvt Ltd",
+    href: `${SITE}/digboi-the-forgotten-flame-that-lit-indias-oil-gas-story`,
+    external: true,
+  },
+  {
+    image: "/images/articles/11112.png",
+    title: "The Birth of India’s Offshore Energy Journey!",
+    text: "SMEC Automation Pvt Ltd",
+    href: `${SITE}/the-birth-of-indias-offshore-energy-journey`,
+    external: true,
+  },
+  {
+    image: "/images/articles/1111.png",
+    title: "Navigating Automation Architecture :",
+    text: "SMEC Automation Pvt Ltd",
+    href: `${SITE}/navigating-automation-architecture`,
+    external: true,
+  },
+  {
+    image: "/images/articles/Dwin-technology.webp",
+    title: "Unlocking the Future:",
+    text: "Digital Twin Technology",
+    href: `${SITE}/unlocking-the-future-digital-twin-technology-the-future-is-now`,
+    external: true,
+  },
+  {
+    image: "/images/articles/adipec.png",
+    title: "SMEC at ADIPEC 2024",
+    text: "A Week of Innovation, Insight & Industry Collaboration!",
+    href: `${SITE}/smec-at-adipec-2024`,
+    external: true,
+  },
+  {
+    image: "/images/articles/thrid-blog.png",
+    title: "Powering the Future of Oil & Gas with Automation",
+    text: "",
+    href: `${SITE}/powering-the-future-of-oil-gas-with-automation`,
+    external: true,
+  },
+  {
+    image: "/images/articles/fifth-blog.png",
+    title: "Flare Ignition Systems",
+    text: "The Guardians of Industrial Safety and Environmental Compliance",
+    href: `${SITE}/flare-ignition-systems`,
+    external: true,
+  },
+  {
+    image: "/images/articles/fourth-blog.png",
+    title: "Retrofit Solutions",
+    text: "Extending the Life Cycle of Oil & Gas Infrastructure",
+    href: `${SITE}/retrofit-solutions`,
+    external: true,
+  },
+  {
+    image: "/images/articles/second-blog.png",
+    title: "Optimizing Wellhead Data Collection",
+    text: "Leveraging Advanced Software Solutions for Enhanced Oil & Gas Operations",
+    href: `${SITE}/optimizing-wellhead-data-collection`,
+    external: true,
+  },
+  {
+    image: "/images/articles/Engineering-Resilience-Starts-Inside-the-Panel.webp",
+    title: "[SMEC – The Solution Hub #3]",
+    text: "Engineering Resilience Starts Inside the Panel.",
+    href: `${SITE}/smec-the-solution-hub-3-engineering-resilience-starts-inside-the-panel`,
+    external: false,
+  },
+];
+
+export const footer = {
+  logo: "/logos/SMEC-Oil-and-Gas-Logo-300x109.png",
+  addressTitle: "MIDDLE EAST & GLOBAL SUPPORT",
+  addressLines: [
+    "SMEC Oil & Gas Solutions LLC SPC",
+    "Store-104, M34, Mussafah",
+    "Abu Dhabi, United Arab Emirates",
+  ],
+  landline: { label: "+971 2 546 0027", href: "tel:+97125460027" },
+  mobile: { label: "+971 50 249 1903", href: "tel:+971502491903" },
+  email: { label: "info@smecong.com", href: "mailto:info@smecong.com" },
+  company: [
+    { label: "Marine", href: "https://smecmarine.com/" },
+    { label: "R & D", href: "https://smecrtd.com/" },
+    { label: "Automation", href: "https://smecautomation.com/" },
+    { label: "Industry", href: "https://smec4industry.com/" },
+    { label: "Software Solutions", href: "https://smectechnologies.com/" },
+    { label: "Offshore", href: "https://smecoffshore.com/" },
+    { label: "Training & Development", href: "https://smeclabs.com/" },
+  ],
+  services: [
+    { label: "Power Houses", href: `${SITE}/power-house` },
+    { label: "Drill Monitor System", href: `${SITE}/drill-monitor` },
+    { label: "BOP Control System", href: `${SITE}/bop-control-system` },
+    { label: "Gas Detection System", href: `${SITE}/gas-detection-system` },
+    { label: "Jacking Control System", href: `${SITE}/jacking-control-system` },
+    { label: "RPD System", href: `${SITE}/rpd-system` },
+  ],
+  servicesSecondary: [
+    { label: "Load Monitoring System", href: `${SITE}/load-monitoring-system` },
+    { label: "PAGA System", href: `${SITE}/paga-system` },
+    { label: "Battery Charger", href: `${SITE}/battery-charger` },
+    {
+      label: "Advanced Perimeter Security System",
+      href: `${SITE}/advanced-perimeter-security-systems`,
+    },
+    { label: "Flare Boom Ignition System", href: `${SITE}/flare-boom-ignition-system` },
+  ],
+  social: [
+    { label: "Linkedin", href: "https://www.linkedin.com/company/smecin/" },
+    { label: "Facebook", href: "https://www.facebook.com/profile.php?id=100094543997911" },
+    { label: "Instagram", href: "https://www.instagram.com/smec_automation/" },
+    { label: "Youtube", href: "https://www.youtube.com/@SMECDeepFix/videos" },
+  ],
+  copyright:
+    "“SMEC” is a registered trademark of SMEC Automation Pvt. Ltd. © 2026 SMEC All rights reserved",
+  termsHref: `${SITE}/privacy-policy`,
+};

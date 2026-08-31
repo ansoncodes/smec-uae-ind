@@ -1,0 +1,260 @@
+.footer {
+  background: var(--surface);
+}
+
+/* ---------------- closing CTA ---------------- */
+
+.cta {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 32px;
+  margin-bottom: 64px;
+  padding: 44px 48px;
+  border-radius: var(--r-xl);
+  border: 1px solid var(--brand-100);
+  background: linear-gradient(120deg, var(--brand-50) 0%, #ffffff 60%, var(--accent-50) 100%);
+}
+
+.ctaTitle {
+  font-size: 30px;
+  line-height: 1.18;
+  color: var(--brand-900);
+  max-width: 22ch;
+}
+
+.ctaBody {
+  margin-top: 8px;
+  font-size: 16px;
+  color: var(--text-muted);
+}
+
+.ctaActions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  flex: 0 0 auto;
+}
+
+/* ---------------- main columns ---------------- */
+
+.main {
+  padding: 56px 0;
+  background: var(--surface-subtle);
+  border-top: 1px solid var(--line);
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: minmax(0, 1.15fr) minmax(0, 0.75fr) minmax(0, 1.4fr);
+  gap: 48px;
+}
+
+.logo {
+  width: auto;
+  height: 44px;
+  object-fit: contain;
+  margin-bottom: 20px;
+}
+
+.addressTitle {
+  font-family: var(--font-display);
+  font-size: 12.5px;
+  font-weight: 700;
+  letter-spacing: 0.09em;
+  text-transform: uppercase;
+  color: var(--text);
+  margin-bottom: 8px;
+}
+
+.address {
+  display: flex;
+  flex-direction: column;
+  font-style: normal;
+  font-size: 14.5px;
+  line-height: 1.65;
+  color: var(--text-muted);
+}
+
+.contactList {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  margin-top: 16px;
+  font-size: 14.5px;
+  color: var(--text-muted);
+}
+
+.contactList li {
+  display: flex;
+  align-items: center;
+  gap: 9px;
+}
+
+.contactList svg {
+  flex: 0 0 auto;
+  color: var(--brand-600);
+}
+
+.contactList a:hover {
+  color: var(--brand-700);
+  text-decoration: underline;
+}
+
+.colTitle {
+  font-family: var(--font-display);
+  font-size: 12.5px;
+  font-weight: 700;
+  letter-spacing: 0.09em;
+  text-transform: uppercase;
+  color: var(--text);
+  margin-bottom: 16px;
+}
+
+.linkList {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  font-size: 14.5px;
+}
+
+.linkList a {
+  color: var(--text-muted);
+  transition: color 0.18s ease;
+}
+
+.linkList a:hover {
+  color: var(--brand-700);
+}
+
+.serviceCols {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 24px;
+}
+
+/* ---------------- bottom bar ---------------- */
+
+.bottom {
+  /* extra bottom room so the fixed WhatsApp / scroll-top dock never sits on
+     the copyright line */
+  padding: 20px 0 88px;
+  background: var(--surface-subtle);
+  border-top: 1px solid var(--line);
+}
+
+.bottomInner {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 20px;
+}
+
+.copyright {
+  font-size: 13.5px;
+  color: var(--text-soft);
+}
+
+.bottomRight {
+  display: flex;
+  align-items: center;
+  gap: 22px;
+}
+
+.social {
+  display: flex;
+  gap: 8px;
+}
+
+.socialIcon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  background: var(--surface);
+  border: 1px solid var(--line-strong);
+  color: var(--text-muted);
+  transition: background-color 0.18s ease, color 0.18s ease, border-color 0.18s ease,
+    transform 0.18s ease;
+}
+
+.socialIcon:hover {
+  background: var(--brand-700);
+  border-color: var(--brand-700);
+  color: var(--text-inverse);
+  transform: translateY(-2px);
+}
+
+.terms {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 13.5px;
+  color: var(--text-soft);
+}
+
+.terms a:hover {
+  color: var(--brand-700);
+  text-decoration: underline;
+}
+
+/* ---------------- breakpoints ---------------- */
+
+@media (max-width: 1024px) {
+  .cta {
+    flex-direction: column;
+    align-items: flex-start;
+    padding: 34px 28px;
+    margin-bottom: 48px;
+  }
+
+  .ctaTitle {
+    font-size: 25px;
+    max-width: none;
+  }
+
+  .grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 36px;
+  }
+
+  .linkColWide {
+    grid-column: 1 / -1;
+  }
+}
+
+@media (max-width: 767px) {
+  .grid {
+    grid-template-columns: minmax(0, 1fr);
+    gap: 32px;
+  }
+
+  .serviceCols {
+    grid-template-columns: minmax(0, 1fr);
+    gap: 10px;
+  }
+
+  .bottom {
+    padding-bottom: 104px;
+  }
+
+  .bottomInner {
+    flex-direction: column;
+    text-align: center;
+  }
+
+  .bottomRight {
+    flex-direction: column;
+    gap: 14px;
+  }
+
+  .ctaActions {
+    width: 100%;
+  }
+
+  .ctaActions :global(.btn) {
+    flex: 1 1 auto;
+  }
+}

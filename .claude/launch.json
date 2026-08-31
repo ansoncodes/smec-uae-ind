@@ -1,0 +1,16 @@
+{
+  "version": "0.0.1",
+  "configurations": [
+    {
+      "name": "smec-wireframe",
+      "runtimeExecutable": "npm",
+      "runtimeArgs": [
+        "run",
+        "--prefix",
+        "wireframe-version",
+        "dev"
+      ],
+      "autoPort": true
+    }
+  ]
+}

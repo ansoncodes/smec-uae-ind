@@ -1,0 +1,83 @@
+/* Continuous logo marquee with edge fades — replaces the wireframe's stepped
+   nine-up swiper with the pattern SaaS pages use for a long client list. */
+
+.marquee {
+  position: relative;
+  margin-top: 44px;
+  overflow: hidden;
+  padding: 8px 0;
+  -webkit-mask-image: linear-gradient(
+    to right,
+    transparent 0,
+    #000 9%,
+    #000 91%,
+    transparent 100%
+  );
+  mask-image: linear-gradient(to right, transparent 0, #000 9%, #000 91%, transparent 100%);
+}
+
+.track {
+  display: flex;
+  align-items: center;
+  width: max-content;
+  gap: 56px;
+  animation: scroll calc(var(--count) * 3.2s) linear infinite;
+}
+
+.marquee:hover .track {
+  animation-play-state: paused;
+}
+
+@keyframes scroll {
+  from {
+    transform: translateX(0);
+  }
+  to {
+    /* half the track = one full copy of the list */
+    transform: translateX(-50%);
+  }
+}
+
+.cell {
+  flex: 0 0 auto;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 150px;
+  height: 72px;
+}
+
+.logo {
+  width: auto;
+  height: auto;
+  max-height: 60px;
+  max-width: 100%;
+  object-fit: contain;
+  filter: grayscale(1);
+  opacity: 0.5;
+  transition: filter 0.3s ease, opacity 0.3s ease;
+}
+
+.cell:hover .logo {
+  filter: grayscale(0);
+  opacity: 1;
+}
+
+@media (max-width: 767px) {
+  .marquee {
+    margin-top: 32px;
+  }
+
+  .track {
+    gap: 36px;
+  }
+
+  .cell {
+    width: 110px;
+    height: 56px;
+  }
+
+  .logo {
+    max-height: 44px;
+  }
+}

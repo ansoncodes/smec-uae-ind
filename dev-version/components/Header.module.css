@@ -1,0 +1,379 @@
+/* ---------------- utility strip ---------------- */
+
+.topbar {
+  background: var(--surface-subtle);
+  border-bottom: 1px solid var(--line);
+  font-size: 13px;
+  color: var(--text-muted);
+}
+
+.topbarInner {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  height: 38px;
+}
+
+.topbarNote {
+  font-weight: 500;
+}
+
+.topbarLinks {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+}
+
+.topbarLinks a {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  transition: color 0.18s ease;
+}
+
+.topbarLinks a:hover {
+  color: var(--brand-700);
+}
+
+/* ---------------- sticky header ---------------- */
+
+.header {
+  position: sticky;
+  top: 0;
+  z-index: 60;
+  background: rgba(255, 255, 255, 0.82);
+  backdrop-filter: saturate(180%) blur(14px);
+  -webkit-backdrop-filter: saturate(180%) blur(14px);
+  border-bottom: 1px solid transparent;
+  transition: border-color 0.2s ease, box-shadow 0.2s ease, background-color 0.2s ease;
+}
+
+.scrolled {
+  background: rgba(255, 255, 255, 0.94);
+  border-bottom-color: var(--line);
+  box-shadow: var(--shadow-sm);
+}
+
+.bar {
+  display: flex;
+  align-items: center;
+  gap: 24px;
+  height: var(--header-h);
+}
+
+.brand {
+  flex: 0 0 auto;
+  display: flex;
+  align-items: center;
+}
+
+.logo {
+  width: auto;
+  height: 40px;
+  object-fit: contain;
+}
+
+/* ---------------- desktop menu ---------------- */
+
+.nav {
+  flex: 1 1 auto;
+  display: flex;
+  justify-content: center;
+}
+
+.menu {
+  display: flex;
+  align-items: center;
+  gap: 2px;
+}
+
+.menu > li {
+  position: relative;
+}
+
+.menuLink {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  padding: 9px 13px;
+  border-radius: var(--r-sm);
+  font-size: 14.5px;
+  font-weight: 500;
+  color: var(--text-muted);
+  white-space: nowrap;
+  transition: color 0.18s ease, background-color 0.18s ease;
+}
+
+.menu > li:hover > .menuLink,
+.menu > li:focus-within > .menuLink {
+  color: var(--brand-800);
+  background: var(--brand-50);
+}
+
+.hasChildren > .subMenu,
+.hasChildren > .nestedMenu {
+  visibility: hidden;
+  opacity: 0;
+  transform: translateY(6px);
+  pointer-events: none;
+}
+
+.hasChildren:hover > .subMenu,
+.hasChildren:focus-within > .subMenu,
+.hasChildren:hover > .nestedMenu,
+.hasChildren:focus-within > .nestedMenu {
+  visibility: visible;
+  opacity: 1;
+  transform: translateY(0);
+  pointer-events: auto;
+}
+
+.subMenu {
+  position: absolute;
+  top: calc(100% + 10px);
+  left: 50%;
+  margin-left: -190px;
+  width: 380px;
+  padding: 8px;
+  background: var(--surface);
+  border: 1px solid var(--line);
+  border-radius: var(--r-lg);
+  box-shadow: var(--shadow-lg);
+  transition: opacity 0.18s ease, transform 0.18s ease;
+  z-index: 70;
+}
+
+/* keeps the pointer from falling through the gap under the trigger */
+.subMenu::before {
+  content: "";
+  position: absolute;
+  top: -12px;
+  left: 0;
+  right: 0;
+  height: 12px;
+}
+
+.nestedMenu {
+  position: absolute;
+  top: -8px;
+  left: calc(100% + 6px);
+  width: 240px;
+  padding: 8px;
+  background: var(--surface);
+  border: 1px solid var(--line);
+  border-radius: var(--r-lg);
+  box-shadow: var(--shadow-lg);
+  transition: opacity 0.18s ease, transform 0.18s ease;
+  z-index: 80;
+}
+
+.subLink {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+  padding: 10px 12px;
+  border-radius: var(--r-sm);
+  font-size: 14px;
+  font-weight: 500;
+  color: var(--text-muted);
+  transition: color 0.16s ease, background-color 0.16s ease;
+}
+
+.subLink:hover {
+  color: var(--brand-800);
+  background: var(--brand-50);
+}
+
+.subCaret {
+  transform: rotate(-90deg);
+  flex: 0 0 auto;
+  opacity: 0.6;
+}
+
+/* ---------------- actions ---------------- */
+
+.actions {
+  flex: 0 0 auto;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.burger {
+  display: none;
+  align-items: center;
+  justify-content: center;
+  width: 40px;
+  height: 40px;
+  border-radius: var(--r-sm);
+  border: 1px solid var(--line-strong);
+  color: var(--text);
+  background: var(--surface);
+}
+
+/* ---------------- drawer ---------------- */
+
+.backdrop {
+  position: fixed;
+  inset: 0;
+  background: rgba(13, 27, 48, 0.45);
+  backdrop-filter: blur(2px);
+  z-index: 90;
+}
+
+.drawer {
+  position: fixed;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  width: min(380px, 90vw);
+  background: var(--surface);
+  z-index: 100;
+  display: flex;
+  flex-direction: column;
+  overflow-y: auto;
+}
+
+.drawerHead {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  padding: 16px 18px;
+  border-bottom: 1px solid var(--line);
+  position: sticky;
+  top: 0;
+  background: var(--surface);
+  z-index: 2;
+}
+
+.drawerLogo {
+  width: auto;
+  height: 34px;
+  object-fit: contain;
+}
+
+.drawerClose {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 36px;
+  height: 36px;
+  border-radius: var(--r-sm);
+  border: 1px solid var(--line-strong);
+  color: var(--text);
+}
+
+.drawerList {
+  padding: 8px 10px;
+}
+
+.drawerLink,
+.drawerToggle {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+  width: 100%;
+  padding: 13px 12px;
+  border-radius: var(--r-sm);
+  font-size: 15px;
+  font-weight: 600;
+  color: var(--text);
+  text-align: left;
+}
+
+.drawerLink:hover,
+.drawerToggle:hover {
+  background: var(--surface-subtle);
+}
+
+.caretOpen {
+  transform: rotate(180deg);
+}
+
+.drawerSub {
+  padding: 2px 0 8px 10px;
+  border-left: 2px solid var(--line);
+  margin-left: 12px;
+}
+
+.drawerSub a {
+  display: block;
+  padding: 9px 12px;
+  border-radius: var(--r-sm);
+  font-size: 14px;
+  color: var(--text-muted);
+}
+
+.drawerSub a:hover {
+  background: var(--brand-50);
+  color: var(--brand-800);
+}
+
+.drawerFoot {
+  margin-top: auto;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  padding: 18px;
+  border-top: 1px solid var(--line);
+  background: var(--surface-subtle);
+}
+
+.drawerContact {
+  display: inline-flex;
+  align-items: center;
+  gap: 9px;
+  font-size: 14px;
+  color: var(--text-muted);
+}
+
+/* ---------------- breakpoints ---------------- */
+
+@media (max-width: 1180px) {
+  .menuLink {
+    padding: 9px 9px;
+    font-size: 14px;
+  }
+}
+
+@media (max-width: 1024px) {
+  .nav {
+    display: none;
+  }
+
+  .burger {
+    display: inline-flex;
+  }
+
+  .bar {
+    justify-content: space-between;
+  }
+}
+
+@media (max-width: 767px) {
+  .topbarNote {
+    display: none;
+  }
+
+  .topbarInner {
+    justify-content: center;
+  }
+
+  .topbarLinks {
+    gap: 14px;
+    font-size: 12.5px;
+  }
+
+  .logo {
+    height: 32px;
+  }
+
+  .actions :global(.btn) {
+    padding: 8px 14px;
+    font-size: 13.5px;
+  }
+}

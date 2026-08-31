@@ -1,0 +1,109 @@
+/* Five equal cells: the blue label pill is flush to the viewport's left
+   edge and rounded on its right side only. */
+
+/* pulled up so the blue pill overlaps the bottom of the hero banner */
+.section {
+  position: relative;
+  z-index: 1;
+  margin-top: -56px;
+  background: transparent;
+}
+
+.row {
+  display: flex;
+  align-items: stretch;
+  width: 100%;
+  min-height: 100px;
+}
+
+.pill {
+  flex: 1 1 20%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--blue);
+  border-radius: 0 20px 20px 0;
+}
+
+.pillTitle {
+  width: 100%;
+  margin: 0;
+  color: var(--white);
+  font-family: var(--font-roboto);
+  font-size: 32px;
+  font-weight: 600;
+  line-height: 41.6px;
+  text-align: center;
+}
+
+.logoCell {
+  flex: 1 1 20%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 0; /* let wide logos shrink instead of forcing a wrap */
+  padding: 10px;
+}
+
+.logo {
+  max-width: 100%;
+  height: auto;
+  object-fit: contain;
+}
+
+/* ----------------------------------------------------------- breakpoints */
+
+@media (max-width: 1024px) {
+  /* the pill takes its own row so the four logos get room to breathe */
+  .section {
+    margin-top: -40px;
+  }
+  .row {
+    flex-wrap: wrap;
+  }
+  .pill {
+    flex: 0 0 100%;
+    justify-content: flex-start;
+    padding: 12px 24px;
+    border-radius: 0;
+  }
+  .pillTitle {
+    width: auto;
+    font-size: 24px;
+    line-height: 32px;
+  }
+  .logoCell {
+    flex: 1 1 25%;
+    padding: 14px 10px;
+  }
+  .logo {
+    max-width: 88%;
+  }
+}
+
+@media (max-width: 767px) {
+  /* the pill goes full-width here, so it no longer overlaps the banner */
+  .section {
+    margin-top: 0;
+  }
+  .row {
+    flex-wrap: wrap;
+    min-height: 0;
+  }
+  .pill {
+    flex: 0 0 100%;
+    padding: 14px 20px;
+    border-radius: 0;
+  }
+  .pillTitle {
+    font-size: 22px;
+    line-height: 30px;
+  }
+  .logoCell {
+    flex: 1 1 50%;
+    padding: 16px 10px;
+  }
+  .logo {
+    max-width: 70%;
+  }
+}

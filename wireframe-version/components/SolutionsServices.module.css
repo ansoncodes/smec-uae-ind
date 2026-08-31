@@ -1,0 +1,127 @@
+.section {
+  display: flex;
+  align-items: center;
+  min-height: 560px;
+  background: var(--blue);
+}
+
+/* ---------------------------------------------------------------- copy */
+
+.copyCol {
+  flex: 0 0 40%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 10px;
+}
+
+.copyInner {
+  width: 100%;
+  padding: 55px;
+}
+
+.heading {
+  margin: 0;
+  color: var(--white);
+  font-family: var(--font-roboto);
+  font-size: 50px;
+  font-weight: 400;
+  line-height: 65px;
+  text-align: center;
+}
+
+.body {
+  margin: 0;
+  padding-top: 8px;
+  color: var(--white);
+  font-family: var(--font-roboto);
+  font-size: 16px;
+  font-weight: 400;
+  line-height: 24px;
+  text-align: center;
+  white-space: pre-line;
+}
+
+/* --------------------------------------------------------------- video */
+
+.videoCol {
+  flex: 0 0 60%;
+  align-self: center;
+  aspect-ratio: 855 / 481;
+}
+
+.overlay {
+  display: grid;
+  place-items: center;
+  width: 100%;
+  height: 100%;
+  padding: 0;
+  background-position: center;
+  background-size: cover;
+  background-repeat: no-repeat;
+  cursor: pointer;
+}
+
+.play {
+  display: grid;
+  place-items: center;
+  width: 100px;
+  height: 100px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.88);
+  color: var(--body);
+  font-size: 30px;
+  padding-left: 6px;
+  transition: transform 0.25s ease, background 0.25s ease;
+}
+
+.overlay:hover .play {
+  transform: scale(1.08);
+  background: var(--white);
+}
+
+.frame {
+  display: block;
+  width: 100%;
+  height: 100%;
+  border: 0;
+}
+
+/* ---------------------------------------------------------- breakpoints */
+
+@media (max-width: 1024px) {
+  .copyInner {
+    padding: 30px;
+  }
+  .heading {
+    font-size: 36px;
+    line-height: 46px;
+  }
+  .play {
+    width: 74px;
+    height: 74px;
+    font-size: 22px;
+  }
+}
+
+@media (max-width: 767px) {
+  .section {
+    flex-direction: column;
+    min-height: 0;
+  }
+  .copyCol,
+  .videoCol {
+    flex: none;
+    width: 100%;
+  }
+  .copyInner {
+    padding: 34px 20px;
+  }
+  .heading {
+    font-size: 28px;
+    line-height: 38px;
+  }
+  .videoCol {
+    aspect-ratio: 16 / 9;
+  }
+}

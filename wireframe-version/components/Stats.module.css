@@ -1,0 +1,59 @@
+.section {
+  padding: 20px 0 0;
+  background: var(--white);
+}
+
+.inner {
+  display: flex;
+  width: 100%;
+  max-width: var(--container);
+  margin-inline: auto;
+}
+
+.counter {
+  flex: 1 1 25%;
+  padding: 10px;
+}
+
+.number {
+  display: flex;
+  align-items: baseline;
+  justify-content: center;
+  color: var(--blue);
+  font-family: var(--font-roboto);
+  font-size: 50px;
+  font-weight: 900;
+  line-height: 1;
+}
+
+.suffix {
+  font-size: inherit;
+  font-weight: inherit;
+}
+
+.title {
+  color: var(--muted);
+  font-family: var(--font-enriqueta);
+  font-size: 19px;
+  font-weight: 400;
+  line-height: 48px;
+  text-align: center;
+}
+
+/* ---------------------------------------------------------- breakpoints */
+
+@media (max-width: 767px) {
+  .inner {
+    flex-wrap: wrap;
+  }
+  .counter {
+    flex: 1 1 50%;
+    padding: 14px 10px;
+  }
+  .number {
+    font-size: 38px;
+  }
+  .title {
+    font-size: 17px;
+  }
+}

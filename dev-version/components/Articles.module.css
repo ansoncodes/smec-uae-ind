@@ -1,0 +1,94 @@
+/* The wireframe overlaid white captions on a darkened 500px image. The light
+   theme splits them: image on top, copy on a white card body underneath. */
+
+.rail {
+  margin-top: 44px;
+}
+
+.card {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  overflow: hidden;
+}
+
+.media {
+  position: relative;
+  overflow: hidden;
+  background: var(--surface-muted);
+}
+
+.image {
+  width: 100%;
+  height: 200px;
+  object-fit: cover;
+  object-position: center;
+  transition: transform 0.45s ease;
+}
+
+.card:hover .image {
+  transform: scale(1.05);
+}
+
+.body {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  padding: 22px 22px 24px;
+  flex: 1 1 auto;
+}
+
+.title {
+  font-size: 17px;
+  font-weight: 700;
+  line-height: 1.32;
+  color: var(--text);
+  /* keep card heights even across a long, uneven set of headlines */
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  line-clamp: 3;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+.text {
+  font-size: 13.5px;
+  line-height: 1.6;
+  color: var(--text-muted);
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  line-clamp: 3;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+.link {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  margin-top: auto;
+  padding-top: 14px;
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--brand-700);
+  transition: gap 0.18s ease, color 0.18s ease;
+}
+
+.link:hover {
+  gap: 11px;
+  color: var(--brand-600);
+}
+
+@media (max-width: 767px) {
+  .rail {
+    margin-top: 30px;
+  }
+
+  .image {
+    height: 176px;
+  }
+
+  .body {
+    padding: 18px 18px 20px;
+  }
+}

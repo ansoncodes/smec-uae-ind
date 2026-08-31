@@ -1,0 +1,83 @@
+/* The wireframe used a dark parallax photo band here. In the light theme this
+   becomes a tinted panel: soft brand gradient, dotted texture, dark type. */
+
+.panel {
+  position: relative;
+  overflow: hidden;
+  padding: 64px 56px;
+  border-radius: var(--r-xl);
+  border: 1px solid var(--brand-100);
+  background: linear-gradient(120deg, var(--brand-50) 0%, #ffffff 48%, var(--accent-50) 100%);
+}
+
+.pattern {
+  position: absolute;
+  inset: 0;
+  background-image: radial-gradient(rgba(26, 95, 208, 0.16) 1px, transparent 1px);
+  background-size: 22px 22px;
+  -webkit-mask-image: radial-gradient(ellipse 70% 100% at 100% 50%, #000 0%, transparent 72%);
+  mask-image: radial-gradient(ellipse 70% 100% at 100% 50%, #000 0%, transparent 72%);
+  pointer-events: none;
+}
+
+.content {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 16px;
+  max-width: 660px;
+}
+
+.icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 46px;
+  height: 46px;
+  border-radius: var(--r-md);
+  background: var(--surface);
+  border: 1px solid var(--line);
+  box-shadow: var(--shadow-sm);
+  color: var(--brand-700);
+}
+
+.heading {
+  font-size: 42px;
+  line-height: 1.1;
+  color: var(--brand-900);
+}
+
+.body {
+  font-size: 19px;
+  line-height: 1.6;
+  color: var(--text-muted);
+}
+
+@media (max-width: 1024px) {
+  .panel {
+    padding: 48px 32px;
+  }
+
+  .heading {
+    font-size: 32px;
+  }
+
+  .body {
+    font-size: 17px;
+  }
+}
+
+@media (max-width: 767px) {
+  .panel {
+    padding: 34px 22px;
+  }
+
+  .heading {
+    font-size: 26px;
+  }
+
+  .body {
+    font-size: 16px;
+  }
+}

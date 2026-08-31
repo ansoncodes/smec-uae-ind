@@ -1,0 +1,94 @@
+/* Logo cloud: a quiet strip that lets the marks carry the credibility. */
+.section {
+  padding: 40px 0 48px;
+  background: var(--surface-subtle);
+  border-bottom: 1px solid var(--line);
+}
+
+.inner {
+  display: flex;
+  align-items: center;
+  gap: 40px;
+}
+
+.label {
+  flex: 0 0 auto;
+  font-family: var(--font-sans);
+  font-size: 12.5px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  color: var(--text-soft);
+  max-width: 130px;
+  line-height: 1.5;
+}
+
+.logos {
+  flex: 1 1 auto;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 32px;
+  min-width: 0;
+}
+
+.logo {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex: 1 1 0;
+  min-width: 0;
+}
+
+.logoImg {
+  width: auto;
+  height: auto;
+  max-height: 52px;
+  max-width: 100%;
+  object-fit: contain;
+  filter: grayscale(1);
+  opacity: 0.55;
+  transition: filter 0.3s ease, opacity 0.3s ease;
+}
+
+.logo:hover .logoImg {
+  filter: grayscale(0);
+  opacity: 1;
+}
+
+@media (max-width: 1024px) {
+  .inner {
+    flex-direction: column;
+    gap: 22px;
+  }
+
+  .label {
+    max-width: none;
+    text-align: center;
+  }
+
+  .logos {
+    width: 100%;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 28px 40px;
+  }
+
+  .logo {
+    flex: 0 0 auto;
+  }
+
+  .logoImg {
+    max-height: 44px;
+  }
+}
+
+@media (max-width: 767px) {
+  .logos {
+    gap: 24px 28px;
+  }
+
+  .logoImg {
+    max-height: 36px;
+  }
+}

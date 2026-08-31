@@ -1,0 +1,157 @@
+/* Continuous linear scroll, right-to-left stage like the live Owl carousel. */
+
+.section {
+  margin-top: 45px;
+  padding: 10px;
+  background: var(--white);
+}
+
+.heading {
+  margin: 0 0 20px;
+  color: var(--blue);
+  font-family: var(--font-roboto);
+  font-size: 40px;
+  font-weight: 700;
+  letter-spacing: 2.9px;
+  line-height: 52px;
+  text-align: center;
+}
+
+.viewport {
+  overflow: hidden;
+}
+
+.track {
+  display: flex;
+  width: max-content;
+  animation: articleScroll calc(var(--count) * 1s) linear infinite;
+}
+
+.track:hover {
+  animation-play-state: paused;
+}
+
+@keyframes articleScroll {
+  from {
+    transform: translateX(-50%);
+  }
+  to {
+    transform: translateX(0);
+  }
+}
+
+/* ---------------------------------------------------------------- card */
+
+.card {
+  position: relative;
+  flex: 0 0 328px;
+  width: 328px;
+  height: 540px;
+  overflow: hidden;
+}
+
+.media {
+  position: relative;
+}
+
+.image {
+  display: block;
+  width: 328px;
+  height: 500px;
+  object-fit: cover;
+}
+
+.scrim {
+  position: absolute;
+  inset: 0;
+  background: #000;
+  opacity: 0.43;
+  transition: opacity 0.3s ease;
+}
+
+.card:hover .scrim {
+  opacity: 0.6;
+}
+
+.card:hover .image {
+  transform: scale(1.04);
+}
+
+.image {
+  transition: transform 0.3s ease;
+}
+
+.content {
+  display: flex;
+  flex-direction: column;
+  padding: 20px;
+  color: var(--white);
+}
+
+/* empty heading slot the source markup keeps above the copy */
+.cardTitleSlot {
+  height: 0;
+  margin: 0 0 8px;
+  font-size: 21px;
+}
+
+/* the negative pull is what lifts the copy back over the artwork */
+.text {
+  width: 288px;
+  margin-top: -400px;
+  color: var(--white);
+  font-family: var(--font-roboto);
+  font-size: 16px;
+  font-weight: 400;
+  line-height: 24px;
+  text-align: left;
+}
+
+.title {
+  font-size: 32px;
+  line-height: 48px;
+}
+
+.buttonWrap {
+  margin-top: 20px;
+  text-align: left;
+}
+
+.button {
+  display: inline-block;
+  padding: 4px 10px;
+  border: 0.8px solid var(--white);
+  border-radius: 15px;
+  color: var(--white);
+  font-family: var(--font-roboto);
+  font-size: 16px;
+  font-weight: 400;
+  transition: background 0.5s ease, color 0.5s ease;
+}
+
+.button:hover {
+  background: var(--white);
+  color: var(--blue);
+}
+
+/* ---------------------------------------------------------- breakpoints */
+
+@media (max-width: 767px) {
+  .heading {
+    font-size: 28px;
+    line-height: 38px;
+    letter-spacing: 2px;
+  }
+  .title {
+    font-size: 26px;
+    line-height: 38px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .track {
+    animation: none;
+    transform: none;
+    overflow-x: auto;
+  }
+}

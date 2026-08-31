@@ -1,0 +1,216 @@
+.section {
+  position: relative;
+  z-index: 2;
+  padding: 0 10px;
+  background: var(--white);
+}
+
+.inner {
+  width: 100%;
+  max-width: var(--container-boxed);
+  margin-inline: auto;
+  padding: 10px 0;
+}
+
+.stack {
+  display: flex;
+  flex-direction: column;
+  gap: 28px;
+  padding: 10px;
+}
+
+.heading {
+  margin: 0;
+  color: var(--blue);
+  font-family: var(--font-roboto);
+  font-size: 30px;
+  font-weight: 600;
+  line-height: 39px;
+  text-align: center;
+}
+
+.intro {
+  margin: 0;
+  color: var(--ink);
+  font-family: var(--font-roboto);
+  font-size: 16px;
+  font-weight: 400;
+  line-height: 24px;
+  text-align: center;
+}
+
+/* ------------------------------------------------------------- carousel */
+
+.carousel {
+  position: relative;
+}
+
+.viewport {
+  overflow: hidden;
+}
+
+.track {
+  display: flex;
+  align-items: stretch;
+  will-change: transform;
+}
+
+.slide {
+  flex: 0 0 auto;
+  display: flex;
+  align-items: flex-start;
+  padding: 10px;
+}
+
+/* --------------------------------------------------------------- card */
+
+.card {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  width: 100%;
+  min-height: 450px;
+  padding: 10px;
+  border-radius: 20px;
+  background: var(--white);
+  box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.5);
+}
+
+.cardImage {
+  width: 100%;
+  height: 184px;
+  object-fit: cover;
+}
+
+.cardTitle {
+  margin: 0;
+  color: var(--indigo);
+  font-family: var(--font-roboto);
+  font-size: 25px;
+  font-weight: 900;
+  line-height: 32.5px;
+}
+
+/* Every card but the first sets its tagline and body one step smaller. */
+.cardTagline,
+.cardTaglineLead {
+  margin: 0;
+  color: var(--teal);
+  font-family: var(--font-roboto);
+  font-weight: 900;
+}
+
+.cardTagline {
+  font-size: 16px;
+  line-height: 20.8px;
+}
+
+.cardTaglineLead {
+  font-size: 21px;
+  line-height: 27.3px;
+}
+
+.cardBody,
+.cardBodyLead {
+  margin: 0 0 16px;
+  color: var(--ink);
+  font-family: var(--font-roboto);
+  font-weight: 400;
+  white-space: pre-line;
+}
+
+.cardBody {
+  font-size: 12px;
+  line-height: 18px;
+}
+
+.cardBodyLead {
+  font-size: 16px;
+  line-height: 24px;
+}
+
+/* bottom-aligns the button; height is set per card from the source */
+.cardSpacer {
+  flex: none;
+}
+
+.cardButton {
+  align-self: flex-start;
+  padding: 12px 24px;
+  border-radius: 3px;
+  background: var(--indigo-btn);
+  color: var(--white);
+  font-family: var(--font-roboto);
+  font-size: 15px;
+  font-weight: 500;
+  line-height: 1;
+  transition: background 0.2s ease;
+}
+
+.cardButton:hover {
+  background: var(--blue);
+}
+
+/* -------------------------------------------------------------- arrows */
+
+.arrow {
+  position: absolute;
+  top: 50%;
+  z-index: 2;
+  display: grid;
+  place-items: center;
+  width: 25px;
+  height: 25px;
+  color: var(--ink);
+  font-size: 25px;
+  transform: translateY(-50%);
+  transition: opacity 0.2s ease;
+}
+
+.arrow:hover {
+  opacity: 0.55;
+}
+
+.prev {
+  left: -48px;
+}
+
+.next {
+  right: -48px;
+}
+
+/* ---------------------------------------------------------- breakpoints */
+
+@media (max-width: 1600px) {
+  .prev {
+    left: 2px;
+  }
+  .next {
+    right: 2px;
+  }
+}
+
+@media (max-width: 1024px) {
+  .heading {
+    font-size: 26px;
+    line-height: 34px;
+  }
+  .cardTitle {
+    font-size: 22px;
+    line-height: 29px;
+  }
+  .cardTaglineLead {
+    font-size: 19px;
+    line-height: 25px;
+  }
+}
+
+@media (max-width: 767px) {
+  .heading {
+    font-size: 23px;
+    line-height: 31px;
+  }
+  .card {
+    min-height: 0;
+  }
+}

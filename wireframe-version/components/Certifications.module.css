@@ -1,0 +1,99 @@
+.section {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  background: var(--white);
+}
+
+/* label pill row */
+
+.pillRow {
+  display: flex;
+  align-items: stretch;
+  width: 100%;
+}
+
+.pill {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 103px;
+  padding: 10px 20px;
+  background: var(--blue);
+  border-radius: 0 20px 20px 0;
+}
+
+.pillTitle {
+  margin: 0;
+  max-width: 224px;
+  color: var(--white);
+  font-family: var(--font-roboto);
+  font-size: 32px;
+  font-weight: 600;
+  line-height: 41.6px;
+  text-align: center;
+}
+
+.pillSpacer {
+  flex: 1 1 auto;
+}
+
+/* certificate row */
+
+.grid {
+  display: flex;
+  gap: 20px;
+  width: 100%;
+  max-width: 1400px;
+  margin-inline: auto;
+  padding: 10px 0;
+}
+
+.cell {
+  flex: 1 1 25%;
+  display: flex;
+  justify-content: center;
+  padding: 10px;
+}
+
+.certificate {
+  width: 100%;
+  max-width: 315px;
+  height: auto;
+  object-fit: contain;
+}
+
+/* ---------------------------------------------------------- breakpoints */
+
+@media (max-width: 1024px) {
+  .pillTitle {
+    font-size: 24px;
+    line-height: 32px;
+  }
+  .pill {
+    min-height: 80px;
+  }
+  .grid {
+    flex-wrap: wrap;
+    gap: 10px;
+    padding: 10px;
+  }
+  .cell {
+    flex: 1 1 45%;
+  }
+}
+
+@media (max-width: 767px) {
+  .pill {
+    flex: 1 1 100%;
+    border-radius: 0;
+  }
+  .pillTitle {
+    font-size: 22px;
+    line-height: 30px;
+    max-width: none;
+  }
+  .cell {
+    flex: 1 1 100%;
+  }
+}

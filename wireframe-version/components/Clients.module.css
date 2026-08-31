@@ -1,0 +1,85 @@
+/* Label pill (flush left) sits beside a looping strip of client logos. */
+
+.section {
+  display: flex;
+  align-items: center;
+  width: 100%;
+  min-height: 65px;
+  background: var(--white);
+}
+
+.pill {
+  flex: 0 0 239px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  align-self: stretch;
+  padding: 10px;
+  background: var(--blue);
+  border-radius: 0 20px 20px 0;
+}
+
+.pillTitle {
+  width: 100%;
+  margin: 0;
+  color: var(--white);
+  font-family: var(--font-roboto);
+  font-size: 32px;
+  font-weight: 600;
+  line-height: 1.3;
+  text-align: center;
+}
+
+.viewport {
+  flex: 1 1 auto;
+  min-width: 0;
+  overflow: hidden;
+}
+
+.track {
+  display: flex;
+  align-items: center;
+  will-change: transform;
+}
+
+.slide {
+  flex: 0 0 auto;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.logo {
+  width: 100%;
+  max-width: 130px;
+  height: auto;
+  object-fit: contain;
+}
+
+/* ---------------------------------------------------------- breakpoints */
+
+@media (max-width: 1024px) {
+  .pill {
+    flex: 0 0 190px;
+  }
+  .pillTitle {
+    font-size: 24px;
+  }
+}
+
+@media (max-width: 767px) {
+  .section {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 14px;
+    padding-bottom: 14px;
+  }
+  .pill {
+    flex: none;
+    padding: 12px 20px;
+    border-radius: 0;
+  }
+  .pillTitle {
+    font-size: 22px;
+  }
+}
