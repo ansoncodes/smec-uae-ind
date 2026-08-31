@@ -1,6 +1,6 @@
 # SMEC Oil & Gas — Next.js rebuild
 
-A faithful Next.js (App Router + TypeScript) rebuild of the homepage at
+A faithful Next.js 16 (App Router + TypeScript) rebuild of the homepage at
 <https://smecoilandgas.com/>, which runs on WordPress/Elementor.
 
 Copy, headings, links and metadata are reproduced verbatim because the original
@@ -23,6 +23,9 @@ npm run build
 
 The page is fully static (`○ (Static) prerendered as static content`), so all
 copy is in the server-rendered HTML.
+
+`npm audit` reports zero vulnerabilities. Next.js is kept on 16.x — 15.5.x
+pulls in a vulnerable `postcss`, and 15.5.4 specifically carries CVE-2025-66478.
 
 ## Layout fidelity
 
@@ -85,7 +88,7 @@ app/
   globals.css     tokens, reset, shared helpers
 components/       one component + CSS module per section
 lib/siteData.ts   all page copy, links and image references
-public/images/    71 assets pulled from the live site
+public/images/    69 assets pulled from the live site
 ```
 
 `lib/siteData.ts` is the single place to edit copy. Treat the strings as

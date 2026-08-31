@@ -1,8 +1,8 @@
 /* The wireframe ran this as a navy 40/60 band. Light version: white ground,
    copy on the left, the video framed as an elevated card on the right.
 
-   NOTE: the original poster image (Corporate-Video.png) was never saved with
-   the reference page, so the play surface uses a brand gradient. */
+   The play surface uses the site's own poster (Corporate-Video.png), pulled
+   from the live page; the brand gradient sits behind it as a fallback. */
 
 .split {
   display: grid;
@@ -74,8 +74,27 @@
 .poster:hover {
   filter: brightness(1.1);
 }
+.posterImage {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+/* keeps the play badge and label legible over the artwork */
+.posterScrim {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    180deg,
+    rgba(7, 20, 38, 0.28) 0%,
+    rgba(7, 20, 38, 0.42) 100%
+  );
+}
 
 .playBadge {
+  position: relative;
+  z-index: 1;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -94,6 +113,8 @@
 }
 
 .posterLabel {
+  position: relative;
+  z-index: 1;
   font-size: 13px;
   font-weight: 600;
   letter-spacing: 0.09em;

@@ -4,12 +4,13 @@
     {
       "name": "smec-wireframe",
       "runtimeExecutable": "npm",
-      "runtimeArgs": [
-        "run",
-        "--prefix",
-        "wireframe-version",
-        "dev"
-      ],
+      "runtimeArgs": ["run", "--prefix", "wireframe-version", "dev"],
+      "autoPort": true
+    },
+    {
+      "name": "smec-dev-version",
+      "runtimeExecutable": "npm",
+      "runtimeArgs": ["run", "--prefix", "dev-version", "dev"],
       "autoPort": true
     }
   ]

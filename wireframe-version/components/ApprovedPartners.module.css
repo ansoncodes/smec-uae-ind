@@ -1,12 +1,14 @@
 /* Five equal cells: the blue label pill is flush to the viewport's left
    edge and rounded on its right side only. */
 
-/* pulled up so the blue pill overlaps the bottom of the hero banner */
+/* pulled up so the band overlaps the bottom of the hero banner - the white
+   background is what the live section carries, so the logos sit on white
+   rather than on the banner artwork showing through. */
 .section {
   position: relative;
   z-index: 1;
   margin-top: -56px;
-  background: transparent;
+  background: var(--white);
 }
 
 .row {

@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import Image from "next/image";
 import { solutions } from "@/lib/siteData";
 import { ArrowRightIcon, PlayIcon } from "@/components/Icons";
 import styles from "./SolutionsServices.module.css";
@@ -47,6 +48,14 @@ export default function SolutionsServices() {
                   onClick={() => setPlaying(true)}
                   aria-label="Play Video"
                 >
+                  <Image
+                    src={solutions.poster.src}
+                    alt={solutions.poster.alt}
+                    width={solutions.poster.width}
+                    height={solutions.poster.height}
+                    className={styles.posterImage}
+                  />
+                  <span className={styles.posterScrim} />
                   <span className={styles.playBadge}>
                     <PlayIcon size={22} />
                   </span>

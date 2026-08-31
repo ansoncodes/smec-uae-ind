@@ -265,6 +265,12 @@ export const solutions = {
     "downstream oil field operators.",
   ],
   youtubeId: "kpJS9AnysBA",
+  poster: {
+    src: "/images/misc/Corporate-Video.png",
+    alt: "SMEC Automation corporate video",
+    width: 1160,
+    height: 650,
+  },
 };
 
 export const sustainability = {
