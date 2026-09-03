@@ -3,25 +3,24 @@ import Link from "next/link";
 import Eyebrow from "@/components/ui/Eyebrow";
 import ProductCard from "@/components/ProductCard";
 import { contact, navItems, products, type Product } from "@/lib/siteData";
+import { productDetail } from "@/lib/productDetails";
 import styles from "./ProductDetail.module.css";
 
 /**
- * Detail page body for one product.
- *
- * Everything here comes from `lib/siteData.ts` — the same title, tagline,
- * description and photograph the homepage card uses, plus any sub-variants the
- * nav already lists for this product. No specifications, ratings or
- * capabilities are invented: this is safety-critical equipment and that copy
- * has to come from SMEC.
+ * Detail page for one product. Copy comes from the matching page on
+ * smecoilandgas.com via `lib/productDetails.ts`; the photograph, title and
+ * tagline come from the same record the homepage card uses.
  */
 export default function ProductDetail({ product }: { product: Product }) {
+  const detail = productDetail(product.slug);
   const related = products.filter((p) => p.slug !== product.slug);
 
-  // Some products have variants already listed in the nav (Power House has
-  // VFD and SCR houses under it). Surface them rather than inventing any.
+  // Variants the nav already lists for this product (Power House only).
   const productsNav = navItems.find((n) => n.label === "Products");
   const variants =
     productsNav?.children?.find((c) => c.href.endsWith(`/${product.slug}`))?.children ?? [];
+
+  const [lead, ...rest] = detail?.body ?? [product.text];
 
   return (
     <>
@@ -31,8 +30,8 @@ export default function ProductDetail({ product }: { product: Product }) {
           <div className={styles.copy}>
             <Eyebrow>Product</Eyebrow>
             <h1 className={styles.title}>{product.title}</h1>
-            <p className={styles.tagline}>{product.tagline}</p>
-            <p className={styles.body}>{product.text}</p>
+            {detail?.subtitle && <p className={styles.subtitle}>{detail.subtitle}</p>}
+            <p className={styles.body}>{lead}</p>
 
             {variants.length > 0 && (
               <div className={styles.variants}>
@@ -46,16 +45,16 @@ export default function ProductDetail({ product }: { product: Product }) {
             )}
 
             <div className={styles.ctas}>
-              <a className="btn btn-primary" href={`${contact.whatsapp}`} target="_blank" rel="noopener noreferrer">
-                Enquire About This Product
-              </a>
               <a
-                className="btn btn-ghost"
-                href={product.sourceHref}
+                className="btn btn-primary"
+                href={contact.whatsapp}
                 target="_blank"
                 rel="noopener noreferrer"
               >
-                View on smecoilandgas.com
+                Enquire About This Product
+              </a>
+              <a className="btn btn-ghost" href={contact.phoneHref}>
+                {contact.phone}
               </a>
             </div>
           </div>
@@ -74,10 +73,56 @@ export default function ProductDetail({ product }: { product: Product }) {
         </div>
       </section>
 
-      <section className="paper" aria-labelledby="related-products">
+      {detail && (
+        <section className="paper" aria-labelledby="product-overview">
+          <div className="container">
+            <div className={styles.overview}>
+              <div className={styles.prose}>
+                <Eyebrow index="01">Overview</Eyebrow>
+                <h2 id="product-overview" className={styles.h2}>
+                  About the {product.title}
+                </h2>
+                {rest.map((para) => (
+                  <p key={para.slice(0, 40)}>{para}</p>
+                ))}
+                {rest.length === 0 && <p>{lead}</p>}
+
+                {detail.specs && (
+                  <div className={styles.specs}>
+                    <h3 className={styles.specsHeading}>{detail.specs.heading}</h3>
+                    <dl>
+                      {detail.specs.rows.map((row) => (
+                        <div key={row.label}>
+                          <dt>{row.label}</dt>
+                          <dd>{row.value}</dd>
+                        </div>
+                      ))}
+                    </dl>
+                  </div>
+                )}
+              </div>
+
+              <div className={styles.features}>
+                {detail.sections.map((section) => (
+                  <div key={section.heading} className={styles.feature}>
+                    <h3 className={styles.featureHeading}>{section.heading}</h3>
+                    <ul>
+                      {section.items.map((item) => (
+                        <li key={item}>{item}</li>
+                      ))}
+                    </ul>
+                  </div>
+                ))}
+              </div>
+            </div>
+          </div>
+        </section>
+      )}
+
+      <section aria-labelledby="related-products">
         <div className="container">
           <div className="section-head">
-            <Eyebrow>More from the range</Eyebrow>
+            <Eyebrow index="02">More from the range</Eyebrow>
             <h2 id="related-products">Other SMEC products</h2>
           </div>
 

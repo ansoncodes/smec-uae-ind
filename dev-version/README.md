@@ -65,16 +65,22 @@ the Products mega-menu now resolve internally; nav entries with no product
 record (Load Monitoring, PAGA, Battery Charger and the rest) still point at the
 live site, so the menu is a mix by design.
 
-**These pages carry no invented content.** They use the same title, tagline,
-description and photograph the homepage card uses, plus any variants the nav
-already lists for that product — Power House is the only one with any, and its
-VFD and SCR entries come from `navItems`. No specifications, ratings,
-certifications or capability claims are generated: this is safety-critical
-equipment and that copy has to come from SMEC. Each page links out to its
-counterpart on the live site so nothing is lost in the meantime.
+**Copy is the live site's own**, taken from each product's page on
+smecoilandgas.com and held in `lib/productDetails.ts`: the strapline, the body
+paragraphs, the "Why SMEC?" list, any additional feature groups, and the
+specification and certification tables. Nothing is invented — this is
+safety-critical equipment, so no ratings, certifications or capability claims
+are generated. The photograph, title and card tagline still come from
+`lib/siteData.ts`, and Power House's VFD/SCR variants come from `navItems`.
 
-To flesh one out, add fields to the product record in `lib/siteData.ts` and
-render them in `components/ProductDetail.tsx`.
+Two deliberate edits to the source copy, both noted at the top of
+`productDetails.ts`: headings are set in sentence case to match this build, and
+"SPONTANIOUS"/"HASSELFREE" in the shared strapline are corrected — both are
+typos on the live pages.
+
+Layout adapts to how much a product has: a single feature list runs full width,
+several sit two-up, and the spec table only renders where the source page has
+one (Flare Boom Pilot Ignition and Gas Watch Panel).
 
 ## Typography
 
