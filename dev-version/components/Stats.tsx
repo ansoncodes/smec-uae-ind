@@ -65,21 +65,22 @@ function Stat({
   const { ref, value: current } = useCountUp(value);
 
   return (
-    <div className={styles.item} ref={ref}>
-      <div className={styles.number}>
+    <div className={styles.stat} ref={ref}>
+      <div className={styles.n}>
         {current.toLocaleString("en-US")}
-        <span className={styles.suffix}>{suffix}</span>
+        {suffix}
       </div>
-      <div className={styles.title}>{title}</div>
+      <div className={styles.l}>{title}</div>
     </div>
   );
 }
 
+/** Prototype `.statrow`: hairline-bound row, cool-gradient figures, mono labels. */
 export default function Stats() {
   return (
     <section className={styles.section} id="year" aria-label="SMEC by the numbers">
-      <div className="container container-wide">
-        <div className={styles.panel}>
+      <div className="container">
+        <div className={styles.statrow}>
           {stats.map((stat) => (
             <Stat key={stat.title} {...stat} />
           ))}

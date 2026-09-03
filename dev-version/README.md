@@ -1,8 +1,9 @@
-# SMEC Oil & Gas — light SaaS theme
+# SMEC Oil & Gas — prototype theme
 
-The same page as `../wireframe-version/`, rebuilt with a light SaaS visual
-language. Content, copy, links, images and section order are unchanged; only the
-design system differs. `../wireframe-version/` and `../reference/` are untouched.
+The same page as `../wireframe-version/`, restyled to the design system in
+`../reference/smec_website_prototype (5).html`. Content, copy, links, images
+and section order are unchanged; only the presentation differs.
+`../wireframe-version/` and `../reference/` are untouched.
 
 ## Run
 
@@ -16,30 +17,36 @@ npm run build    # production build
 
 ```
 app/
-  layout.tsx        root layout + Google Fonts (Inter, Plus Jakarta Sans)
+  layout.tsx        root layout + Google Fonts (Space Grotesk, Inter, IBM Plex Mono)
   page.tsx          composes the sections
-  globals.css       design tokens, layout primitives, buttons, cards
+  globals.css       tokens + the prototype primitives (.wrap, .eyebrow, .btn,
+                    .card, .section-head, .grid/.gN, .diagram-panel, .schematic,
+                    .paper / .navy / .tight section variants)
   icon.png          favicon
 
 components/
-  Header.tsx            sticky translucent header, dropdowns, mobile drawer
-  Hero.tsx              light hero with gradient glows and a badge card
-  ApprovedPartners.tsx  logo cloud
-  MajorProducts.tsx     8-card product grid
-  Stats.tsx             stat panel with scroll-triggered count-up
-  WhoWeAre.tsx          centred about block + capability chips
-  Certifications.tsx    four ISO certificate cards
-  Clients.tsx           continuous logo marquee
-  GlobalPresence.tsx    pin map card + country marquee
-  RDFocus.tsx           tinted feature panel
-  SolutionsServices.tsx split section with click-to-play video
-  Sustainability.tsx    gradient panel + image
-  Articles.tsx          scroll-snapped article rail
-  Footer.tsx            closing CTA + footer columns + bottom bar
+  Header.tsx            utility bar + sticky nav row, mega-menu, mobile drawer
+  Hero.tsx              two-column hero: gradient heading, CTAs, diagram panel
+  ApprovedPartners.tsx  logostrip row on a paper band
+  MajorProducts.tsx     8 cards in a g4 grid
+  Stats.tsx             statrow with scroll-triggered count-up
+  WhoWeAre.tsx          copy + three region tiles
+  Entities.tsx          navy band: the UAE entity and the India hub side by side
+  Certifications.tsx    four ISO cards
+  Clients.tsx           logostrip grid
+  GlobalPresence.tsx    navy band: pin map in a diagram panel + region tiles + ticker
+  RDFocus.tsx           copy + tinted gallery tile
+  SolutionsServices.tsx paper split with click-to-play video
+  Sustainability.tsx    navy band: copy card + tinted gallery tile
+  Articles.tsx          card rail
+  Footer.tsx            navy CTA strip + footgrid + mono bottom line
   FloatingWidgets.tsx   Quick Enquiry, WhatsApp, scroll-to-top
   Icons.tsx             inline SVG icon set
+  ui/Logo.tsx           mark + mono word lock-up (real SMEC wordmark, reversed)
+  ui/Schematic.tsx      the prototype's wellhead → grid schematic SVG
   ui/Rail.tsx           reusable scroll-snap rail with arrows
-  ui/SectionHeading.tsx eyebrow + title + body
+  ui/Reveal.tsx         entrance reveal on scroll
+  ui/SectionHeading.tsx eyebrow + title + body (.section-head)
 
 lib/siteData.ts     all copy, links, image paths, map pin coordinates
 public/             logos and images (same set as the wireframe build)
@@ -47,47 +54,55 @@ public/             logos and images (same set as the wireframe build)
 
 ## Design system
 
-Defined as tokens in `app/globals.css`:
+Ported verbatim from the prototype's `:root` and primitives:
 
-- **Surfaces** — `#ffffff` / `#f7f9fc` / `#eef2f9`, hairline borders at `#e5eaf2`
-- **Brand** — the SMEC navy `#003582` anchors a nine-step blue ramp; the brand
-  teal `#00a99d` is the single secondary accent
-- **Type** — Plus Jakarta Sans for headings (tight tracking), Inter for body
-- **Elevation** — four blue-tinted shadow steps; cards lift on hover
-- **Shape** — 8/12/18/26 px radii plus a pill for buttons and chips
+- **Ground** — `#0A0714` page, `#120B22` paper bands, `#1B1230` surfaces,
+  `#150E28` utility/footer; fixed radial pink / cyan / violet glows behind
+  everything
+- **Lines** — `#2E2149` hairlines, square corners everywhere
+- **Accents** — hot gradient (copper `#FF8A4C` → pink `#F72585` → plum
+  `#7209B7`) for eyebrows, primary buttons, card hover bars and the `.navy`
+  band's top rule; cool gradient (teal → cyan `#4CC9F0` → violet `#9B5DE5`)
+  for stat figures and secondary eyebrows
+- **Type** — Space Grotesk for headings, Inter for body, IBM Plex Mono
+  (uppercase, tracked) for eyebrows, buttons, nav, labels and captions
+- **Hover** — cards lift 3px with a violet shadow and a gradient top bar;
+  ghost buttons and tiles glow cyan
 
-## What changed from the wireframe build
+## Entity positioning
 
-Content is identical. These are presentation decisions:
+The UAE entity is the one clients contract with, so it leads everywhere it
+appears; the India hub is shown as the engineering and manufacturing capability
+behind it rather than a second front door. Both are named in five places:
 
-| Wireframe | Here | Why |
+| Place | UAE | India |
 | --- | --- | --- |
-| Two navs — transparent over the hero, plus a second bar that appeared on scroll, both with the same menu | One sticky header that condenses on scroll | A repeated nav reads as a bug in a SaaS layout; every link from both is kept |
-| Dark photographic hero | Light hero: white ground, soft brand glows, faint grid, badge card | The theme is light throughout |
-| Products in a 4-up autoplay carousel | 8-card grid | Shows the whole catalogue at once |
-| Client logos in a stepped 9-up swiper | Continuous marquee with edge fades | Standard for a long client list |
-| Articles as full-bleed cards with captions overlaid on darkened images | Scroll-snapped rail, image above a white card body | Keeps headlines legible on a light page |
-| Navy side-label panels ("Approved Partners", "Our Clients", "Our Certifications") | Section headings with eyebrow chips | Consistent section rhythm |
-| Dark parallax R&D band, navy Solutions band, navy→green Sustainability band | Tinted light panels using the same gradient directions | Same structure, light palette |
-| Quick Enquiry as a vertical side tab | Side tab on desktop, bottom-left pill under 768px | The vertical tab covered body text on narrow screens |
+| Utility bar | Named first | Follows after a middot; hidden under 1180px so the UAE half is never the part that clips |
+| Hero | First entity line, hot gradient dash | Second line, cool gradient dash |
+| `Entities` section | First card, permanent gradient rule, full address | Second card, cool eyebrow, links to smecautomation.com |
+| Global presence map | `UAE` → Headquarters, `ABU DHABI` → Registered office | `INDIA` → Engineering hub; all three tiles get a cyan border and label |
+| Footer | First address block | Second block under "Engineering & manufacturing hub" |
 
-**Small additions.** The SaaS layout needs a little scaffolding the reference
-did not have: one-or-two-word eyebrow chips above section titles ("Product
-suite", "Accredited", "Trusted by", "Insights"), a closing CTA block in the
-footer, and short labels assembled from existing copy — the hero's capability
-card ("Onshore & offshore rigs" / "Design · Build · Install · Commission"), the
-"Who We Are" capability chips, and the ISO standard names read off the
-certificate artwork. No claims beyond what the reference page already states.
+Copy for the `Entities` section is the reference prototype's "Two locations.
+One engineering standard." block, which carries the same split. Everything
+else in `lib/siteData.ts` still comes from the live site.
 
-**Missing background images.** As in the wireframe build, the reference's hero
-photo, R&D banner and video poster were never saved with the page. Here they are
-replaced by light gradient treatments rather than dark ones, so nothing needs
-swapping unless the originals turn up.
+## Notes on the assets
 
-**Map.** `public/images/misc/map-base.png` (the saved map with its printed pins
-removed) backs the desktop pin map; the pin coordinates and their hover labels
-come straight from the reference. The untouched `map-final-1024x500.png` is the
-tablet/mobile image.
+The prototype is dark; most of the saved assets were made for a white page.
+
+- **Logo** — the navy SMEC wordmark is reversed to white with a CSS filter and
+  set in the prototype's mark + mono word lock-up.
+- **Partner and client logos** — inverted, desaturated and lighten-blended so
+  their white plates drop into the surface and only a monochrome mark
+  remains, matching the prototype's mono logostrips.
+- **Product shots and certificates** — cut-outs on white, so they sit on a
+  light plate inset in the dark card.
+- **Map** — the saved dotted map is grey-on-white; the same invert + lighten
+  treatment makes it a pale dot field. Pin coordinates are unchanged from the
+  reference. Pins are drawn as the schematic's copper nodes.
+- **R&D and sustainability photos** — shown as gallery tiles under the
+  prototype's hot / cool gradient tints.
 
 **Note on `next.config.mjs`.** `turbopack.root` is pinned to this directory
 because an unrelated empty `package-lock.json` sits one level up, which would

@@ -3,27 +3,23 @@ import SectionHeading from "@/components/ui/SectionHeading";
 import { clients } from "@/lib/siteData";
 import styles from "./Clients.module.css";
 
+/** Prototype logostrip grid ("Serving operators across the region"). */
 export default function Clients() {
-  // Duplicated once so the marquee loops without a visible seam.
-  const loop = [...clients, ...clients];
-
   return (
-    <section className="section" aria-labelledby="our-clients">
-      <div className="container container-wide">
+    <section aria-labelledby="our-clients">
+      <div className="container">
         <SectionHeading id="our-clients" eyebrow="Trusted by" title="Our Clients" />
-      </div>
 
-      <div className={styles.marquee}>
-        <ul className={styles.track} style={{ ["--count" as string]: clients.length }}>
-          {loop.map((client, i) => (
-            <li key={`${client.src}-${i}`} className={styles.cell} aria-hidden={i >= clients.length}>
+        <ul className={`grid ${styles.grid}`}>
+          {clients.map((client) => (
+            <li key={client.src} className={styles.strip}>
               <Image
                 src={client.src}
                 alt={client.alt}
-                width={200}
-                height={110}
+                width={150}
+                height={52}
                 className={styles.logo}
-                sizes="180px"
+                sizes="150px"
               />
             </li>
           ))}

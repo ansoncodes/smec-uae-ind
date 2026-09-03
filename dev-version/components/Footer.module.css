@@ -1,260 +1,189 @@
-.footer {
-  background: var(--surface);
-}
+/* ---------------- CTA strip (section.navy.tight) ---------------- */
 
-/* ---------------- closing CTA ---------------- */
-
-.cta {
+.ctaRow {
   display: flex;
-  align-items: center;
   justify-content: space-between;
-  gap: 32px;
-  margin-bottom: 64px;
-  padding: 44px 48px;
-  border-radius: var(--r-xl);
-  border: 1px solid var(--brand-100);
-  background: linear-gradient(120deg, var(--brand-50) 0%, #ffffff 60%, var(--accent-50) 100%);
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 16px;
 }
 
 .ctaTitle {
-  font-size: 30px;
-  line-height: 1.18;
-  color: var(--brand-900);
-  max-width: 22ch;
+  font-size: 22px;
 }
 
-.ctaBody {
-  margin-top: 8px;
-  font-size: 16px;
-  color: var(--text-muted);
-}
-
-.ctaActions {
+.ctas {
   display: flex;
   flex-wrap: wrap;
-  gap: 12px;
-  flex: 0 0 auto;
+  gap: 10px;
 }
 
-/* ---------------- main columns ---------------- */
+/* ---------------- footer.site ---------------- */
 
-.main {
-  padding: 56px 0;
-  background: var(--surface-subtle);
+.site {
+  background: var(--surface-2);
+  color: var(--text-soft);
+  padding-top: 64px;
   border-top: 1px solid var(--line);
 }
 
-.grid {
-  display: grid;
-  grid-template-columns: minmax(0, 1.15fr) minmax(0, 0.75fr) minmax(0, 1.4fr);
-  gap: 48px;
+.wrap {
+  /* room for the fixed WhatsApp / scroll-top dock */
+  padding-bottom: 88px;
 }
 
-.logo {
-  width: auto;
-  height: 44px;
-  object-fit: contain;
-  margin-bottom: 20px;
+.footgrid {
+  display: grid;
+  grid-template-columns: 1.4fr repeat(4, 1fr);
+  gap: 28px;
+  padding-bottom: 44px;
+  border-bottom: 1px solid var(--line);
+}
+
+.footgrid h5 {
+  font-family: var(--mono);
+  font-size: 10.5px;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  color: var(--text-dim);
+  margin: 0 0 14px 0;
+  font-weight: 500;
+}
+
+.footgrid ul {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.footgrid li a {
+  display: block;
+  font-size: 12.5px;
+  padding: 4px 0;
+  color: var(--text-soft);
+  transition: color 0.18s ease;
+}
+
+.footgrid li a:hover {
+  color: var(--copper);
+}
+
+.spacer {
+  visibility: hidden;
 }
 
 .addressTitle {
-  font-family: var(--font-display);
-  font-size: 12.5px;
-  font-weight: 700;
-  letter-spacing: 0.09em;
+  font-family: var(--mono);
+  font-size: 10.5px;
   text-transform: uppercase;
-  color: var(--text);
-  margin-bottom: 8px;
+  letter-spacing: 0.06em;
+  color: var(--text-dim);
+  margin-top: 18px;
 }
 
 .address {
   display: flex;
   flex-direction: column;
   font-style: normal;
-  font-size: 14.5px;
-  line-height: 1.65;
-  color: var(--text-muted);
+  font-size: 12.5px;
+  color: var(--text-soft);
+  line-height: 1.6;
+  margin-top: 8px;
+  max-width: 260px;
+}
+
+.address a {
+  display: inline !important;
+  padding: 0 !important;
+  color: var(--text);
+}
+
+.address a:hover {
+  color: var(--copper);
 }
 
 .contactList {
-  display: flex;
-  flex-direction: column;
-  gap: 8px;
-  margin-top: 16px;
-  font-size: 14.5px;
-  color: var(--text-muted);
+  margin-top: 12px;
+  font-size: 12.5px;
+  line-height: 1.6;
 }
 
 .contactList li {
-  display: flex;
-  align-items: center;
-  gap: 9px;
+  padding: 2px 0;
 }
 
-.contactList svg {
-  flex: 0 0 auto;
-  color: var(--brand-600);
+.contactList a {
+  display: inline !important;
+  padding: 0 !important;
+  color: var(--text);
 }
 
 .contactList a:hover {
-  color: var(--brand-700);
-  text-decoration: underline;
-}
-
-.colTitle {
-  font-family: var(--font-display);
-  font-size: 12.5px;
-  font-weight: 700;
-  letter-spacing: 0.09em;
-  text-transform: uppercase;
-  color: var(--text);
-  margin-bottom: 16px;
-}
-
-.linkList {
-  display: flex;
-  flex-direction: column;
-  gap: 10px;
-  font-size: 14.5px;
-}
-
-.linkList a {
-  color: var(--text-muted);
-  transition: color 0.18s ease;
-}
-
-.linkList a:hover {
-  color: var(--brand-700);
-}
-
-.serviceCols {
-  display: grid;
-  grid-template-columns: repeat(2, minmax(0, 1fr));
-  gap: 24px;
-}
-
-/* ---------------- bottom bar ---------------- */
-
-.bottom {
-  /* extra bottom room so the fixed WhatsApp / scroll-top dock never sits on
-     the copyright line */
-  padding: 20px 0 88px;
-  background: var(--surface-subtle);
-  border-top: 1px solid var(--line);
-}
-
-.bottomInner {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: 20px;
-}
-
-.copyright {
-  font-size: 13.5px;
-  color: var(--text-soft);
-}
-
-.bottomRight {
-  display: flex;
-  align-items: center;
-  gap: 22px;
+  color: var(--copper);
 }
 
 .social {
+  display: inline-flex !important;
+  align-items: center;
+  gap: 8px;
+}
+
+.footbottom {
   display: flex;
-  gap: 8px;
+  justify-content: space-between;
+  padding: 20px 0;
+  font-family: var(--mono);
+  font-size: 10.5px;
+  color: var(--text-dim);
+  flex-wrap: wrap;
+  gap: 10px;
+  text-transform: uppercase;
 }
 
-.socialIcon {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  width: 32px;
-  height: 32px;
-  border-radius: 50%;
-  background: var(--surface);
-  border: 1px solid var(--line-strong);
-  color: var(--text-muted);
-  transition: background-color 0.18s ease, color 0.18s ease, border-color 0.18s ease,
-    transform 0.18s ease;
-}
-
-.socialIcon:hover {
-  background: var(--brand-700);
-  border-color: var(--brand-700);
-  color: var(--text-inverse);
-  transform: translateY(-2px);
-}
-
-.terms {
-  display: inline-flex;
-  align-items: center;
-  gap: 8px;
-  font-size: 13.5px;
-  color: var(--text-soft);
-}
-
-.terms a:hover {
-  color: var(--brand-700);
-  text-decoration: underline;
+.footbottom a:hover {
+  color: var(--copper);
 }
 
 /* ---------------- breakpoints ---------------- */
 
-@media (max-width: 1024px) {
-  .cta {
-    flex-direction: column;
-    align-items: flex-start;
-    padding: 34px 28px;
-    margin-bottom: 48px;
+@media (max-width: 1000px) {
+  .footgrid {
+    grid-template-columns: repeat(2, 1fr);
   }
 
-  .ctaTitle {
-    font-size: 25px;
-    max-width: none;
-  }
-
-  .grid {
-    grid-template-columns: repeat(2, minmax(0, 1fr));
-    gap: 36px;
-  }
-
-  .linkColWide {
+  .footgrid > div:first-child {
     grid-column: 1 / -1;
+  }
+
+  .spacer {
+    display: none;
   }
 }
 
-@media (max-width: 767px) {
-  .grid {
-    grid-template-columns: minmax(0, 1fr);
-    gap: 32px;
+@media (max-width: 600px) {
+  .site {
+    padding-top: 48px;
   }
 
-  .serviceCols {
-    grid-template-columns: minmax(0, 1fr);
-    gap: 10px;
-  }
-
-  .bottom {
+  .wrap {
     padding-bottom: 104px;
   }
 
-  .bottomInner {
-    flex-direction: column;
-    text-align: center;
+  .footgrid {
+    grid-template-columns: 1fr;
+    gap: 24px;
   }
 
-  .bottomRight {
-    flex-direction: column;
-    gap: 14px;
+  .ctaTitle {
+    font-size: 19px;
   }
 
-  .ctaActions {
+  .ctas {
     width: 100%;
   }
 
-  .ctaActions :global(.btn) {
+  .ctas :global(.btn) {
     flex: 1 1 auto;
+    justify-content: center;
   }
 }

@@ -1,0 +1,103 @@
+.head {
+  max-width: 680px;
+}
+
+.card {
+  padding: 30px;
+  display: flex;
+  flex-direction: column;
+}
+
+/* The UAE entity is the contracting party, so its card wears the gradient
+   rule permanently rather than only on hover. The class is doubled to beat
+   the global `.card::before` rule without an !important. */
+.primary.primary::before {
+  opacity: 1;
+}
+
+.name {
+  font-size: 19px;
+  margin-top: 12px;
+}
+
+.role {
+  font-family: var(--mono);
+  font-size: 10.5px;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--steel);
+  line-height: 1.6;
+  margin-top: 8px;
+}
+
+.points {
+  color: var(--text-soft);
+  font-size: 13.5px;
+  line-height: 2;
+  margin-top: 16px;
+}
+
+.points li {
+  padding-left: 18px;
+  position: relative;
+}
+
+.points li::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 13px;
+  width: 8px;
+  height: 1px;
+  background: var(--line);
+}
+
+.foot {
+  margin-top: auto;
+  padding-top: 20px;
+}
+
+.address {
+  display: flex;
+  flex-direction: column;
+  font-style: normal;
+  font-family: var(--mono);
+  font-size: 10.5px;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  color: var(--text-soft);
+  line-height: 1.7;
+  padding-top: 16px;
+  border-top: 1px solid var(--line);
+}
+
+/* No address on the India card, so its link needs the same rule above it. */
+.foot > .more:first-child {
+  padding-top: 16px;
+  border-top: 1px solid var(--line);
+  width: 100%;
+  margin-top: 0;
+}
+
+.ctas {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 10px;
+  margin-top: 32px;
+}
+
+@media (max-width: 600px) {
+  .card {
+    padding: 22px;
+  }
+
+  .name {
+    font-size: 17px;
+  }
+
+  .ctas :global(.btn) {
+    flex: 1 1 auto;
+    justify-content: center;
+  }
+}

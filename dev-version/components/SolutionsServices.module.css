@@ -1,47 +1,36 @@
-/* The wireframe ran this as a navy 40/60 band. Light version: white ground,
-   copy on the left, the video framed as an elevated card on the right.
-
-   The play surface uses the site's own poster (Corporate-Video.png), pulled
-   from the live page; the brand gradient sits behind it as a fallback. */
-
 .split {
   display: grid;
-  grid-template-columns: minmax(0, 0.85fr) minmax(0, 1.15fr);
-  align-items: center;
+  grid-template-columns: 0.85fr 1.15fr;
   gap: 56px;
-}
-
-.copy {
-  display: flex;
-  flex-direction: column;
-  align-items: flex-start;
-  gap: 18px;
+  align-items: center;
 }
 
 .heading {
-  font-size: 42px;
-  line-height: 1.12;
+  font-size: 28px;
+  margin-top: 10px;
 }
 
 .body {
-  font-size: 17px;
+  color: var(--text-soft);
+  font-size: 14.5px;
   line-height: 1.7;
-  color: var(--text-muted);
+  margin-top: 16px;
 }
 
-.videoCol {
-  min-width: 0;
+.ctas {
+  margin-top: 24px;
+  display: flex;
+  gap: 10px;
 }
 
+/* gallery-tile idiom: hairline frame, square corners, hover zoom */
 .frame {
   position: relative;
   width: 100%;
-  aspect-ratio: 1.77777;
+  aspect-ratio: 16 / 9;
   overflow: hidden;
-  border-radius: var(--r-xl);
   border: 1px solid var(--line);
-  box-shadow: var(--shadow-lg);
-  background: var(--surface-inverse);
+  background: var(--surface);
 }
 
 .iframe {
@@ -58,92 +47,72 @@
   width: 100%;
   height: 100%;
   display: flex;
-  flex-direction: column;
   align-items: center;
   justify-content: center;
-  gap: 14px;
-  background: radial-gradient(
-      90% 110% at 50% 35%,
-      rgba(59, 126, 240, 0.55) 0%,
-      rgba(11, 27, 51, 0) 68%
-    ),
-    linear-gradient(140deg, #0b1b33 0%, var(--brand-800) 58%, #071426 100%);
-  transition: filter 0.3s ease;
 }
 
-.poster:hover {
-  filter: brightness(1.1);
-}
 .posterImage {
   position: absolute;
   inset: 0;
   width: 100%;
   height: 100%;
   object-fit: cover;
-}
-/* keeps the play badge and label legible over the artwork */
-.posterScrim {
-  position: absolute;
-  inset: 0;
-  background: linear-gradient(
-    180deg,
-    rgba(7, 20, 38, 0.28) 0%,
-    rgba(7, 20, 38, 0.42) 100%
-  );
+  transition: transform 0.35s ease;
 }
 
-.playBadge {
+.poster:hover .posterImage {
+  transform: scale(1.06);
+}
+
+.scrim {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(135deg, rgba(14, 30, 58, 0.55) 0%, rgba(76, 201, 240, 0.18) 55%, rgba(155, 93, 229, 0.3) 100%);
+}
+
+/* square play badge on the hot gradient, like .btn-primary */
+.play {
   position: relative;
   z-index: 1;
   display: flex;
   align-items: center;
   justify-content: center;
-  width: 72px;
-  height: 72px;
-  border-radius: 50%;
-  color: var(--brand-800);
-  background: #fff;
-  padding-left: 5px;
-  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
-  transition: transform 0.28s ease;
+  width: 64px;
+  height: 64px;
+  background: var(--grad-hot);
+  color: #0a0714;
+  padding-left: 4px;
+  box-shadow: 0 8px 24px rgba(247, 37, 133, 0.35);
+  transition: transform 0.18s ease, box-shadow 0.18s ease;
 }
 
-.poster:hover .playBadge {
-  transform: scale(1.07);
+.poster:hover .play {
+  transform: translateY(-2px);
+  box-shadow: 0 12px 30px rgba(247, 37, 133, 0.5);
 }
 
-.posterLabel {
-  position: relative;
-  z-index: 1;
-  font-size: 13px;
-  font-weight: 600;
-  letter-spacing: 0.09em;
+.cap {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  padding: 10px 12px;
+  background: linear-gradient(0deg, rgba(10, 7, 20, 0.88), transparent);
+  font-family: var(--mono);
+  font-size: 11px;
   text-transform: uppercase;
-  color: rgba(255, 255, 255, 0.82);
+  letter-spacing: 0.04em;
+  color: #fff;
+  text-align: left;
 }
 
-@media (max-width: 1024px) {
+@media (max-width: 900px) {
   .split {
     grid-template-columns: 1fr;
-    gap: 36px;
+    gap: 32px;
   }
 
   .heading {
-    font-size: 32px;
-  }
-}
-
-@media (max-width: 767px) {
-  .heading {
-    font-size: 26px;
-  }
-
-  .body {
-    font-size: 16px;
-  }
-
-  .playBadge {
-    width: 58px;
-    height: 58px;
+    font-size: 24px;
   }
 }

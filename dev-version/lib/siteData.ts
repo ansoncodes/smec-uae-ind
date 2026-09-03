@@ -78,22 +78,32 @@ export const hero = {
   },
 };
 
+/* The source marks are low-resolution Elementor thumbnails, so each one is
+   given an intrinsic size and an optical cap height rather than being scaled
+   up: wide wordmarks sit shorter than square marks so the row reads as one
+   set instead of four different sizes. `cap` never exceeds the asset's own
+   height, which keeps every mark crisp. */
 export const partners = [
   {
     src: "/images/partners/taqa_small_logo-rru8ulgnlu8td7wvqij424kredlu1nqzy7gjyuthnk.webp",
     alt: "TAQA",
+    width: 150,
+    height: 80,
+    cap: 38,
   },
   {
     src: "/images/partners/SNOC_Logo_Horizontal-rru8zeexxffn4rixn6740ffedj1np17caty87jpx7c.png",
     alt: "SNOC",
+    width: 100,
+    height: 60,
+    cap: 40,
   },
   {
     src: "/images/partners/Logo_of_DEWA-rru8yaxrs63eb9cg5yeuh5wkel3dsjpf2v6u8l9txq.png",
     alt: "DEWA",
-  },
-  {
-    src: "/images/partners/ADNOC_1200X630-1664370288755-rru90xvfqkxhqgp3or9ge0xrr0c103xrtlzjl3etn0.webp",
-    alt: "ADNOC",
+    width: 250,
+    height: 59,
+    cap: 30,
   },
 ];
 
@@ -224,12 +234,85 @@ export const clients = [
   "5-2.png",
 ].map((f, i) => ({ src: `/images/clients/${f}`, alt: `Client logo ${i + 1}` }));
 
+export type Entity = {
+  location: string;
+  name: string;
+  role: string;
+  points: string[];
+  address?: string[];
+  link: { label: string; href: string; external?: boolean };
+  /** The contracting entity — carries the primary card treatment. */
+  primary?: boolean;
+};
+
+/**
+ * The two operating entities. Abu Dhabi is the entity clients contract with
+ * and leads the section; the India hub is the engineering and manufacturing
+ * capability behind every delivery. Copy follows the reference prototype's
+ * "Two locations. One engineering standard." block.
+ */
+export const entities = {
+  eyebrow: "UAE & India",
+  heading: "Two locations. One engineering standard.",
+  body: "SMEC Oil & Gas Solutions LLC SPC in Abu Dhabi holds the client relationship and delivers across the Middle East, backed by the group's engineering and manufacturing hub in India.",
+  items: [
+    {
+      location: "Abu Dhabi, UAE",
+      name: "SMEC Oil & Gas Solutions LLC SPC",
+      role: "Headquarters — regional delivery & client engagement",
+      points: [
+        "Client relationships & project delivery",
+        "On-site engineering & commissioning support",
+        "Middle East project management",
+        "Site visits & technical consultations",
+      ],
+      address: ["Store-104, M34, Mussafah", "Abu Dhabi, United Arab Emirates"],
+      link: { label: "Contact the Abu Dhabi team", href: `${SITE}/contact-us` },
+      primary: true,
+    },
+    {
+      location: "Kochi, India",
+      name: "SMEC Automation Pvt. Ltd.",
+      role: "Engineering & manufacturing hub",
+      points: [
+        "Automation, electrical & instrumentation engineering",
+        "Panel manufacturing & factory acceptance testing",
+        "Project execution & documentation",
+        "Engineering bench depth behind every delivery",
+      ],
+      link: {
+        label: "Explore the engineering hub",
+        href: "https://smecautomation.com/",
+        external: true,
+      },
+    },
+  ] as Entity[],
+  ctas: [
+    { label: "Talk to Our Global Team", href: `${SITE}/contact-us`, primary: true },
+    {
+      label: "Explore the Engineering Hub",
+      href: "https://smecautomation.com/",
+      primary: false,
+      external: true,
+    },
+  ],
+};
+
+export type MapPin = {
+  code: string;
+  label: string;
+  bottom: string;
+  left: string;
+  /** Set only on the two home locations; every other pin is a served market. */
+  role?: string;
+};
+
 /** Pin coordinates copied verbatim from the reference's inline `.map-list` CSS. */
-export const mapPins = [
+export const mapPins: MapPin[] = [
   { code: "sg", label: "SINGAPORE", bottom: "43%", left: "82%" },
-  { code: "jp", label: "UAE", bottom: "58%", left: "64%" },
-  { code: "ad", label: "ABU DHABI", bottom: "57%", left: "64.5%" },
-  { code: "ut", label: "INDIA", bottom: "55%", left: "73%" },
+  { code: "jp", label: "UAE", bottom: "58%", left: "64%", role: "Headquarters" },
+  { code: "ad", label: "ABU DHABI", bottom: "57%", left: "64.5%", role: "Registered office" },
+  { code: "ut", label: "INDIA", bottom: "55%", left: "73%", role: "Engineering hub" },
   { code: "sr", label: "SRI LANKA", bottom: "44%", left: "75%" },
   { code: "qa", label: "QATAR", bottom: "62%", left: "63%" },
   { code: "ba", label: "BAHRAIN", bottom: "64%", left: "62%" },
@@ -421,6 +504,12 @@ export const footer = {
   landline: { label: "+971 2 546 0027", href: "tel:+97125460027" },
   mobile: { label: "+971 50 249 1903", href: "tel:+971502491903" },
   email: { label: "info@smecong.com", href: "mailto:info@smecong.com" },
+  /* Second address block: the UAE entity stays first, the India hub follows. */
+  hub: {
+    title: "ENGINEERING & MANUFACTURING HUB",
+    lines: ["SMEC Automation Pvt. Ltd.", "Kochi, India"],
+    href: "https://smecautomation.com/",
+  },
   company: [
     { label: "Marine", href: "https://smecmarine.com/" },
     { label: "R & D", href: "https://smecrtd.com/" },

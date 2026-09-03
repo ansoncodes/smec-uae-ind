@@ -1,24 +1,26 @@
+/* Quick Enquiry side tab: the .btn-primary idiom rotated onto the edge. */
 .enquiry {
   position: fixed;
   top: 62%;
   right: 0;
   z-index: 55;
   display: block;
-  padding: 14px 8px;
-  border-radius: var(--r-md) 0 0 var(--r-md);
-  background: var(--brand-700);
-  color: var(--text-inverse);
-  font-size: 13px;
+  padding: 14px 9px;
+  background: var(--grad-hot);
+  color: #0a0714;
+  font-family: var(--mono);
+  font-size: 11.5px;
   font-weight: 600;
-  letter-spacing: 0.05em;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
   writing-mode: vertical-rl;
-  box-shadow: var(--shadow-brand);
-  transition: background-color 0.2s ease, padding-right 0.2s ease;
+  box-shadow: 0 8px 24px rgba(247, 37, 133, 0.35);
+  transition: padding-right 0.18s ease, box-shadow 0.18s ease;
 }
 
 .enquiry:hover {
-  background: var(--brand-600);
-  padding-right: 12px;
+  padding-right: 13px;
+  box-shadow: 0 12px 30px rgba(247, 37, 133, 0.5);
 }
 
 .enquiryText {
@@ -37,22 +39,21 @@
   gap: 12px;
 }
 
+/* square ghost button */
 .top {
   display: flex;
   align-items: center;
   justify-content: center;
   width: 42px;
   height: 42px;
-  border-radius: 50%;
-  background: var(--surface);
-  border: 1px solid var(--line-strong);
+  background: rgba(27, 18, 48, 0.9);
+  border: 1.5px solid var(--line);
   color: var(--text);
-  box-shadow: var(--shadow-md);
   opacity: 0;
   visibility: hidden;
   transform: translateY(8px);
   transition: opacity 0.25s ease, transform 0.25s ease, visibility 0.25s,
-    background-color 0.2s ease, color 0.2s ease;
+    border-color 0.18s ease, color 0.18s ease, box-shadow 0.18s ease;
 }
 
 .top.visible {
@@ -62,16 +63,15 @@
 }
 
 .top:hover {
-  background: var(--brand-700);
-  border-color: var(--brand-700);
-  color: var(--text-inverse);
+  border-color: var(--steel);
+  color: var(--steel);
+  box-shadow: 0 0 16px rgba(76, 201, 240, 0.25);
 }
 
 .whatsapp {
+  position: relative;
   display: flex;
   align-items: center;
-  gap: 10px;
-  border-radius: var(--r-pill);
   transition: transform 0.2s ease;
 }
 
@@ -83,13 +83,15 @@
   position: absolute;
   right: calc(100% + 10px);
   white-space: nowrap;
-  padding: 7px 14px;
-  border-radius: var(--r-pill);
-  background: var(--surface-inverse);
-  color: var(--text-inverse);
-  font-size: 13px;
-  font-weight: 600;
-  box-shadow: var(--shadow-md);
+  padding: 7px 12px;
+  background: var(--surface);
+  border: 1px solid var(--line);
+  color: var(--steel);
+  font-family: var(--mono);
+  font-size: 10.5px;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  box-shadow: 0 10px 24px rgba(0, 0, 0, 0.4);
   opacity: 0;
   pointer-events: none;
   transition: opacity 0.2s ease;
@@ -107,9 +109,7 @@
     bottom: 18px;
     left: 16px;
     right: auto;
-    padding: 10px 16px;
-    border-radius: var(--r-pill);
-    font-size: 13px;
+    padding: 11px 16px;
     writing-mode: horizontal-tb;
   }
 

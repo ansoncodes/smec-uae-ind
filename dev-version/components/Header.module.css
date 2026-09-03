@@ -1,216 +1,191 @@
-/* ---------------- utility strip ---------------- */
+/* ---------------- header.site ---------------- */
 
-.topbar {
-  background: var(--surface-subtle);
+.site {
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  background: rgba(10, 21, 32, 0.92);
+  -webkit-backdrop-filter: blur(8px);
+  backdrop-filter: blur(8px);
   border-bottom: 1px solid var(--line);
-  font-size: 13px;
-  color: var(--text-muted);
 }
 
-.topbarInner {
+/* ---------------- utility bar ---------------- */
+
+.utilitybar {
+  background: var(--surface-2);
+  color: var(--text-soft);
+  font-family: var(--mono);
+  font-size: 10.5px;
+  letter-spacing: 0.03em;
+  border-bottom: 1px solid var(--line-soft);
+  text-transform: uppercase;
+}
+
+.utilityInner {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 16px;
+  padding-top: 6px;
+  padding-bottom: 6px;
+}
+
+.utilityNote {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+/* The hub half drops first when the bar tightens, so the UAE entity is never
+   the part that gets clipped. */
+@media (max-width: 1180px) {
+  .utilityHub {
+    display: none;
+  }
+}
+
+.utilityLinks {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex: 0 0 auto;
+  text-transform: none;
+}
+
+.utilityLinks a:hover {
+  color: var(--copper);
+}
+
+/* ---------------- nav row ---------------- */
+
+.navrow {
   display: flex;
   align-items: center;
   justify-content: space-between;
   gap: 16px;
-  height: 38px;
+  padding-top: 14px;
+  padding-bottom: 14px;
 }
 
-.topbarNote {
-  font-weight: 500;
-}
-
-.topbarLinks {
+.primary {
   display: flex;
-  align-items: center;
-  gap: 20px;
-}
-
-.topbarLinks a {
-  display: inline-flex;
-  align-items: center;
-  gap: 7px;
-  transition: color 0.18s ease;
-}
-
-.topbarLinks a:hover {
-  color: var(--brand-700);
-}
-
-/* ---------------- sticky header ---------------- */
-
-.header {
-  position: sticky;
-  top: 0;
-  z-index: 60;
-  background: rgba(255, 255, 255, 0.82);
-  backdrop-filter: saturate(180%) blur(14px);
-  -webkit-backdrop-filter: saturate(180%) blur(14px);
-  border-bottom: 1px solid transparent;
-  transition: border-color 0.2s ease, box-shadow 0.2s ease, background-color 0.2s ease;
-}
-
-.scrolled {
-  background: rgba(255, 255, 255, 0.94);
-  border-bottom-color: var(--line);
-  box-shadow: var(--shadow-sm);
-}
-
-.bar {
-  display: flex;
-  align-items: center;
-  gap: 24px;
-  height: var(--header-h);
-}
-
-.brand {
-  flex: 0 0 auto;
-  display: flex;
-  align-items: center;
-}
-
-.logo {
-  width: auto;
-  height: 40px;
-  object-fit: contain;
-}
-
-/* ---------------- desktop menu ---------------- */
-
-.nav {
-  flex: 1 1 auto;
-  display: flex;
-  justify-content: center;
-}
-
-.menu {
-  display: flex;
-  align-items: center;
   gap: 2px;
 }
 
-.menu > li {
+.navitem {
   position: relative;
 }
 
-.menuLink {
-  display: flex;
-  align-items: center;
-  gap: 6px;
-  padding: 9px 13px;
-  border-radius: var(--r-sm);
-  font-size: 14.5px;
-  font-weight: 500;
-  color: var(--text-muted);
+.navbtn {
+  display: inline-block;
+  font-family: var(--mono);
+  font-size: 11.5px;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  background: none;
+  border: none;
+  padding: 10px 14px;
+  cursor: pointer;
+  color: var(--text-soft);
   white-space: nowrap;
-  transition: color 0.18s ease, background-color 0.18s ease;
+  transition: color 0.18s ease;
 }
 
-.menu > li:hover > .menuLink,
-.menu > li:focus-within > .menuLink {
-  color: var(--brand-800);
-  background: var(--brand-50);
+.navbtn:hover,
+.navitem.open .navbtn,
+.navitem:hover .navbtn {
+  color: var(--copper);
 }
 
-.hasChildren > .subMenu,
-.hasChildren > .nestedMenu {
-  visibility: hidden;
-  opacity: 0;
-  transform: translateY(6px);
-  pointer-events: none;
-}
+/* ---------------- mega menu ---------------- */
 
-.hasChildren:hover > .subMenu,
-.hasChildren:focus-within > .subMenu,
-.hasChildren:hover > .nestedMenu,
-.hasChildren:focus-within > .nestedMenu {
-  visibility: visible;
-  opacity: 1;
-  transform: translateY(0);
-  pointer-events: auto;
-}
-
-.subMenu {
+.megamenu {
   position: absolute;
-  top: calc(100% + 10px);
+  top: 100%;
   left: 50%;
-  margin-left: -190px;
-  width: 380px;
-  padding: 8px;
+  transform: translateX(-50%);
   background: var(--surface);
   border: 1px solid var(--line);
-  border-radius: var(--r-lg);
-  box-shadow: var(--shadow-lg);
-  transition: opacity 0.18s ease, transform 0.18s ease;
-  z-index: 70;
+  box-shadow: 0 18px 40px rgba(0, 0, 0, 0.45);
+  padding: 26px;
+  display: none;
+  grid-template-columns: 180px minmax(0, 1fr);
+  gap: 28px;
+  min-width: 640px;
+  z-index: 50;
 }
 
-/* keeps the pointer from falling through the gap under the trigger */
-.subMenu::before {
-  content: "";
-  position: absolute;
-  top: -12px;
-  left: 0;
-  right: 0;
-  height: 12px;
+.navitem.open .megamenu,
+.navitem:hover .megamenu {
+  display: grid;
 }
 
-.nestedMenu {
-  position: absolute;
-  top: -8px;
-  left: calc(100% + 6px);
-  width: 240px;
-  padding: 8px;
-  background: var(--surface);
-  border: 1px solid var(--line);
-  border-radius: var(--r-lg);
-  box-shadow: var(--shadow-lg);
-  transition: opacity 0.18s ease, transform 0.18s ease;
-  z-index: 80;
-}
-
-.subLink {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: 10px;
-  padding: 10px 12px;
-  border-radius: var(--r-sm);
-  font-size: 14px;
+.megamenu h4 {
+  font-family: var(--mono);
+  font-size: 10px;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--copper);
+  margin: 0 0 10px 0;
   font-weight: 500;
-  color: var(--text-muted);
-  transition: color 0.16s ease, background-color 0.16s ease;
 }
 
-.subLink:hover {
-  color: var(--brand-800);
-  background: var(--brand-50);
+.megamenu h4 a:hover {
+  text-decoration: underline;
 }
 
-.subCaret {
-  transform: rotate(-90deg);
-  flex: 0 0 auto;
-  opacity: 0.6;
+.megamenu ul {
+  list-style: none;
+  margin: 0;
+  padding: 0;
 }
 
-/* ---------------- actions ---------------- */
+.megamenu li a {
+  display: block;
+  font-size: 13px;
+  padding: 5px 0;
+  color: var(--text-soft);
+  line-height: 1.4;
+}
 
-.actions {
-  flex: 0 0 auto;
+.megamenu li a:hover {
+  color: var(--text);
+  text-decoration: underline;
+  text-decoration-color: var(--copper);
+}
+
+.megaCols {
+  columns: 2;
+  column-gap: 28px;
+}
+
+.megaCols li {
+  break-inside: avoid;
+}
+
+/* ---------------- ctas ---------------- */
+
+.navcta {
   display: flex;
   align-items: center;
-  gap: 10px;
+  gap: 8px;
 }
 
 .burger {
   display: none;
   align-items: center;
   justify-content: center;
-  width: 40px;
-  height: 40px;
-  border-radius: var(--r-sm);
-  border: 1px solid var(--line-strong);
+  width: 42px;
+  height: 42px;
+  border: 1.5px solid var(--line);
   color: var(--text);
-  background: var(--surface);
+  transition: border-color 0.18s ease, color 0.18s ease;
+}
+
+.burger:hover {
+  border-color: var(--steel);
+  color: var(--steel);
 }
 
 /* ---------------- drawer ---------------- */
@@ -218,9 +193,8 @@
 .backdrop {
   position: fixed;
   inset: 0;
-  background: rgba(13, 27, 48, 0.45);
-  backdrop-filter: blur(2px);
-  z-index: 90;
+  background: rgba(10, 7, 20, 0.7);
+  z-index: 190;
 }
 
 .drawer {
@@ -229,8 +203,9 @@
   right: 0;
   bottom: 0;
   width: min(380px, 90vw);
-  background: var(--surface);
-  z-index: 100;
+  background: var(--surface-2);
+  border-left: 1px solid var(--line);
+  z-index: 200;
   display: flex;
   flex-direction: column;
   overflow-y: auto;
@@ -245,14 +220,8 @@
   border-bottom: 1px solid var(--line);
   position: sticky;
   top: 0;
-  background: var(--surface);
+  background: var(--surface-2);
   z-index: 2;
-}
-
-.drawerLogo {
-  width: auto;
-  height: 34px;
-  object-fit: contain;
 }
 
 .drawerClose {
@@ -261,13 +230,12 @@
   justify-content: center;
   width: 36px;
   height: 36px;
-  border-radius: var(--r-sm);
-  border: 1px solid var(--line-strong);
+  border: 1.5px solid var(--line);
   color: var(--text);
 }
 
 .drawerList {
-  padding: 8px 10px;
+  padding: 8px 0;
 }
 
 .drawerLink,
@@ -277,17 +245,19 @@
   justify-content: space-between;
   gap: 10px;
   width: 100%;
-  padding: 13px 12px;
-  border-radius: var(--r-sm);
-  font-size: 15px;
-  font-weight: 600;
+  padding: 14px 18px;
+  font-family: var(--mono);
+  font-size: 12px;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
   color: var(--text);
   text-align: left;
+  border-bottom: 1px solid var(--line-soft);
 }
 
 .drawerLink:hover,
 .drawerToggle:hover {
-  background: var(--surface-subtle);
+  color: var(--copper);
 }
 
 .caretOpen {
@@ -295,53 +265,75 @@
 }
 
 .drawerSub {
-  padding: 2px 0 8px 10px;
-  border-left: 2px solid var(--line);
-  margin-left: 12px;
+  padding: 6px 0 8px 18px;
+  background: var(--surface);
+  border-bottom: 1px solid var(--line-soft);
+}
+
+.drawerSub .drawerSub {
+  border-bottom: 0;
+  padding-top: 0;
 }
 
 .drawerSub a {
   display: block;
-  padding: 9px 12px;
-  border-radius: var(--r-sm);
-  font-size: 14px;
-  color: var(--text-muted);
+  padding: 8px 18px 8px 0;
+  font-size: 13.5px;
+  color: var(--text-soft);
 }
 
 .drawerSub a:hover {
-  background: var(--brand-50);
-  color: var(--brand-800);
+  color: var(--text);
+  text-decoration: underline;
+  text-decoration-color: var(--copper);
 }
 
 .drawerFoot {
   margin-top: auto;
   display: flex;
   flex-direction: column;
-  gap: 12px;
+  align-items: flex-start;
+  gap: 10px;
   padding: 18px;
   border-top: 1px solid var(--line);
-  background: var(--surface-subtle);
+  background: var(--surface-2);
 }
 
 .drawerContact {
-  display: inline-flex;
-  align-items: center;
-  gap: 9px;
-  font-size: 14px;
-  color: var(--text-muted);
+  font-family: var(--mono);
+  font-size: 11.5px;
+  color: var(--text-soft);
+}
+
+.drawerContact:hover {
+  color: var(--copper);
 }
 
 /* ---------------- breakpoints ---------------- */
 
-@media (max-width: 1180px) {
-  .menuLink {
-    padding: 9px 9px;
-    font-size: 14px;
+/* Six long nav labels plus two CTAs only clear the 1240px page width with
+   room to spare; below 1300px the ghost CTA goes (the utility bar still
+   carries WhatsApp) and the nav tightens. */
+@media (max-width: 1300px) {
+  .navbtn {
+    padding: 10px 9px;
+    font-size: 11px;
+  }
+
+  .navcta :global(.btn-ghost) {
+    display: none;
   }
 }
 
-@media (max-width: 1024px) {
-  .nav {
+@media (max-width: 1080px) {
+  .navbtn {
+    padding: 10px 7px;
+    font-size: 10.5px;
+  }
+}
+
+@media (max-width: 920px) {
+  .primary {
     display: none;
   }
 
@@ -349,31 +341,22 @@
     display: inline-flex;
   }
 
-  .bar {
-    justify-content: space-between;
-  }
-}
-
-@media (max-width: 767px) {
-  .topbarNote {
+  .utilityNote {
     display: none;
   }
 
-  .topbarInner {
+  .utilityInner {
     justify-content: center;
   }
+}
 
-  .topbarLinks {
-    gap: 14px;
-    font-size: 12.5px;
+@media (max-width: 600px) {
+  .navcta :global(.btn-primary) {
+    display: none;
   }
 
-  .logo {
-    height: 32px;
-  }
-
-  .actions :global(.btn) {
-    padding: 8px 14px;
-    font-size: 13.5px;
+  .utilityLinks {
+    font-size: 10px;
+    gap: 6px;
   }
 }

@@ -1,0 +1,38 @@
+.logo {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  flex: 0 0 auto;
+}
+
+.mark {
+  width: auto;
+  height: 24px;
+  flex-shrink: 0;
+  filter: brightness(0) invert(1);
+}
+
+.word {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  padding-left: 10px;
+  border-left: 1px solid var(--line);
+}
+
+.word small {
+  display: block;
+  font-family: var(--mono);
+  font-size: 8.5px;
+  letter-spacing: 0.1em;
+  color: var(--text-soft);
+  font-weight: 400;
+  text-transform: uppercase;
+  line-height: 1.1;
+}
+
+@media (max-width: 600px) {
+  .mark {
+    height: 20px;
+  }
+}

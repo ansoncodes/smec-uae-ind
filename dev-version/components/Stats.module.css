@@ -1,82 +1,60 @@
 .section {
-  padding: 0 0 24px;
+  padding: 0;
 }
 
-.panel {
-  display: grid;
-  grid-template-columns: repeat(4, minmax(0, 1fr));
-  background: linear-gradient(135deg, var(--brand-50) 0%, #ffffff 55%, var(--accent-50) 100%);
-  border: 1px solid var(--line);
-  border-radius: var(--r-xl);
-  box-shadow: var(--shadow-sm);
-  overflow: hidden;
-}
-
-.item {
-  padding: 34px 28px;
-  text-align: center;
-  border-right: 1px solid var(--line);
-}
-
-.item:last-child {
-  border-right: 0;
-}
-
-.number {
+.statrow {
   display: flex;
-  align-items: baseline;
-  justify-content: center;
-  font-family: var(--font-display);
-  font-size: 44px;
-  font-weight: 800;
-  line-height: 1.05;
-  letter-spacing: -0.03em;
-  color: var(--brand-800);
+  gap: 0;
+  border-top: 1px solid var(--line);
+  border-bottom: 1px solid var(--line);
+}
+
+.stat {
+  flex: 1;
+  padding: 22px 0;
+  border-right: 1px solid var(--line);
+  text-align: center;
+}
+
+.stat:last-child {
+  border-right: none;
+}
+
+.n {
+  font-family: var(--display);
+  font-size: 26px;
+  font-weight: 700;
+  background: var(--grad-cool);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
   font-variant-numeric: tabular-nums;
+  line-height: 1.1;
 }
 
-.suffix {
-  color: var(--accent-600);
-}
-
-.title {
-  margin-top: 8px;
-  font-size: 13px;
-  font-weight: 600;
-  text-transform: uppercase;
-  letter-spacing: 0.09em;
+.l {
+  font-family: var(--mono);
+  font-size: 10.5px;
   color: var(--text-soft);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  margin-top: 4px;
 }
 
-@media (max-width: 900px) {
-  .panel {
-    grid-template-columns: repeat(2, minmax(0, 1fr));
+@media (max-width: 600px) {
+  .statrow {
+    flex-wrap: wrap;
   }
 
-  .item {
-    padding: 26px 18px;
+  .stat {
+    flex: 1 1 50%;
+  }
+
+  .stat:nth-child(2n) {
+    border-right: none;
+  }
+
+  .stat:nth-child(-n + 2) {
     border-bottom: 1px solid var(--line);
-  }
-
-  .item:nth-child(2n) {
-    border-right: 0;
-  }
-
-  .item:nth-last-child(-n + 2) {
-    border-bottom: 0;
-  }
-
-  .number {
-    font-size: 34px;
-  }
-}
-
-@media (max-width: 767px) {
-  .number {
-    font-size: 30px;
-  }
-
-  .title {
-    font-size: 12px;
   }
 }

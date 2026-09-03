@@ -34,33 +34,31 @@
 .controls {
   display: flex;
   justify-content: flex-end;
-  gap: 10px;
+  gap: 8px;
   margin-top: 8px;
 }
 
+/* square ghost buttons, same idiom as .btn-ghost */
 .arrow {
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  width: 40px;
-  height: 40px;
-  border-radius: 50%;
-  background: var(--surface);
-  border: 1px solid var(--line-strong);
+  width: 42px;
+  height: 42px;
+  background: transparent;
+  border: 1.5px solid var(--line);
   color: var(--text);
-  box-shadow: var(--shadow-xs);
-  transition: background-color 0.18s ease, color 0.18s ease, border-color 0.18s ease,
-    opacity 0.18s ease;
+  transition: border-color 0.18s ease, color 0.18s ease, box-shadow 0.18s ease, opacity 0.18s ease;
 }
 
 .arrow:hover:not(:disabled) {
-  background: var(--brand-700);
-  border-color: var(--brand-700);
-  color: var(--text-inverse);
+  border-color: var(--steel);
+  color: var(--steel);
+  box-shadow: 0 0 16px rgba(76, 201, 240, 0.25);
 }
 
 .arrow:disabled {
-  opacity: 0.35;
+  opacity: 0.3;
   cursor: default;
 }
 

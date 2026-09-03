@@ -1,30 +1,48 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import Image from "next/image";
-import { contact, navItems, type NavItem } from "@/lib/siteData";
-import {
-  CaretDownIcon,
-  CloseIcon,
-  EnvelopeIcon,
-  MenuIcon,
-  PhoneIcon,
-} from "@/components/Icons";
+import Logo from "@/components/ui/Logo";
+import { contact, footer, navItems, type NavItem } from "@/lib/siteData";
+import { CaretDownIcon, CloseIcon, MenuIcon } from "@/components/Icons";
 import styles from "./Header.module.css";
 
-function SubMenu({ items, nested = false }: { items: NavItem[]; nested?: boolean }) {
+/**
+ * Prototype mega-menu: a bordered surface panel with mono column headings.
+ * Children that carry their own sub-items (Power House) get a column of
+ * their own; the remaining products share a two-column list.
+ */
+function MegaMenu({ item }: { item: NavItem }) {
+  const children = item.children ?? [];
+  const groups = children.filter((c) => c.children);
+  const flat = children.filter((c) => !c.children);
+
   return (
-    <ul className={nested ? styles.nestedMenu : styles.subMenu}>
-      {items.map((child) => (
-        <li key={child.label} className={child.children ? styles.hasChildren : undefined}>
-          <a href={child.href} className={styles.subLink}>
-            <span>{child.label}</span>
-            {child.children && <CaretDownIcon className={styles.subCaret} size={10} />}
-          </a>
-          {child.children && <SubMenu items={child.children} nested />}
-        </li>
+    <div className={styles.megamenu}>
+      {groups.map((group) => (
+        <div key={group.label}>
+          <h4>
+            <a href={group.href}>{group.label}</a>
+          </h4>
+          <ul>
+            {group.children?.map((child) => (
+              <li key={child.label}>
+                <a href={child.href}>{child.label}</a>
+              </li>
+            ))}
+          </ul>
+        </div>
       ))}
-    </ul>
+      <div>
+        <h4>{item.label}</h4>
+        <ul className={styles.megaCols}>
+          {flat.map((child) => (
+            <li key={child.label}>
+              <a href={child.href}>{child.label}</a>
+            </li>
+          ))}
+        </ul>
+      </div>
+    </div>
   );
 }
 
@@ -34,20 +52,14 @@ function Drawer({ onClose }: { onClose: () => void }) {
   return (
     <div className={styles.drawer} role="dialog" aria-label="Menu" aria-modal="true">
       <div className={styles.drawerHead}>
-        <Image
-          src="/logos/SMEC-Oil-and-Gas-Logo-300x109.png"
-          alt="SMEC Oil and Gas"
-          width={300}
-          height={109}
-          className={styles.drawerLogo}
-        />
+        <Logo />
         <button
           type="button"
           className={styles.drawerClose}
           onClick={onClose}
           aria-label="Close menu"
         >
-          <CloseIcon size={18} />
+          <CloseIcon size={16} />
         </button>
       </div>
 
@@ -104,11 +116,9 @@ function Drawer({ onClose }: { onClose: () => void }) {
 
       <div className={styles.drawerFoot}>
         <a href={`mailto:${contact.email}`} className={styles.drawerContact}>
-          <EnvelopeIcon size={14} />
           {contact.email}
         </a>
         <a href={contact.phoneHref} className={styles.drawerContact}>
-          <PhoneIcon size={14} />
           {contact.phone}
         </a>
         <a className="btn btn-primary" href="https://smecoilandgas.com/contact-us">
@@ -120,21 +130,20 @@ function Drawer({ onClose }: { onClose: () => void }) {
 }
 
 /**
- * One sticky header for the whole page. The wireframe build carried two navs —
- * a transparent one over the hero and a second bar that appeared on scroll —
- * both with identical menus. A single condensing header is the SaaS
- * equivalent and keeps every link from both.
+ * Prototype header: utility bar + sticky nav row. Menus open on hover and
+ * toggle on click (the prototype's behaviour), and any outside click closes
+ * them.
  */
 export default function Header() {
-  const [scrolled, setScrolled] = useState(false);
+  const [openMenu, setOpenMenu] = useState<string | null>(null);
   const [drawerOpen, setDrawerOpen] = useState(false);
 
   useEffect(() => {
-    const onScroll = () => setScrolled(window.scrollY > 12);
-    onScroll();
-    window.addEventListener("scroll", onScroll, { passive: true });
-    return () => window.removeEventListener("scroll", onScroll);
-  }, []);
+    if (!openMenu) return;
+    const close = () => setOpenMenu(null);
+    document.addEventListener("click", close);
+    return () => document.removeEventListener("click", close);
+  }, [openMenu]);
 
   useEffect(() => {
     document.body.style.overflow = drawerOpen ? "hidden" : "";
@@ -145,75 +154,80 @@ export default function Header() {
 
   return (
     <>
-      <div className={styles.topbar}>
-        <div className="container container-wide">
-          <div className={styles.topbarInner}>
-            <span className={styles.topbarNote}>
-              Turnkey EPC for onshore &amp; offshore rigs — 10+ countries
+      <header className={styles.site}>
+        <div className={styles.utilitybar}>
+          <div className={`container ${styles.utilityInner}`}>
+            <span className={styles.utilityNote}>
+              {footer.addressLines[0]} — Abu Dhabi, UAE
+              <span className={styles.utilityHub}>
+                {" · "}
+                India engineering hub: {footer.hub.lines[0]}
+              </span>
             </span>
-            <div className={styles.topbarLinks}>
-              <a href={`mailto:${contact.email}`}>
-                <EnvelopeIcon size={13} />
-                {contact.email}
+            <span className={styles.utilityLinks}>
+              <a href={`mailto:${contact.email}`}>{contact.email}</a>
+              <span aria-hidden="true">·</span>
+              <a href={contact.phoneHref}>{contact.phone}</a>
+              <span aria-hidden="true">·</span>
+              <a href={contact.whatsapp} target="_blank" rel="noopener noreferrer">
+                WhatsApp
               </a>
-              <a href={contact.phoneHref}>
-                <PhoneIcon size={13} />
-                {contact.phone}
-              </a>
-            </div>
+            </span>
           </div>
         </div>
-      </div>
 
-      <header className={`${styles.header} ${scrolled ? styles.scrolled : ""}`}>
-        <div className="container container-wide">
-          <div className={styles.bar}>
-            <a
-              href="https://smecoilandgas.com/"
-              className={styles.brand}
-              aria-label="SMEC Oil and Gas home"
-            >
-              <Image
-                src="/logos/SMEC-Oil-and-Gas-Logo-300x109.png"
-                alt="SMEC Oil and Gas"
-                width={300}
-                height={109}
-                priority
-                className={styles.logo}
-              />
-            </a>
+        <div className={`container ${styles.navrow}`}>
+          <Logo priority />
 
-            <nav className={styles.nav} aria-label="Primary">
-              <ul className={styles.menu}>
-                {navItems.map((item) => (
-                  <li
-                    key={item.label}
-                    className={item.children ? styles.hasChildren : undefined}
+          <nav className={styles.primary} aria-label="Primary">
+            {navItems.map((item) =>
+              item.children ? (
+                <div
+                  key={item.label}
+                  className={`${styles.navitem} ${openMenu === item.label ? styles.open : ""}`}
+                  onClick={(e) => e.stopPropagation()}
+                >
+                  <button
+                    type="button"
+                    className={styles.navbtn}
+                    aria-expanded={openMenu === item.label}
+                    onClick={() => setOpenMenu(openMenu === item.label ? null : item.label)}
                   >
-                    <a href={item.href} className={styles.menuLink}>
-                      {item.label}
-                      {item.children && <CaretDownIcon size={10} />}
-                    </a>
-                    {item.children && <SubMenu items={item.children} />}
-                  </li>
-                ))}
-              </ul>
-            </nav>
+                    {item.label}
+                  </button>
+                  <MegaMenu item={item} />
+                </div>
+              ) : (
+                <div key={item.label} className={styles.navitem}>
+                  <a href={item.href} className={styles.navbtn}>
+                    {item.label}
+                  </a>
+                </div>
+              ),
+            )}
+          </nav>
 
-            <div className={styles.actions}>
-              <a className="btn btn-primary btn-sm" href="https://smecoilandgas.com/contact-us">
-                Contact Us
-              </a>
-              <button
-                type="button"
-                className={styles.burger}
-                aria-label="Menu Toggle"
-                aria-expanded={drawerOpen}
-                onClick={() => setDrawerOpen(true)}
-              >
-                <MenuIcon size={20} />
-              </button>
-            </div>
+          <div className={styles.navcta}>
+            <a
+              className="btn btn-ghost"
+              href={contact.whatsapp}
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              WhatsApp
+            </a>
+            <a className="btn btn-primary" href="https://smecoilandgas.com/contact-us">
+              Contact Us
+            </a>
+            <button
+              type="button"
+              className={styles.burger}
+              aria-label="Menu Toggle"
+              aria-expanded={drawerOpen}
+              onClick={() => setDrawerOpen(true)}
+            >
+              <MenuIcon size={20} />
+            </button>
           </div>
         </div>
       </header>

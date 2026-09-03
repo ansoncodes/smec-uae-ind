@@ -12,19 +12,16 @@ const CAPTIONS = [
   { name: "ISO 50001:2018", scope: "Energy Management" },
 ];
 
+/** Prototype `.paper` section, `.g4` grid of `.card`s. */
 export default function Certifications() {
   return (
-    <section className="section section-subtle" aria-labelledby="our-certifications">
-      <div className="container container-wide">
-        <SectionHeading
-          id="our-certifications"
-          eyebrow="Accredited"
-          title="Our Certifications"
-        />
+    <section className="paper" aria-labelledby="our-certifications">
+      <div className="container">
+        <SectionHeading id="our-certifications" eyebrow="Accredited" title="Our Certifications" />
 
-        <div className={styles.grid}>
+        <div className="grid g4">
           {certifications.map((cert, i) => (
-            <figure className={`card card-hover ${styles.item}`} key={cert.src}>
+            <figure className={`card ${styles.item}`} key={cert.src}>
               <div className={styles.media}>
                 <Image
                   src={cert.src}
@@ -32,12 +29,12 @@ export default function Certifications() {
                   width={cert.width}
                   height={cert.height}
                   className={styles.image}
-                  sizes="(max-width: 767px) 45vw, (max-width: 1024px) 30vw, 290px"
+                  sizes="(max-width: 1000px) 45vw, 270px"
                 />
               </div>
-              <figcaption className={styles.caption}>
-                <span className={styles.name}>{CAPTIONS[i].name}</span>
-                <span className={styles.scope}>{CAPTIONS[i].scope}</span>
+              <figcaption>
+                <h3 className={styles.name}>{CAPTIONS[i].name}</h3>
+                <p>{CAPTIONS[i].scope}</p>
               </figcaption>
             </figure>
           ))}

@@ -2,23 +2,25 @@ import Image from "next/image";
 import { partners } from "@/lib/siteData";
 import styles from "./ApprovedPartners.module.css";
 
+/** Prototype logostrip row on a `.paper` band. */
 export default function ApprovedPartners() {
   return (
-    <section className={styles.section} aria-labelledby="approved-partners">
-      <div className="container container-wide">
-        <div className={styles.inner}>
-          <h2 id="approved-partners" className={styles.label}>
+    <section className={`tight paper ${styles.section}`} aria-labelledby="approved-partners">
+      <div className="container">
+        <div className={styles.row}>
+          <h2 id="approved-partners" className={`eyebrow ${styles.label}`}>
             Approved Partners
           </h2>
-          <div className={styles.logos}>
+          <div className={`grid ${styles.grid}`}>
             {partners.map((partner) => (
-              <div className={styles.logo} key={partner.alt}>
+              <div className={styles.strip} key={partner.alt}>
                 <Image
                   src={partner.src}
                   alt={partner.alt}
-                  width={220}
-                  height={110}
-                  className={styles.logoImg}
+                  width={partner.width}
+                  height={partner.height}
+                  className={styles.logo}
+                  style={{ height: partner.cap }}
                 />
               </div>
             ))}

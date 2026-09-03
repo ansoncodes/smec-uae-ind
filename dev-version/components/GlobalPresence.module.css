@@ -1,6 +1,16 @@
-.mapCard {
-  padding: 28px 28px 24px;
+.section {
   overflow: hidden;
+}
+
+.split {
+  display: grid;
+  grid-template-columns: 1.15fr 0.85fr;
+  gap: 40px;
+  align-items: start;
+}
+
+.panel {
+  animation: none;
 }
 
 /* ---------------- desktop pin map ---------------- */
@@ -9,16 +19,26 @@
   position: relative;
 }
 
-.mapList {
-  position: relative;
-  height: 0;
-  padding-top: 50%;
+/* The saved dotted map is grey-on-white. Inverted + lighten-blended, the
+   white sheet drops into the panel and the dots come up as pale points. */
+.mapBg {
+  position: absolute;
+  inset: 0;
   background-image: url("/images/misc/map-base.png");
   background-repeat: no-repeat;
   /* size + position carried over from the reference so the pin coordinates
      below still line up with the landmasses */
   background-size: 105%;
   background-position: 0% 84%;
+  filter: invert(1) grayscale(1) brightness(0.82);
+  mix-blend-mode: lighten;
+  pointer-events: none;
+}
+
+.mapList {
+  position: relative;
+  height: 0;
+  padding-top: 50%;
 }
 
 /* Pin coordinates are carried over verbatim from the reference's `.map-list`. */
@@ -28,58 +48,55 @@
   height: 16px;
   /* the coordinate marks the pin's centre, not its corner */
   margin: 0 0 -8px -8px;
-  border-radius: 50%;
 }
 
-.dot {
+/* schematic node: surface fill, copper stroke, pink core, soft glow */
+.node {
   position: absolute;
   inset: 1px;
   border-radius: 50%;
-  background: var(--brand-600);
-  border: 3px solid #fff;
-  box-shadow: 0 2px 6px rgba(13, 27, 48, 0.25);
-  transition: transform 0.22s ease, background-color 0.22s ease;
+  background: var(--surface);
+  border: 1.8px solid var(--copper);
+  box-shadow: 0 0 6px rgba(255, 138, 76, 0.55);
+  transition: transform 0.22s ease, border-color 0.22s ease;
 }
 
-.dot::after {
+.node::after {
   content: "";
   position: absolute;
-  inset: -8px;
+  left: 50%;
+  top: 50%;
+  width: 5px;
+  height: 5px;
+  margin: -2.5px 0 0 -2.5px;
   border-radius: 50%;
-  border: 1px solid var(--brand-500);
-  opacity: 0;
-  transition: opacity 0.22s ease, transform 0.22s ease;
-  transform: scale(0.6);
+  background: var(--copper-deep);
 }
 
-.pin:hover .dot,
-.pin:focus-visible .dot {
-  transform: scale(1.25);
-  background: var(--accent-600);
-}
-
-.pin:hover .dot::after,
-.pin:focus-visible .dot::after {
-  opacity: 1;
-  transform: scale(1);
+.pin:hover .node,
+.pin:focus-visible .node {
+  transform: scale(1.3);
+  border-color: var(--steel);
+  box-shadow: 0 0 10px rgba(76, 201, 240, 0.6);
 }
 
 .tip {
   position: absolute;
   left: 50%;
-  bottom: 16px;
-  transform: translate(-50%, 6px) scale(0.94);
-  padding: 6px 12px;
-  border-radius: var(--r-pill);
-  background: var(--surface-inverse);
-  color: var(--text-inverse);
-  font-size: 11.5px;
-  font-weight: 600;
-  letter-spacing: 0.05em;
+  bottom: 18px;
+  transform: translate(-50%, 6px);
+  padding: 5px 9px;
+  background: var(--surface);
+  border: 1px solid var(--line);
+  color: var(--steel);
+  font-family: var(--mono);
+  font-size: 9.5px;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
   white-space: nowrap;
   opacity: 0;
   pointer-events: none;
-  box-shadow: var(--shadow-md);
+  box-shadow: 0 10px 24px rgba(0, 0, 0, 0.4);
   transition: opacity 0.22s ease, transform 0.22s ease;
   z-index: 5;
 }
@@ -87,50 +104,71 @@
 .pin:hover .tip,
 .pin:focus-visible .tip {
   opacity: 1;
-  transform: translate(-50%, 0) scale(1);
+  transform: translate(-50%, 0);
 }
 
+/* Downscaled to a phone width the dot texture averages to a pale grey, so
+   after inversion it needs a strong brightness lift to read on the panel. */
 .flatMap {
   display: none;
   width: 100%;
   height: auto;
+  filter: invert(1) grayscale(1) brightness(2.4);
+  mix-blend-mode: lighten;
 }
 
-/* ---------------- legend ---------------- */
+/* ---------------- region tiles ---------------- */
 
-.legend {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
-  gap: 8px;
-  margin-top: 22px;
-  padding-top: 22px;
-  border-top: 1px solid var(--line);
+.regions {
+  margin-top: 14px;
+  gap: 12px;
 }
 
-.legend li {
-  padding: 5px 13px;
-  border-radius: var(--r-pill);
-  background: var(--surface-subtle);
+.region {
   border: 1px solid var(--line);
-  font-size: 12px;
-  font-weight: 600;
-  letter-spacing: 0.05em;
-  color: var(--text-muted);
+  padding: 14px 16px;
+  background: var(--surface);
+  transition: all 0.18s ease;
 }
 
-/* ---------------- country marquee ---------------- */
+.region:hover {
+  border-color: transparent;
+  box-shadow: 0 0 0 1.5px var(--steel), 0 10px 26px rgba(76, 201, 240, 0.22);
+  transform: translateY(-2px);
+}
+
+.rn {
+  font-family: var(--display);
+  font-weight: 700;
+  font-size: 13.5px;
+  color: var(--text);
+}
+
+.rs {
+  font-family: var(--mono);
+  font-size: 9.5px;
+  color: var(--text-soft);
+  text-transform: uppercase;
+  margin-top: 4px;
+}
+
+/* The two home locations are separated from the served markets. */
+.home {
+  border-color: rgba(76, 201, 240, 0.35);
+}
+
+.home .rs {
+  color: var(--steel);
+}
+
+/* ---------------- country ticker ---------------- */
 
 .marquee {
-  margin-top: 40px;
+  margin-top: 48px;
   overflow: hidden;
-  -webkit-mask-image: linear-gradient(
-    to right,
-    transparent 0,
-    #000 10%,
-    #000 90%,
-    transparent 100%
-  );
+  border-top: 1px solid var(--line);
+  padding: 16px 0;
+  -webkit-mask-image: linear-gradient(to right, transparent 0, #000 10%, #000 90%, transparent 100%);
   mask-image: linear-gradient(to right, transparent 0, #000 10%, #000 90%, transparent 100%);
 }
 
@@ -145,15 +183,17 @@
 .track li {
   display: inline-flex;
   align-items: center;
-  gap: 9px;
-  font-size: 17px;
-  font-weight: 600;
-  color: var(--brand-800);
+  gap: 8px;
+  font-family: var(--mono);
+  font-size: 11.5px;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--text-soft);
   white-space: nowrap;
 }
 
 .track svg {
-  color: var(--accent-600);
+  color: var(--steel);
 }
 
 @keyframes drift {
@@ -167,9 +207,10 @@
 
 /* ---------------- breakpoints ---------------- */
 
-@media (max-width: 1024px) {
-  .mapCard {
-    padding: 20px 20px 18px;
+@media (max-width: 1000px) {
+  .split {
+    grid-template-columns: 1fr;
+    gap: 32px;
   }
 
   .mapWrap {
@@ -180,28 +221,18 @@
     display: block;
   }
 
-  .track li {
-    font-size: 15px;
+  .regions {
+    grid-template-columns: repeat(3, 1fr);
   }
 }
 
-@media (max-width: 767px) {
-  .legend {
-    gap: 6px;
-    margin-top: 18px;
-    padding-top: 18px;
-  }
-
-  .legend li {
-    font-size: 11px;
-    padding: 4px 10px;
+@media (max-width: 600px) {
+  .regions {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 10px;
   }
 
   .track {
     gap: 32px;
-  }
-
-  .track li {
-    font-size: 14px;
   }
 }

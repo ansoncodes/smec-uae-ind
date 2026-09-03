@@ -1,258 +1,165 @@
-/* Light hero: white ground, two soft brand glows, a faint grid, and a
-   split between copy and a card cluster. */
+/* Prototype .hero: two-column grid, gradient-filled display heading, soft
+   lead, mono CTAs, and the floating diagram panel on the right. */
 
 .hero {
-  position: relative;
-  overflow: hidden;
-  padding: 84px 0 92px;
-  background: linear-gradient(180deg, #ffffff 0%, var(--surface-subtle) 100%);
-  isolation: isolate;
+  padding: 70px 0 60px 0;
 }
 
-.glowA,
-.glowB {
-  position: absolute;
-  border-radius: 50%;
-  filter: blur(70px);
-  pointer-events: none;
-  z-index: -1;
-}
-
-.glowA {
-  top: -180px;
-  right: -120px;
-  width: 620px;
-  height: 620px;
-  background: radial-gradient(circle, rgba(59, 126, 240, 0.22) 0%, rgba(59, 126, 240, 0) 70%);
-}
-
-.glowB {
-  bottom: -220px;
-  left: -160px;
-  width: 560px;
-  height: 560px;
-  background: radial-gradient(circle, rgba(0, 169, 157, 0.16) 0%, rgba(0, 169, 157, 0) 70%);
-}
-
-.grid {
-  position: absolute;
-  inset: 0;
-  z-index: -1;
-  background-image: linear-gradient(rgba(13, 27, 48, 0.045) 1px, transparent 1px),
-    linear-gradient(90deg, rgba(13, 27, 48, 0.045) 1px, transparent 1px);
-  background-size: 56px 56px;
-  mask-image: radial-gradient(ellipse 80% 60% at 50% 0%, #000 30%, transparent 78%);
-  -webkit-mask-image: radial-gradient(ellipse 80% 60% at 50% 0%, #000 30%, transparent 78%);
-}
-
-.inner {
+.heroGrid {
   display: grid;
-  grid-template-columns: minmax(0, 1.05fr) minmax(0, 0.95fr);
-  align-items: center;
+  grid-template-columns: 1.05fr 0.95fr;
   gap: 56px;
-}
-
-/* ---------------- copy ---------------- */
-
-.copy {
-  display: flex;
-  flex-direction: column;
-  align-items: flex-start;
-  gap: 22px;
+  align-items: center;
 }
 
 .title {
-  font-size: 60px;
-  line-height: 1.04;
-  letter-spacing: -0.03em;
-  background: linear-gradient(120deg, var(--brand-900) 0%, var(--brand-600) 62%, var(--accent-600) 130%);
-  -webkit-background-clip: text;
-  background-clip: text;
-  color: transparent;
-}
-
-.subtitle {
-  font-family: var(--font-display);
-  font-size: 21px;
-  font-weight: 600;
-  line-height: 1.35;
+  font-size: 46px;
+  line-height: 1.08;
+  margin-top: 14px;
   color: var(--text);
-  letter-spacing: -0.01em;
 }
 
-.points {
-  display: flex;
-  flex-direction: column;
-  gap: 10px;
+@supports ((-webkit-background-clip: text) or (background-clip: text)) {
+  .title {
+    background: linear-gradient(115deg, #ffffff 0%, #ffffff 40%, #ff8a4c 70%, #f72585 100%);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+  }
 }
 
-.points li {
-  display: flex;
-  align-items: flex-start;
-  gap: 11px;
-  font-size: 16px;
-  color: var(--text-muted);
-  line-height: 1.55;
+@media (forced-colors: active) {
+  .title {
+    background: none;
+    color: CanvasText;
+  }
 }
 
-.check {
-  flex: 0 0 auto;
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  width: 20px;
-  height: 20px;
-  margin-top: 3px;
-  border-radius: 50%;
-  background: var(--accent-50);
-  color: var(--accent-700);
+.lead {
+  margin-top: 18px;
+  max-width: 520px;
+}
+
+.lead span {
+  display: block;
+}
+
+.lead span + span {
+  margin-top: 6px;
 }
 
 .ctas {
+  margin-top: 28px;
   display: flex;
   flex-wrap: wrap;
-  gap: 12px;
-  margin-top: 2px;
+  gap: 10px;
 }
 
-/* ---------------- visual ---------------- */
+/* ---------------- entity lines ---------------- */
 
-.visual {
-  position: relative;
-  display: flex;
-  justify-content: center;
-}
-
-.badgeCard {
-  width: 100%;
-  max-width: 440px;
-  padding: 34px;
-  background: var(--surface);
-  border: 1px solid var(--line);
-  border-radius: var(--r-xl);
-  box-shadow: var(--shadow-lg);
+.entities {
+  margin-top: 28px;
+  padding-top: 18px;
+  border-top: 1px solid var(--line);
   display: flex;
   flex-direction: column;
-  align-items: center;
-  gap: 20px;
+  gap: 9px;
+  max-width: 520px;
 }
 
-.badge {
-  width: 100%;
-  max-width: 320px;
-  height: auto;
-}
-
-.floatCard {
-  position: absolute;
-  left: -10px;
-  bottom: -26px;
+/* Same dash idiom as .eyebrow, so the two entities read as a labelled pair. */
+.entity {
   display: flex;
-  align-items: center;
-  gap: 12px;
-  padding: 14px 18px;
-  background: var(--surface);
-  border: 1px solid var(--line);
-  border-radius: var(--r-lg);
-  box-shadow: var(--shadow-md);
+  align-items: baseline;
+  flex-wrap: wrap;
+  gap: 4px 10px;
+  font-family: var(--mono);
+  font-size: 10.5px;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  line-height: 1.5;
 }
 
-.floatCard strong {
-  display: block;
-  font-family: var(--font-display);
-  font-size: 14.5px;
-  font-weight: 700;
+.entity::before {
+  content: "";
+  width: 16px;
+  height: 2px;
+  flex: 0 0 auto;
+  transform: translateY(-3px);
+  background: var(--grad-hot);
+}
+
+.entityCool::before {
+  background: var(--grad-cool);
+}
+
+.entityName {
   color: var(--text);
 }
 
-.floatCard span:last-child {
-  display: block;
-  font-size: 12.5px;
+.entityWhere {
   color: var(--text-soft);
 }
 
-.pulse {
-  flex: 0 0 auto;
-  width: 10px;
-  height: 10px;
-  border-radius: 50%;
-  background: var(--accent-600);
-  box-shadow: 0 0 0 0 rgba(0, 169, 157, 0.5);
-  animation: pulse 2.4s ease-out infinite;
+/* ---------------- diagram panel ---------------- */
+
+.panel {
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
 }
 
-@keyframes pulse {
-  0% {
-    box-shadow: 0 0 0 0 rgba(0, 169, 157, 0.45);
-  }
-  70% {
-    box-shadow: 0 0 0 12px rgba(0, 169, 157, 0);
-  }
-  100% {
-    box-shadow: 0 0 0 0 rgba(0, 169, 157, 0);
-  }
+.badgeRow {
+  display: flex;
+  align-items: center;
+  gap: 18px;
+  padding-top: 18px;
+  border-top: 1px solid var(--line);
+}
+
+.badge {
+  width: auto;
+  height: 76px;
+  flex: 0 0 auto;
+}
+
+.badgeCap {
+  font-family: var(--mono);
+  font-size: 10.5px;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--steel);
+  line-height: 1.6;
 }
 
 /* ---------------- breakpoints ---------------- */
 
-@media (max-width: 1180px) {
-  .title {
-    font-size: 48px;
-  }
-}
-
-@media (max-width: 1024px) {
-  .hero {
-    padding: 60px 0 76px;
-  }
-
-  .inner {
+@media (max-width: 900px) {
+  .heroGrid {
     grid-template-columns: 1fr;
-    gap: 48px;
-  }
-
-  .title {
-    font-size: 44px;
-  }
-
-  .badgeCard {
-    max-width: 420px;
-  }
-}
-
-@media (max-width: 767px) {
-  .hero {
-    padding: 40px 0 64px;
+    gap: 40px;
   }
 
   .title {
     font-size: 34px;
   }
 
-  .subtitle {
-    font-size: 18px;
+  .hero {
+    padding: 48px 0 40px;
+  }
+}
+
+@media (max-width: 600px) {
+  .title {
+    font-size: 30px;
   }
 
   .ctas :global(.btn) {
     flex: 1 1 auto;
-  }
-
-  .badgeCard {
-    padding: 24px 20px;
-  }
-
-  .visual {
-    flex-direction: column;
-    align-items: stretch;
-  }
-
-  .badgeCard {
-    max-width: none;
-  }
-
-  .floatCard {
-    position: static;
-    margin-top: 14px;
     justify-content: center;
+  }
+
+  .badge {
+    height: 60px;
   }
 }
