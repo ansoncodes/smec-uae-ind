@@ -58,14 +58,17 @@ export default function ArticleDetail({ article }: { article: Article }) {
           </header>
 
           <div className={styles.cover}>
+            <div className={styles.coverBackdrop} aria-hidden="true">
+              <Image src={article.image} alt="" fill sizes="220px" quality={40} className={styles.coverBlur} />
+            </div>
             <Image
               src={article.image}
               alt=""
-              width={500}
-              height={500}
+              width={250}
+              height={400}
               priority
+              sizes="250px"
               className={styles.coverImage}
-              sizes="(max-width: 900px) 92vw, 900px"
             />
           </div>
 
@@ -101,13 +104,16 @@ export default function ArticleDetail({ article }: { article: Article }) {
             {more.map((item) => (
               <Link key={item.slug} href={articleHref(item.slug)} className={`card ${styles.card}`}>
                 <div className={styles.cardMedia}>
+                  <div className={styles.cardBackdrop} aria-hidden="true">
+                    <Image src={item.image} alt="" fill sizes="160px" quality={40} className={styles.coverBlur} />
+                  </div>
                   <Image
                     src={item.image}
                     alt=""
-                    width={500}
-                    height={500}
+                    width={250}
+                    height={400}
+                    sizes="220px"
                     className={styles.cardImage}
-                    sizes="(max-width: 1000px) 46vw, 420px"
                   />
                 </div>
                 <h3 className={styles.cardTitle}>{item.title}</h3>

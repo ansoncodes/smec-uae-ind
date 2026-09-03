@@ -131,7 +131,8 @@
 .image {
   width: 100%;
   height: auto;
-  aspect-ratio: 16 / 10;
+  /* the product shots are all 768x460 / 879x527, i.e. the same 1.67 ratio */
+  aspect-ratio: 768 / 460;
   object-fit: contain;
   mix-blend-mode: multiply;
 }

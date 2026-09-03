@@ -28,7 +28,7 @@
 .image {
   width: 100%;
   height: auto;
-  aspect-ratio: 16 / 11;
+  aspect-ratio: 768 / 460;
   object-fit: contain;
   mix-blend-mode: multiply;
   transition: transform 0.3s ease;

@@ -67,7 +67,7 @@ export default function ProductDetail({ product }: { product: Product }) {
               height={460}
               priority
               className={styles.image}
-              sizes="(max-width: 900px) 92vw, 620px"
+              sizes="(max-width: 900px) 95vw, 768px"
             />
           </div>
         </div>

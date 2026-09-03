@@ -59,18 +59,42 @@
   color: var(--text-dim);
 }
 
+/* The artwork is a 250x400 poster. Stretching it across a landscape band
+   upscaled it nearly 5x and cropped the title off, so the poster is shown at
+   its own size and a blurred copy of itself fills the band behind it. */
 .cover {
   position: relative;
+  isolation: isolate;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: clamp(300px, 32vw, 420px);
   max-width: 900px;
   margin: clamp(32px, 4vw, 56px) auto;
   overflow: hidden;
   border: 1px solid var(--line);
+  background: var(--surface);
+}
+
+.coverBackdrop {
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+}
+
+.coverBlur {
+  object-fit: cover;
+  filter: blur(30px) saturate(1.15);
+  opacity: 0.45;
+  transform: scale(1.2);
 }
 
 .coverImage {
-  width: 100%;
-  height: clamp(220px, 30vw, 420px);
-  object-fit: cover;
+  width: auto;
+  height: 100%;
+  /* never past the asset's own 400px, so it always stays sharp */
+  max-height: 400px;
+  object-fit: contain;
 }
 
 /* ---------------- article body ---------------- */
@@ -164,16 +188,28 @@
 
 .cardMedia {
   position: relative;
-  height: 180px;
+  isolation: isolate;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 230px;
   margin: calc(var(--card-pad) * -1) calc(var(--card-pad) * -1) 0;
   overflow: hidden;
+  background: var(--surface-2);
   border-bottom: 1px solid var(--line);
 }
 
+.cardBackdrop {
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+}
+
 .cardImage {
-  width: 100%;
+  width: auto;
   height: 100%;
-  object-fit: cover;
+  max-height: 210px;
+  object-fit: contain;
   transition: transform 0.35s ease;
 }
 
