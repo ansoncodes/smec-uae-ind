@@ -1,10 +1,10 @@
-import Image from "next/image";
 import SectionHeading from "@/components/ui/SectionHeading";
+import ProductCard from "@/components/ProductCard";
 import { products, productsIntro } from "@/lib/siteData";
 import Reveal from "@/components/ui/Reveal";
 import styles from "./MajorProducts.module.css";
 
-/** Prototype `.paper` section with a `.g4` grid of `.card`s. */
+/** `.g4` grid of product cards, each linking to its detail page. */
 export default function MajorProducts() {
   return (
     <section id="products" aria-labelledby="major-products">
@@ -19,25 +19,8 @@ export default function MajorProducts() {
 
         <div className={`grid g4 ${styles.grid}`}>
           {products.map((product, i) => (
-            <Reveal key={product.title} delay={(i % 4) * 70} className={styles.cell}>
-              <article className={`card ${styles.card}`}>
-                <div className={styles.media}>
-                  <Image
-                    src={product.image}
-                    alt={product.title}
-                    width={768}
-                    height={460}
-                    className={styles.image}
-                    sizes="(max-width: 1000px) 46vw, 290px"
-                  />
-                </div>
-                <h3 className={styles.title}>{product.title}</h3>
-                <p className={styles.tagline}>{product.tagline}</p>
-                {product.text && <p className={styles.text}>{product.text}</p>}
-                <a className="more" href={product.href}>
-                  Know More →
-                </a>
-              </article>
+            <Reveal key={product.slug} delay={(i % 4) * 70} className={styles.cell}>
+              <ProductCard product={product} />
             </Reveal>
           ))}
         </div>

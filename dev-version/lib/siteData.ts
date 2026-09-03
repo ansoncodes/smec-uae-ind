@@ -104,75 +104,91 @@ export const partners = [
 ];
 
 export type Product = {
+  /** Route segment under /products. */
+  slug: string;
   image: string;
   title: string;
   tagline: string;
   text: string;
-  href: string;
+  /** The matching page on the live site, linked from the detail page. */
+  sourceHref: string;
 };
+
+/** Internal detail route for a product. */
+export const productHref = (slug: string) => `/products/${slug}`;
 
 export const productsIntro =
   "SMEC Oil & Gas provides comprehensive engineering, procurement, construction, and maintenance solutions for the oil and gas industry. We focus on delivering reliable, cost-effective, and innovative services while maintaining the highest standards of safety, quality, efficiency, sustainability, and customer satisfaction across every project.";
 
 export const products: Product[] = [
   {
+    slug: "power-house",
     image: "/images/products/Power-House-SMEC.png",
     title: "Power Houses",
     tagline: "PCR House | SCR House | VFD House",
     text: "Tailored Solutions for Optimal Performance with PCR, SCR, and VFD Technologies.",
-    href: `${SITE}/power-house`,
+    sourceHref: `${SITE}/power-house`,
   },
   {
+    slug: "advanced-perimeter-security-systems",
     image: "/images/products/Advanced-Perimeter-Security-System.png",
     title: "Advanced Perimeter Security System",
     tagline: "Secure Your Boundaries with SMEC's Advanced Perimeter Security System!",
     text: "Custom-Built Surveillance Systems for Extreme Environments – Tailored, Tested, and Trained by SMEC Experts",
-    href: `${SITE}/advanced-perimeter-security-systems`,
+    sourceHref: `${SITE}/advanced-perimeter-security-systems`,
   },
   {
+    slug: "drill-monitor",
     image: "/images/products/Drill-Monitor-System-1.png",
     title: "Drill Monitor System",
     tagline: "Stay Alert, Stay Safe: Gas Watch Panel by SMEC",
     text: "Revolutionize Your Drilling Operations with SMEC’s Cutting-Edge Gas Detection Solutions: Prioritizing Safety and Efficiency in the Oil and Gas Industry!",
-    href: `${SITE}/drill-monitor`,
+    sourceHref: `${SITE}/drill-monitor`,
   },
   {
+    slug: "integrated-drilling-control-system",
     image: "/images/products/Integrated-Drilling-Control-System-768x460.png",
     title: "Integrated Drilling Control System",
-    tagline:
-      "Elevate Your Drilling: Precision Meets Innovation with SMEC’s Integrated Control System!",
+    tagline: "Elevate Your Drilling: Precision Meets Innovation with SMEC’s Integrated Control System!",
     text: "Maximize Drilling Efficiency with the SMEC Integrated Drilling Control System: Your Command Center for High-Availability Rig Operations!",
-    href: `${SITE}/integrated-drilling-control-system`,
+    sourceHref: `${SITE}/integrated-drilling-control-system`,
   },
   {
+    slug: "jacking-control-system",
     image: "/images/products/RPD-System-Jacking-Control-System-768x460.png",
     title: "RPD System Jacking Control System",
     tagline: "Precision Control for Unmatched Performance!",
     text: "Optimize Jack-Up Rig Performance with RPD System: Ensure Precision in Rack Phase Differential Monitoring to Prevent Over-Stresses!",
-    href: `${SITE}/jacking-control-system`,
+    sourceHref: `${SITE}/jacking-control-system`,
   },
   {
+    slug: "flare-boom-ignition-system",
     image: "/images/products/Flare-Boom-Pilot-Ignition-System-768x460.png",
     title: "Flare Boom Pilot Ignition System",
     tagline: "Ignite Efficiency with SMEC's Flare Boom Pilot Ignition System!",
     text: "Upgrade Your Performance with SMEC’s Reliable Ignition Systems – Tested, Fired, and Ready for Long-Lasting Results! New, Retrofit, or Replacement Flare Boom Pilot Ignitions Available",
-    href: `${SITE}/flare-boom-ignition-system`,
+    sourceHref: `${SITE}/flare-boom-ignition-system`,
   },
   {
+    slug: "bop-control-system",
     image: "/images/products/BOP-Control-System-768x460.png",
     title: "BOP Control System",
     tagline: "Protect Your Rig, Prevent Well Kicks & Explosions!",
     text: "Protect Your Oil Rig with SMEC’s Advanced BOP Control System – Prevent Well Kicks & Explosions on Land, Platforms, & Subsea!",
-    href: `${SITE}/bop-control-system`,
+    sourceHref: `${SITE}/bop-control-system`,
   },
   {
+    slug: "gas-detection-system",
     image: "/images/products/Gas-Watch-Panel-768x460.webp",
     title: "Gas Watch Panel",
     tagline: "Stay Alert, Stay Safe: Gas Watch Panel by SMEC",
     text: "Revolutionize Your Drilling Operations with SMEC’s Cutting-Edge Gas Detection Solutions: Prioritizing Safety and Efficiency in the Oil and Gas Industry!",
-    href: `${SITE}/gas-detection-system`,
+    sourceHref: `${SITE}/gas-detection-system`,
   },
 ];
+
+export const productBySlug = (slug: string) =>
+  products.find((p) => p.slug === slug);
 
 export const stats = [
   { title: "Years", value: 25, suffix: "+" },

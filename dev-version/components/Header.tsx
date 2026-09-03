@@ -2,9 +2,23 @@
 
 import { useEffect, useState } from "react";
 import Logo from "@/components/ui/Logo";
-import { contact, footer, navItems, type NavItem } from "@/lib/siteData";
+import {
+  contact,
+  footer,
+  navItems,
+  productBySlug,
+  productHref,
+  type NavItem,
+} from "@/lib/siteData";
 import { CaretDownIcon, CloseIcon, MenuIcon } from "@/components/Icons";
 import styles from "./Header.module.css";
+
+/** Nav entries whose product now has a page in this build link internally;
+ *  everything else still points at the live site. */
+function resolve(href: string) {
+  const slug = href.split("/").pop() ?? "";
+  return productBySlug(slug) ? productHref(slug) : href;
+}
 
 /**
  * Prototype mega-menu: a bordered surface panel with mono column headings.
@@ -21,12 +35,12 @@ function MegaMenu({ item }: { item: NavItem }) {
       {groups.map((group) => (
         <div key={group.label}>
           <h4>
-            <a href={group.href}>{group.label}</a>
+            <a href={resolve(group.href)}>{group.label}</a>
           </h4>
           <ul>
             {group.children?.map((child) => (
               <li key={child.label}>
-                <a href={child.href}>{child.label}</a>
+                <a href={resolve(child.href)}>{child.label}</a>
               </li>
             ))}
           </ul>
@@ -37,7 +51,7 @@ function MegaMenu({ item }: { item: NavItem }) {
         <ul className={styles.megaCols}>
           {flat.map((child) => (
             <li key={child.label}>
-              <a href={child.href}>{child.label}</a>
+              <a href={resolve(child.href)}>{child.label}</a>
             </li>
           ))}
         </ul>
@@ -85,14 +99,14 @@ function Drawer({ onClose }: { onClose: () => void }) {
                     <ul className={styles.drawerSub}>
                       {item.children.map((child) => (
                         <li key={child.label}>
-                          <a href={child.href} onClick={onClose}>
+                          <a href={resolve(child.href)} onClick={onClose}>
                             {child.label}
                           </a>
                           {child.children && (
                             <ul className={styles.drawerSub}>
                               {child.children.map((grand) => (
                                 <li key={grand.label}>
-                                  <a href={grand.href} onClick={onClose}>
+                                  <a href={resolve(grand.href)} onClick={onClose}>
                                     {grand.label}
                                   </a>
                                 </li>

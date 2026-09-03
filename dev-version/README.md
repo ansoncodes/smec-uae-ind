@@ -1,8 +1,8 @@
 # SMEC Oil & Gas — prototype theme
 
-The same page as `../wireframe-version/`, restyled to the design system in
-`../reference/smec_website_prototype (5).html`. Content, copy, links, images
-and section order are unchanged; only the presentation differs.
+The `../wireframe-version/` homepage plus a page per product, restyled to the
+design system in `../reference/smec_website_prototype (5).html`. All copy comes
+from `lib/siteData.ts` and nothing about the products is invented.
 `../wireframe-version/` and `../reference/` are untouched.
 
 ## Run
@@ -18,7 +18,8 @@ npm run build    # production build
 ```
 app/
   layout.tsx        root layout + Google Fonts (Manrope, IBM Plex Mono)
-  page.tsx          composes the sections
+  page.tsx          composes the homepage sections
+  products/[slug]/  one prerendered detail page per product
   globals.css       tokens + the prototype primitives (.wrap, .eyebrow, .btn,
                     .card, .section-head, .grid/.gN, .diagram-panel, .schematic,
                     .paper / .navy / .tight section variants)
@@ -29,6 +30,8 @@ components/
   Hero.tsx              full-bleed photo hero + instrument panel
   ApprovedPartners.tsx  logostrip row on a paper band
   MajorProducts.tsx     8 cards in a g4 grid
+  ProductCard.tsx       one product card, shared by the grid and detail pages
+  ProductDetail.tsx     product page body: hero, variants, related products
   Stats.tsx             statrow with scroll-triggered count-up
   WhoWeAre.tsx          copy + three region tiles
   Entities.tsx          navy band: the UAE entity and the India hub side by side
@@ -43,6 +46,7 @@ components/
   FloatingWidgets.tsx   Quick Enquiry, WhatsApp, scroll-to-top
   Icons.tsx             inline SVG icon set
   ui/Logo.tsx           mark + mono word lock-up (real SMEC wordmark, reversed)
+  ui/Breadcrumb.tsx     the prototype's breadcrumb strip
   ui/Eyebrow.tsx        numbered technical label — `01 / COMPANY`
   ui/Schematic.tsx      the prototype's wellhead → grid schematic SVG
   ui/Rail.tsx           reusable scroll-snap rail with arrows
@@ -52,6 +56,25 @@ components/
 lib/siteData.ts     all copy, links, image paths, map pin coordinates
 public/             logos and images (same set as the wireframe build)
 ```
+
+## Product pages
+
+`/products/[slug]` renders a page per product, prerendered at build time from
+`generateStaticParams`. The eight "Know More" links and the matching entries in
+the Products mega-menu now resolve internally; nav entries with no product
+record (Load Monitoring, PAGA, Battery Charger and the rest) still point at the
+live site, so the menu is a mix by design.
+
+**These pages carry no invented content.** They use the same title, tagline,
+description and photograph the homepage card uses, plus any variants the nav
+already lists for that product — Power House is the only one with any, and its
+VFD and SCR entries come from `navItems`. No specifications, ratings,
+certifications or capability claims are generated: this is safety-critical
+equipment and that copy has to come from SMEC. Each page links out to its
+counterpart on the live site so nothing is lost in the meantime.
+
+To flesh one out, add fields to the product record in `lib/siteData.ts` and
+render them in `components/ProductDetail.tsx`.
 
 ## Typography
 
