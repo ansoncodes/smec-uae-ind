@@ -20,6 +20,7 @@ app/
   layout.tsx        root layout + Google Fonts (Manrope, IBM Plex Mono)
   page.tsx          composes the homepage sections
   products/[slug]/  one prerendered detail page per product
+  articles/[slug]/  one prerendered page per article
   globals.css       tokens + the prototype primitives (.wrap, .eyebrow, .btn,
                     .card, .section-head, .grid/.gN, .diagram-panel, .schematic,
                     .paper / .navy / .tight section variants)
@@ -32,6 +33,7 @@ components/
   MajorProducts.tsx     8 cards in a g4 grid
   ProductCard.tsx       one product card, shared by the grid and detail pages
   ProductDetail.tsx     product page body: hero, variants, related products
+  ArticleDetail.tsx     article page body: cover, long-form prose, more to read
   Stats.tsx             statrow with scroll-triggered count-up
   WhoWeAre.tsx          copy + three region tiles
   Entities.tsx          navy band: the UAE entity and the India hub side by side
@@ -54,6 +56,8 @@ components/
   ui/SectionHeading.tsx eyebrow + title + body (.section-head)
 
 lib/siteData.ts     all copy, links, image paths, map pin coordinates
+lib/productDetails.ts  product page bodies, from the live product pages
+lib/articles/       article bodies, from the live posts
 public/             logos and images (same set as the wireframe build)
 ```
 
@@ -81,6 +85,21 @@ typos on the live pages.
 Layout adapts to how much a product has: a single feature list runs full width,
 several sit two-up, and the spec table only renders where the source page has
 one (Flare Boom Pilot Ignition and Gas Watch Panel).
+
+## Article pages
+
+`/articles/[slug]` does the same for all 17 posts in the Insights rail, again
+prerendered at build time. Bodies live in `lib/articles/`, split across five
+files by subject, and are keyed by slug.
+
+Each body is a list of typed blocks — `h2`, `h3`, `p`, `ul`, `ol`, `quote` —
+rather than raw HTML, so the prose picks up the site's own type scale and can
+never inject markup. Copy is the site's own; headings are set in sentence case
+to match this build, and hashtag blocks, share widgets and comment prompts are
+dropped. Every page links out to the original post at the foot.
+
+The reading column is capped at 760px, narrower than the rest of the site,
+because 1580px line lengths are unreadable for long-form.
 
 ## Typography
 

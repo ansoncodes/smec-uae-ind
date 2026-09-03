@@ -3,7 +3,8 @@
 import Image from "next/image";
 import Rail from "@/components/ui/Rail";
 import SectionHeading from "@/components/ui/SectionHeading";
-import { articles, type Article } from "@/lib/siteData";
+import Link from "next/link";
+import { articleHref, articles, type Article } from "@/lib/siteData";
 import styles from "./Articles.module.css";
 
 function ArticleCard({ article }: { article: Article }) {
@@ -22,13 +23,9 @@ function ArticleCard({ article }: { article: Article }) {
 
       <h3 className={styles.title}>{article.title}</h3>
       {article.text && <p className={styles.text}>{article.text}</p>}
-      <a
-        className="more"
-        href={article.href}
-        {...(article.external ? { target: "_blank", rel: "noopener noreferrer" } : {})}
-      >
+      <Link className="more" href={articleHref(article.slug)}>
         Read More →
-      </a>
+      </Link>
     </article>
   );
 }

@@ -384,135 +384,143 @@ export const sustainability = {
 };
 
 export type Article = {
+  /** Route segment under /articles. */
+  slug: string;
   image: string;
   title: string;
   text: string;
-  href: string;
-  external: boolean;
+  /** The original post, linked from the foot of the detail page. */
+  sourceHref: string;
 };
+
+/** Internal detail route for an article. */
+export const articleHref = (slug: string) => `/articles/${slug}`;
 
 export const articles: Article[] = [
   {
+    slug: "smec-vard",
     image: "/images/articles/SMEC-VARD.webp",
     title: "SMEC – VARD",
     text: "India's Turnkey Partner for Next-Generation Marine Electrical Integration",
-    href: "https://www.smec.in/electric-propulsion-sov-cochin-shipyard-smec-vard",
-    external: true,
+    sourceHref: "https://www.smec.in/electric-propulsion-sov-cochin-shipyard-smec-vard",
   },
   {
+    slug: "how-the-middle-east-is-engineering-energy",
     image: "/images/articles/Middle-East-Is-Engineering-Energy.webp",
     title: "How the Middle East Is Engineering Energy 2030–2050.",
     text: "SMEC Automation | #EnergyTransition #OilAndGas #ReliabilityEngineering",
-    href: `${SITE}/how-the-middle-east-is-engineering-energy`,
-    external: true,
+    sourceHref: `${SITE}/how-the-middle-east-is-engineering-energy`,
   },
   {
+    slug: "from-shores-to-sea-legs-how-ongc-built-india",
     image: "/images/articles/From-Shores-to-Sea-Legs-ONGC-Rig-Frontier.webp",
     title: "From Shores to Sea Legs – How ONGC Built India’s Rig Frontier",
     text: "Shores to Sea Legs ONGC",
-    href: `${SITE}/from-shores-to-sea-legs-how-ongc-built-india`,
-    external: true,
+    sourceHref: `${SITE}/from-shores-to-sea-legs-how-ongc-built-india`,
   },
   {
+    slug: "a-technical-deep-dive-into-the-critical-systems-that-define-reliability-in-oil-gas-operations",
     image: "/images/articles/From-Shores-to-Sea-Legs-How-ONGC-Built-Indias-Rig-Frontier.webp",
     title:
       "A technical deep-dive into the critical systems that define reliability in Oil & Gas operations.",
     text: "",
-    href: `${SITE}/a-technical-deep-dive-into-the-critical-systems-that-define-reliability-in-oil-gas-operations`,
-    external: true,
+    sourceHref: `${SITE}/a-technical-deep-dive-into-the-critical-systems-that-define-reliability-in-oil-gas-operations`,
   },
   {
+    slug: "from-seepages-to-sensors-the-complete-timeline-of-oil-gas-firsts-global-india",
     image: "/images/articles/Seepages-to-Sensors.webp",
     title: "From Seepages to Sensors",
     text: "The Complete Timeline of Oil & Gas ‘Firsts’ (Global + India).",
-    href: `${SITE}/from-seepages-to-sensors-the-complete-timeline-of-oil-gas-firsts-global-india`,
-    external: true,
+    sourceHref: `${SITE}/from-seepages-to-sensors-the-complete-timeline-of-oil-gas-firsts-global-india`,
   },
   {
+    slug: "fueling-the-future",
     image: "/images/articles/1-2.png",
     title: "Digital Oilfields",
     text: "How Digital Oilfields are Transforming Exploration and Production in Oil & Gas",
-    href: `${SITE}/fueling-the-future`,
-    external: false,
+    sourceHref: `${SITE}/fueling-the-future`,
   },
   {
+    slug: "the-pipeline-that-changed-india-naharkatiya-noonmati-barauni-1962",
     image: "/images/articles/Naharkatiya-Noonmati-Barauni-1962.webp",
     title: "The Pipeline That Changed India!",
     text: "Naharkatiya–Noonmati–Barauni (1962)",
-    href: `${SITE}/the-pipeline-that-changed-india-naharkatiya-noonmati-barauni-1962`,
-    external: true,
+    sourceHref: `${SITE}/the-pipeline-that-changed-india-naharkatiya-noonmati-barauni-1962`,
   },
   {
+    slug: "digboi-the-forgotten-flame-that-lit-indias-oil-gas-story",
     image: "/images/articles/11113.png",
     title: "Digboi: The Forgotten Flame That Lit India’s Oil & Gas Story!",
     text: "SMEC Automation Pvt Ltd",
-    href: `${SITE}/digboi-the-forgotten-flame-that-lit-indias-oil-gas-story`,
-    external: true,
+    sourceHref: `${SITE}/digboi-the-forgotten-flame-that-lit-indias-oil-gas-story`,
   },
   {
+    slug: "the-birth-of-indias-offshore-energy-journey",
     image: "/images/articles/11112.png",
     title: "The Birth of India’s Offshore Energy Journey!",
     text: "SMEC Automation Pvt Ltd",
-    href: `${SITE}/the-birth-of-indias-offshore-energy-journey`,
-    external: true,
+    sourceHref: `${SITE}/the-birth-of-indias-offshore-energy-journey`,
   },
   {
+    slug: "navigating-automation-architecture",
     image: "/images/articles/1111.png",
     title: "Navigating Automation Architecture :",
     text: "SMEC Automation Pvt Ltd",
-    href: `${SITE}/navigating-automation-architecture`,
-    external: true,
+    sourceHref: `${SITE}/navigating-automation-architecture`,
   },
   {
+    slug: "unlocking-the-future-digital-twin-technology-the-future-is-now",
     image: "/images/articles/Dwin-technology.webp",
     title: "Unlocking the Future:",
     text: "Digital Twin Technology",
-    href: `${SITE}/unlocking-the-future-digital-twin-technology-the-future-is-now`,
-    external: true,
+    sourceHref: `${SITE}/unlocking-the-future-digital-twin-technology-the-future-is-now`,
   },
   {
+    slug: "smec-at-adipec-2024",
     image: "/images/articles/adipec.png",
     title: "SMEC at ADIPEC 2024",
     text: "A Week of Innovation, Insight & Industry Collaboration!",
-    href: `${SITE}/smec-at-adipec-2024`,
-    external: true,
+    sourceHref: `${SITE}/smec-at-adipec-2024`,
   },
   {
+    slug: "powering-the-future-of-oil-gas-with-automation",
     image: "/images/articles/thrid-blog.png",
     title: "Powering the Future of Oil & Gas with Automation",
     text: "",
-    href: `${SITE}/powering-the-future-of-oil-gas-with-automation`,
-    external: true,
+    sourceHref: `${SITE}/powering-the-future-of-oil-gas-with-automation`,
   },
   {
+    slug: "flare-ignition-systems",
     image: "/images/articles/fifth-blog.png",
     title: "Flare Ignition Systems",
     text: "The Guardians of Industrial Safety and Environmental Compliance",
-    href: `${SITE}/flare-ignition-systems`,
-    external: true,
+    sourceHref: `${SITE}/flare-ignition-systems`,
   },
   {
+    slug: "retrofit-solutions",
     image: "/images/articles/fourth-blog.png",
     title: "Retrofit Solutions",
     text: "Extending the Life Cycle of Oil & Gas Infrastructure",
-    href: `${SITE}/retrofit-solutions`,
-    external: true,
+    sourceHref: `${SITE}/retrofit-solutions`,
   },
   {
+    slug: "optimizing-wellhead-data-collection",
     image: "/images/articles/second-blog.png",
     title: "Optimizing Wellhead Data Collection",
     text: "Leveraging Advanced Software Solutions for Enhanced Oil & Gas Operations",
-    href: `${SITE}/optimizing-wellhead-data-collection`,
-    external: true,
+    sourceHref: `${SITE}/optimizing-wellhead-data-collection`,
   },
   {
+    slug: "smec-the-solution-hub-3-engineering-resilience-starts-inside-the-panel",
     image: "/images/articles/Engineering-Resilience-Starts-Inside-the-Panel.webp",
     title: "[SMEC – The Solution Hub #3]",
     text: "Engineering Resilience Starts Inside the Panel.",
-    href: `${SITE}/smec-the-solution-hub-3-engineering-resilience-starts-inside-the-panel`,
-    external: false,
+    sourceHref: `${SITE}/smec-the-solution-hub-3-engineering-resilience-starts-inside-the-panel`,
   },
 ];
+
+export const articleBySlug = (slug: string) =>
+  articles.find((a) => a.slug === slug);
 
 export const footer = {
   logo: "/logos/SMEC-Oil-and-Gas-Logo-300x109.png",
