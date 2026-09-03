@@ -6,12 +6,12 @@
 .row {
   display: flex;
   align-items: center;
-  gap: 40px;
+  gap: 48px;
 }
 
 .label {
   flex: 0 0 auto;
-  min-width: 150px;
+  min-width: 165px;
 }
 
 .grid {
@@ -23,11 +23,11 @@
 /* .logostrip from the prototype */
 .strip {
   border: 1px solid var(--line);
-  padding: 18px 10px;
+  padding: 20px 14px;
   display: flex;
   align-items: center;
   justify-content: center;
-  min-height: 78px;
+  min-height: 96px;
   background: var(--surface);
   transition: all 0.18s ease;
 }
@@ -44,9 +44,9 @@
   width: auto;
   max-width: 100%;
   object-fit: contain;
-  filter: invert(1) grayscale(1) brightness(1.15);
+  filter: invert(1) grayscale(1) brightness(1.45) contrast(1.1);
   mix-blend-mode: lighten;
-  opacity: 0.78;
+  opacity: 0.95;
   transition: opacity 0.18s ease;
 }
 
@@ -67,7 +67,7 @@
 
   .logo {
     height: auto !important;
-    max-height: 36px;
+    max-height: 42px;
   }
 }
 

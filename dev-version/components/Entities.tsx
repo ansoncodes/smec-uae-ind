@@ -1,3 +1,4 @@
+import Eyebrow from "@/components/ui/Eyebrow";
 import { entities } from "@/lib/siteData";
 import styles from "./Entities.module.css";
 
@@ -12,7 +13,7 @@ export default function Entities() {
     <section className="navy" aria-labelledby="our-entities">
       <div className="container">
         <div className={`section-head ${styles.head}`}>
-          <div className="eyebrow">{entities.eyebrow}</div>
+          <Eyebrow index="02">{entities.eyebrow}</Eyebrow>
           <h2 id="our-entities">{entities.heading}</h2>
           <p>{entities.body}</p>
         </div>
@@ -23,7 +24,19 @@ export default function Entities() {
               key={entity.name}
               className={`card ${styles.card} ${entity.primary ? styles.primary : ""}`}
             >
-              <div className={`eyebrow${entity.primary ? "" : " cool"}`}>{entity.location}</div>
+              {/* Map crop centred on the real pin coordinates, so each card
+                  shows where the entity actually is. */}
+              <div
+                className={styles.map}
+                aria-hidden="true"
+                style={
+                  { "--mx": entity.map.x, "--my": entity.map.y } as React.CSSProperties
+                }
+              >
+                <span className={styles.marker} />
+              </div>
+
+              <Eyebrow tone={entity.primary ? "hot" : "cool"}>{entity.location}</Eyebrow>
               <h3 className={styles.name}>{entity.name}</h3>
               <p className={styles.role}>{entity.role}</p>
 

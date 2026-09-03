@@ -208,14 +208,8 @@ export default function Header() {
           </nav>
 
           <div className={styles.navcta}>
-            <a
-              className="btn btn-ghost"
-              href={contact.whatsapp}
-              target="_blank"
-              rel="noopener noreferrer"
-            >
-              WhatsApp
-            </a>
+            {/* WhatsApp already sits in the utility bar and the floating dock;
+                a third copy only crowded the nav. */}
             <a className="btn btn-primary" href="https://smecoilandgas.com/contact-us">
               Contact Us
             </a>

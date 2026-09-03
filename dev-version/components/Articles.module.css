@@ -7,8 +7,8 @@
 /* gallery-tile: 170px hairline-framed image with hover zoom */
 .media {
   position: relative;
-  height: 170px;
-  margin: -24px -24px 0;
+  height: 200px;
+  margin: calc(var(--card-pad) * -1) calc(var(--card-pad) * -1) 0;
   overflow: hidden;
   border-bottom: 1px solid var(--line);
 }
@@ -26,9 +26,11 @@
 }
 
 .title {
-  font-size: 15px;
-  margin-top: 18px;
+  font-size: var(--fs-card);
+  font-weight: 600;
+  margin-top: 20px;
   line-height: 1.35;
+  letter-spacing: -0.015em;
   display: -webkit-box;
   -webkit-line-clamp: 3;
   line-clamp: 3;
@@ -46,16 +48,11 @@
 
 .card :global(.more) {
   margin-top: auto;
-  padding-top: 14px;
+  padding-top: 18px;
 }
 
 @media (max-width: 600px) {
-  .card {
-    padding: 18px;
-  }
-
   .media {
-    margin: -18px -18px 0;
-    height: 150px;
+    height: 168px;
   }
 }

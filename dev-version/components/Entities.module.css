@@ -3,7 +3,7 @@
 }
 
 .card {
-  padding: 30px;
+  padding: clamp(26px, 2.8vw, 40px);
   display: flex;
   flex-direction: column;
 }
@@ -15,30 +15,90 @@
   opacity: 1;
 }
 
+/* Dotted world map, zoomed and centred on the card's own coordinates. Same
+   asset as the Global Presence map, so the two sections agree. */
+.map {
+  position: relative;
+  height: 132px;
+  margin: calc(var(--card-pad) * -1) calc(var(--card-pad) * -1) 26px;
+  overflow: hidden;
+  border-bottom: 1px solid var(--line);
+}
+
+/* The map lives on a pseudo-element so its invert/greyscale filter cannot
+   reach the marker — as a child, the marker was being desaturated with it. */
+.map::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background-image: url("/images/misc/map-base.png");
+  background-repeat: no-repeat;
+  background-size: 230%;
+  background-position: var(--mx) var(--my);
+  filter: invert(1) grayscale(1) brightness(0.95);
+  mix-blend-mode: lighten;
+  opacity: 0.7;
+}
+
+.marker {
+  position: absolute;
+  z-index: 1;
+  left: 50%;
+  top: 50%;
+  width: 14px;
+  height: 14px;
+  margin: -7px 0 0 -7px;
+  border-radius: 50%;
+  background: var(--copper-deep);
+  box-shadow: 0 0 0 3px rgba(247, 37, 133, 0.28), 0 0 14px rgba(247, 37, 133, 0.8);
+}
+
+.marker::after {
+  content: "";
+  position: absolute;
+  inset: -8px;
+  border-radius: 50%;
+  border: 1px solid rgba(247, 37, 133, 0.55);
+  animation: ping 2.6s ease-out infinite;
+}
+
+@keyframes ping {
+  0% {
+    transform: scale(0.6);
+    opacity: 0.9;
+  }
+  70%,
+  100% {
+    transform: scale(1.5);
+    opacity: 0;
+  }
+}
+
 .name {
-  font-size: 19px;
-  margin-top: 12px;
+  font-size: var(--fs-h3);
+  line-height: var(--lh-heading);
+  margin-top: 16px;
 }
 
 .role {
   font-family: var(--mono);
-  font-size: 10.5px;
-  letter-spacing: 0.06em;
+  font-size: var(--fs-mono);
+  letter-spacing: 0.08em;
   text-transform: uppercase;
   color: var(--steel);
-  line-height: 1.6;
-  margin-top: 8px;
+  line-height: 1.65;
+  margin-top: 10px;
 }
 
 .points {
   color: var(--text-soft);
-  font-size: 13.5px;
-  line-height: 2;
-  margin-top: 16px;
+  font-size: var(--fs-small);
+  line-height: 1.9;
+  margin-top: 22px;
 }
 
 .points li {
-  padding-left: 18px;
+  padding-left: 22px;
   position: relative;
 }
 
@@ -47,7 +107,7 @@
   position: absolute;
   left: 0;
   top: 13px;
-  width: 8px;
+  width: 12px;
   height: 1px;
   background: var(--line);
 }
@@ -62,18 +122,18 @@
   flex-direction: column;
   font-style: normal;
   font-family: var(--mono);
-  font-size: 10.5px;
-  letter-spacing: 0.04em;
+  font-size: var(--fs-mono-sm);
+  letter-spacing: 0.06em;
   text-transform: uppercase;
   color: var(--text-soft);
-  line-height: 1.7;
-  padding-top: 16px;
+  line-height: 1.8;
+  padding-top: 20px;
   border-top: 1px solid var(--line);
 }
 
 /* No address on the India card, so its link needs the same rule above it. */
 .foot > .more:first-child {
-  padding-top: 16px;
+  padding-top: 20px;
   border-top: 1px solid var(--line);
   width: 100%;
   margin-top: 0;
@@ -83,19 +143,11 @@
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
-  gap: 10px;
-  margin-top: 32px;
+  gap: 12px;
+  margin-top: 40px;
 }
 
 @media (max-width: 600px) {
-  .card {
-    padding: 22px;
-  }
-
-  .name {
-    font-size: 17px;
-  }
-
   .ctas :global(.btn) {
     flex: 1 1 auto;
     justify-content: center;

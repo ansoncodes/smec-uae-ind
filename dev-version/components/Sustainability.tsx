@@ -1,4 +1,5 @@
 import Image from "next/image";
+import Eyebrow from "@/components/ui/Eyebrow";
 import { sustainability } from "@/lib/siteData";
 import styles from "./Sustainability.module.css";
 
@@ -7,9 +8,9 @@ export default function Sustainability() {
   return (
     <section className="navy" aria-labelledby="sustainability">
       <div className="container">
-        <div className="grid g2">
+        <div className={`grid ${styles.split}`}>
           <div className={`card ${styles.copy}`}>
-            <div className="eyebrow cool">Sustainability</div>
+            <Eyebrow index="09">Sustainability</Eyebrow>
             <h2 id="sustainability" className={styles.heading}>
               {sustainability.heading}
             </h2>
@@ -23,7 +24,7 @@ export default function Sustainability() {
               width={1200}
               height={660}
               className={styles.image}
-              sizes="(max-width: 600px) 100vw, 50vw"
+              sizes="(max-width: 900px) 100vw, 760px"
             />
             <div className={styles.tint} aria-hidden="true" />
             <div className={styles.cap}>Sustainable energy</div>

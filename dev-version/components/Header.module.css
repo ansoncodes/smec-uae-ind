@@ -16,8 +16,8 @@
   background: var(--surface-2);
   color: var(--text-soft);
   font-family: var(--mono);
-  font-size: 10.5px;
-  letter-spacing: 0.03em;
+  font-size: 11px;
+  letter-spacing: 0.05em;
   border-bottom: 1px solid var(--line-soft);
   text-transform: uppercase;
 }
@@ -27,8 +27,8 @@
   justify-content: space-between;
   align-items: center;
   gap: 16px;
-  padding-top: 6px;
-  padding-bottom: 6px;
+  padding-top: 8px;
+  padding-bottom: 8px;
 }
 
 .utilityNote {
@@ -64,8 +64,8 @@
   align-items: center;
   justify-content: space-between;
   gap: 16px;
-  padding-top: 14px;
-  padding-bottom: 14px;
+  padding-top: 16px;
+  padding-bottom: 16px;
 }
 
 .primary {
@@ -79,10 +79,12 @@
 
 .navbtn {
   display: inline-block;
-  font-family: var(--mono);
-  font-size: 11.5px;
-  letter-spacing: 0.04em;
-  text-transform: uppercase;
+  /* Navigation is not metadata — primary face, sentence case, no tracking. */
+  font-family: var(--display);
+  font-size: var(--fs-nav);
+  font-weight: 500;
+  letter-spacing: 0;
+  text-transform: none;
   background: none;
   border: none;
   padding: 10px 14px;
@@ -123,9 +125,9 @@
 
 .megamenu h4 {
   font-family: var(--mono);
-  font-size: 10px;
+  font-size: 10.5px;
   text-transform: uppercase;
-  letter-spacing: 0.08em;
+  letter-spacing: 0.1em;
   color: var(--copper);
   margin: 0 0 10px 0;
   font-weight: 500;
@@ -143,10 +145,10 @@
 
 .megamenu li a {
   display: block;
-  font-size: 13px;
-  padding: 5px 0;
+  font-size: 14px;
+  padding: 7px 0;
   color: var(--text-soft);
-  line-height: 1.4;
+  line-height: 1.45;
 }
 
 .megamenu li a:hover {
@@ -245,11 +247,12 @@
   justify-content: space-between;
   gap: 10px;
   width: 100%;
-  padding: 14px 18px;
-  font-family: var(--mono);
-  font-size: 12px;
-  letter-spacing: 0.04em;
-  text-transform: uppercase;
+  padding: 15px 18px;
+  font-family: var(--display);
+  font-size: 15px;
+  font-weight: 600;
+  letter-spacing: 0;
+  text-transform: none;
   color: var(--text);
   text-align: left;
   border-bottom: 1px solid var(--line-soft);
@@ -311,28 +314,16 @@
 
 /* ---------------- breakpoints ---------------- */
 
-/* Six long nav labels plus two CTAs only clear the 1240px page width with
-   room to spare; below 1300px the ghost CTA goes (the utility bar still
-   carries WhatsApp) and the nav tightens. */
-@media (max-width: 1300px) {
+/* Two of the six nav labels run to three words, so the row tightens once
+   before it collapses to the drawer. */
+@media (max-width: 1240px) {
   .navbtn {
-    padding: 10px 9px;
-    font-size: 11px;
-  }
-
-  .navcta :global(.btn-ghost) {
-    display: none;
+    padding: 10px 10px;
+    font-size: 13px;
   }
 }
 
-@media (max-width: 1080px) {
-  .navbtn {
-    padding: 10px 7px;
-    font-size: 10.5px;
-  }
-}
-
-@media (max-width: 920px) {
+@media (max-width: 1120px) {
   .primary {
     display: none;
   }

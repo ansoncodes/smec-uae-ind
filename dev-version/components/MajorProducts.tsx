@@ -7,11 +7,12 @@ import styles from "./MajorProducts.module.css";
 /** Prototype `.paper` section with a `.g4` grid of `.card`s. */
 export default function MajorProducts() {
   return (
-    <section className="paper" id="products" aria-labelledby="major-products">
+    <section id="products" aria-labelledby="major-products">
       <div className="container">
         <SectionHeading
           id="major-products"
-          eyebrow="Product suite"
+          index="03"
+          eyebrow="Products"
           title="Our Major Products"
           body={productsIntro}
         />
@@ -32,7 +33,7 @@ export default function MajorProducts() {
                 </div>
                 <h3 className={styles.title}>{product.title}</h3>
                 <p className={styles.tagline}>{product.tagline}</p>
-                {product.text && <p>{product.text}</p>}
+                {product.text && <p className={styles.text}>{product.text}</p>}
                 <a className="more" href={product.href}>
                   Know More →
                 </a>

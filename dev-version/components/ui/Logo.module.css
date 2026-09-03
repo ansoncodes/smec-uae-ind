@@ -7,7 +7,7 @@
 
 .mark {
   width: auto;
-  height: 24px;
+  height: 27px;
   flex-shrink: 0;
   filter: brightness(0) invert(1);
 }
@@ -23,7 +23,7 @@
 .word small {
   display: block;
   font-family: var(--mono);
-  font-size: 8.5px;
+  font-size: 9px;
   letter-spacing: 0.1em;
   color: var(--text-soft);
   font-weight: 400;

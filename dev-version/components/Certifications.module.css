@@ -4,29 +4,52 @@
   flex-direction: column;
 }
 
-/* the certificate is a white document; it sits as-is on a bordered plate */
+/* The whole certificate, not a crop. All four share the same portrait ratio,
+   so one aspect-ratio fits every one edge to edge with no letterboxing. */
 .media {
-  border: 1px solid var(--line);
+  position: relative;
+  aspect-ratio: 724 / 1024;
+  margin: calc(var(--card-pad) * -1) calc(var(--card-pad) * -1) 0;
+  overflow: hidden;
   background: #fff;
-  padding: 10px;
+  border-bottom: 1px solid var(--line);
 }
 
 .image {
   width: 100%;
-  height: auto;
-  transition: transform 0.3s ease;
+  height: 100%;
+  object-fit: contain;
+  transition: opacity 0.3s ease;
 }
 
 .item:hover .image {
-  transform: scale(1.02);
+  opacity: 0.92;
+}
+
+.caption {
+  padding-top: 20px;
+}
+
+.std {
+  display: block;
+  font-family: var(--mono);
+  font-size: var(--fs-mono-sm);
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--steel);
 }
 
 .name {
-  font-size: 15px;
+  font-size: var(--fs-card);
+  font-weight: 600;
+  margin-top: 10px;
 }
 
-@media (max-width: 600px) {
-  .item {
-    padding: 16px;
-  }
+.scope {
+  margin-top: 8px;
+  font-size: var(--fs-small);
+  color: var(--text-soft);
+  line-height: 1.6;
 }
+
+

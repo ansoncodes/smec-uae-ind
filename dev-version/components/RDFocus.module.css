@@ -1,81 +1,119 @@
-.split {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 56px;
+/* Full-bleed photographic band. Hairlines top and bottom plus the hot gradient
+   rule tie it to the `.navy` bands without repeating their flat ground. */
+
+.section {
+  position: relative;
+  isolation: isolate;
+  overflow: hidden;
+  display: flex;
   align-items: center;
+  min-height: clamp(420px, 44vw, 620px);
+  padding: clamp(72px, 8vw, 116px) 0;
+  border-top: 1px solid var(--line);
+  border-bottom: 1px solid var(--line);
+}
+
+.section::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 2px;
+  background: var(--grad-hot);
+}
+
+.bg {
+  position: absolute;
+  inset: 0;
+  z-index: -2;
+}
+
+.bgImage {
+  object-fit: cover;
+  object-position: 50% 55%;
+}
+
+/* The plant is already near-black, so the scrim only has to hold the copy
+   column and pull the warm lights toward the palette. */
+.scrim {
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  background:
+    linear-gradient(
+      95deg,
+      rgba(10, 7, 20, 0.94) 0%,
+      rgba(10, 7, 20, 0.8) 40%,
+      rgba(10, 7, 20, 0.4) 78%,
+      rgba(10, 7, 20, 0.25) 100%
+    ),
+    linear-gradient(180deg, rgba(114, 9, 183, 0.26) 0%, rgba(27, 15, 48, 0.5) 100%);
+}
+
+.inner {
+  max-width: 620px;
 }
 
 .heading {
-  font-size: 28px;
-  margin-top: 10px;
+  font-size: var(--fs-h2);
+  line-height: var(--lh-tight);
+  letter-spacing: -0.024em;
+  margin-top: 14px;
 }
 
 .body {
   color: var(--text-soft);
-  font-size: 14.5px;
-  line-height: 1.7;
-  margin-top: 16px;
+  font-size: var(--fs-lead);
+  line-height: var(--lh-body);
+  margin-top: 20px;
+  max-width: var(--measure);
+}
+
+/* Numbered focus areas, set as a technical index rather than bullets. */
+.areas {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px 32px;
+  margin-top: 32px;
+  padding-top: 26px;
+  border-top: 1px solid var(--line);
+}
+
+.areas li {
+  display: flex;
+  align-items: baseline;
+  gap: 12px;
+  font-family: var(--display);
+  font-size: 16px;
+  font-weight: 500;
+  color: var(--text);
+}
+
+.no {
+  font-family: var(--mono);
+  font-size: var(--fs-mono-sm);
+  letter-spacing: 0.12em;
+  color: var(--steel);
 }
 
 .ctas {
-  margin-top: 24px;
+  margin-top: 34px;
   display: flex;
-  gap: 10px;
+  gap: 12px;
 }
 
-/* .gallery-tile from the prototype, with SMEC's own banner under the tint */
-.tile {
-  position: relative;
-  height: 300px;
-  overflow: hidden;
-  border: 1px solid var(--line);
-}
-
-.image {
-  position: absolute;
-  inset: 0;
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  transition: transform 0.35s ease;
-}
-
-.tile:hover .image {
-  transform: scale(1.1);
-}
-
-.tint {
-  position: absolute;
-  inset: 0;
-  background: linear-gradient(135deg, rgba(58, 16, 48, 0.75) 0%, rgba(247, 37, 133, 0.35) 55%, rgba(255, 138, 76, 0.3) 100%);
-  mix-blend-mode: multiply;
-}
-
-.cap {
-  position: absolute;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  padding: 10px 12px;
-  background: linear-gradient(0deg, rgba(10, 7, 20, 0.88), transparent);
-  font-family: var(--mono);
-  font-size: 11px;
-  text-transform: uppercase;
-  letter-spacing: 0.04em;
-  color: #fff;
-}
-
+/* The copy widens to the full column below this, so the scrim turns vertical
+   to keep it off the lit plant. */
 @media (max-width: 900px) {
-  .split {
-    grid-template-columns: 1fr;
-    gap: 32px;
-  }
-
-  .heading {
-    font-size: 24px;
-  }
-
-  .tile {
-    height: 220px;
+  .scrim {
+    background:
+      linear-gradient(
+        180deg,
+        rgba(10, 7, 20, 0.9) 0%,
+        rgba(10, 7, 20, 0.78) 55%,
+        rgba(10, 7, 20, 0.9) 100%
+      ),
+      linear-gradient(180deg, rgba(114, 9, 183, 0.26) 0%, rgba(27, 15, 48, 0.5) 100%);
   }
 }

@@ -12,12 +12,18 @@ const CAPTIONS = [
   { name: "ISO 50001:2018", scope: "Energy Management" },
 ];
 
-/** Prototype `.paper` section, `.g4` grid of `.card`s. */
+/** Each certificate is shown whole, with its standard and scope beneath it. */
 export default function Certifications() {
   return (
     <section className="paper" aria-labelledby="our-certifications">
       <div className="container">
-        <SectionHeading id="our-certifications" eyebrow="Accredited" title="Our Certifications" />
+        <SectionHeading
+          id="our-certifications"
+          index="04"
+          eyebrow="Accredited"
+          title="Our Certifications"
+          body="Independently audited management systems covering quality, environment, occupational health and safety, and energy."
+        />
 
         <div className="grid g4">
           {certifications.map((cert, i) => (
@@ -29,12 +35,13 @@ export default function Certifications() {
                   width={cert.width}
                   height={cert.height}
                   className={styles.image}
-                  sizes="(max-width: 1000px) 45vw, 270px"
+                  sizes="(max-width: 1000px) 45vw, 380px"
                 />
               </div>
-              <figcaption>
+              <figcaption className={styles.caption}>
+                <span className={styles.std}>Certified</span>
                 <h3 className={styles.name}>{CAPTIONS[i].name}</h3>
-                <p>{CAPTIONS[i].scope}</p>
+                <p className={styles.scope}>{CAPTIONS[i].scope}</p>
               </figcaption>
             </figure>
           ))}

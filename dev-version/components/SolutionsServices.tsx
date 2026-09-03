@@ -3,6 +3,7 @@
 import { useState } from "react";
 import Image from "next/image";
 import { solutions } from "@/lib/siteData";
+import Eyebrow from "@/components/ui/Eyebrow";
 import { PlayIcon } from "@/components/Icons";
 import styles from "./SolutionsServices.module.css";
 
@@ -14,7 +15,7 @@ export default function SolutionsServices() {
     <section className="paper" aria-labelledby="solutions-services">
       <div className={`container ${styles.split}`}>
         <div>
-          <div className="eyebrow">Upstream · Midstream · Downstream</div>
+          <Eyebrow index="08">Upstream · Midstream · Downstream</Eyebrow>
           <h2 id="solutions-services" className={styles.heading}>
             {solutions.heading}
           </h2>

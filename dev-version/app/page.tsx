@@ -33,17 +33,19 @@ export default function Home() {
             element already on screen at mount. */}
         <Hero />
         <ApprovedPartners />
+        {/* Who → the proof → where we operate → what we make. Products used to
+            come before any of that. */}
         <Reveal>
-          <MajorProducts />
+          <WhoWeAre />
         </Reveal>
         <Reveal>
           <Stats />
         </Reveal>
         <Reveal>
-          <WhoWeAre />
+          <Entities />
         </Reveal>
         <Reveal>
-          <Entities />
+          <MajorProducts />
         </Reveal>
         <Reveal>
           <Certifications />

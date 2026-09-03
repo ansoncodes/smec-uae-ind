@@ -8,7 +8,13 @@ export default function Clients() {
   return (
     <section aria-labelledby="our-clients">
       <div className="container">
-        <SectionHeading id="our-clients" eyebrow="Trusted by" title="Our Clients" />
+        <SectionHeading
+          id="our-clients"
+          index="05"
+          eyebrow="Clients"
+          title="Trusted by industry leaders"
+          body="Operators, drilling contractors and EPC partners across the Gulf and South Asia."
+        />
 
         <ul className={`grid ${styles.grid}`}>
           {clients.map((client) => (

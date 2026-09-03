@@ -1,3 +1,4 @@
+import Eyebrow from "@/components/ui/Eyebrow";
 import { whoWeAre } from "@/lib/siteData";
 import { LayersIcon, ShieldIcon, GlobeIcon } from "@/components/Icons";
 import styles from "./WhoWeAre.module.css";
@@ -16,7 +17,7 @@ export default function WhoWeAre() {
     <section aria-labelledby="who-we-are">
       <div className={`container ${styles.split}`}>
         <div>
-          <div className="eyebrow">About SMEC</div>
+          <Eyebrow index="01">Company</Eyebrow>
           <h2 id="who-we-are" className={styles.heading}>
             {whoWeAre.heading}
           </h2>
@@ -24,7 +25,7 @@ export default function WhoWeAre() {
         </div>
 
         <div>
-          <div className="eyebrow cool">Under one roof</div>
+          <Eyebrow>Under one roof</Eyebrow>
           <ul className={`grid g3 ${styles.tiles}`}>
             {pillars.map(({ icon: Icon, label }) => (
               <li key={label} className={styles.region}>

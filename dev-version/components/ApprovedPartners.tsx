@@ -9,7 +9,7 @@ export default function ApprovedPartners() {
       <div className="container">
         <div className={styles.row}>
           <h2 id="approved-partners" className={`eyebrow ${styles.label}`}>
-            Approved Partners
+            Approved partners
           </h2>
           <div className={`grid ${styles.grid}`}>
             {partners.map((partner) => (

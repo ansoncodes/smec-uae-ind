@@ -1,30 +1,34 @@
+/* The artwork carries this section, so it takes the larger share. */
+.split {
+  grid-template-columns: 0.78fr 1.22fr;
+  align-items: stretch;
+}
+
 .copy {
-  padding: 30px;
+  padding: clamp(28px, 3.4vw, 48px);
   display: flex;
   flex-direction: column;
   justify-content: center;
 }
 
-.copy :global(.eyebrow) {
-  margin-bottom: 6px;
-}
-
 .heading {
-  font-size: 19px;
-  margin-top: 10px;
+  font-size: var(--fs-h2-sm);
+  line-height: var(--lh-heading);
+  letter-spacing: -0.02em;
+  margin-top: 14px;
 }
 
 .body {
   color: var(--text-soft);
-  font-size: 13.5px;
-  line-height: 2;
-  margin-top: 14px;
+  font-size: var(--fs-lead);
+  line-height: var(--lh-body);
+  margin-top: 18px;
 }
 
 /* .gallery-tile (cool) with the real image under the tint */
 .tile {
   position: relative;
-  min-height: 260px;
+  min-height: clamp(320px, 34vw, 480px);
   overflow: hidden;
   border: 1px solid var(--line);
 }
@@ -45,7 +49,10 @@
 .tint {
   position: absolute;
   inset: 0;
-  background: linear-gradient(135deg, rgba(14, 30, 58, 0.7) 0%, rgba(76, 201, 240, 0.35) 55%, rgba(155, 93, 229, 0.35) 100%);
+  /* Light enough that the green artwork stays legible — this is the page's
+     one green moment and muddying it defeats the point — but still carrying a
+     violet cast at the corners so it belongs to the palette. */
+  background: linear-gradient(135deg, rgba(20, 12, 40, 0.5) 0%, rgba(76, 201, 240, 0.16) 55%, rgba(155, 93, 229, 0.3) 100%);
   mix-blend-mode: multiply;
 }
 
@@ -63,8 +70,14 @@
   color: #fff;
 }
 
+@media (max-width: 900px) {
+  .split {
+    grid-template-columns: 1fr;
+  }
+}
+
 @media (max-width: 600px) {
   .tile {
-    min-height: 200px;
+    min-height: 240px;
   }
 }

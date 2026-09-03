@@ -33,18 +33,18 @@ function ArticleCard({ article }: { article: Article }) {
   );
 }
 
-/** Prototype `.paper` section; cards ride the scroll-snap rail. */
+/** Cards ride the scroll-snap rail. */
 export default function Articles() {
   return (
-    <section className="paper" aria-labelledby="articles">
+    <section aria-labelledby="articles">
       <div className="container">
-        <SectionHeading id="articles" eyebrow="Insights" title="Articles" />
+        <SectionHeading id="articles" index="10" eyebrow="Insights" title="Articles" />
 
         <Rail
           items={articles}
           ariaLabel="Articles"
           gap={20}
-          cardWidth={{ desktop: "300px", tablet: "290px", mobile: "82vw" }}
+          cardWidth={{ desktop: "348px", tablet: "310px", mobile: "84vw" }}
           autoplayDelay={4500}
           renderItem={(article) => <ArticleCard article={article} />}
         />

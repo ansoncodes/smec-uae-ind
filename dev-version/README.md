@@ -17,7 +17,7 @@ npm run build    # production build
 
 ```
 app/
-  layout.tsx        root layout + Google Fonts (Space Grotesk, Inter, IBM Plex Mono)
+  layout.tsx        root layout + Google Fonts (Manrope, IBM Plex Mono)
   page.tsx          composes the sections
   globals.css       tokens + the prototype primitives (.wrap, .eyebrow, .btn,
                     .card, .section-head, .grid/.gN, .diagram-panel, .schematic,
@@ -26,7 +26,7 @@ app/
 
 components/
   Header.tsx            utility bar + sticky nav row, mega-menu, mobile drawer
-  Hero.tsx              two-column hero: gradient heading, CTAs, diagram panel
+  Hero.tsx              full-bleed photo hero + instrument panel
   ApprovedPartners.tsx  logostrip row on a paper band
   MajorProducts.tsx     8 cards in a g4 grid
   Stats.tsx             statrow with scroll-triggered count-up
@@ -34,8 +34,8 @@ components/
   Entities.tsx          navy band: the UAE entity and the India hub side by side
   Certifications.tsx    four ISO cards
   Clients.tsx           logostrip grid
-  GlobalPresence.tsx    navy band: pin map in a diagram panel + region tiles + ticker
-  RDFocus.tsx           copy + tinted gallery tile
+  GlobalPresence.tsx    navy band: full-width pin map, region tiles, country ticker
+  RDFocus.tsx           full-bleed photographic band + numbered focus areas
   SolutionsServices.tsx paper split with click-to-play video
   Sustainability.tsx    navy band: copy card + tinted gallery tile
   Articles.tsx          card rail
@@ -43,6 +43,7 @@ components/
   FloatingWidgets.tsx   Quick Enquiry, WhatsApp, scroll-to-top
   Icons.tsx             inline SVG icon set
   ui/Logo.tsx           mark + mono word lock-up (real SMEC wordmark, reversed)
+  ui/Eyebrow.tsx        numbered technical label — `01 / COMPANY`
   ui/Schematic.tsx      the prototype's wellhead → grid schematic SVG
   ui/Rail.tsx           reusable scroll-snap rail with arrows
   ui/Reveal.tsx         entrance reveal on scroll
@@ -51,6 +52,84 @@ components/
 lib/siteData.ts     all copy, links, image paths, map pin coordinates
 public/             logos and images (same set as the wireframe build)
 ```
+
+## Typography
+
+Two faces, no more. **Manrope** carries everything structural and gets its
+hierarchy from weight and size rather than from a second display face;
+**IBM Plex Mono** carries anything that should read as data — eyebrows,
+buttons, labels, captions, panel readouts.
+
+| Token | Desktop | Weight | Used for |
+| --- | --- | --- | --- |
+| `--fs-display` | 44–68px | 800 | Hero headline only |
+| `--fs-h2` | 28–38px | 700 | Section titles |
+| `--fs-h2-sm` | 22–27px | 700 | Titles inside a card or panel |
+| `--fs-h3` | 20–24px | 700 | Standalone headings |
+| `--fs-card` | 18px | 600 | Card titles |
+| `--fs-lead` | 17px | 400 | Intro copy |
+| `--fs-body` | 16px | 400 | Paragraphs |
+| `--fs-small` | 14px | 400 | Card body |
+| `--fs-nav` | 14px | 500 | Navigation |
+| `--fs-btn` | 13.5px | 600 | Buttons |
+| `--fs-mono` / `--fs-mono-sm` | 11.5 / 10.5px | 500–600 | Labels and data |
+
+Nothing sits below 400. Headings and paragraphs never share a line-height:
+`--lh-tight` (1.06) sets headings, `--lh-body` (1.65) sets copy, and
+`--measure` (620px) caps descriptive paragraphs so they never run a full
+section wide.
+
+Every size step is a `clamp()`, so the steps stay distinct at any width and
+the per-breakpoint font overrides that used to collapse them are gone.
+`--card-pad` drives both card padding and the negative margins that bleed card
+images to the edge, so they cannot drift apart.
+
+## Page width
+
+`--wrap` is 1680px and `--gutter` is `clamp(20px, 2.8vw, 52px)`. The earlier
+fixed 1320px column left roughly 200px of dead margin on each side of a
+1728px display, which made the whole page read as a narrow box floating in the
+middle. The gutter being a clamp also means there are no per-breakpoint gutter
+overrides to keep in sync.
+
+### Case
+
+Uppercase is reserved for eyebrows, buttons, and technical metadata. Headings,
+paragraphs, product names and navigation are sentence case — including two
+strings the live site sets in caps, the hero subtitle and "Power Houses",
+which at heading size read as shouting.
+
+### Numbered eyebrows
+
+Every chapter of the page carries `01 /`…`10 /` before its label, which is
+what makes the sections read as one indexed document rather than a stack of
+unrelated blocks. Strips rather than chapters — the partner row, the stats
+band — pass no index and keep the plain rule instead.
+
+## Page rhythm
+
+Sections alternate ground so no two neighbours share one, reading down as
+`bg → paper → bg → paper → navy → bg → paper → bg → navy → bg → paper →
+navy → bg`. Order follows a narrative: who we are, the proof, where we
+operate, then what we make. Products used to come before any of that.
+
+The stats band is the page's mid-scroll anchor. It was a hairline strip with
+26px figures despite carrying the strongest proof on the site; it now has its
+own ground, a brand glow and figures on `--fs-display`'s neighbouring step.
+
+## Accent discipline
+
+Magenta and cyan were competing because the most-repeated element on the page,
+the eyebrow, was magenta. The two accents now have jobs:
+
+- **Cyan** carries information — eyebrows, section rules, labels, readouts,
+  map pins for the two home locations, the hero's promise line.
+- **Magenta** is reserved for action and emphasis — primary buttons, the card
+  hover rule, the Quick Enquiry tab, the hero headline, and the single eyebrow
+  that marks the contracting entity (`.eyebrow.hot`).
+
+`.eyebrow` therefore defaults to the cool gradient; `.cool` is kept as an alias
+so existing markup keeps working.
 
 ## Design system
 
@@ -61,9 +140,8 @@ Ported verbatim from the prototype's `:root` and primitives:
   everything
 - **Lines** — `#2E2149` hairlines, square corners everywhere
 - **Accents** — hot gradient (copper `#FF8A4C` → pink `#F72585` → plum
-  `#7209B7`) for eyebrows, primary buttons, card hover bars and the `.navy`
-  band's top rule; cool gradient (teal → cyan `#4CC9F0` → violet `#9B5DE5`)
-  for stat figures and secondary eyebrows
+  `#7209B7`) and cool gradient (teal `#00F5D4` → cyan `#4CC9F0` → violet
+  `#9B5DE5`), divided by job as described under Accent discipline above
 - **Type** — Space Grotesk for headings, Inter for body, IBM Plex Mono
   (uppercase, tracked) for eyebrows, buttons, nav, labels and captions
 - **Hover** — cards lift 3px with a violet shadow and a gradient top bar;
@@ -73,13 +151,14 @@ Ported verbatim from the prototype's `:root` and primitives:
 
 The UAE entity is the one clients contract with, so it leads everywhere it
 appears; the India hub is shown as the engineering and manufacturing capability
-behind it rather than a second front door. Both are named in five places:
+behind it rather than a second front door. Both are named in four places (the
+hero carried a fifth, dropped in the design-review pass to declutter it — the
+utility bar directly above it already names both):
 
 | Place | UAE | India |
 | --- | --- | --- |
 | Utility bar | Named first | Follows after a middot; hidden under 1180px so the UAE half is never the part that clips |
-| Hero | First entity line, hot gradient dash | Second line, cool gradient dash |
-| `Entities` section | First card, permanent gradient rule, full address | Second card, cool eyebrow, links to smecautomation.com |
+| `Entities` section | First card, permanent gradient rule, magenta eyebrow, map crop on Abu Dhabi, full address | Second card, cyan eyebrow, map crop on Kochi, links to smecautomation.com |
 | Global presence map | `UAE` → Headquarters, `ABU DHABI` → Registered office | `INDIA` → Engineering hub; all three tiles get a cyan border and label |
 | Footer | First address block | Second block under "Engineering & manufacturing hub" |
 
@@ -96,13 +175,39 @@ The prototype is dark; most of the saved assets were made for a white page.
 - **Partner and client logos** — inverted, desaturated and lighten-blended so
   their white plates drop into the surface and only a monochrome mark
   remains, matching the prototype's mono logostrips.
-- **Product shots and certificates** — cut-outs on white, so they sit on a
-  light plate inset in the dark card.
+- **Product shots** — white cut-outs of often-white equipment. On a near-white
+  plate the whole tile read as blank at any reduced scale, so the plate is a
+  deeper cool gradient, the image multiplies onto it, and a vignette gives
+  white equipment an edge.
+- **Certificates** — a full A4 page scaled to thumbnail size is a white
+  rectangle. Each card crops to the printed header instead, and leads with the
+  standard and its scope.
+- **Client and partner marks** — inverted and lighten-blended. They were also
+  at 0.75 opacity, which disappeared in a scaled-down view; they now sit at
+  0.95 with a brightness lift.
 - **Map** — the saved dotted map is grey-on-white; the same invert + lighten
   treatment makes it a pale dot field. Pin coordinates are unchanged from the
   reference. Pins are drawn as the schematic's copper nodes.
-- **R&D and sustainability photos** — shown as gallery tiles under the
-  prototype's hot / cool gradient tints.
+- **Sustainability artwork** — the one green moment on a violet page, so its
+  tint is deliberately light. Muddying it toward the palette defeats the point.
+
+## Photography
+
+Three large assets carry the page, run full-bleed the way the wireframe build
+used them rather than boxed into tiles:
+
+| Asset | Where | Why there |
+| --- | --- | --- |
+| `Oil-and-gas-Banner.webp` (1920×581) | Hero background | Its sunset runs violet → pink → copper, which is the theme's own palette. It was sitting unused while the hero had no photograph at all. |
+| `SMECoilandhasbanner-3.webp` (1920×720) | R&D Focus, full-bleed band | A near-black night refinery, which is the one photo that needs no darkening to sit on this page. It was being shown in a 300px tile. |
+| `SMEoilandgas-green-3.webp` (1200×660) | Sustainability, larger half of the split | Semantic green; given the dominant share of its section. |
+
+Each photographic band pairs the image with a scrim that does two jobs: it
+holds the copy at readable contrast and tints the photograph violet so it
+joins the palette. The scrims are weighted **horizontally** on desktop, where
+copy sits in the left column, and switch to **vertical** under 900px, where
+the copy spans the full width and a side-weighted scrim would leave text on
+the lit parts of the image.
 
 **Note on `next.config.mjs`.** `turbopack.root` is pinned to this directory
 because an unrelated empty `package-lock.json` sits one level up, which would

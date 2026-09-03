@@ -63,19 +63,15 @@ export const contact = {
 
 export const hero = {
   title: "SMEC OIL AND GAS",
-  subtitle: "TURNKEY SOLUTIONS FOR OIL AND GAS INDUSTRY",
+  /* Sentence case; the live site sets this in caps, which at 23px in the hero
+     read as shouting. Caps are kept for eyebrows, buttons and metadata only. */
+  subtitle: "Turnkey solutions for the oil and gas industry",
   lines: [
     "Delivering solutions for onshore and offshore Rigs",
     "We understand that your needs are unique and we assure you customized solutions",
   ],
   ctaLabel: "Contact Us",
   ctaHref: `${SITE}/contact-us`,
-  badge: {
-    src: "/images/misc/749986-middle-1.png",
-    alt: "ADNOC In-Country Value Certified",
-    width: 465,
-    height: 270,
-  },
 };
 
 /* The source marks are low-resolution Elementor thumbnails, so each one is
@@ -121,7 +117,7 @@ export const productsIntro =
 export const products: Product[] = [
   {
     image: "/images/products/Power-House-SMEC.png",
-    title: "POWER HOUSES",
+    title: "Power Houses",
     tagline: "PCR House | SCR House | VFD House",
     text: "Tailored Solutions for Optimal Performance with PCR, SCR, and VFD Technologies.",
     href: `${SITE}/power-house`,
@@ -239,6 +235,8 @@ export type Entity = {
   name: string;
   role: string;
   points: string[];
+  /** Crop centre for the dotted world map inset, from the pin coordinates. */
+  map: { x: string; y: string };
   address?: string[];
   link: { label: string; href: string; external?: boolean };
   /** The contracting entity — carries the primary card treatment. */
@@ -260,6 +258,7 @@ export const entities = {
       location: "Abu Dhabi, UAE",
       name: "SMEC Oil & Gas Solutions LLC SPC",
       role: "Headquarters — regional delivery & client engagement",
+      map: { x: "64.5%", y: "43%" },
       points: [
         "Client relationships & project delivery",
         "On-site engineering & commissioning support",
@@ -274,6 +273,7 @@ export const entities = {
       location: "Kochi, India",
       name: "SMEC Automation Pvt. Ltd.",
       role: "Engineering & manufacturing hub",
+      map: { x: "73%", y: "45%" },
       points: [
         "Automation, electrical & instrumentation engineering",
         "Panel manufacturing & factory acceptance testing",
@@ -338,6 +338,11 @@ export const marqueeCountries = [
 export const rdFocus = {
   heading: "R&D Focus",
   body: "Developing cutting-edge automation technologies to optimise oil and gas operations.",
+  /* NOT FROM THE LIVE SITE. These three focus areas were supplied during design
+     review to give the section substance; they are claims about what SMEC
+     researches and need sign-off before this goes public. Delete the array to
+     drop the list entirely — the section renders without it. */
+  areas: ["Process Optimization", "Energy Efficiency", "Digital Engineering"],
 };
 
 export const solutions = {
