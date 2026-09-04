@@ -1,0 +1,83 @@
+/* The artwork carries this section, so it takes the larger share. */
+.split {
+  grid-template-columns: 0.78fr 1.22fr;
+  align-items: stretch;
+}
+
+.copy {
+  padding: clamp(28px, 3.4vw, 48px);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.heading {
+  font-size: var(--fs-h2-sm);
+  line-height: var(--lh-heading);
+  letter-spacing: -0.02em;
+  margin-top: 14px;
+}
+
+.body {
+  color: var(--text-soft);
+  font-size: var(--fs-lead);
+  line-height: var(--lh-body);
+  margin-top: 18px;
+}
+
+/* .gallery-tile (cool) with the real image under the tint */
+.tile {
+  position: relative;
+  min-height: clamp(320px, 34vw, 480px);
+  overflow: hidden;
+  border: 1px solid var(--line);
+}
+
+.image {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.35s ease;
+}
+
+.tile:hover .image {
+  transform: scale(1.1);
+}
+
+.tint {
+  position: absolute;
+  inset: 0;
+  /* Light enough that the green artwork stays legible — this is the page's
+     one green moment and muddying it defeats the point — but still carrying a
+     violet cast at the corners so it belongs to the palette. */
+  background: linear-gradient(135deg, rgba(16, 20, 24, 0.5) 0%, rgba(122, 182, 213, 0.16) 55%, rgba(122, 182, 213, 0.3) 100%);
+  mix-blend-mode: multiply;
+}
+
+.cap {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  padding: 10px 12px;
+  background: linear-gradient(0deg, rgba(12, 15, 18, 0.88), transparent);
+  font-family: var(--mono);
+  font-size: 11px;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  color: #fff;
+}
+
+@media (max-width: 900px) {
+  .split {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 600px) {
+  .tile {
+    min-height: 240px;
+  }
+}

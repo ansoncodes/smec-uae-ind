@@ -1,0 +1,81 @@
+.root {
+  position: relative;
+}
+
+.track {
+  display: flex;
+  overflow-x: auto;
+  overflow-y: hidden;
+  scroll-snap-type: x mandatory;
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+  padding: 6px 0 18px;
+  /* let cards breathe past the container edge on small screens */
+  margin: 0 calc(var(--gutter) * -1);
+  padding-left: var(--gutter);
+  padding-right: var(--gutter);
+}
+
+.track::-webkit-scrollbar {
+  display: none;
+}
+
+.cell {
+  flex: 0 0 var(--card-w);
+  width: var(--card-w);
+  scroll-snap-align: start;
+  display: flex;
+}
+
+.cell > * {
+  width: 100%;
+}
+
+.controls {
+  display: flex;
+  justify-content: flex-end;
+  gap: 8px;
+  margin-top: 12px;
+}
+
+/* square ghost buttons, same idiom as .btn-ghost */
+.arrow {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 42px;
+  height: 42px;
+  background: transparent;
+  border: 1.5px solid var(--line);
+  color: var(--text);
+  transition: border-color 0.18s ease, color 0.18s ease, box-shadow 0.18s ease, opacity 0.18s ease;
+}
+
+.arrow:hover:not(:disabled) {
+  border-color: var(--steel);
+  color: var(--steel);
+  box-shadow: 0 0 16px rgba(122, 182, 213, 0.25);
+}
+
+.arrow:disabled {
+  opacity: 0.3;
+  cursor: default;
+}
+
+@media (max-width: 1024px) {
+  .cell {
+    flex-basis: var(--card-w-tablet);
+    width: var(--card-w-tablet);
+  }
+}
+
+@media (max-width: 767px) {
+  .cell {
+    flex-basis: var(--card-w-mobile);
+    width: var(--card-w-mobile);
+  }
+
+  .controls {
+    justify-content: center;
+  }
+}

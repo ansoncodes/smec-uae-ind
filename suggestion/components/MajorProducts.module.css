@@ -1,0 +1,12 @@
+/* Reveal wraps each card, so the wrapper is the grid item and has to carry
+   the full height for the cards to stay equal. */
+.cell {
+  display: flex;
+}
+
+@media (max-width: 600px) {
+  /* the product copy is long; two narrow columns on a phone do not read */
+  .grid {
+    grid-template-columns: 1fr;
+  }
+}

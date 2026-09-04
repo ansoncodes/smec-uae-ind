@@ -1,0 +1,10 @@
+/* Sizes live on the global .section-head; this only handles centring. */
+.center {
+  margin-left: auto;
+  margin-right: auto;
+  text-align: center;
+}
+
+.center :global(.eyebrow) {
+  justify-content: center;
+}

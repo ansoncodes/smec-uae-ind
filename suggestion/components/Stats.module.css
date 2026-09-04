@@ -1,0 +1,80 @@
+/* The four numbers are the strongest proof on the page, so this is a real
+   band with its own ground and glow — not the hairline strip it was. */
+
+.section {
+  position: relative;
+  isolation: isolate;
+  overflow: hidden;
+  padding: clamp(72px, 8vw, 128px) 0;
+  background: var(--bg-alt);
+  border-top: 1px solid var(--line);
+  border-bottom: 1px solid var(--line);
+}
+
+.section::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  background:
+    radial-gradient(720px 320px at 18% 0%, rgba(255, 140, 26, 0.16), transparent 70%),
+    radial-gradient(720px 320px at 84% 100%, rgba(122, 182, 213, 0.14), transparent 70%);
+}
+
+.statrow {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+}
+
+.stat {
+  padding: 10px clamp(12px, 2vw, 32px);
+  border-right: 1px solid var(--line);
+  text-align: center;
+}
+
+.stat:last-child {
+  border-right: none;
+}
+
+.n {
+  font-family: var(--display);
+  font-size: clamp(40px, 4.2vw, 54px);
+  font-weight: 800;
+  letter-spacing: -0.035em;
+  color: var(--text);
+  font-variant-numeric: tabular-nums;
+  line-height: 1;
+}
+
+/* Only the suffix takes the accent — a full gradient figure was harder to
+   read than it was impressive. */
+.suffix {
+  color: var(--steel);
+}
+
+@media (forced-colors: active) {
+  .n {
+    background: none;
+    color: CanvasText;
+  }
+}
+
+.l {
+  font-family: var(--mono);
+  font-size: var(--fs-mono);
+  color: var(--text-soft);
+  text-transform: uppercase;
+  letter-spacing: 0.18em;
+  margin-top: 20px;
+}
+
+@media (max-width: 700px) {
+  .statrow {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 32px 0;
+  }
+
+  .stat:nth-child(2n) {
+    border-right: none;
+  }
+}

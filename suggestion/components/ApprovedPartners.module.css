@@ -1,0 +1,78 @@
+.section {
+  border-top: 1px solid var(--line);
+  border-bottom: 1px solid var(--line);
+}
+
+.row {
+  display: flex;
+  align-items: center;
+  gap: 48px;
+}
+
+.label {
+  flex: 0 0 auto;
+  min-width: 165px;
+}
+
+.grid {
+  flex: 1 1 auto;
+  min-width: 0;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+}
+
+/* .logostrip from the prototype */
+.strip {
+  border: 1px solid var(--line);
+  padding: 20px 14px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 96px;
+  background: var(--surface);
+  transition: all 0.18s ease;
+}
+
+.strip:hover {
+  border-color: transparent;
+  box-shadow: 0 0 0 1.5px var(--violet), 0 10px 24px rgba(122, 182, 213, 0.25);
+}
+
+/* The source marks are dark-on-white/transparent. Inverting them and then
+   lighten-blending drops any white plate into the surface and leaves a
+   monochrome mark, which is how the prototype's logostrip reads. */
+.logo {
+  width: auto;
+  max-width: 100%;
+  object-fit: contain;
+  filter: invert(1) grayscale(1) brightness(1.45) contrast(1.1);
+  mix-blend-mode: lighten;
+  opacity: 0.95;
+  transition: opacity 0.18s ease;
+}
+
+.strip:hover .logo {
+  opacity: 1;
+}
+
+@media (max-width: 1000px) {
+  .row {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 22px;
+  }
+
+  .grid {
+    width: 100%;
+  }
+
+  .logo {
+    height: auto !important;
+    max-height: 42px;
+  }
+}
+
+@media (max-width: 480px) {
+  .grid {
+    grid-template-columns: minmax(0, 1fr);
+  }
+}

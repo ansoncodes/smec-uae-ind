@@ -1,0 +1,251 @@
+.section {
+  overflow: hidden;
+}
+
+.head {
+  max-width: 760px;
+}
+
+.panel {
+  animation: none;
+  padding: clamp(18px, 2vw, 30px);
+}
+
+/* ---------------- desktop pin map ---------------- */
+
+.mapWrap {
+  position: relative;
+}
+
+/* The saved dotted map is grey-on-white. Inverted + lighten-blended, the
+   white sheet drops into the panel and the dots come up as pale points. */
+.mapBg {
+  position: absolute;
+  inset: 0;
+  background-image: url("/images/misc/map-base.png");
+  background-repeat: no-repeat;
+  /* size + position carried over from the reference so the pin coordinates
+     below still line up with the landmasses */
+  background-size: 105%;
+  background-position: 0% 84%;
+  filter: invert(1) grayscale(1) brightness(0.82);
+  mix-blend-mode: lighten;
+  pointer-events: none;
+}
+
+.mapList {
+  position: relative;
+  height: 0;
+  padding-top: 50%;
+}
+
+/* Pin coordinates are carried over verbatim from the reference's `.map-list`. */
+.pin {
+  position: absolute;
+  width: 16px;
+  height: 16px;
+  /* the coordinate marks the pin's centre, not its corner */
+  margin: 0 0 -8px -8px;
+}
+
+/* schematic node: surface fill, copper stroke, pink core, soft glow */
+.node {
+  position: absolute;
+  inset: 1px;
+  border-radius: 50%;
+  background: var(--surface);
+  border: 1.8px solid var(--copper);
+  box-shadow: 0 0 6px rgba(255, 157, 61, 0.55);
+  transition: transform 0.22s ease, border-color 0.22s ease;
+}
+
+.node::after {
+  content: "";
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  width: 5px;
+  height: 5px;
+  margin: -2.5px 0 0 -2.5px;
+  border-radius: 50%;
+  background: var(--copper-deep);
+}
+
+.homePin .node {
+  border-color: var(--steel);
+  box-shadow: 0 0 10px rgba(122, 182, 213, 0.75);
+  transform: scale(1.15);
+}
+
+.homePin .node::after {
+  background: var(--steel);
+}
+
+.pin:hover .node,
+.pin:focus-visible .node {
+  transform: scale(1.3);
+  border-color: var(--steel);
+  box-shadow: 0 0 10px rgba(122, 182, 213, 0.6);
+}
+
+.tip {
+  position: absolute;
+  left: 50%;
+  bottom: 18px;
+  transform: translate(-50%, 6px);
+  padding: 5px 9px;
+  background: var(--surface);
+  border: 1px solid var(--line);
+  color: var(--steel);
+  font-family: var(--mono);
+  font-size: 9.5px;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  white-space: nowrap;
+  text-align: center;
+  opacity: 0;
+  pointer-events: none;
+  box-shadow: 0 10px 24px rgba(0, 0, 0, 0.4);
+  transition: opacity 0.22s ease, transform 0.22s ease;
+  z-index: 5;
+}
+
+.pin:hover .tip,
+.pin:focus-visible .tip {
+  opacity: 1;
+  transform: translate(-50%, 0);
+}
+
+.tip em {
+  display: block;
+  font-style: normal;
+  color: var(--text-soft);
+  margin-top: 3px;
+}
+
+/* Downscaled to a phone width the dot texture averages to a pale grey, so
+   after inversion it needs a strong brightness lift to read on the panel. */
+.flatMap {
+  display: none;
+  width: 100%;
+  height: auto;
+  filter: invert(1) grayscale(1) brightness(2.4);
+  mix-blend-mode: lighten;
+}
+
+/* ---------------- region tiles ---------------- */
+
+.regions {
+  margin-top: clamp(28px, 3vw, 44px);
+  grid-template-columns: repeat(6, minmax(0, 1fr));
+  gap: 14px;
+}
+
+.region {
+  border: 1px solid var(--line);
+  padding: 18px;
+  background: var(--surface);
+  transition: all 0.18s ease;
+}
+
+.region:hover {
+  border-color: transparent;
+  box-shadow: 0 0 0 1.5px var(--steel), 0 10px 26px rgba(122, 182, 213, 0.22);
+  transform: translateY(-2px);
+}
+
+.rn {
+  font-family: var(--display);
+  font-weight: 700;
+  font-size: 15px;
+  color: var(--text);
+}
+
+.rs {
+  font-family: var(--mono);
+  font-size: var(--fs-mono-sm);
+  letter-spacing: 0.08em;
+  color: var(--text-soft);
+  text-transform: uppercase;
+  margin-top: 6px;
+}
+
+/* The two home locations are separated from the served markets. */
+.home {
+  border-color: rgba(122, 182, 213, 0.35);
+}
+
+.home .rs {
+  color: var(--steel);
+}
+
+/* ---------------- country ticker ---------------- */
+
+.marquee {
+  margin-top: 48px;
+  overflow: hidden;
+  border-top: 1px solid var(--line);
+  padding: 16px 0;
+  -webkit-mask-image: linear-gradient(to right, transparent 0, #000 10%, #000 90%, transparent 100%);
+  mask-image: linear-gradient(to right, transparent 0, #000 10%, #000 90%, transparent 100%);
+}
+
+.track {
+  display: flex;
+  align-items: center;
+  width: max-content;
+  gap: 48px;
+  animation: drift calc(var(--count) * 3s) linear infinite;
+}
+
+.track li {
+  display: inline-flex;
+  align-items: center;
+  gap: 9px;
+  font-family: var(--mono);
+  font-size: 12.5px;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--text-soft);
+  white-space: nowrap;
+}
+
+.track svg {
+  color: var(--steel);
+}
+
+@keyframes drift {
+  from {
+    transform: translateX(0);
+  }
+  to {
+    transform: translateX(-50%);
+  }
+}
+
+/* ---------------- breakpoints ---------------- */
+
+@media (max-width: 1000px) {
+  .mapWrap {
+    display: none;
+  }
+
+  .flatMap {
+    display: block;
+  }
+
+  .regions {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+}
+
+@media (max-width: 600px) {
+  .regions {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 10px;
+  }
+
+  .track {
+    gap: 32px;
+  }
+}

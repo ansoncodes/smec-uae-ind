@@ -12,6 +12,12 @@
       "runtimeExecutable": "npm",
       "runtimeArgs": ["run", "--prefix", "dev-version", "dev"],
       "autoPort": true
+    },
+    {
+      "name": "smec-suggestion",
+      "runtimeExecutable": "npm",
+      "runtimeArgs": ["run", "--prefix", "suggestion", "dev"],
+      "autoPort": true
     }
   ]
 }

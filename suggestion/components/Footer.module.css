@@ -1,0 +1,191 @@
+/* ---------------- CTA strip (section.navy.tight) ---------------- */
+
+.ctaRow {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 16px;
+}
+
+.ctaTitle {
+  font-size: var(--fs-h2-sm);
+  line-height: 1.15;
+}
+
+.ctas {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+/* ---------------- footer.site ---------------- */
+
+.site {
+  background: var(--surface-2);
+  color: var(--text-soft);
+  padding-top: clamp(56px, 6vw, 88px);
+  border-top: 1px solid var(--line);
+}
+
+.wrap {
+  /* room for the fixed WhatsApp / scroll-top dock */
+  padding-bottom: 88px;
+}
+
+.footgrid {
+  display: grid;
+  grid-template-columns: 1.4fr repeat(4, 1fr);
+  gap: 32px;
+  padding-bottom: clamp(40px, 4vw, 56px);
+  border-bottom: 1px solid var(--line);
+}
+
+.footgrid h5 {
+  font-family: var(--mono);
+  font-size: 11px;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  color: var(--text-dim);
+  margin: 0 0 16px 0;
+  font-weight: 500;
+}
+
+.footgrid ul {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.footgrid li a {
+  display: block;
+  font-size: 13.5px;
+  padding: 5px 0;
+  color: var(--text-soft);
+  transition: color 0.18s ease;
+}
+
+.footgrid li a:hover {
+  color: var(--copper);
+}
+
+.spacer {
+  visibility: hidden;
+}
+
+.addressTitle {
+  font-family: var(--mono);
+  font-size: 11px;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  color: var(--text-dim);
+  margin-top: 22px;
+}
+
+.address {
+  display: flex;
+  flex-direction: column;
+  font-style: normal;
+  font-size: 13.5px;
+  color: var(--text-soft);
+  line-height: 1.6;
+  margin-top: 8px;
+  max-width: 260px;
+}
+
+.address a {
+  display: inline !important;
+  padding: 0 !important;
+  color: var(--text);
+}
+
+.address a:hover {
+  color: var(--copper);
+}
+
+.contactList {
+  margin-top: 14px;
+  font-size: 13.5px;
+  line-height: 1.6;
+}
+
+.contactList li {
+  padding: 2px 0;
+}
+
+.contactList a {
+  display: inline !important;
+  padding: 0 !important;
+  color: var(--text);
+}
+
+.contactList a:hover {
+  color: var(--copper);
+}
+
+.social {
+  display: inline-flex !important;
+  align-items: center;
+  gap: 8px;
+}
+
+.footbottom {
+  display: flex;
+  justify-content: space-between;
+  padding: 20px 0;
+  font-family: var(--mono);
+  font-size: 11px;
+  letter-spacing: 0.05em;
+  color: var(--text-dim);
+  flex-wrap: wrap;
+  gap: 10px;
+  text-transform: uppercase;
+}
+
+.footbottom a:hover {
+  color: var(--copper);
+}
+
+/* ---------------- breakpoints ---------------- */
+
+@media (max-width: 1000px) {
+  .footgrid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .footgrid > div:first-child {
+    grid-column: 1 / -1;
+  }
+
+  .spacer {
+    display: none;
+  }
+}
+
+@media (max-width: 600px) {
+  .site {
+    padding-top: 48px;
+  }
+
+  .wrap {
+    padding-bottom: 104px;
+  }
+
+  .footgrid {
+    grid-template-columns: 1fr;
+    gap: 24px;
+  }
+
+  .ctaTitle {
+    font-size: 19px;
+  }
+
+  .ctas {
+    width: 100%;
+  }
+
+  .ctas :global(.btn) {
+    flex: 1 1 auto;
+    justify-content: center;
+  }
+}

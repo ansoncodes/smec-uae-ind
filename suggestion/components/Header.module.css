@@ -1,0 +1,353 @@
+/* ---------------- header.site ---------------- */
+
+.site {
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  background: rgba(10, 21, 32, 0.92);
+  -webkit-backdrop-filter: blur(8px);
+  backdrop-filter: blur(8px);
+  border-bottom: 1px solid var(--line);
+}
+
+/* ---------------- utility bar ---------------- */
+
+.utilitybar {
+  background: var(--surface-2);
+  color: var(--text-soft);
+  font-family: var(--mono);
+  font-size: 11px;
+  letter-spacing: 0.05em;
+  border-bottom: 1px solid var(--line-soft);
+  text-transform: uppercase;
+}
+
+.utilityInner {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 16px;
+  padding-top: 8px;
+  padding-bottom: 8px;
+}
+
+.utilityNote {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+/* The hub half drops first when the bar tightens, so the UAE entity is never
+   the part that gets clipped. */
+@media (max-width: 1180px) {
+  .utilityHub {
+    display: none;
+  }
+}
+
+.utilityLinks {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex: 0 0 auto;
+  text-transform: none;
+}
+
+.utilityLinks a:hover {
+  color: var(--copper);
+}
+
+/* ---------------- nav row ---------------- */
+
+.navrow {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  padding-top: 16px;
+  padding-bottom: 16px;
+}
+
+.primary {
+  display: flex;
+  gap: 2px;
+}
+
+.navitem {
+  position: relative;
+}
+
+.navbtn {
+  display: inline-block;
+  /* Navigation is not metadata — primary face, sentence case, no tracking. */
+  font-family: var(--display);
+  font-size: var(--fs-nav);
+  font-weight: 500;
+  letter-spacing: 0;
+  text-transform: none;
+  background: none;
+  border: none;
+  padding: 10px 14px;
+  cursor: pointer;
+  color: var(--text-soft);
+  white-space: nowrap;
+  transition: color 0.18s ease;
+}
+
+.navbtn:hover,
+.navitem.open .navbtn,
+.navitem:hover .navbtn {
+  color: var(--copper);
+}
+
+/* ---------------- mega menu ---------------- */
+
+.megamenu {
+  position: absolute;
+  top: 100%;
+  left: 50%;
+  transform: translateX(-50%);
+  background: var(--surface);
+  border: 1px solid var(--line);
+  box-shadow: 0 18px 40px rgba(0, 0, 0, 0.45);
+  padding: 26px;
+  display: none;
+  grid-template-columns: 180px minmax(0, 1fr);
+  gap: 28px;
+  min-width: 640px;
+  z-index: 50;
+}
+
+.navitem.open .megamenu,
+.navitem:hover .megamenu {
+  display: grid;
+}
+
+.megamenu h4 {
+  font-family: var(--mono);
+  font-size: 10.5px;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  color: var(--copper);
+  margin: 0 0 10px 0;
+  font-weight: 500;
+}
+
+.megamenu h4 a:hover {
+  text-decoration: underline;
+}
+
+.megamenu ul {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.megamenu li a {
+  display: block;
+  font-size: 14px;
+  padding: 7px 0;
+  color: var(--text-soft);
+  line-height: 1.45;
+}
+
+.megamenu li a:hover {
+  color: var(--text);
+  text-decoration: underline;
+  text-decoration-color: var(--copper);
+}
+
+.megaCols {
+  columns: 2;
+  column-gap: 28px;
+}
+
+.megaCols li {
+  break-inside: avoid;
+}
+
+/* ---------------- ctas ---------------- */
+
+.navcta {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.burger {
+  display: none;
+  align-items: center;
+  justify-content: center;
+  width: 42px;
+  height: 42px;
+  border: 1.5px solid var(--line);
+  color: var(--text);
+  transition: border-color 0.18s ease, color 0.18s ease;
+}
+
+.burger:hover {
+  border-color: var(--steel);
+  color: var(--steel);
+}
+
+/* ---------------- drawer ---------------- */
+
+.backdrop {
+  position: fixed;
+  inset: 0;
+  background: rgba(12, 15, 18, 0.7);
+  z-index: 190;
+}
+
+.drawer {
+  position: fixed;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  width: min(380px, 90vw);
+  background: var(--surface-2);
+  border-left: 1px solid var(--line);
+  z-index: 200;
+  display: flex;
+  flex-direction: column;
+  overflow-y: auto;
+}
+
+.drawerHead {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  padding: 16px 18px;
+  border-bottom: 1px solid var(--line);
+  position: sticky;
+  top: 0;
+  background: var(--surface-2);
+  z-index: 2;
+}
+
+.drawerClose {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 36px;
+  height: 36px;
+  border: 1.5px solid var(--line);
+  color: var(--text);
+}
+
+.drawerList {
+  padding: 8px 0;
+}
+
+.drawerLink,
+.drawerToggle {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+  width: 100%;
+  padding: 15px 18px;
+  font-family: var(--display);
+  font-size: 15px;
+  font-weight: 600;
+  letter-spacing: 0;
+  text-transform: none;
+  color: var(--text);
+  text-align: left;
+  border-bottom: 1px solid var(--line-soft);
+}
+
+.drawerLink:hover,
+.drawerToggle:hover {
+  color: var(--copper);
+}
+
+.caretOpen {
+  transform: rotate(180deg);
+}
+
+.drawerSub {
+  padding: 6px 0 8px 18px;
+  background: var(--surface);
+  border-bottom: 1px solid var(--line-soft);
+}
+
+.drawerSub .drawerSub {
+  border-bottom: 0;
+  padding-top: 0;
+}
+
+.drawerSub a {
+  display: block;
+  padding: 8px 18px 8px 0;
+  font-size: 13.5px;
+  color: var(--text-soft);
+}
+
+.drawerSub a:hover {
+  color: var(--text);
+  text-decoration: underline;
+  text-decoration-color: var(--copper);
+}
+
+.drawerFoot {
+  margin-top: auto;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 10px;
+  padding: 18px;
+  border-top: 1px solid var(--line);
+  background: var(--surface-2);
+}
+
+.drawerContact {
+  font-family: var(--mono);
+  font-size: 11.5px;
+  color: var(--text-soft);
+}
+
+.drawerContact:hover {
+  color: var(--copper);
+}
+
+/* ---------------- breakpoints ---------------- */
+
+/* Two of the six nav labels run to three words, so the row tightens once
+   before it collapses to the drawer. */
+@media (max-width: 1240px) {
+  .navbtn {
+    padding: 10px 10px;
+    font-size: 13px;
+  }
+}
+
+@media (max-width: 1120px) {
+  .primary {
+    display: none;
+  }
+
+  .burger {
+    display: inline-flex;
+  }
+
+  .utilityNote {
+    display: none;
+  }
+
+  .utilityInner {
+    justify-content: center;
+  }
+}
+
+@media (max-width: 600px) {
+  .navcta :global(.btn-primary) {
+    display: none;
+  }
+
+  .utilityLinks {
+    font-size: 10px;
+    gap: 6px;
+  }
+}
