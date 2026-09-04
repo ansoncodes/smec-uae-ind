@@ -40,8 +40,8 @@ export default function Schematic({ id }: { id: string }) {
     >
       <defs>
         <linearGradient id={grad} x1="0%" y1="0%" x2="100%" y2="0%">
-          <stop offset="0%" stopColor="#FFB457" />
-          <stop offset="45%" stopColor="#FF8C1A" />
+          <stop offset="0%" stopColor="#9CC7FF" />
+          <stop offset="45%" stopColor="#5B9BFF" />
           <stop offset="100%" stopColor="#7AB6D5" />
         </linearGradient>
       </defs>

@@ -3,7 +3,7 @@
 The `../dev-version/` build (homepage plus a page per product and per article)
 on an industrial palette. Order, content and type scale are identical to
 `../dev-version/`; only the colour system changed — the prototype's purple,
-pink and cyan are replaced by gunmetal and molten amber. All copy comes
+pink and cyan are replaced by gunmetal and the SMEC brand blue. All copy comes
 from `lib/siteData.ts` and nothing about the products is invented.
 `../wireframe-version/` and `../reference/` are untouched.
 
@@ -171,11 +171,13 @@ own ground, a brand glow and figures on `--fs-display`'s neighbouring step.
 
 Two accents, each with one job, so the page never reads as neon:
 
-- **Steel blue** carries information — eyebrows, section rules, labels,
+- **Pale steel** carries information — eyebrows, section rules, labels,
   readouts, map pins for the two home locations, the hero's promise line.
-- **Flare amber** is reserved for action and emphasis — primary buttons, the
+- **SMEC blue** is reserved for action and emphasis — primary buttons, the
   card hover rule, the Quick Enquiry tab, the hero headline, and the single
-  eyebrow that marks the contracting entity (`.eyebrow.hot`).
+  eyebrow that marks the contracting entity (`.eyebrow.hot`). The mark's
+  `#003080` is too dark to carry text on this ground, so it is the deep end
+  of the button gradient and the same hue is lifted for text and rules.
 
 `.eyebrow` therefore defaults to the cool gradient; `.cool` is kept as an alias
 so existing markup keeps working.
@@ -188,18 +190,19 @@ module resolves; only the values moved:
 
 - **Ground** — `#0C0F12` page, `#111519` paper bands, `#171C21` surfaces,
   `#131719` utility/footer. Cool charcoal steel, never blue-black and never
-  purple. Two restrained fixed glows (amber upper-left, steel right) and a
-  fine noise grain sit on the same ground layer so the surfaces read as
-  machined rather than flat.
+  purple. Three restrained fixed glows (brand blue upper-left, steel
+  elsewhere) and a fine noise grain sit on the same ground layer so the
+  surfaces read as machined rather than flat.
 - **Text** — `#F4F2ED` / `#ADB5BD` / `#6E7A86`, warm off-white on the cool
   ground so it reads as paper on steel
 - **Lines** — `#242B33` hairlines, square corners everywhere
-- **Accents** — hot gradient (amber `#FFB457` → flare `#FF8C1A` → burnt
-  `#C2410C`) and cool gradient (steel `#8FC7E3` → `#6AA9CC` → `#3F7FA8`),
-  divided by job as described under Accent discipline above
+- **Accents** — text gradient (`#9CC7FF` → `#5B9BFF` → `#2F6FE4`, the brand
+  hue lifted for dark ground), button gradient (`#3B7FF5` → `#2563EB` →
+  `#1E4FBF`, white text) and cool gradient (steel `#8FC7E3` → `#6AA9CC` →
+  `#3F7FA8`), divided by job as described under Accent discipline above
 - **Type** — Manrope for headings and body, IBM Plex Mono (uppercase,
   tracked) for eyebrows, buttons, nav, labels and captions
-- **Hover** — cards lift 3px with a deep shadow and an amber hairline plus a
+- **Hover** — cards lift 3px with a deep shadow and a blue hairline plus a
   gradient top bar; ghost buttons and tiles glow steel
 
 ## Entity positioning
@@ -213,7 +216,7 @@ utility bar directly above it already names both):
 | Place | UAE | India |
 | --- | --- | --- |
 | Utility bar | Named first | Follows after a middot; hidden under 1180px so the UAE half is never the part that clips |
-| `Entities` section | First card, permanent gradient rule, amber eyebrow, map crop on Abu Dhabi, full address | Second card, steel eyebrow, map crop on Kochi, links to smecautomation.com |
+| `Entities` section | First card, permanent gradient rule, blue eyebrow, map crop on Abu Dhabi, full address | Second card, steel eyebrow, map crop on Kochi, links to smecautomation.com |
 | Global presence map | `UAE` → Headquarters, `ABU DHABI` → Registered office | `INDIA` → Engineering hub; all three tiles get a steel border and label |
 | Footer | First address block | Second block under "Engineering & manufacturing hub" |
 
@@ -253,7 +256,7 @@ used them rather than boxed into tiles:
 
 | Asset | Where | Why there |
 | --- | --- | --- |
-| `Oil-and-gas-Banner.webp` (1920×581) | Hero background | Its sunset runs through amber and copper, which is now the site's action colour. It was sitting unused while the hero had no photograph at all. |
+| `Oil-and-gas-Banner.webp` (1920×581) | Hero background | Its sunset is the one warm passage on the page; the blue scrim and accents sit against it as the brand. It was sitting unused while the hero had no photograph at all. |
 | `SMECoilandhasbanner-3.webp` (1920×720) | R&D Focus, full-bleed band | A near-black night refinery, which is the one photo that needs no darkening to sit on this page. It was being shown in a 300px tile. |
 | `SMEoilandgas-green-3.webp` (1200×660) | Sustainability, larger half of the split | Semantic green; given the dominant share of its section. |
 

@@ -82,16 +82,16 @@
   justify-content: center;
   width: 64px;
   height: 64px;
-  background: var(--grad-hot);
-  color: #0c0f12;
+  background: var(--grad-action);
+  color: #ffffff;
   padding-left: 4px;
-  box-shadow: 0 8px 24px rgba(255, 140, 26, 0.35);
+  box-shadow: 0 8px 24px rgba(59, 127, 245, 0.35);
   transition: transform 0.18s ease, box-shadow 0.18s ease;
 }
 
 .poster:hover .play {
   transform: translateY(-2px);
-  box-shadow: 0 12px 30px rgba(255, 140, 26, 0.5);
+  box-shadow: 0 12px 30px rgba(59, 127, 245, 0.5);
 }
 
 .cap {

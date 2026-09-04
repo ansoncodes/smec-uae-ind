@@ -1,10 +1,10 @@
 /* ------------------------------------------------------------------
    Design system — industrial theme.
 
-   Gunmetal and molten amber. The structure, idioms and type scale are
+   Gunmetal and SMEC blue. The structure, idioms and type scale are
    the prototype's; the palette is rebuilt for an oil & gas audience:
-   charcoal-steel grounds, flare orange as the one action colour, steel
-   blue for information, a restrained glow rather than neon, and a fine
+   charcoal-steel grounds, the SMEC brand blue as the one action colour,
+   pale steel for information, a restrained glow rather than neon, and a fine
    grain over the ground so the surfaces read as machined, not flat.
    ------------------------------------------------------------------ */
 
@@ -20,21 +20,23 @@
   --text-soft: #adb5bd;
   --text-dim: #6e7a86;
 
-  /* Accents. `copper` is the action colour — flare / hazard amber. `steel`
+  /* Accents. `copper` is the action colour — the SMEC brand blue (#003080 in the mark, lifted for dark ground). `steel`
      carries information. The other names are kept so the modules still
      resolve, but they all sit inside the same two families now. */
-  --copper: #ff9d3d;
-  --copper-deep: #e5620e;
+  --copper: #4d8dff;
+  --copper-deep: #2563eb;
   --steel: #7ab6d5;
   --violet: #8593a3;
   --teal: #4fb3a8;
-  --plum: #9a3412;
+  --plum: #003080;
 
   --line: #242b33;
   --line-soft: #1c2228;
 
-  --grad-hot: linear-gradient(115deg, #ffb457 0%, #ff8c1a 50%, #c2410c 100%);
+  --grad-hot: linear-gradient(115deg, #9cc7ff 0%, #5b9bff 50%, #2f6fe4 100%);
   --grad-cool: linear-gradient(115deg, #8fc7e3 0%, #6aa9cc 50%, #3f7fa8 100%);
+  /* Buttons and tabs: the deeper end of the brand blue so white text passes. */
+  --grad-action: linear-gradient(115deg, #3b7ff5 0%, #2563eb 50%, #1e4fbf 100%);
   /* One primary sans + one technical mono. Manrope carries everything with
      type weight; IBM Plex Mono carries anything that should read as data. */
   --display: "Manrope", system-ui, sans-serif;
@@ -115,12 +117,12 @@ body::before {
   z-index: -1;
   pointer-events: none;
   /* Grain first (a 96px tiled PNG, cached and cheap), then three restrained
-     glows: one amber flare top-left, steel elsewhere. Explicit sizes so the
+     glows: brand blue top-left, steel elsewhere. Explicit sizes so the
      footprint does not grow with the viewport. One fixed layer, no blend
      modes, so it costs nothing to scroll. */
   background:
     url(/grain.png) 0 0 / 96px 96px repeat,
-    radial-gradient(1100px 760px at 12% 8%, rgba(255, 140, 26, 0.09), transparent 70%),
+    radial-gradient(1100px 760px at 12% 8%, rgba(59, 127, 245, 0.09), transparent 70%),
     radial-gradient(900px 700px at 88% 15%, rgba(122, 182, 213, 0.08), transparent 70%),
     radial-gradient(1200px 640px at 50% 100%, rgba(122, 182, 213, 0.05), transparent 70%);
 }
@@ -181,7 +183,7 @@ h6 {
 }
 
 ::selection {
-  background: rgba(255, 140, 26, 0.4);
+  background: rgba(59, 127, 245, 0.4);
   color: #fff;
 }
 
@@ -368,17 +370,17 @@ section.tight,
 }
 
 .btn-primary {
-  background: var(--grad-hot);
+  background: var(--grad-action);
   background-size: 160% 160%;
-  color: #0c0f12;
+  color: #ffffff;
   font-weight: 600;
-  box-shadow: 0 8px 24px rgba(255, 140, 26, 0.3);
+  box-shadow: 0 8px 24px rgba(59, 127, 245, 0.3);
 }
 
 .btn-primary:hover {
   background-position: 80% 20%;
   transform: translateY(-2px);
-  box-shadow: 0 12px 30px rgba(255, 140, 26, 0.42);
+  box-shadow: 0 12px 30px rgba(59, 127, 245, 0.42);
 }
 
 .btn-ghost,
@@ -487,7 +489,7 @@ section.tight,
 .card:hover {
   border-color: transparent;
   transform: translateY(-3px);
-  box-shadow: 0 18px 40px rgba(0, 0, 0, 0.45), 0 0 0 1px rgba(255, 157, 61, 0.35);
+  box-shadow: 0 18px 40px rgba(0, 0, 0, 0.45), 0 0 0 1px rgba(77, 141, 255, 0.35);
 }
 
 .card:hover::before {
@@ -532,7 +534,7 @@ section.tight,
 .diagram-panel {
   border: 1px solid var(--line);
   background:
-    radial-gradient(circle at 30% 20%, rgba(255, 140, 26, 0.08), transparent 55%),
+    radial-gradient(circle at 30% 20%, rgba(59, 127, 245, 0.08), transparent 55%),
     radial-gradient(circle at 80% 80%, rgba(122, 182, 213, 0.08), transparent 55%),
     var(--surface);
   padding: 28px;
@@ -553,7 +555,7 @@ section.tight,
   fill: none;
   stroke-width: 2.6;
   opacity: 0.9;
-  filter: drop-shadow(0 0 7px rgba(255, 140, 26, 0.35));
+  filter: drop-shadow(0 0 7px rgba(59, 127, 245, 0.35));
 }
 
 /* One pulse travelling the length of the run. The dash gap is the full path
@@ -590,7 +592,7 @@ section.tight,
   fill: var(--surface);
   stroke: var(--copper);
   stroke-width: 2.4;
-  filter: drop-shadow(0 0 7px rgba(255, 157, 61, 0.55));
+  filter: drop-shadow(0 0 7px rgba(77, 141, 255, 0.55));
 }
 
 .schematic .node-dot {

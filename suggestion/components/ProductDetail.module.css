@@ -13,7 +13,7 @@
   inset: 0;
   z-index: -1;
   background:
-    radial-gradient(760px 340px at 12% 0%, rgba(255, 140, 26, 0.16), transparent 70%),
+    radial-gradient(760px 340px at 12% 0%, rgba(59, 127, 245, 0.16), transparent 70%),
     radial-gradient(700px 320px at 88% 100%, rgba(122, 182, 213, 0.14), transparent 70%);
 }
 
@@ -117,7 +117,7 @@
   position: relative;
   padding: clamp(20px, 2.4vw, 34px);
   border: 1px solid var(--line);
-  background: linear-gradient(165deg, #ebe9e3 0%, #c9cdd2 100%);
+  background: linear-gradient(165deg, #e9ecf0 0%, #c9cdd2 100%);
 }
 
 .media::after {

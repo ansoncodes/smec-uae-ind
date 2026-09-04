@@ -50,7 +50,7 @@
   margin: -7px 0 0 -7px;
   border-radius: 50%;
   background: var(--copper-deep);
-  box-shadow: 0 0 0 3px rgba(255, 140, 26, 0.28), 0 0 14px rgba(255, 140, 26, 0.8);
+  box-shadow: 0 0 0 3px rgba(59, 127, 245, 0.28), 0 0 14px rgba(59, 127, 245, 0.8);
 }
 
 .marker::after {
@@ -58,7 +58,7 @@
   position: absolute;
   inset: -8px;
   border-radius: 50%;
-  border: 1px solid rgba(255, 140, 26, 0.55);
+  border: 1px solid rgba(59, 127, 245, 0.55);
   animation: ping 2.6s ease-out infinite;
 }
 

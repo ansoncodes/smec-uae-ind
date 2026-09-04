@@ -17,7 +17,7 @@
   inset: 0;
   z-index: -1;
   background:
-    radial-gradient(720px 320px at 18% 0%, rgba(255, 140, 26, 0.16), transparent 70%),
+    radial-gradient(720px 320px at 18% 0%, rgba(59, 127, 245, 0.16), transparent 70%),
     radial-gradient(720px 320px at 84% 100%, rgba(122, 182, 213, 0.14), transparent 70%);
 }
 
