@@ -1,0 +1,88 @@
+.band {
+  padding-block: clamp(48px, 6vw, 84px);
+  background: var(--blue);
+  color: var(--white);
+}
+
+.inner {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 32px 48px;
+}
+
+.label {
+  margin: 0 0 10px;
+  color: rgba(255, 255, 255, 0.75);
+  font-size: 13px;
+  font-weight: 600;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+}
+
+.title {
+  margin: 0;
+  color: var(--white);
+  font-size: clamp(24px, 2.6vw, 36px);
+  font-weight: 600;
+  letter-spacing: -0.01em;
+  line-height: 1.15;
+}
+
+.actions {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 20px 32px;
+}
+
+.contactLink {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  color: var(--white);
+  font-size: 16px;
+  font-weight: 500;
+  transition: opacity 0.2s var(--ease);
+}
+
+.contactLink:hover {
+  opacity: 0.8;
+}
+
+.icon {
+  width: 15px;
+  height: 15px;
+  opacity: 0.85;
+}
+
+.button {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  padding: 16px 30px;
+  border-radius: var(--pill);
+  background: var(--white);
+  color: var(--blue);
+  font-size: 15px;
+  font-weight: 600;
+  line-height: 1;
+  transition: background 0.2s var(--ease), color 0.2s var(--ease), transform 0.2s var(--ease);
+}
+
+.button::after {
+  content: '\2192';
+  font-size: 1.15em;
+  transition: transform 0.25s var(--ease);
+}
+
+.button:hover {
+  background: var(--navy);
+  color: var(--white);
+  transform: translateY(-1px);
+}
+
+.button:hover::after {
+  transform: translateX(4px);
+}

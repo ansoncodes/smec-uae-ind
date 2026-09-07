@@ -1,0 +1,49 @@
+.section {
+  position: relative;
+  display: flex;
+  align-items: center;
+  min-height: 560px;
+  overflow: hidden;
+  background: var(--navy);
+  color: var(--white);
+}
+
+.bg {
+  object-fit: cover;
+  object-position: center;
+}
+
+.scrim {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(90deg, rgba(9, 32, 46, 0.88) 0%, rgba(9, 32, 46, 0.55) 55%, rgba(9, 32, 46, 0.25) 100%);
+}
+
+.inner {
+  position: relative;
+  padding-block: clamp(72px, 9vw, 120px);
+}
+
+.copy {
+  max-width: 680px;
+}
+
+.heading {
+  color: var(--white);
+  font-size: var(--fs-h2);
+  letter-spacing: 0.02em;
+  line-height: 1.12;
+}
+
+.body {
+  margin: 20px 0 0;
+  color: rgba(255, 255, 255, 0.85);
+  font-size: var(--fs-lead);
+  line-height: 1.65;
+}
+
+@media (max-width: 767px) {
+  .section {
+    min-height: 460px;
+  }
+}

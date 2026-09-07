@@ -1,0 +1,209 @@
+/* Full-bleed photographic hero with the copy anchored bottom-left. */
+
+.hero {
+  position: relative;
+  display: flex;
+  align-items: flex-end;
+  min-height: min(86vh, 860px);
+  overflow: hidden;
+  background: var(--navy);
+  color: var(--white);
+}
+
+.slides {
+  position: absolute;
+  inset: 0;
+}
+
+.slide {
+  position: absolute;
+  inset: 0;
+  opacity: 0;
+  transform: scale(1.06);
+  transition: opacity 1.2s var(--ease), transform 9s linear;
+}
+
+.slideActive {
+  opacity: 1;
+  transform: scale(1);
+}
+
+.slideImage {
+  object-fit: cover;
+  object-position: center;
+}
+
+.scrim {
+  position: absolute;
+  inset: 0;
+  background:
+    linear-gradient(90deg, rgba(9, 32, 46, 0.82) 0%, rgba(9, 32, 46, 0.5) 50%, rgba(9, 32, 46, 0.18) 100%),
+    linear-gradient(180deg, rgba(9, 32, 46, 0.1) 0%, rgba(9, 32, 46, 0.55) 100%);
+}
+
+.inner {
+  position: relative;
+  z-index: 1;
+  display: grid;
+  grid-template-columns: 1fr auto;
+  align-items: end;
+  gap: 40px;
+  padding-top: clamp(56px, 8vw, 110px);
+  padding-bottom: clamp(96px, 11vw, 150px);
+}
+
+.copy {
+  max-width: 780px;
+}
+
+.title {
+  color: var(--white);
+  font-size: var(--fs-hero);
+  font-weight: 600;
+  letter-spacing: -0.02em;
+  line-height: 1.04;
+}
+
+.subtitle {
+  margin-top: 18px;
+  color: rgba(255, 255, 255, 0.88);
+  font-size: clamp(17px, 1.6vw, 22px);
+  font-weight: 500;
+  letter-spacing: 0.04em;
+  line-height: 1.35;
+}
+
+.body {
+  max-width: 640px;
+  margin: 22px 0 34px;
+  color: rgba(255, 255, 255, 0.8);
+  font-size: var(--fs-lead);
+  line-height: 1.6;
+}
+
+.cta {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  padding: 16px 30px;
+  border-radius: var(--pill);
+  background: var(--white);
+  color: var(--navy);
+  font-size: 15px;
+  font-weight: 600;
+  line-height: 1;
+  transition: background 0.2s var(--ease), color 0.2s var(--ease), transform 0.2s var(--ease);
+}
+
+.cta::after {
+  content: '\2192';
+  font-size: 1.15em;
+  transition: transform 0.25s var(--ease);
+}
+
+.cta:hover {
+  background: var(--blue);
+  color: var(--white);
+  transform: translateY(-1px);
+}
+
+.cta:hover::after {
+  transform: translateX(4px);
+}
+
+/* the ADNOC ICV credential, kept small and out of the way of the headline */
+.badgeWrap {
+  justify-self: end;
+  width: 200px;
+  opacity: 0.95;
+}
+
+.badge {
+  width: 100%;
+  height: auto;
+}
+
+/* ------------------------------------------------------------- controls */
+
+.controls {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 32px;
+  z-index: 2;
+  display: flex;
+  align-items: center;
+  gap: 20px;
+}
+
+.dots {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.dot {
+  width: 26px;
+  height: 4px;
+  padding: 0;
+  border-radius: 2px;
+  background: rgba(255, 255, 255, 0.4);
+  transition: background 0.25s var(--ease), width 0.25s var(--ease);
+}
+
+.dot:hover {
+  background: rgba(255, 255, 255, 0.75);
+}
+
+.dotActive {
+  width: 44px;
+  background: var(--white);
+}
+
+.next {
+  display: grid;
+  place-items: center;
+  width: 52px;
+  height: 52px;
+  margin-left: auto;
+  border: 1.5px solid rgba(255, 255, 255, 0.55);
+  border-radius: 50%;
+  color: var(--white);
+  font-size: 16px;
+  transition: background 0.2s var(--ease), color 0.2s var(--ease), border-color 0.2s var(--ease);
+}
+
+.next:hover {
+  background: var(--white);
+  border-color: var(--white);
+  color: var(--navy);
+}
+
+/* ----------------------------------------------------------- breakpoints */
+
+@media (max-width: 900px) {
+  .inner {
+    grid-template-columns: 1fr;
+    padding-bottom: 110px;
+  }
+  .badgeWrap {
+    justify-self: start;
+    width: 150px;
+  }
+}
+
+@media (max-width: 600px) {
+  .hero {
+    min-height: 640px;
+  }
+  .body br {
+    display: none;
+  }
+  .controls {
+    bottom: 24px;
+  }
+  .next {
+    width: 44px;
+    height: 44px;
+  }
+}

@@ -1,0 +1,191 @@
+/* Product carousel restyled as smec.com project cards: image plate, navy
+   title, blue tagline, arrow link. The looping/autoplay behaviour is untouched. */
+
+.section {
+  padding-block: var(--section);
+  background: var(--white);
+}
+
+.inner {
+  width: 100%;
+  max-width: var(--container);
+  margin-inline: auto;
+  padding-inline: var(--gutter);
+}
+
+.stack {
+  display: flex;
+  flex-direction: column;
+}
+
+.heading {
+  max-width: 720px;
+  margin-bottom: 18px;
+  font-size: var(--fs-h2);
+  line-height: 1.12;
+}
+
+.intro {
+  max-width: 800px;
+  margin-bottom: clamp(32px, 4vw, 56px);
+  color: var(--body);
+  font-size: var(--fs-lead);
+  line-height: 1.65;
+}
+
+/* --------------------------------------------------------------- track */
+
+.carousel {
+  position: relative;
+}
+
+.viewport {
+  margin-inline: -12px;
+  padding: 6px 0 28px;
+  overflow: hidden;
+}
+
+.track {
+  display: flex;
+  will-change: transform;
+}
+
+.slide {
+  flex: 0 0 auto;
+  display: flex;
+  padding-inline: 12px;
+}
+
+.card {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+  overflow: hidden;
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  background: var(--white);
+  transition: transform 0.3s var(--ease), box-shadow 0.3s var(--ease), border-color 0.3s var(--ease);
+}
+
+.card:hover {
+  transform: translateY(-4px);
+  border-color: transparent;
+  box-shadow: var(--shadow-lg);
+}
+
+.cardImage {
+  width: 100%;
+  height: 220px;
+  padding: 18px;
+  background: var(--white);
+  border-bottom: 1px solid var(--line);
+  object-fit: contain;
+}
+
+.cardTitle {
+  margin: 22px 24px 8px;
+  color: var(--ink);
+  font-size: 19px;
+  font-weight: 600;
+  letter-spacing: -0.01em;
+  line-height: 1.3;
+}
+
+.cardTaglineLead,
+.cardTagline {
+  margin: 0 24px 10px;
+  color: var(--blue);
+  font-size: 14px;
+  font-weight: 600;
+  line-height: 1.45;
+}
+
+.cardBodyLead,
+.cardBody {
+  margin: 0 24px 22px;
+  color: var(--body);
+  font-size: 14.5px;
+  line-height: 1.6;
+  white-space: pre-line;
+}
+
+/* the wireframe's per-card spacer widgets; flex handles the alignment now */
+.cardSpacer {
+  display: none;
+}
+
+.cardButton {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  margin: auto 24px 24px;
+  color: var(--blue);
+  font-size: 14px;
+  font-weight: 600;
+  transition: color 0.2s var(--ease);
+}
+
+.cardButton::after {
+  content: '\2192';
+  font-size: 1.1em;
+  transition: transform 0.25s var(--ease);
+}
+
+.cardButton:hover {
+  color: var(--blue-dark);
+}
+
+.cardButton:hover::after {
+  transform: translateX(4px);
+}
+
+/* -------------------------------------------------------------- arrows */
+
+.arrow {
+  position: absolute;
+  top: 44%;
+  z-index: 2;
+  display: grid;
+  place-items: center;
+  width: 48px;
+  height: 48px;
+  border: 1px solid var(--line);
+  border-radius: 50%;
+  background: var(--white);
+  color: var(--ink);
+  font-size: 15px;
+  box-shadow: var(--shadow);
+  transition: background 0.2s var(--ease), color 0.2s var(--ease), transform 0.2s var(--ease);
+}
+
+.arrow:hover {
+  background: var(--navy);
+  color: var(--white);
+  transform: scale(1.06);
+}
+
+.prev {
+  left: -24px;
+}
+
+.next {
+  right: -24px;
+}
+
+/* ----------------------------------------------------------- breakpoints */
+
+@media (max-width: 1400px) {
+  .prev {
+    left: 0;
+  }
+  .next {
+    right: 0;
+  }
+}
+
+@media (max-width: 767px) {
+  .cardImage {
+    height: 200px;
+  }
+}

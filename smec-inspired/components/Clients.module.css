@@ -1,0 +1,61 @@
+/* Client logo strip; the looping carousel behaviour is unchanged. */
+
+.section {
+  padding: 56px 0;
+  background: var(--white);
+  border-bottom: 1px solid var(--line);
+}
+
+.pill {
+  width: 100%;
+  max-width: var(--container);
+  margin: 0 auto 28px;
+  padding-inline: var(--gutter);
+  text-align: center;
+}
+
+.pillTitle {
+  margin: 0;
+  color: var(--ink);
+  font-size: 13px;
+  font-weight: 600;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+}
+
+.viewport {
+  width: 100%;
+  max-width: var(--container-wide);
+  margin-inline: auto;
+  padding-inline: var(--gutter);
+  overflow: hidden;
+}
+
+.track {
+  display: flex;
+  will-change: transform;
+}
+
+.slide {
+  flex: 0 0 auto;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 72px;
+  padding: 8px 16px;
+}
+
+.logo {
+  width: auto;
+  max-width: 100%;
+  max-height: 52px;
+  object-fit: contain;
+  opacity: 0.7;
+  filter: grayscale(1);
+  transition: opacity 0.25s var(--ease), filter 0.25s var(--ease);
+}
+
+.slide:hover .logo {
+  opacity: 1;
+  filter: none;
+}

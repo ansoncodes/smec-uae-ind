@@ -1,0 +1,330 @@
+/* Solid navy header, sticky, with a full-width white mega panel. */
+
+.header {
+  position: sticky;
+  top: 0;
+  z-index: 60;
+  background: var(--navy);
+  color: var(--white);
+}
+
+/* ------------------------------------------------------------ utility */
+
+.utility {
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.utilityInner {
+  display: flex;
+  justify-content: flex-end;
+  gap: 28px;
+  height: 38px;
+  align-items: center;
+}
+
+.utilityLink {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  color: rgba(255, 255, 255, 0.72);
+  font-size: 13px;
+  font-weight: 500;
+  letter-spacing: 0.01em;
+  transition: color 0.2s var(--ease);
+}
+
+.utilityLink:hover {
+  color: var(--white);
+}
+
+.utilityIcon {
+  width: 13px;
+  height: 13px;
+  color: var(--blue-light);
+}
+
+/* ---------------------------------------------------------------- bar */
+
+.bar {
+  position: relative;
+}
+
+.inner {
+  display: flex;
+  align-items: center;
+  gap: 40px;
+  height: 84px;
+}
+
+.logoLink {
+  display: block;
+  flex: 0 0 auto;
+}
+
+/* the mark is navy + red on transparent; on the navy bar it becomes white */
+.logo {
+  width: auto;
+  height: 46px;
+  filter: brightness(0) invert(1);
+}
+
+.navCol {
+  margin-left: auto;
+}
+
+.navList {
+  display: flex;
+  align-items: center;
+  gap: 2px;
+}
+
+.navLink {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 11px 16px;
+  border-radius: var(--pill);
+  color: var(--white);
+  font-size: 15px;
+  font-weight: 500;
+  letter-spacing: 0.01em;
+  white-space: nowrap;
+  transition: background 0.2s var(--ease), color 0.2s var(--ease);
+}
+
+.navLink:hover {
+  background: rgba(255, 255, 255, 0.1);
+}
+
+.caret {
+  width: 10px;
+  height: 10px;
+  opacity: 0.7;
+  transition: transform 0.25s var(--ease);
+}
+
+.hasSub:hover .caret,
+.hasSub:focus-within .caret {
+  transform: rotate(180deg);
+}
+
+/* ---------------------------------------------------------- mega panel */
+
+.mega {
+  position: absolute;
+  top: 100%;
+  left: 0;
+  right: 0;
+  z-index: 5;
+  padding: 36px 0 40px;
+  background: var(--white);
+  border-top: 3px solid var(--blue);
+  box-shadow: 0 30px 60px rgba(9, 32, 46, 0.18);
+  color: var(--ink);
+  opacity: 0;
+  visibility: hidden;
+  transform: translateY(-8px);
+  transition: opacity 0.22s var(--ease), transform 0.22s var(--ease), visibility 0.22s;
+}
+
+.hasSub:hover .mega,
+.hasSub:focus-within .mega {
+  opacity: 1;
+  visibility: visible;
+  transform: none;
+}
+
+.megaGrid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 0 40px;
+}
+
+.megaLink {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  padding: 12px 0;
+  border-bottom: 1px solid var(--line);
+  color: var(--ink);
+  font-size: 15px;
+  font-weight: 500;
+  line-height: 1.35;
+  transition: color 0.2s var(--ease), padding-left 0.2s var(--ease);
+}
+
+.megaLink::after {
+  content: '\2192';
+  color: var(--blue);
+  opacity: 0;
+  transition: opacity 0.2s var(--ease), transform 0.2s var(--ease);
+}
+
+.megaLink:hover {
+  color: var(--blue);
+  padding-left: 4px;
+}
+
+.megaLink:hover::after {
+  opacity: 1;
+  transform: translateX(2px);
+}
+
+/* ------------------------------------------------------------- mobile */
+
+.burger {
+  display: none;
+  margin-left: auto;
+  width: 44px;
+  height: 44px;
+  border-radius: var(--pill);
+  font-size: 22px;
+  color: var(--white);
+}
+
+.burger:hover {
+  background: rgba(255, 255, 255, 0.1);
+}
+
+.overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 998;
+  background: rgba(9, 32, 46, 0.55);
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 0.3s var(--ease), visibility 0.3s;
+}
+
+.overlayOpen {
+  opacity: 1;
+  visibility: visible;
+}
+
+.drawer {
+  position: fixed;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 999;
+  width: min(360px, 88vw);
+  padding: 20px 24px 40px;
+  overflow-y: auto;
+  background: var(--white);
+  color: var(--ink);
+  box-shadow: var(--shadow-lg);
+  transform: translateX(100%);
+  transition: transform 0.35s var(--ease);
+}
+
+.drawerOpen {
+  transform: none;
+}
+
+.drawerHead {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding-bottom: 18px;
+  border-bottom: 1px solid var(--line);
+}
+
+.drawerLogo {
+  width: auto;
+  height: 40px;
+}
+
+.drawerClose {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  font-size: 18px;
+  color: var(--ink);
+}
+
+.drawerClose:hover {
+  background: var(--tint);
+}
+
+.drawerList {
+  padding-top: 8px;
+}
+
+.drawerLink {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+  padding: 15px 0;
+  border-bottom: 1px solid var(--line);
+  color: var(--ink);
+  font-size: 16px;
+  font-weight: 500;
+  text-align: left;
+}
+
+.drawerCaret {
+  width: 12px;
+  height: 12px;
+  color: var(--blue);
+  transition: transform 0.25s var(--ease);
+}
+
+.drawerCaretOpen {
+  transform: rotate(180deg);
+}
+
+.drawerSub {
+  padding: 6px 0 10px 14px;
+  border-bottom: 1px solid var(--line);
+}
+
+.drawerSubLink {
+  display: block;
+  padding: 9px 0;
+  color: var(--body);
+  font-size: 14.5px;
+  line-height: 1.4;
+}
+
+.drawerSubLink:hover {
+  color: var(--blue);
+}
+
+/* ---------------------------------------------------------- breakpoints */
+
+@media (max-width: 1200px) {
+  .navLink {
+    padding: 10px 12px;
+    font-size: 14px;
+  }
+  .inner {
+    gap: 24px;
+  }
+}
+
+@media (max-width: 1024px) {
+  .navCol {
+    display: none;
+  }
+  .burger {
+    display: grid;
+    place-items: center;
+  }
+  .inner {
+    height: 72px;
+  }
+  .logo {
+    height: 40px;
+  }
+}
+
+@media (max-width: 767px) {
+  .utility {
+    display: none;
+  }
+  .logo {
+    height: 36px;
+  }
+}

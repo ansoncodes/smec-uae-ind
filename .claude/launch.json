@@ -18,6 +18,12 @@
       "runtimeExecutable": "npm",
       "runtimeArgs": ["run", "--prefix", "suggestion", "dev"],
       "autoPort": true
+    },
+    {
+      "name": "smec-inspired",
+      "runtimeExecutable": "npm",
+      "runtimeArgs": ["run", "--prefix", "smec-inspired", "dev"],
+      "autoPort": true
     }
   ]
 }

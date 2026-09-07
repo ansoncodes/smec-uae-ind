@@ -1,0 +1,47 @@
+/* Statement + photograph on a full-bleed pale band. The section is the grid
+   itself (the markup has no inner wrapper), so the container width is set
+   with padding rather than max-width. */
+
+.section {
+  display: grid;
+  grid-template-columns: 1fr 1.2fr;
+  align-items: center;
+  gap: clamp(36px, 6vw, 96px);
+  padding-block: var(--section);
+  padding-inline: max(var(--gutter), calc((100% - var(--container) + 2 * var(--gutter)) / 2));
+  background: var(--tint);
+}
+
+.copyCol {
+  min-width: 0;
+}
+
+.heading {
+  font-size: var(--fs-h2);
+  letter-spacing: 0.01em;
+  line-height: 1.12;
+}
+
+.body {
+  margin: 20px 0 0;
+  color: var(--body);
+  font-size: var(--fs-lead);
+  line-height: 1.65;
+}
+
+.imageCol {
+  overflow: hidden;
+  border-radius: var(--radius);
+  box-shadow: var(--shadow-lg);
+}
+
+.image {
+  width: 100%;
+  height: auto;
+}
+
+@media (max-width: 900px) {
+  .section {
+    grid-template-columns: 1fr;
+  }
+}
