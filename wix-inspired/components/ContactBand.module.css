@@ -1,0 +1,54 @@
+.band {
+  padding-block: clamp(96px, 11vw, 160px);
+  background: var(--steel);
+  text-align: center;
+}
+
+.inner {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.inner :global(.tile) {
+  margin-bottom: 40px;
+}
+
+.label {
+  margin: 0 0 16px;
+  font-size: var(--fs-eyebrow);
+}
+
+.title {
+  max-width: 16ch;
+  margin: 0 0 32px;
+  font-size: var(--fs-display-sm);
+  font-weight: 500;
+  letter-spacing: -0.035em;
+  line-height: 1;
+}
+
+.contacts {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 16px 36px;
+  margin-bottom: 36px;
+}
+
+.contactLink {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  font-size: var(--fs-lead);
+  transition: opacity 0.2s var(--ease);
+}
+
+.contactLink:hover {
+  opacity: 0.7;
+}
+
+.icon {
+  width: 15px;
+  height: 15px;
+}

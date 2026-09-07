@@ -1,0 +1,46 @@
+/* Statement + photograph on the pale steel band. The section is the grid
+   itself (the markup has no inner wrapper), so the container width is set
+   with padding rather than max-width. */
+
+.section {
+  display: grid;
+  grid-template-columns: 1fr 1.2fr;
+  align-items: center;
+  gap: clamp(40px, 6vw, 96px);
+  padding-block: var(--section);
+  padding-inline: max(var(--gutter), calc((100% - var(--container)) / 2));
+  background: var(--steel);
+}
+
+.copyCol {
+  min-width: 0;
+}
+
+.heading {
+  margin-bottom: 18px;
+  font-size: var(--fs-eyebrow);
+  font-weight: 400;
+}
+
+.body {
+  margin: 0;
+  font-size: var(--fs-statement);
+  letter-spacing: -0.01em;
+  line-height: 1.18;
+}
+
+.imageCol {
+  overflow: hidden;
+  border-radius: var(--radius);
+}
+
+.image {
+  width: 100%;
+  height: auto;
+}
+
+@media (max-width: 900px) {
+  .section {
+    grid-template-columns: 1fr;
+  }
+}

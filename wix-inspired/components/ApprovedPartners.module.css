@@ -1,0 +1,60 @@
+/* Small label left, partner marks right, between hairlines. */
+
+.section {
+  background: var(--white);
+}
+
+.row {
+  width: 100%;
+  max-width: calc(var(--container) + 2 * var(--gutter));
+  margin-inline: auto;
+  padding: 28px var(--gutter);
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 20px 48px;
+  border-bottom: 1px solid var(--line);
+}
+
+.pill {
+  flex: 0 0 auto;
+}
+
+.pillTitle {
+  margin: 0;
+  font-size: var(--fs-eyebrow);
+  font-weight: 400;
+}
+
+.logoCell {
+  flex: 1 1 140px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 60px;
+  opacity: 0.85;
+  filter: grayscale(1);
+  transition: opacity 0.25s var(--ease), filter 0.25s var(--ease);
+}
+
+.logoCell:hover {
+  opacity: 1;
+  filter: none;
+}
+
+.logo {
+  width: auto;
+  max-width: 100%;
+  max-height: 48px;
+  object-fit: contain;
+}
+
+@media (max-width: 767px) {
+  .pill {
+    width: 100%;
+  }
+  .logoCell {
+    flex-basis: 40%;
+    height: 48px;
+  }
+}

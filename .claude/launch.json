@@ -24,6 +24,12 @@
       "runtimeExecutable": "npm",
       "runtimeArgs": ["run", "--prefix", "smec-inspired", "dev"],
       "autoPort": true
+    },
+    {
+      "name": "wix-inspired",
+      "runtimeExecutable": "npm",
+      "runtimeArgs": ["run", "--prefix", "wix-inspired", "dev"],
+      "autoPort": true
     }
   ]
 }

@@ -1,0 +1,200 @@
+/* Black footer with a large white logo, link columns and lime social pills;
+   then a bottom row with the copyright left and underlined legal links right. */
+
+.footer {
+  padding: clamp(64px, 8vw, 110px) 0 clamp(48px, 5vw, 64px);
+  background: var(--black);
+  color: rgba(255, 255, 255, 0.8);
+}
+
+.inner {
+  width: 100%;
+  max-width: calc(var(--container) + 2 * var(--gutter));
+  margin-inline: auto;
+  padding-inline: var(--gutter);
+  display: grid;
+  grid-template-columns: 1.4fr 0.9fr 1.7fr;
+  gap: 48px;
+}
+
+.col {
+  min-width: 0;
+}
+
+/* the third column holds two link lists side by side, then the socials */
+.col:nth-child(3) {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  column-gap: 24px;
+}
+
+.col:nth-child(3) .colTitle,
+.col:nth-child(3) .socials {
+  grid-column: 1 / -1;
+}
+
+.logo {
+  width: 230px;
+  height: auto;
+  margin-bottom: 28px;
+  filter: brightness(0) invert(1);
+}
+
+.address {
+  margin: 0;
+  font-size: 15px;
+  line-height: 1.8;
+}
+
+.address span:first-child {
+  display: block;
+  margin-bottom: 8px;
+  color: var(--white);
+  font-size: 15px;
+}
+
+.inlineLink {
+  color: var(--white);
+  text-decoration: underline;
+  text-underline-offset: 4px;
+  text-decoration-thickness: 1px;
+  text-decoration-color: rgba(255, 255, 255, 0.35);
+  transition: text-decoration-color 0.2s var(--ease);
+}
+
+.inlineLink:hover {
+  text-decoration-color: var(--white);
+}
+
+.colTitle {
+  margin: 0 0 20px;
+  color: var(--white);
+  font-size: 20px;
+  font-weight: 500;
+}
+
+.linkList {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.linkListSecond {
+  margin-top: 0;
+}
+
+.link {
+  font-size: 15px;
+  line-height: 1.45;
+  transition: color 0.2s var(--ease);
+}
+
+.link:hover {
+  color: var(--lime);
+}
+
+.socials {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  margin-top: 36px;
+}
+
+.socialLink {
+  display: inline-flex;
+  flex-direction: row-reverse;
+  align-items: center;
+  gap: 10px;
+  padding: 12px 18px;
+  border-radius: var(--pill);
+  background: var(--lime);
+  color: var(--black);
+  font-size: 12px;
+  font-weight: 500;
+  letter-spacing: 0.08em;
+  line-height: 1;
+  text-transform: uppercase;
+  transition: background 0.2s var(--ease), transform 0.2s var(--ease);
+}
+
+.socialLink svg {
+  width: 14px;
+  height: 14px;
+}
+
+.socialLink:hover {
+  background: var(--lime-deep);
+  transform: translateY(-1px);
+}
+
+/* the label span is visible in this design (the template writes the network name) */
+.srOnly {
+  position: static;
+  width: auto;
+  height: auto;
+  margin: 0;
+  overflow: visible;
+  clip: auto;
+  white-space: nowrap;
+}
+
+/* ------------------------------------------------------------ copyright */
+
+.copyright {
+  padding: 22px 0;
+  background: var(--black);
+  color: rgba(255, 255, 255, 0.7);
+}
+
+.copyInner {
+  width: 100%;
+  max-width: calc(var(--container) + 2 * var(--gutter));
+  margin-inline: auto;
+  padding: 24px var(--gutter) 0;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px 24px;
+  border-top: 1px solid rgba(255, 255, 255, 0.15);
+}
+
+.copyText,
+.legal {
+  margin: 0;
+  font-size: 14px;
+  line-height: 1.6;
+}
+
+.legalLink {
+  color: var(--white);
+  text-decoration: underline;
+  text-underline-offset: 4px;
+  text-decoration-thickness: 1px;
+  transition: text-decoration-color 0.2s var(--ease);
+}
+
+.legalLink:hover {
+  text-decoration-color: transparent;
+}
+
+/* ---------------------------------------------------------- breakpoints */
+
+@media (max-width: 1024px) {
+  .inner {
+    grid-template-columns: 1fr 1fr;
+  }
+  .col:nth-child(3) {
+    grid-column: 1 / -1;
+  }
+}
+
+@media (max-width: 640px) {
+  .inner {
+    grid-template-columns: 1fr;
+    gap: 36px;
+  }
+  .col:nth-child(3) {
+    grid-template-columns: 1fr;
+  }
+}

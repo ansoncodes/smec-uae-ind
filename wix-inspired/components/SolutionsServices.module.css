@@ -1,0 +1,102 @@
+/* Statement beside the corporate video; the poster-then-embed behaviour stays. */
+
+.section {
+  width: 100%;
+  max-width: calc(var(--container) + 2 * var(--gutter));
+  margin-inline: auto;
+  padding: var(--section) var(--gutter);
+  display: grid;
+  grid-template-columns: 1fr 1.25fr;
+  align-items: center;
+  gap: clamp(40px, 6vw, 96px);
+}
+
+.copyCol {
+  min-width: 0;
+}
+
+.copyInner {
+  max-width: 560px;
+}
+
+.heading {
+  margin-bottom: 18px;
+  font-size: var(--fs-eyebrow);
+  font-weight: 400;
+}
+
+.body {
+  margin: 0;
+  font-size: var(--fs-statement);
+  letter-spacing: -0.01em;
+  line-height: 1.18;
+  white-space: normal;
+}
+
+.videoCol {
+  position: relative;
+  aspect-ratio: 16 / 9;
+  overflow: hidden;
+  border-radius: var(--radius);
+  background: var(--black);
+}
+
+.frame {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  border: 0;
+}
+
+.overlay {
+  position: absolute;
+  inset: 0;
+  display: grid;
+  place-items: center;
+  width: 100%;
+  height: 100%;
+  padding: 0;
+  background-size: cover;
+  background-position: center;
+}
+
+.overlay::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.3);
+  transition: background 0.3s var(--ease);
+}
+
+.overlay:hover::before {
+  background: rgba(0, 0, 0, 0.45);
+}
+
+.play {
+  position: relative;
+  display: grid;
+  place-items: center;
+  width: 84px;
+  height: 84px;
+  padding-left: 6px;
+  border-radius: 50%;
+  background: var(--lime);
+  color: var(--black);
+  font-size: 26px;
+  transition: transform 0.25s var(--ease), background 0.25s var(--ease);
+}
+
+.overlay:hover .play {
+  background: var(--white);
+  transform: scale(1.08);
+}
+
+@media (max-width: 900px) {
+  .section {
+    grid-template-columns: 1fr;
+  }
+  .copyInner {
+    max-width: none;
+  }
+}

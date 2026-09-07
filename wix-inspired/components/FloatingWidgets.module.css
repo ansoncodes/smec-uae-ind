@@ -1,0 +1,105 @@
+/* Vertical "Quick Enquiry" tab pinned to the right edge, mid-height. */
+
+.enquiry {
+  position: fixed;
+  top: 50%;
+  right: 0;
+  z-index: 2147483647;
+  display: grid;
+  place-items: center;
+  width: 148px;
+  height: 44px;
+  border-radius: 8px 8px 0 0;
+  background: var(--black);
+  color: var(--lime);
+  font-size: 12px;
+  font-weight: 500;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  white-space: nowrap;
+  transform: rotate(-90deg) translateX(50%);
+  transform-origin: 100% 50%;
+  transition: background 0.2s var(--ease);
+}
+
+.enquiry:hover {
+  background: #1a1a1a;
+}
+
+/* WhatsApp bubble */
+
+.whatsapp {
+  position: fixed;
+  right: 32px;
+  bottom: 32px;
+  z-index: 99999999;
+  display: grid;
+  place-items: center;
+  width: 54px;
+  height: 54px;
+  border-radius: 50%;
+  background: var(--whatsapp);
+  color: var(--white);
+  font-size: 30px;
+  box-shadow: 0 10px 26px rgba(0, 0, 0, 0.22);
+  transition: transform 0.2s var(--ease);
+}
+
+.whatsapp:hover {
+  transform: scale(1.08);
+}
+
+/* back to top */
+
+.scrollTop {
+  position: fixed;
+  right: 40px;
+  bottom: 100px;
+  z-index: 99;
+  display: grid;
+  place-items: center;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  background: var(--black);
+  color: var(--white);
+  font-size: 14px;
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 0.25s var(--ease), visibility 0.25s, background 0.2s var(--ease), color 0.2s var(--ease);
+}
+
+.scrollTop:hover {
+  background: var(--lime);
+  color: var(--black);
+}
+
+.scrollTopVisible {
+  opacity: 1;
+  visibility: visible;
+}
+
+.scrollIcon {
+  transform: rotate(-90deg);
+}
+
+/* ---------------------------------------------------------- breakpoints */
+
+@media (max-width: 767px) {
+  .enquiry {
+    width: 120px;
+    height: 38px;
+    font-size: 11px;
+  }
+  .whatsapp {
+    right: 18px;
+    bottom: 18px;
+    width: 48px;
+    height: 48px;
+    font-size: 26px;
+  }
+  .scrollTop {
+    right: 22px;
+    bottom: 78px;
+  }
+}

@@ -1,0 +1,289 @@
+/* White, minimal, sticky. */
+
+.header {
+  position: sticky;
+  top: 0;
+  z-index: 60;
+  background: var(--white);
+  border-bottom: 1px solid var(--line);
+}
+
+.utility {
+  display: flex;
+  justify-content: flex-end;
+  gap: 28px;
+  height: 34px;
+  align-items: center;
+  border-bottom: 1px solid var(--line);
+}
+
+.utilityLink {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  color: var(--text-soft);
+  font-size: 13px;
+  transition: color 0.2s var(--ease);
+}
+
+.utilityLink:hover {
+  color: var(--black);
+}
+
+.utilityIcon {
+  width: 12px;
+  height: 12px;
+}
+
+.bar {
+  display: flex;
+  align-items: center;
+  gap: 32px;
+  height: 72px;
+}
+
+.logoLink {
+  flex: 0 0 auto;
+}
+
+/* the site logo is white on transparent (made for a dark header); the
+   template runs a black mark on white, so it is inverted here */
+.logo {
+  width: auto;
+  height: 38px;
+  filter: brightness(0);
+}
+
+.navCol {
+  margin-left: auto;
+}
+
+.navList {
+  display: flex;
+  align-items: center;
+  gap: 34px;
+}
+
+.hasSub {
+  position: relative;
+}
+
+.navLink {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 8px 0;
+  font-size: 16px;
+  font-weight: 400;
+  white-space: nowrap;
+  text-decoration: underline;
+  text-decoration-color: transparent;
+  text-underline-offset: 6px;
+  text-decoration-thickness: 1px;
+  transition: text-decoration-color 0.2s var(--ease);
+}
+
+.navLink:hover,
+.hasSub:focus-within .navLink {
+  text-decoration-color: var(--black);
+}
+
+.caret {
+  width: 10px;
+  height: 10px;
+  transition: transform 0.25s var(--ease);
+}
+
+.hasSub:hover .caret,
+.hasSub:focus-within .caret {
+  transform: rotate(180deg);
+}
+
+/* dropdown */
+.subMenu {
+  position: absolute;
+  top: 100%;
+  right: 0;
+  z-index: 5;
+  width: 620px;
+  padding: 18px 8px;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 0 24px;
+  background: var(--white);
+  border: 1px solid var(--line);
+  box-shadow: var(--shadow);
+  opacity: 0;
+  visibility: hidden;
+  transform: translateY(-6px);
+  transition: opacity 0.2s var(--ease), transform 0.2s var(--ease), visibility 0.2s;
+}
+
+.hasSub:hover .subMenu,
+.hasSub:focus-within .subMenu {
+  opacity: 1;
+  visibility: visible;
+  transform: none;
+}
+
+.subLink {
+  display: block;
+  padding: 10px 12px;
+  border-radius: 6px;
+  font-size: 15px;
+  line-height: 1.35;
+  transition: background 0.2s var(--ease);
+}
+
+.subLink:hover {
+  background: var(--plate);
+}
+
+/* ------------------------------------------------------------- mobile */
+
+.burger {
+  display: none;
+  margin-left: auto;
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  font-size: 22px;
+}
+
+.burger:hover {
+  background: var(--plate);
+}
+
+.overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 998;
+  background: rgba(0, 0, 0, 0.45);
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 0.3s var(--ease), visibility 0.3s;
+}
+
+.overlayOpen {
+  opacity: 1;
+  visibility: visible;
+}
+
+.drawer {
+  position: fixed;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 999;
+  width: min(360px, 88vw);
+  padding: 20px 24px 40px;
+  overflow-y: auto;
+  background: var(--white);
+  box-shadow: var(--shadow);
+  transform: translateX(100%);
+  transition: transform 0.35s var(--ease);
+}
+
+.drawerOpen {
+  transform: none;
+}
+
+.drawerHead {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding-bottom: 18px;
+  border-bottom: 1px solid var(--line);
+}
+
+.drawerLogo {
+  width: auto;
+  height: 36px;
+  filter: brightness(0);
+}
+
+.drawerClose {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  font-size: 18px;
+}
+
+.drawerClose:hover {
+  background: var(--plate);
+}
+
+.drawerList {
+  padding-top: 8px;
+}
+
+.drawerLink {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+  padding: 15px 0;
+  border-bottom: 1px solid var(--line);
+  font-size: 17px;
+  text-align: left;
+}
+
+.drawerCaret {
+  width: 12px;
+  height: 12px;
+  transition: transform 0.25s var(--ease);
+}
+
+.drawerCaretOpen {
+  transform: rotate(180deg);
+}
+
+.drawerSub {
+  padding: 6px 0 10px 14px;
+  border-bottom: 1px solid var(--line);
+}
+
+.drawerSubLink {
+  display: block;
+  padding: 9px 0;
+  color: var(--text-soft);
+  font-size: 15px;
+  line-height: 1.4;
+}
+
+.drawerSubLink:hover {
+  color: var(--black);
+}
+
+/* ---------------------------------------------------------- breakpoints */
+
+@media (max-width: 1200px) {
+  .navList {
+    gap: 22px;
+  }
+  .navLink {
+    font-size: 15px;
+  }
+}
+
+@media (max-width: 1024px) {
+  .navCol {
+    display: none;
+  }
+  .burger {
+    display: grid;
+    place-items: center;
+  }
+  .bar {
+    height: 64px;
+  }
+}
+
+@media (max-width: 767px) {
+  .utility {
+    display: none;
+  }
+  .logo {
+    height: 32px;
+  }
+}
