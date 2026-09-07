@@ -196,9 +196,6 @@
   .hero {
     min-height: 640px;
   }
-  .body br {
-    display: none;
-  }
   .controls {
     bottom: 24px;
   }
