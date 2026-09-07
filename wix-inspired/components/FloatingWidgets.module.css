@@ -1,15 +1,18 @@
 /* Vertical "Quick Enquiry" tab pinned to the right edge, mid-height. */
 
+/* Vertical tab flush to the right edge, set with writing-mode rather than
+   a rotate-and-translate, so the box sits exactly where it is positioned.
+   The 180-degree turn makes the label read bottom to top. */
 .enquiry {
   position: fixed;
   top: 50%;
   right: 0;
   z-index: 2147483647;
-  display: grid;
-  place-items: center;
-  width: 148px;
-  height: 44px;
-  border-radius: 8px 8px 0 0;
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  padding: 18px 12px 18px 14px;
+  border-radius: 0 8px 8px 0;
   background: var(--black);
   color: var(--lime);
   font-size: 12px;
@@ -17,9 +20,17 @@
   letter-spacing: 0.1em;
   text-transform: uppercase;
   white-space: nowrap;
-  transform: rotate(-90deg) translateX(50%);
-  transform-origin: 100% 50%;
+  writing-mode: vertical-rl;
+  transform: translateY(-50%) rotate(180deg);
   transition: all 0.2s ease-in-out;
+}
+
+.enquiry::before {
+  content: '';
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: var(--lime);
 }
 
 .enquiry:hover {
@@ -87,8 +98,7 @@
 
 @media (max-width: 767px) {
   .enquiry {
-    width: 120px;
-    height: 38px;
+    padding: 14px 9px 14px 11px;
     font-size: 11px;
   }
   .whatsapp {
