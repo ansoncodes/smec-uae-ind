@@ -61,7 +61,7 @@ function Counter({ label, value }: { label: string; value: number }) {
   }, []);
 
   return (
-    <div className={styles.counter} ref={ref}>
+    <div className={`${styles.counter} m-slide-down`} ref={ref}>
       <div className={styles.number}>
         <span>{current.toLocaleString('en-US')}</span>
         <span className={styles.suffix}>+</span>

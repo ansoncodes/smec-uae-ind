@@ -1,8 +1,9 @@
-/* Product carousel as a list of plain cards under a small label and the
-   oversized intro statement. Looping/autoplay behaviour is untouched. */
+/* Product carousel as the template's services block: small label 67px from
+   the top, a 31px statement in a 660px column, then plain cards with 31px
+   titles and 15.6px copy under a hairline. Looping/autoplay is untouched. */
 
 .section {
-  padding-block: var(--section);
+  padding: 67px 0 var(--section);
   background: var(--white);
 }
 
@@ -19,17 +20,17 @@
 }
 
 .heading {
-  margin-bottom: 18px;
+  margin-bottom: 27px;
   font-size: var(--fs-eyebrow);
   font-weight: 400;
+  line-height: 1.3;
 }
 
 .intro {
-  max-width: 900px;
-  margin-bottom: clamp(40px, 5vw, 72px);
+  max-width: 660px;
+  margin-bottom: 48px;
   font-size: var(--fs-statement);
-  letter-spacing: -0.01em;
-  line-height: 1.18;
+  line-height: 1;
 }
 
 /* --------------------------------------------------------------- track */
@@ -39,8 +40,7 @@
 }
 
 .viewport {
-  margin-inline: -12px;
-  padding: 0 0 8px;
+  margin-inline: -8px;
   overflow: hidden;
   border-top: 1px solid var(--line);
 }
@@ -53,7 +53,19 @@
 .slide {
   flex: 0 0 auto;
   display: flex;
-  padding: 28px 12px 0;
+  padding: 32px 8px 0;
+}
+
+.slide:nth-child(2) {
+  --d: 120ms;
+}
+
+.slide:nth-child(3) {
+  --d: 240ms;
+}
+
+.slide:nth-child(4) {
+  --d: 360ms;
 }
 
 .card {
@@ -71,35 +83,29 @@
   background: var(--white);
   border: 1px solid var(--line);
   object-fit: contain;
-  transition: transform 0.35s var(--ease);
-}
-
-.card:hover .cardImage {
-  transform: translateY(-4px);
 }
 
 .cardTitle {
-  margin: 24px 0 8px;
-  font-size: 24px;
-  font-weight: 500;
-  letter-spacing: -0.01em;
-  line-height: 1.2;
+  margin: 28px 0 10px;
+  font-size: clamp(22px, 2vw, 28px);
+  font-weight: 400;
+  line-height: 1;
 }
 
 .cardTaglineLead,
 .cardTagline {
   margin: 0 0 12px;
-  font-size: 15px;
-  font-weight: 500;
-  line-height: 1.4;
+  font-size: var(--fs-body);
+  font-weight: 400;
+  line-height: 1.3;
 }
 
 .cardBodyLead,
 .cardBody {
-  margin: 0 0 22px;
+  margin: 0 0 24px;
   color: var(--text-soft);
-  font-size: 15px;
-  line-height: 1.5;
+  font-size: var(--fs-body);
+  line-height: 1.3;
   white-space: pre-line;
 }
 
@@ -111,48 +117,53 @@
 .cardButton {
   display: inline-flex;
   align-items: center;
-  gap: 14px;
+  gap: 12px;
   align-self: flex-start;
   margin-top: auto;
-  padding: 11px 18px 11px 20px;
+  height: 39px;
+  padding: 0 24px;
   border-radius: var(--pill);
   background: var(--black);
   color: var(--white);
-  font-size: 14px;
-  font-weight: 500;
+  font-size: var(--fs-body);
+  font-weight: 400;
   line-height: 1;
-  transition: background 0.2s var(--ease), transform 0.2s var(--ease);
+  transition: all 0.2s ease-in-out;
 }
 
 .cardButton::after {
   content: '';
-  width: 6px;
-  height: 6px;
+  width: 7px;
+  height: 7px;
   border-radius: 50%;
   background: var(--lime);
+  transition: transform 0.2s ease-in-out;
 }
 
 .cardButton:hover {
-  background: #1a1a1a;
-  transform: translateY(-1px);
+  background: #141414;
+}
+
+.cardButton:hover::after {
+  transform: scale(1.45);
 }
 
 /* -------------------------------------------------------------- arrows */
 
 .arrow {
   position: absolute;
-  top: -68px;
+  top: -66px;
   z-index: 2;
   display: grid;
   place-items: center;
-  width: 44px;
-  height: 44px;
+  width: 39px;
+  height: 39px;
   border: 1px solid var(--black);
   border-radius: 50%;
   background: var(--white);
   color: var(--black);
-  font-size: 14px;
-  transition: background 0.2s var(--ease), color 0.2s var(--ease);
+  font-size: 13px;
+  transition: all 0.2s ease-in-out;
 }
 
 .arrow:hover {
@@ -161,7 +172,7 @@
 }
 
 .prev {
-  right: 56px;
+  right: 51px;
 }
 
 .next {
@@ -171,15 +182,13 @@
 /* ----------------------------------------------------------- breakpoints */
 
 @media (max-width: 767px) {
+  .section {
+    padding-top: 48px;
+  }
   .cardImage {
     height: 210px;
   }
   .arrow {
-    top: -60px;
-    width: 40px;
-    height: 40px;
-  }
-  .prev {
-    right: 50px;
+    top: -58px;
   }
 }

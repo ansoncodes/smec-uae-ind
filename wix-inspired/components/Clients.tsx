@@ -59,13 +59,13 @@ export default function Clients() {
   return (
     <section className={styles.section} aria-labelledby="our-clients">
       <div className={styles.pill}>
-        <h2 id="our-clients" className={styles.pillTitle}>
+        <h2 id="our-clients" className={`${styles.pillTitle} m-fade`}>
           Our Clients
         </h2>
       </div>
 
       <div
-        className={styles.viewport}
+        className={`${styles.viewport} m-fade`}
         onMouseEnter={() => setPaused(true)}
         onMouseLeave={() => setPaused(false)}
       >

@@ -12,14 +12,14 @@ export default function SolutionsServices() {
     <section className={styles.section} aria-labelledby="solutions-services">
       <div className={styles.copyCol}>
         <div className={styles.copyInner}>
-          <h2 id="solutions-services" className={styles.heading}>
+          <h2 id="solutions-services" className={`${styles.heading} m-fade`}>
             {SOLUTIONS.title}
           </h2>
-          <p className={styles.body}>{SOLUTIONS.body}</p>
+          <p className={`${styles.body} m-slide-down`}>{SOLUTIONS.body}</p>
         </div>
       </div>
 
-      <div className={styles.videoCol}>
+      <div className={`${styles.videoCol} m-reveal`}>
         {playing ? (
           <iframe
             className={styles.frame}

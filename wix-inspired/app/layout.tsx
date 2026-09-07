@@ -107,10 +107,18 @@ const jsonLd = {
   ],
 };
 
+/* Entrances hide elements until they scroll into view; without JavaScript
+   nothing would ever reveal them, so this shows everything at once. */
+const noScriptCss =
+  '.m-fade,.m-slide-down,.m-slide-up,.m-reveal{opacity:1!important;animation:none!important;clip-path:none!important}';
+
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
     <html lang="en-US" className={inter.variable}>
       <body>
+        <noscript>
+          <style>{noScriptCss}</style>
+        </noscript>
         {children}
         <script
           type="application/ld+json"

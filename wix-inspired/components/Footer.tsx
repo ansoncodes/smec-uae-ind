@@ -24,7 +24,7 @@ export default function Footer() {
   return (
     <>
       <footer className={styles.footer}>
-        <div className={styles.inner}>
+        <div className={`${styles.inner} m-fade`}>
           {/* address */}
           <div className={styles.col}>
             <Image
@@ -112,7 +112,7 @@ export default function Footer() {
       </footer>
 
       <div className={styles.copyright}>
-        <div className={styles.copyInner}>
+        <div className={`${styles.copyInner} m-fade`}>
           <p className={styles.copyText}>{COPYRIGHT}</p>
           <p className={styles.legal}>
             {LEGAL_LINKS.map((item, i) => (

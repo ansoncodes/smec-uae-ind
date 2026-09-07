@@ -19,11 +19,11 @@
   white-space: nowrap;
   transform: rotate(-90deg) translateX(50%);
   transform-origin: 100% 50%;
-  transition: background 0.2s var(--ease);
+  transition: all 0.2s ease-in-out;
 }
 
 .enquiry:hover {
-  background: #1a1a1a;
+  background: #141414;
 }
 
 /* WhatsApp bubble */
@@ -42,7 +42,7 @@
   color: var(--white);
   font-size: 30px;
   box-shadow: 0 10px 26px rgba(0, 0, 0, 0.22);
-  transition: transform 0.2s var(--ease);
+  transition: all 0.2s ease-in-out;
 }
 
 .whatsapp:hover {
@@ -58,15 +58,15 @@
   z-index: 99;
   display: grid;
   place-items: center;
-  width: 40px;
-  height: 40px;
+  width: 39px;
+  height: 39px;
   border-radius: 50%;
   background: var(--black);
   color: var(--white);
-  font-size: 14px;
+  font-size: 13px;
   opacity: 0;
   visibility: hidden;
-  transition: opacity 0.25s var(--ease), visibility 0.25s, background 0.2s var(--ease), color 0.2s var(--ease);
+  transition: all 0.2s ease-in-out;
 }
 
 .scrollTop:hover {

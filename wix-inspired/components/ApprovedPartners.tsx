@@ -7,11 +7,11 @@ export default function ApprovedPartners() {
     <section className={styles.section} aria-label="Approved Partners">
       <div className={styles.row}>
         <div className={styles.pill}>
-          <h2 className={styles.pillTitle}>Approved Partners</h2>
+          <h2 className={`${styles.pillTitle} m-fade`}>Approved Partners</h2>
         </div>
 
         {PARTNERS.map((partner) => (
-          <div key={partner.alt} className={styles.logoCell}>
+          <div key={partner.alt} className={`${styles.logoCell} m-fade`}>
             <Image
               src={partner.src}
               alt={partner.alt}

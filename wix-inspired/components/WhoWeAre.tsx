@@ -9,13 +9,13 @@ export default function WhoWeAre() {
     <section className={styles.section} aria-labelledby="who-we-are">
       <div className={`container ${styles.inner}`}>
         <div className={styles.copy}>
-          <h2 id="who-we-are" className={styles.heading}>
+          <h2 id="who-we-are" className={`${styles.heading} m-fade`}>
             {WHO_WE_ARE.title}
           </h2>
-          <p className={styles.body}>{WHO_WE_ARE.body}</p>
+          <p className={`${styles.body} m-slide-down`}>{WHO_WE_ARE.body}</p>
         </div>
 
-        <div className={`${styles.media} brackets`}>
+        <div className={`${styles.media} brackets m-reveal`}>
           {/* SCAFFOLD IMAGE: placeholder photograph — replace via lib/scaffold.ts */}
           <Image
             src={SCAFFOLD_WHO_WE_ARE.src}

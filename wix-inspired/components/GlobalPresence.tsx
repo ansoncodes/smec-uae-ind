@@ -9,7 +9,7 @@ export default function GlobalPresence() {
   return (
     <section className={styles.section} aria-label="Global presence">
       {/* interactive pin map - desktop only, same as the live site */}
-      <div className={styles.mapWrapper}>
+      <div className={`${styles.mapWrapper} m-fade`}>
         <ul className={styles.mapList}>
           {MAP_PINS.map((pin) => (
             <li
@@ -26,7 +26,7 @@ export default function GlobalPresence() {
       </div>
 
       {/* static fallback map for tablet / mobile */}
-      <div className={styles.mapFallback}>
+      <div className={`${styles.mapFallback} m-fade`}>
         {/* eslint-disable-next-line @next/next/no-img-element */}
         <img
           src="/images/map-final-1024x500.png"
@@ -42,7 +42,7 @@ export default function GlobalPresence() {
       </div>
 
       {/* scrolling country strip */}
-      <div className={styles.marqueeOuter}>
+      <div className={`${styles.marqueeOuter} m-fade`}>
         <div
           className={styles.marquee}
           style={{ ['--marquee-elements' as string]: MARQUEE_COUNTRIES.length }}

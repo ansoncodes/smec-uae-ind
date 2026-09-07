@@ -1,12 +1,19 @@
 # SMEC Oil & Gas — template-inspired theme (Wix "Electrician (Simple)")
 
 `../wireframe-version/` (the faithful rebuild of smecoilandgas.com) restyled
-in the manner of the Wix template *Electrician (Simple) / Ampere Craft*
-(`wix.com/website-template/view/html/wh-1213`): editorial and typographic —
-Inter, black on white, one giant tight-tracked headline, oversized statement
-paragraphs, black pill buttons with a lime dot, corner-bracket photo frames,
-staggered white cards on a white-to-steel gradient, a dark photographic band,
-a pale-steel centred call to action and a black footer with lime social pills.
+after the Wix template *Electrician (Simple) / Ampere Craft*
+(`wix.com/website-template/view/html/wh-1213`, demo at
+`wix.com/demone2/ampere-craft`). The template was measured at 1440px and its
+motion system read out of its markup, so proportions and entrances match:
+
+- Inter, black on white, a 131px headline at -0.05em / line-height 0.9,
+  31px statement paragraphs set solid, 15.6px labels and body
+- 39px black pills with 15.6px regular text and a 7px lime dot; 44px lime
+  social pills with the network name and a 20px icon
+- 22px gutters on a 1396px container, 16px card gaps, hairlines everywhere
+- corner-bracket frames on photographs and around the dark band's copy
+- staggered white cards on a white-to-steel gradient, a dark photographic
+  band, a pale-steel centred call to action, a black footer
 
 **Nothing SEO-bearing changed.** Every heading, paragraph, link, image alt,
 the metadata and the JSON-LD are the wireframe's, byte for byte, and
@@ -24,11 +31,30 @@ npm install
 npm run dev
 ```
 
+## Motion
+
+The template animates every block as it scrolls into view with Wix's motion
+presets. The same four are reproduced in `app/globals.css`, with the
+template's own timing (1000–1200ms, `cubic-bezier(0.645, 0.045, 0.355, 1)`):
+
+| Class | What it does | Used for |
+|---|---|---|
+| `m-fade` | opacity 0 → 1, 1200ms | labels, cards, logos, photographs, buttons (800ms late in the hero and the contact band) |
+| `m-slide-down` | drops in by its own height behind a clip mask, 1200ms | statement paragraphs, card titles, counters |
+| `m-slide-up` | rises by its own height behind a clip mask, 1000ms, 200ms late | the hero headline |
+| `m-reveal` | clip-path wipe from the bottom, 1200ms | the hero hairline, the Who We Are photo, the video, the sustainability image |
+| `spin` | continuous turn about the vertical axis, 5s | the lime bolt tiles |
+
+`components/ui/Motion.tsx` is the trigger: a wrapper that sets `data-in` once
+it enters the viewport (each section is wrapped in `app/page.tsx`).
+Descendants stagger with `--d`. Reduced-motion users, browsers without
+IntersectionObserver and no-JavaScript visitors see everything at once, and a
+6s failsafe reveals anything the observer never reached.
+
 ## Scaffold images — read before shipping
 
-The template is carried by photography and SMEC Oil & Gas does not yet have
-enough of its own, so five stock photographs from Wikimedia Commons stand in.
-They are **placeholders**, not assets:
+Five stock photographs from Wikimedia Commons stand in where the template
+would have photography. They are **placeholders**, not assets:
 
 | Where | Id | File |
 |---|---|---|
@@ -44,33 +70,9 @@ How they are marked, so they cannot be missed:
   `document.querySelectorAll('[data-scaffold]')` lists them in the browser
 - `public/images/scaffold/SCAFFOLD-CREDITS.md` records source, author and licence
 
-To replace one: put the client photograph in `public/images`, point the entry
-in `lib/scaffold.ts` at it, delete the `SCAFFOLD-` file and its credits row.
-When all are gone, delete `lib/scaffold.ts` and the `data-scaffold` props.
-
 ```bash
 grep -rn "SCAFFOLD" app components lib
 ```
-
-## What changed, section by section
-
-| Section | Now |
-|---|---|
-| Header | White, minimal, sticky; thin contact line above; plain text nav with an underline on hover; a white dropdown for Products |
-| Hero | Giant headline over a hairline; subtitle and statement copy left, black pill right; full-bleed photo band with corner brackets rotating five photographs (banner + 4 scaffold); badge as a small white card on the photo |
-| Approved Partners | Small label + greyscale logos between hairlines |
-| Major Products | Small label, oversized intro statement, plain cards under a hairline with pill "Know More" buttons; arrows sit top-right |
-| Stats | Four oversized figures between hairlines, lime "+" |
-| Who We Are | Small label + statement left, bracketed people photograph (scaffold) right |
-| Certifications | Four white cards, staggered, on the white-to-steel gradient |
-| Clients | Small label + greyscale strip between hairlines |
-| Global presence | Greyscale map, black-and-lime pins with black label pills, black country strip in lime |
-| R&D Focus | Dark photographic band (the site's own R&D banner), lime tile, white statement, corner brackets |
-| Solutions & Services | Statement beside the video, lime play button |
-| Sustainability | Statement + photograph on the pale steel band |
-| Articles | Poster on a grey plate, copy below, underlined "Read More" with a lime dot; same continuous strip |
-| Contact band | New pale centred band built only from existing strings (lime tile, support label, entity name, phone, email, Contact Us pill) |
-| Footer | Black; large white logo; link columns; lime uppercase social pills; underlined legal links |
 
 ## Design tokens
 
@@ -83,24 +85,25 @@ Defined in [app/globals.css](app/globals.css).
 | `--steel` | `#c2cfdd` | Pale band and gradient end |
 | `--plate` | `#f2f2f2` | Image plates |
 | `--line` | `#dfe4ea` | Hairlines |
-| `--text-soft` | `#4d4d4d` | Secondary copy |
+| `--fs-display` | 56–131px | Hero headline |
+| `--fs-display-sm` | 40–76px | Contact band heading |
+| `--fs-statement` | 22–31.2px | Statement paragraphs, card titles |
+| `--fs-body` / `--fs-eyebrow` | 15.6px | Copy and labels |
 
-Font: **Inter** only, via `next/font/google`. Type scale is fluid
-(`--fs-display` 56–132px at -0.05em, `--fs-statement` 22–31px, body 16px,
-labels 15px regular).
-
-Shared helpers in `globals.css`: `.container`, `.eyebrow`, `.statement`,
-`.pill`, `.pillLime`, `.ulink`, `.tile`, `.brackets` / `.bracketsDark`.
+Shared helpers: `.container`, `.eyebrow`, `.statement`, `.pill`, `.pillLime`,
+`.ulink`, `.tile`, `.spin`, `.brackets` / `.bracketsDark`, and the `m-*`
+motion classes above.
 
 ## Structure
 
 ```
 app/
-  layout.tsx      metadata, JSON-LD, Inter
-  page.tsx        section composition (wireframe order + ContactBand)
-  globals.css     tokens, reset, shared helpers
-components/       one component + CSS module per section
-lib/siteData.ts   all page copy, links and image references (unchanged)
-lib/scaffold.ts   the placeholder photographs — see above
-public/images/    the wireframe assets, plus scaffold/ for the placeholders
+  layout.tsx        metadata, JSON-LD, Inter, no-JS fallback for the entrances
+  page.tsx          section composition (wireframe order + ContactBand), Motion groups
+  globals.css       tokens, reset, shared helpers, motion system
+components/         one component + CSS module per section
+components/ui/      Motion.tsx (scroll trigger)
+lib/siteData.ts     all page copy, links and image references (unchanged)
+lib/scaffold.ts     the placeholder photographs — see above
+public/images/      the wireframe assets, plus scaffold/ for the placeholders
 ```

@@ -1,6 +1,6 @@
 'use client';
 
-import { useEffect, useState } from 'react';
+import { useEffect, useState, type CSSProperties } from 'react';
 import Image from 'next/image';
 import { HERO } from '@/lib/siteData';
 import { SCAFFOLD_HERO_SLIDES } from '@/lib/scaffold';
@@ -13,6 +13,9 @@ import styles from './Hero.module.css';
  * photo band with corner brackets. The headline, subtitle, body, CTA and
  * badge are exactly the wireframe's; only the photograph rotates.
  *
+ * Entrances follow the template: the headline rises masked (200ms), the
+ * hairline wipes in, the copy drops in, the button fades late (800ms).
+ *
  * Slide 0 is the real site banner. Every slide after it is a SCAFFOLD IMAGE
  * (see lib/scaffold.ts) to be swapped for client photography.
  */
@@ -22,6 +25,8 @@ const SLIDES = [
   { id: 'banner', src: HERO.image, scaffold: false },
   ...SCAFFOLD_HERO_SLIDES.map((s) => ({ id: s.id, src: s.src, scaffold: true })),
 ];
+
+const delay = (ms: number) => ({ '--d': `${ms}ms` }) as CSSProperties;
 
 export default function Hero() {
   const [active, setActive] = useState(0);
@@ -42,24 +47,24 @@ export default function Hero() {
   return (
     <section className={styles.hero} aria-label={HERO.title}>
       <div className="container">
-        <h1 className={styles.title}>{HERO.title}</h1>
-        <div className={styles.rule} aria-hidden="true" />
+        <h1 className={`${styles.title} m-slide-up`}>{HERO.title}</h1>
+        <div className={`${styles.rule} m-reveal`} aria-hidden="true" />
         <div className={styles.row}>
           <div className={styles.copy}>
-            <h2 className={styles.subtitle}>{HERO.subtitle}</h2>
-            <p className={styles.body}>
+            <h2 className={`${styles.subtitle} m-fade`}>{HERO.subtitle}</h2>
+            <p className={`${styles.body} m-slide-down`}>
               {HERO.body[0]}
               <br />
               {HERO.body[1]}
             </p>
           </div>
-          <a href={HERO.cta.href} className="pill">
+          <a href={HERO.cta.href} className="pill m-fade" style={delay(800)}>
             {HERO.cta.label}
           </a>
         </div>
       </div>
 
-      <div className={`${styles.band} brackets`}>
+      <div className={`${styles.band} brackets m-fade`} style={delay(300)}>
         <div className={styles.slides} aria-hidden="true">
           {SLIDES.map((slide, i) =>
             i <= reach ? (

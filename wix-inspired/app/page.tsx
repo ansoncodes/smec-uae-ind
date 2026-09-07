@@ -14,30 +14,60 @@ import Articles from '@/components/Articles';
 import ContactBand from '@/components/ContactBand';
 import Footer from '@/components/Footer';
 import FloatingWidgets from '@/components/FloatingWidgets';
+import Motion from '@/components/ui/Motion';
 
-/* Section order is the wireframe's. ContactBand is presentation only: it
-   repeats contact details that already live in the header and footer, in the
-   pale centred call-to-action band the template closes its page with. */
+/* Section order is the wireframe's. Each section sits in a Motion group so
+   its elements play their entrance as it scrolls into view. ContactBand is
+   presentation only: it repeats contact details that already live in the
+   header and footer, in the pale centred band the template closes with. */
 export default function HomePage() {
   return (
     <>
       <Header />
       <main>
-        <Hero />
-        <ApprovedPartners />
-        <MajorProducts />
-        <Stats />
-        <WhoWeAre />
-        <Certifications />
-        <Clients />
-        <GlobalPresence />
-        <RDFocus />
-        <SolutionsServices />
-        <Sustainability />
-        <Articles />
-        <ContactBand />
+        <Motion>
+          <Hero />
+        </Motion>
+        <Motion>
+          <ApprovedPartners />
+        </Motion>
+        <Motion>
+          <MajorProducts />
+        </Motion>
+        <Motion>
+          <Stats />
+        </Motion>
+        <Motion>
+          <WhoWeAre />
+        </Motion>
+        <Motion>
+          <Certifications />
+        </Motion>
+        <Motion>
+          <Clients />
+        </Motion>
+        <Motion>
+          <GlobalPresence />
+        </Motion>
+        <Motion>
+          <RDFocus />
+        </Motion>
+        <Motion>
+          <SolutionsServices />
+        </Motion>
+        <Motion>
+          <Sustainability />
+        </Motion>
+        <Motion>
+          <Articles />
+        </Motion>
+        <Motion>
+          <ContactBand />
+        </Motion>
       </main>
-      <Footer />
+      <Motion>
+        <Footer />
+      </Motion>
       <FloatingWidgets />
     </>
   );

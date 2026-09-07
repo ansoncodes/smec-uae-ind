@@ -1,12 +1,14 @@
 /* ==========================================================================
-   Design tokens — presentation layer inspired by the Wix "Electrician
-   (Simple)" template (Ampere Craft).
+   Design tokens — presentation layer after the Wix "Electrician (Simple)"
+   template (Ampere Craft), measured at 1440px.
 
-   Editorial and typographic: Inter, black on white, one giant tight-tracked
-   headline, oversized statement paragraphs, black pill buttons with a lime
-   dot, corner-bracket photo frames, staggered white cards on a white-to-steel
-   gradient, a dark photographic band, a pale-steel centred call to action
-   and a black footer with lime social pills. Copy, links, order and
+   Editorial and typographic: Inter, black on white, a 131px headline at
+   -0.05em over a hairline, 31px statement paragraphs at line-height 1,
+   15.6px labels and body, 39px black pills with a 7px lime dot, corner
+   bracket photo frames, staggered white cards on a white-to-steel gradient,
+   a dark photographic band, a pale-steel centred call to action and a black
+   footer with 44px lime social pills. Entrances replicate the template's
+   motion system (see the Motion section below). Copy, links, order and
    behaviour are the wireframe's; only the styling changed. Photography
    marked SCAFFOLD is a placeholder (see lib/scaffold.ts).
    ========================================================================== */
@@ -15,36 +17,35 @@
   /* palette */
   --black: #000000;
   --white: #ffffff;
-  --lime: #acff58; /* the single accent: dots, tiles, social pills, marquee text */
+  --lime: #acff58;
   --lime-deep: #8fe63a;
-  --steel: #c2cfdd; /* pale band and gradient end */
-  --steel-soft: #e6ecf3;
-  --plate: #f2f2f2; /* image plates */
+  --steel: #c2cfdd;
+  --plate: #f2f2f2;
   --line: #dfe4ea;
   --text: #000000;
   --text-soft: #4d4d4d;
-  --text-muted: #7a7a7a;
   --whatsapp: #25d366;
 
-  /* layout — the template runs 24px from the viewport edge at 1440 */
-  --gutter: clamp(20px, 1.7vw, 24px);
-  --container: 1392px;
-  --section: clamp(80px, 9vw, 140px);
+  /* layout — 22px from the viewport edge at 1440, content 1396 wide */
+  --gutter: clamp(16px, 1.53vw, 22px);
+  --container: 1396px;
+  --section: clamp(56px, 4.65vw, 67px);
   --radius: 8px;
   --pill: 100px;
   --ease: cubic-bezier(0.2, 0.7, 0.2, 1);
   --shadow: 0 18px 50px rgba(0, 0, 0, 0.1);
 
-  /* type */
+  /* type — the template's exact steps */
   --font: var(--font-inter-var), Inter, system-ui, -apple-system, sans-serif;
-  --fs-display: clamp(56px, 9.2vw, 132px);
-  --fs-display-sm: clamp(40px, 6vw, 88px);
-  --fs-statement: clamp(22px, 2.2vw, 31px);
-  --fs-h3: clamp(22px, 2.2vw, 31px);
-  --fs-lead: clamp(18px, 1.5vw, 22px);
-  --fs-body: 16px;
-  --fs-small: 15px;
-  --fs-eyebrow: 15px;
+  --fs-display: clamp(56px, 9.12vw, 131px); /* 131.37px */
+  --fs-display-sm: clamp(40px, 5.26vw, 76px); /* 75.7px */
+  --fs-statement: clamp(22px, 2.17vw, 31.2px); /* 31.17px */
+  --fs-lead: clamp(18px, 1.55vw, 22.3px); /* 22.27px */
+  --fs-body: 15.6px; /* 15.59px */
+  --fs-eyebrow: 15.6px;
+
+  /* motion — the template's single easing */
+  --motion-ease: cubic-bezier(0.645, 0.045, 0.355, 1);
 }
 
 /* ==========================================================================
@@ -68,7 +69,7 @@ body {
   color: var(--text);
   font-family: var(--font);
   font-size: var(--fs-body);
-  line-height: 1.5;
+  line-height: 1.3;
   overflow-x: hidden;
   -webkit-font-smoothing: antialiased;
 }
@@ -82,7 +83,7 @@ h6 {
   margin: 0;
   color: var(--text);
   font-weight: 400;
-  line-height: 1.15;
+  line-height: 1;
 }
 
 p {
@@ -136,92 +137,86 @@ button {
   padding-inline: var(--gutter);
 }
 
-/* The template sets its section labels small and regular, sentence case. */
+/* Section label: 15.6px, regular, sentence case, 27px above the statement. */
 .eyebrow {
-  margin: 0 0 18px;
+  margin: 0 0 27px;
   font-size: var(--fs-eyebrow);
   font-weight: 400;
   line-height: 1.3;
 }
 
-/* The oversized paragraph that carries each section. */
+/* The oversized paragraph that carries each section, set solid (lh 1). */
 .statement {
   margin: 0;
   font-size: var(--fs-statement);
   font-weight: 400;
-  letter-spacing: -0.01em;
-  line-height: 1.18;
+  line-height: 1;
 }
 
-/* Black pill with a lime dot — the template's one button. */
+/* Black pill with a lime dot: 39px tall, 15.6px regular, 24px side padding. */
 .pill {
   display: inline-flex;
   align-items: center;
-  gap: 18px;
-  padding: 13px 22px 13px 24px;
+  gap: 12px;
+  height: 39px;
+  padding: 0 24px;
   border-radius: var(--pill);
   background: var(--black);
   color: var(--white);
-  font-size: 15px;
-  font-weight: 500;
+  font-size: 15.6px;
+  font-weight: 400;
   line-height: 1;
   white-space: nowrap;
-  transition: background 0.2s var(--ease), transform 0.2s var(--ease);
+  transition: all 0.2s ease-in-out;
 }
 
 .pill::after {
   content: '';
-  width: 6px;
-  height: 6px;
+  width: 7px;
+  height: 7px;
   border-radius: 50%;
   background: var(--lime);
-  transition: transform 0.25s var(--ease);
+  transition: transform 0.2s ease-in-out;
 }
 
 .pill:hover {
-  background: #1a1a1a;
-  transform: translateY(-1px);
+  background: #141414;
 }
 
 .pill:hover::after {
-  transform: scale(1.5);
+  transform: scale(1.45);
 }
 
-/* Lime pill, used for the social buttons. */
+/* Lime pill for the social buttons: 44px tall, uppercase, 24px icon. */
 .pillLime {
   display: inline-flex;
   align-items: center;
-  gap: 10px;
-  padding: 12px 18px;
+  gap: 12px;
+  height: 44px;
+  padding: 0 24px;
   border-radius: var(--pill);
   background: var(--lime);
   color: var(--black);
-  font-size: 12px;
-  font-weight: 500;
-  letter-spacing: 0.08em;
+  font-size: 15.6px;
+  font-weight: 400;
   line-height: 1;
   text-transform: uppercase;
-  transition: background 0.2s var(--ease), transform 0.2s var(--ease);
+  transition: all 0.2s ease-in-out;
 }
 
 .pillLime:hover {
   background: var(--lime-deep);
-  transform: translateY(-1px);
 }
 
-/* Underlined text link, as in the template footer. */
+/* Underlined text link, as in the template footer and nav. */
 .ulink {
   text-decoration: underline;
-  text-underline-offset: 4px;
+  text-underline-offset: 3px;
   text-decoration-thickness: 1px;
-  transition: text-decoration-color 0.2s var(--ease);
 }
 
-.ulink:hover {
-  text-decoration-color: transparent;
-}
-
-/* Lime rounded-square icon tile. */
+/* Lime rounded-square icon tile, 52px. `.spin` gives it the template's
+   continuous turn about the vertical axis. */
 .tile {
   display: grid;
   place-items: center;
@@ -233,17 +228,23 @@ button {
   font-size: 22px;
 }
 
-/* Thin corner brackets drawn inside a photograph. Parent must be positioned. */
+.spin {
+  animation: motionFlip 5000ms linear infinite;
+  transform-style: preserve-3d;
+  backface-visibility: visible;
+}
+
+/* Thin corner brackets drawn inside a box. Parent must be positioned. */
 .brackets::after,
 .bracketsDark::after {
   --b: 2px;
   --l: 26px;
+  --c: var(--white);
   content: '';
   position: absolute;
   inset: 24px;
   z-index: 2;
   pointer-events: none;
-  --c: var(--white);
   background:
     linear-gradient(var(--c), var(--c)) top left / var(--l) var(--b) no-repeat,
     linear-gradient(var(--c), var(--c)) top left / var(--b) var(--l) no-repeat,
@@ -259,11 +260,6 @@ button {
   --c: var(--black);
 }
 
-.hairline {
-  height: 1px;
-  background: var(--line);
-}
-
 .visuallyHidden {
   position: absolute;
   width: 1px;
@@ -274,6 +270,106 @@ button {
   clip: rect(0, 0, 0, 0);
   white-space: nowrap;
   border: 0;
+}
+
+/* ==========================================================================
+   Motion — the template's entrance system
+
+   A `Motion` wrapper (components/ui/Motion.tsx) sets [data-in] when it
+   scrolls into view; descendants with an m-* class then play once.
+   Parameters are the template's own: 1000–1200ms, cubic-bezier(.645,.045,
+   .355,1), text translated by 100% of its own height behind a clip mask.
+   Stagger with `--d` on the element.
+   ========================================================================== */
+
+.m-fade,
+.m-slide-down,
+.m-slide-up,
+.m-reveal {
+  opacity: 0;
+}
+
+[data-in] .m-fade {
+  animation: motionFade 1200ms var(--motion-ease) var(--d, 1ms) both;
+}
+
+[data-in] .m-slide-down {
+  animation: motionSlideDown 1200ms var(--motion-ease) var(--d, 1ms) both;
+}
+
+[data-in] .m-slide-up {
+  animation: motionSlideUp 1000ms var(--motion-ease) var(--d, 200ms) both;
+}
+
+[data-in] .m-reveal {
+  animation: motionReveal 1200ms var(--motion-ease) var(--d, 1ms) both;
+}
+
+@keyframes motionFade {
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+
+@keyframes motionSlideDown {
+  0% {
+    opacity: 0;
+    animation-timing-function: step-end;
+  }
+  0.01% {
+    opacity: 1;
+    transform: translateY(-100%);
+    clip-path: polygon(0 0, 100% 0, 100% 0, 0 0);
+  }
+  100% {
+    opacity: 1;
+    transform: none;
+    clip-path: polygon(0 0, 100% 0, 100% 100%, 0 100%);
+  }
+}
+
+@keyframes motionSlideUp {
+  0% {
+    opacity: 0;
+    animation-timing-function: step-end;
+  }
+  0.01% {
+    opacity: 1;
+    transform: translateY(100%);
+    clip-path: polygon(0 100%, 100% 100%, 100% 100%, 0 100%);
+  }
+  100% {
+    opacity: 1;
+    transform: none;
+    clip-path: polygon(0 0, 100% 0, 100% 100%, 0 100%);
+  }
+}
+
+@keyframes motionReveal {
+  0% {
+    opacity: 0;
+    animation-timing-function: step-end;
+  }
+  0.01% {
+    opacity: 1;
+    clip-path: polygon(0 100%, 100% 100%, 100% 100%, 0 100%);
+  }
+  100% {
+    opacity: 1;
+    clip-path: polygon(0 0, 100% 0, 100% 100%, 0 100%);
+  }
+}
+
+@keyframes motionFlip {
+  from {
+    transform: perspective(800px) rotateY(0deg);
+  }
+  to {
+    transform: perspective(800px) rotateY(360deg);
+  }
 }
 
 /* ==========================================================================
@@ -292,6 +388,17 @@ button {
 @media (prefers-reduced-motion: reduce) {
   html {
     scroll-behavior: auto;
+  }
+  .m-fade,
+  .m-slide-down,
+  .m-slide-up,
+  .m-reveal {
+    opacity: 1;
+    animation: none !important;
+    clip-path: none !important;
+  }
+  .spin {
+    animation: none;
   }
   *,
   *::before,

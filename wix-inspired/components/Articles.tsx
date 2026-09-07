@@ -9,11 +9,11 @@ export default function Articles() {
 
   return (
     <section className={styles.section} aria-labelledby="articles">
-      <h2 id="articles" className={styles.heading}>
+      <h2 id="articles" className={`${styles.heading} m-slide-down`}>
         ARTICLES
       </h2>
 
-      <div className={styles.viewport}>
+      <div className={`${styles.viewport} m-fade`}>
         <ul className={styles.track} style={{ ['--count' as string]: ARTICLES.length }}>
           {loop.map((article, i) => (
             <li

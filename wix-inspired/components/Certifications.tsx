@@ -7,7 +7,7 @@ export default function Certifications() {
     <section className={styles.section} aria-labelledby="our-certifications">
       <div className={styles.pillRow}>
         <div className={styles.pill}>
-          <h2 id="our-certifications" className={styles.pillTitle}>
+          <h2 id="our-certifications" className={`${styles.pillTitle} m-fade`}>
             Our Certifications
           </h2>
         </div>
@@ -16,7 +16,7 @@ export default function Certifications() {
 
       <div className={styles.grid}>
         {CERTIFICATES.map((cert) => (
-          <div key={cert.src} className={styles.cell}>
+          <div key={cert.src} className={`${styles.cell} m-fade`}>
             <Image
               src={cert.src}
               alt={cert.alt}

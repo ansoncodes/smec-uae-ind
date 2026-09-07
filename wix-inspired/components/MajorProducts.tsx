@@ -80,10 +80,10 @@ export default function MajorProducts() {
     <section className={styles.section} aria-labelledby="major-products">
       <div className={styles.inner}>
         <div className={styles.stack}>
-          <h2 id="major-products" className={styles.heading}>
+          <h2 id="major-products" className={`${styles.heading} m-fade`}>
             Our Major Products
           </h2>
-          <p className={styles.intro}>{PRODUCTS_INTRO}</p>
+          <p className={`${styles.intro} m-slide-down`}>{PRODUCTS_INTRO}</p>
 
           <div
             className={styles.carousel}
@@ -92,7 +92,7 @@ export default function MajorProducts() {
           >
           <button
             type="button"
-            className={`${styles.arrow} ${styles.prev}`}
+            className={`${styles.arrow} ${styles.prev} m-fade`}
             aria-label="Previous products"
             onClick={() => advance(-1)}
           >
@@ -110,7 +110,7 @@ export default function MajorProducts() {
               {slides.map((product, i) => (
                 <li
                   key={`${product.title}-${i}`}
-                  className={styles.slide}
+                  className={`${styles.slide} m-fade`}
                   style={{ flexBasis: `${100 / perView}%` }}
                   aria-hidden={i >= total ? true : undefined}
                 >
@@ -151,7 +151,7 @@ export default function MajorProducts() {
 
             <button
               type="button"
-              className={`${styles.arrow} ${styles.next}`}
+              className={`${styles.arrow} ${styles.next} m-fade`}
               aria-label="Next products"
               onClick={() => advance(1)}
             >
