@@ -1,7 +1,12 @@
+/* Contact band ahead of the footer. Set on the same pale tint the
+   certification and insight bands use, so the page stays white / tint /
+   navy and blue remains the accent (label, icons, the one pill). */
+
 .band {
-  padding-block: clamp(48px, 6vw, 84px);
-  background: var(--blue);
-  color: var(--white);
+  padding-block: clamp(56px, 7vw, 96px);
+  background: linear-gradient(180deg, var(--tint) 0%, var(--tint-2) 100%);
+  border-top: 1px solid var(--line);
+  color: var(--ink);
 }
 
 .inner {
@@ -14,7 +19,7 @@
 
 .label {
   margin: 0 0 10px;
-  color: rgba(255, 255, 255, 0.75);
+  color: var(--blue);
   font-size: 13px;
   font-weight: 600;
   letter-spacing: 0.14em;
@@ -23,7 +28,7 @@
 
 .title {
   margin: 0;
-  color: var(--white);
+  color: var(--ink);
   font-size: clamp(24px, 2.6vw, 36px);
   font-weight: 600;
   letter-spacing: -0.01em;
@@ -41,20 +46,20 @@
   display: inline-flex;
   align-items: center;
   gap: 10px;
-  color: var(--white);
+  color: var(--ink);
   font-size: 16px;
   font-weight: 500;
-  transition: opacity 0.2s var(--ease);
+  transition: color 0.2s var(--ease);
 }
 
 .contactLink:hover {
-  opacity: 0.8;
+  color: var(--blue);
 }
 
 .icon {
   width: 15px;
   height: 15px;
-  opacity: 0.85;
+  color: var(--blue);
 }
 
 .button {
@@ -63,12 +68,13 @@
   gap: 10px;
   padding: 16px 30px;
   border-radius: var(--pill);
-  background: var(--white);
-  color: var(--blue);
+  background: var(--blue);
+  color: var(--white);
   font-size: 15px;
   font-weight: 600;
   line-height: 1;
-  transition: background 0.2s var(--ease), color 0.2s var(--ease), transform 0.2s var(--ease);
+  box-shadow: 0 8px 24px rgba(18, 87, 253, 0.28);
+  transition: background 0.2s var(--ease), transform 0.2s var(--ease);
 }
 
 .button::after {
@@ -78,8 +84,7 @@
 }
 
 .button:hover {
-  background: var(--navy);
-  color: var(--white);
+  background: var(--blue-hover);
   transform: translateY(-1px);
 }
 
