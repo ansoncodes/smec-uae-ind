@@ -3,6 +3,7 @@
 import { useCallback, useEffect, useRef, useState } from 'react';
 import Image from 'next/image';
 import { PRODUCTS, PRODUCTS_INTRO } from '@/lib/siteData';
+import { localHref } from '@/lib/routes';
 import { AngleLeft, AngleRight } from './Icons';
 import styles from './MajorProducts.module.css';
 
@@ -140,7 +141,7 @@ export default function MajorProducts() {
                     {product.spacer > 0 && (
                       <div className={styles.cardSpacer} style={{ height: product.spacer }} />
                     )}
-                    <a href={product.href} className={styles.cardButton}>
+                    <a href={localHref(product.href)} className={styles.cardButton}>
                       Know More
                     </a>
                   </article>

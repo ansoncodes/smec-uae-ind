@@ -21,6 +21,24 @@ npm install
 npm run dev
 ```
 
+## Product and article pages
+
+Every "Know More" and "Read More" link now resolves to a page in this build,
+at the **same path the live site uses** (`/power-house`,
+`/retrofit-solutions`, …), so indexed URLs and canonicals are unchanged:
+
+- `app/[slug]/page.tsx` serves all 8 products and 17 articles, prerendered
+  from `generateStaticParams`; anything else 404s.
+- Copy is the live page's own, ported in `lib/productDetails.ts` and
+  `lib/articles/` (the same files `../dev-version/` uses). Each article page
+  uses the article's own artwork as its cover, shown whole on a blurred copy
+  of itself, and links back to the original post.
+- `lib/siteData.ts` is still untouched. `lib/routes.ts` maps a homepage href
+  to its local page when one exists and leaves every other link (About Us,
+  Careers, the extra nav products, the policies) pointing at the live site.
+- Each page carries its own metadata, a canonical to the live URL and
+  Product / Article JSON-LD alongside the site graph in the layout.
+
 ## Scaffold images — read before shipping
 
 smec.com is carried by photography and SMEC Oil & Gas does not yet have enough

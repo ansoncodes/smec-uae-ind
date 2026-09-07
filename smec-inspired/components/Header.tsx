@@ -3,6 +3,7 @@
 import { useEffect, useState } from 'react';
 import Image from 'next/image';
 import { NAV, MOBILE_EXTRA_NAV, CONTACT, SITE } from '@/lib/siteData';
+import { localHref } from '@/lib/routes';
 import { Bars, ChevronDown, Close, Envelope, Phone } from './Icons';
 import styles from './Header.module.css';
 
@@ -10,6 +11,7 @@ import styles from './Header.module.css';
  * smec.com-style header: a thin utility row (contact details), then a solid
  * navy bar with the logo, the primary nav and a full-width white mega panel
  * for the Products dropdown. Same links, same off-canvas menu on mobile.
+ * Product links resolve to this build's own pages where they exist.
  */
 export default function Header() {
   const [menuOpen, setMenuOpen] = useState(false);
@@ -73,7 +75,7 @@ export default function Header() {
                         <ul className={styles.megaGrid}>
                           {item.children.map((child) => (
                             <li key={child.label}>
-                              <a href={child.href} className={styles.megaLink}>
+                              <a href={localHref(child.href)} className={styles.megaLink}>
                                 {child.label}
                               </a>
                             </li>
@@ -146,7 +148,7 @@ export default function Header() {
                     <ul className={styles.drawerSub}>
                       {item.children.map((child) => (
                         <li key={child.label}>
-                          <a href={child.href} className={styles.drawerSubLink}>
+                          <a href={localHref(child.href)} className={styles.drawerSubLink}>
                             {child.label}
                           </a>
                         </li>

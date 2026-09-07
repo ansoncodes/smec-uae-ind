@@ -10,6 +10,7 @@ import {
   COPYRIGHT,
   LEGAL_LINKS,
 } from '@/lib/siteData';
+import { localHref } from '@/lib/routes';
 import { Facebook, Instagram, LinkedIn, YouTube } from './Icons';
 import styles from './Footer.module.css';
 
@@ -67,13 +68,13 @@ export default function Footer() {
             </ul>
           </div>
 
-          {/* solutions */}
+          {/* solutions — product links resolve to this build's pages where they exist */}
           <div className={styles.col}>
             <h2 className={styles.colTitle}>Our Solutions and Services</h2>
             <ul className={styles.linkList}>
               {FOOTER_SOLUTIONS_A.map((item) => (
                 <li key={item.label}>
-                  <a href={item.href} className={styles.link}>
+                  <a href={localHref(item.href)} className={styles.link}>
                     {item.label}
                   </a>
                 </li>
@@ -82,7 +83,7 @@ export default function Footer() {
             <ul className={`${styles.linkList} ${styles.linkListSecond}`}>
               {FOOTER_SOLUTIONS_B.map((item) => (
                 <li key={item.label}>
-                  <a href={item.href} className={styles.link}>
+                  <a href={localHref(item.href)} className={styles.link}>
                     {item.label}
                   </a>
                 </li>
