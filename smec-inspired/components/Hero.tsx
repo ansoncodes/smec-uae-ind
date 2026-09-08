@@ -12,14 +12,14 @@ import styles from './Hero.module.css';
  * block of copy. The headline, subtitle, body, CTA and badge are exactly the
  * wireframe's; only the photograph rotates.
  *
- * Slide 0 is the real site banner. Every slide after it is a SCAFFOLD IMAGE
- * (see lib/scaffold.ts) to be swapped for client photography.
+ * The scaffold photographs lead (see lib/scaffold.ts) and are to be swapped
+ * for client photography; the real site banner runs last in the rotation.
  */
 const DWELL = 6500;
 
 const SLIDES = [
-  { id: 'banner', src: HERO.image, scaffold: false },
   ...SCAFFOLD_HERO_SLIDES.map((s) => ({ id: s.id, src: s.src, scaffold: true })),
+  { id: 'banner', src: HERO.image, scaffold: false },
 ];
 
 export default function Hero() {
