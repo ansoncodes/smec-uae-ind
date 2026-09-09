@@ -270,7 +270,7 @@ export default function SiteHeader() {
 
           <div className={styles.drawerFoot}>
             {MOBILE_EXTRA_NAV.map((item) => (
-              <a key={item.label} href={item.href} onClick={() => setDrawer(false)}>
+              <a key={item.label} href={localHref(item.href)} onClick={() => setDrawer(false)}>
                 {item.label}
               </a>
             ))}

@@ -10,7 +10,7 @@ fresh.
 ```bash
 npm install
 npm run dev      # http://localhost:3000
-npm run build    # 29 static pages
+npm run build    # 42 static pages
 ```
 
 ## Where the content comes from
@@ -21,19 +21,16 @@ previous build:
 | File | Holds |
 | --- | --- |
 | `lib/siteData.ts` | Every string lifted from smecoilandgas.com — nav, hero, products, stats, certificates, clients, map pins, R&D, sustainability, articles, footer |
-| `lib/productDetails.ts` | Body content for the eight product pages |
+| `lib/productDetails.ts` | Body content for the eight product pages the homepage links |
+| `lib/systemPages.ts` | Body content for the six systems the homepage never carried |
+| `lib/companyPages.ts` | Body content for About, Solutions, R&D, Careers, Sustainability and the privacy policy |
 | `lib/articles/` | Body content for the seventeen articles |
 | `lib/scaffold.ts` | The stock photographs standing in until client assets arrive |
 
-`lib/experience.ts` is the one new data module. It does not add facts — it
-regroups the existing ones for the new information architecture: the twelve
-system catalogue, the discipline-grouped mega menu, the industry panels, the
-EPC process, the ISO cards and the article categories.
-
-Four systems (RPD, Load Monitoring, PAGA, Battery Charger) appear in the live
-site's product menu but have no page of their own. They are rendered as a
-ruled index carrying their real names and links and nothing else — no
-fabricated specification.
+`lib/experience.ts` adds no facts — it regroups the existing ones for the new
+information architecture: the system catalogue, the discipline-grouped mega
+menu, the industry panels, the EPC process, the ISO cards and the article
+categories.
 
 ## Design system
 
@@ -67,8 +64,33 @@ corporate film · 07 R&D     dark
 10 careers · contact        dark
 ```
 
-Routes: `/` (homepage), `/insights` (all seventeen articles), and `/<slug>`
-for each product and article at the live site's own paths.
+## Routes
+
+42 static pages. Every link in the navigation, footer and body resolves
+locally — nothing bounces the reader out to smecoilandgas.com. The only
+outbound anchor left is "Read the original" at the foot of each article,
+which is a citation, and each page's `rel="canonical"`, which correctly
+points at the production domain.
+
+| Route | Content source |
+| --- | --- |
+| `/` | homepage |
+| `/insights` | index of all seventeen articles |
+| `/<article-slug>` × 17 | `lib/articles/` |
+| `/<system-slug>` × 14 | `lib/productDetails.ts` (8) + `lib/systemPages.ts` (6) |
+| `/about-us`, `/solutions-and-services`, `/research-and-developement`, `/careers`, `/sustainability`, `/privacy-policy` | `lib/companyPages.ts` |
+| `/contact-us` | composed from `lib/siteData.ts` |
+
+`lib/systemPages.ts` and `lib/companyPages.ts` were added by transcribing the
+matching pages on smecoilandgas.com — the same rule the rest of the content
+follows. Straplines are set in sentence case and lines the source splits
+across two rows for layout are rejoined; nothing else is changed, and no
+specification is invented.
+
+`lib/systems.ts` normalises both system sources into one shape, so
+`components/ProductDetail.tsx` renders all fourteen. Six of them have no
+photograph on the live site; those pages put their specification on the plate
+where the picture would go, and their catalogue cards use a monogram.
 
 ## Motion
 
@@ -114,3 +136,8 @@ and the CSS shows every element in its resting state.
   Swapping the map image will move every pin.
 - **The YouTube embed** is only inserted after the poster is clicked, so the
   page never pays for it up front.
+- **The enquiry form has no backend.** `components/page/EnquiryForm.tsx`
+  composes the submission into a pre-filled `mailto:` and hands it to the
+  visitor's mail client. That works everywhere and loses nothing, but it is a
+  stand-in — point its `onSubmit` at a real endpoint before launch and delete
+  the mailto branch.

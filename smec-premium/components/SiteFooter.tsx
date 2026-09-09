@@ -170,7 +170,7 @@ export default function SiteFooter() {
           <ul className={styles.legalLinks}>
             {LEGAL_LINKS.map((item) => (
               <li key={item.label}>
-                <a className="wipeLink" href={item.href}>
+                <a className="wipeLink" href={localHref(item.href)}>
                   {item.label}
                 </a>
               </li>

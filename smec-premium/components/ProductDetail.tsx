@@ -1,31 +1,32 @@
 import Image from 'next/image';
 import Link from 'next/link';
-import { CONTACT, PRODUCT_LINKS, PRODUCTS, type Product } from '@/lib/siteData';
-import { productDetail } from '@/lib/productDetails';
-import { localHref, productSlug } from '@/lib/routes';
-import { titleCase } from '@/lib/experience';
+import { CONTACT } from '@/lib/siteData';
+import { localHref } from '@/lib/routes';
+import { relatedSystems, type SystemDetail } from '@/lib/systems';
 import { ArrowRight, Plus } from './Icons';
 import styles from './ProductDetail.module.css';
 
 /**
  * System page. A dark opening frame with the photograph on a plate, then the
  * specification laid out on the paper ground as ruled lists, then the rest of
- * the range. Copy comes from the matching page on smecoilandgas.com via
- * `lib/productDetails.ts`.
+ * the range.
+ *
+ * Six of the fourteen systems have no photograph on the live site. Those
+ * pages put their specification — or, failing that, the head of their feature
+ * list — on the plate instead, so the frame never sits empty.
  */
-export default function ProductDetail({ product, slug }: { product: Product; slug: string }) {
-  const detail = productDetail(slug);
-  const related = PRODUCTS.filter((item) => productSlug(item) !== slug).slice(0, 4);
+export default function ProductDetail({ system }: { system: SystemDetail }) {
+  const related = relatedSystems(system.slug);
+  const [lead, ...rest] = system.body.length > 0 ? system.body : [system.tagline];
+  const hasDetail = system.sections.length > 0 || Boolean(system.specs);
 
-  // The nav lists the Power House variants as their own links; surface them
-  // on the parent page, pointing wherever those links already go.
-  const variants =
-    slug === 'power-house'
-      ? PRODUCT_LINKS.filter((link) => /\/(vfd|scr)-houses$/.test(link.href))
-      : [];
-
-  const [lead, ...rest] = detail?.body ?? [product.body];
-  const name = titleCase(product.title);
+  /* Stand-in for the picture: the first few spec rows, or the first few
+     features where the system has no spec table. */
+  const plateRows =
+    system.specs?.rows.slice(0, 6) ??
+    system.sections[0]?.items
+      .slice(0, 6)
+      .map((item, i) => ({ label: String(i + 1).padStart(2, '0'), value: item }));
 
   return (
     <>
@@ -39,17 +40,17 @@ export default function ProductDetail({ product, slug }: { product: Product; slu
             </p>
 
             <h1 id="product-title" className={styles.title}>
-              {name}
+              {system.title}
             </h1>
 
-            {detail?.subtitle ? <p className={styles.subtitle}>{detail.subtitle}</p> : null}
+            {system.subtitle ? <p className={styles.subtitle}>{system.subtitle}</p> : null}
             <p className={styles.lead}>{lead}</p>
 
-            {variants.length > 0 ? (
+            {system.variants.length > 0 ? (
               <div className={styles.variants}>
-                <span className={styles.variantsLabel}>Variants</span>
+                <span className={styles.variantsLabel}>Related</span>
                 <ul>
-                  {variants.map((variant) => (
+                  {system.variants.map((variant) => (
                     <li key={variant.label}>
                       <a href={localHref(variant.href)}>
                         <Plus className={styles.variantIcon} />
@@ -62,12 +63,7 @@ export default function ProductDetail({ product, slug }: { product: Product; slu
             ) : null}
 
             <div className={styles.ctas}>
-              <a
-                className="btn btnAccent"
-                href={CONTACT.whatsapp}
-                target="_blank"
-                rel="noopener noreferrer"
-              >
+              <a className="btn btnAccent" href="/contact-us">
                 Enquire About This System
                 <ArrowRight className="arrow" />
               </a>
@@ -77,23 +73,40 @@ export default function ProductDetail({ product, slug }: { product: Product; slu
             </div>
           </div>
 
-          <div className={styles.media}>
-            <Image
-              src={product.image}
-              alt={product.title}
-              width={product.width}
-              height={product.height}
-              priority
-              sizes="(max-width: 980px) 92vw, 46vw"
-              className={styles.image}
-            />
-            <span className={styles.mediaEdge} aria-hidden="true" />
-          </div>
+          {system.image ? (
+            <div className={styles.media}>
+              <Image
+                src={system.image}
+                alt={system.title}
+                width={system.width}
+                height={system.height}
+                priority
+                sizes="(max-width: 980px) 92vw, 46vw"
+                className={styles.image}
+              />
+              <span className={styles.mediaEdge} aria-hidden="true" />
+            </div>
+          ) : plateRows ? (
+            <div className={styles.plate}>
+              <p className={styles.plateHead}>
+                {system.specs?.heading ?? system.sections[0]?.heading ?? 'At a glance'}
+              </p>
+              <dl className={styles.plateList}>
+                {plateRows.map((row) => (
+                  <div key={row.value}>
+                    <dt>{row.label}</dt>
+                    <dd>{row.value}</dd>
+                  </div>
+                ))}
+              </dl>
+              <span className={styles.mediaEdge} aria-hidden="true" />
+            </div>
+          ) : null}
         </div>
       </section>
 
       {/* -------------------------------------------------------- overview */}
-      {detail ? (
+      {hasDetail ? (
         <section className="section" data-tone="light" aria-labelledby="product-overview">
           <div className="container">
             <p className="sectionLabel" data-reveal="fade">
@@ -102,32 +115,44 @@ export default function ProductDetail({ product, slug }: { product: Product; slu
               <span className="rule" />
             </p>
 
-            <div className={styles.overview}>
-              <div className={styles.prose} data-reveal="up">
-                <h2 id="product-overview" className={styles.h2}>
-                  About the {name}
-                </h2>
-                {(rest.length > 0 ? rest : [lead]).map((para) => (
-                  <p key={para.slice(0, 40)}>{para}</p>
-                ))}
+            {/* The hero already carries the first paragraph. A system whose
+                page has nothing after it — and no specification — gives its
+                column over to the feature lists rather than repeating. */}
+            <div
+              className={styles.overview}
+              data-single={rest.length === 0 && !system.specs ? 'true' : undefined}
+            >
+              {rest.length > 0 || system.specs ? (
+                <div className={styles.prose} data-reveal="up">
+                  <h2 id="product-overview" className={styles.h2}>
+                    About the {system.title}
+                  </h2>
+                  {rest.map((para) => (
+                    <p key={para.slice(0, 40)}>{para}</p>
+                  ))}
 
-                {detail.specs ? (
-                  <div className={styles.specs}>
-                    <h3 className={styles.specsHeading}>{detail.specs.heading}</h3>
-                    <dl>
-                      {detail.specs.rows.map((row) => (
-                        <div key={row.label}>
-                          <dt>{row.label}</dt>
-                          <dd>{row.value}</dd>
-                        </div>
-                      ))}
-                    </dl>
-                  </div>
-                ) : null}
-              </div>
+                  {system.specs ? (
+                    <div className={styles.specs} data-flush={rest.length === 0 ? 'true' : undefined}>
+                      <h3 className={styles.specsHeading}>{system.specs.heading}</h3>
+                      <dl>
+                        {system.specs.rows.map((row) => (
+                          <div key={row.label + row.value}>
+                            <dt>{row.label}</dt>
+                            <dd>{row.value}</dd>
+                          </div>
+                        ))}
+                      </dl>
+                    </div>
+                  ) : null}
+                </div>
+              ) : (
+                <h2 id="product-overview" className="visuallyHidden">
+                  About the {system.title}
+                </h2>
+              )}
 
               <div className={styles.features}>
-                {detail.sections.map((section, i) => (
+                {system.sections.map((section, i) => (
                   <div
                     key={section.heading}
                     className={styles.feature}
@@ -174,20 +199,30 @@ export default function ProductDetail({ product, slug }: { product: Product; slu
 
           <ul className={styles.grid}>
             {related.map((item, i) => (
-              <li key={item.title} data-reveal="up" data-reveal-delay={i * 80}>
-                <a className={styles.card} href={localHref(item.href)}>
-                  <span className={styles.cardMedia}>
-                    <Image
-                      src={item.image}
-                      alt={item.title}
-                      width={item.width}
-                      height={item.height}
-                      sizes="(max-width: 560px) 92vw, (max-width: 980px) 46vw, 24vw"
-                      className={styles.cardImage}
-                      loading="lazy"
-                    />
+              <li key={item.slug} data-reveal="up" data-reveal-delay={i * 80}>
+                <a className={styles.card} href={`/${item.slug}`}>
+                  <span className={styles.cardMedia} data-empty={item.image ? undefined : 'true'}>
+                    {item.image ? (
+                      <Image
+                        src={item.image}
+                        alt={item.title}
+                        width={item.width}
+                        height={item.height}
+                        sizes="(max-width: 560px) 92vw, (max-width: 980px) 46vw, 24vw"
+                        className={styles.cardImage}
+                        loading="lazy"
+                      />
+                    ) : (
+                      <span className={styles.cardGlyph} aria-hidden="true">
+                        {item.title
+                          .split(' ')
+                          .slice(0, 2)
+                          .map((word) => word[0])
+                          .join('')}
+                      </span>
+                    )}
                   </span>
-                  <span className={styles.cardTitle}>{titleCase(item.title)}</span>
+                  <span className={styles.cardTitle}>{item.title}</span>
                   <span className={styles.cardTagline}>{item.tagline}</span>
                   <span className={`arrowLink ${styles.cardLink}`}>
                     Know More

@@ -7,9 +7,9 @@ import ContactCTA from '@/components/ContactCTA';
 import Breadcrumb from '@/components/ui/Breadcrumb';
 import ProductDetail from '@/components/ProductDetail';
 import ArticleDetail from '@/components/ArticleDetail';
-import { ARTICLES, PRODUCTS, SITE } from '@/lib/siteData';
-import { articleBySlug, articleSlug, productBySlug, productSlug } from '@/lib/routes';
-import { productDetail } from '@/lib/productDetails';
+import { ARTICLES, SITE } from '@/lib/siteData';
+import { articleBySlug, articleSlug } from '@/lib/routes';
+import { ALL_SYSTEMS, systemDetail } from '@/lib/systems';
 import { articleBody } from '@/lib/articles';
 
 type Params = { params: Promise<{ slug: string }> };
@@ -22,7 +22,7 @@ export const dynamicParams = false;
 
 export function generateStaticParams() {
   return [
-    ...PRODUCTS.map((product) => ({ slug: productSlug(product) })),
+    ...ALL_SYSTEMS.map((system) => ({ slug: system.slug })),
     ...ARTICLES.map((article) => ({ slug: articleSlug(article) })),
   ];
 }
@@ -30,19 +30,21 @@ export function generateStaticParams() {
 export async function generateMetadata({ params }: Params): Promise<Metadata> {
   const { slug } = await params;
 
-  const product = productBySlug(slug);
-  if (product) {
-    const detail = productDetail(slug);
+  const system = systemDetail(slug);
+  if (system) {
+    const description = system.body[0] ?? system.tagline;
     return {
-      title: `${product.title} — SMEC Oil & Gas`,
-      description: detail?.body[0] ?? product.body,
+      title: `${system.title} — SMEC Oil & Gas`,
+      description,
       alternates: { canonical: `/${slug}` },
       openGraph: {
         type: 'website',
         url: `${SITE.url}/${slug}`,
-        title: product.title,
-        description: detail?.body[0] ?? product.body,
-        images: [{ url: product.image, width: product.width, height: product.height }],
+        title: system.title,
+        description,
+        ...(system.image
+          ? { images: [{ url: system.image, width: system.width, height: system.height }] }
+          : {}),
       },
     };
   }
@@ -70,17 +72,17 @@ export async function generateMetadata({ params }: Params): Promise<Metadata> {
 
 export default async function Page({ params }: Params) {
   const { slug } = await params;
-  const product = productBySlug(slug);
-  const article = product ? undefined : articleBySlug(slug);
-  if (!product && !article) notFound();
+  const system = systemDetail(slug);
+  const article = system ? undefined : articleBySlug(slug);
+  if (!system && !article) notFound();
 
-  const jsonLd = product
+  const jsonLd = system
     ? {
         '@context': 'https://schema.org',
         '@type': 'Product',
-        name: product.title,
-        description: productDetail(slug)?.body[0] ?? product.body,
-        image: `${SITE.url}${product.image}`,
+        name: system.title,
+        description: system.body[0] ?? system.tagline,
+        ...(system.image ? { image: `${SITE.url}${system.image}` } : {}),
         url: `${SITE.url}/${slug}`,
         brand: { '@type': 'Brand', name: 'SMEC' },
       }
@@ -102,11 +104,11 @@ export default async function Page({ params }: Params) {
       <SiteHeader />
       <Breadcrumb
         trail={
-          product
+          system
             ? [
                 { label: 'Home', href: '/' },
                 { label: 'Systems', href: '/#systems' },
-                { label: product.title },
+                { label: system.title },
               ]
             : [
                 { label: 'Home', href: '/' },
@@ -116,8 +118,8 @@ export default async function Page({ params }: Params) {
         }
       />
       <main id="main">
-        {product ? (
-          <ProductDetail product={product} slug={slug} />
+        {system ? (
+          <ProductDetail system={system} />
         ) : (
           <ArticleDetail article={article!} slug={slug} />
         )}

@@ -1,0 +1,232 @@
+.masthead {
+  position: relative;
+  padding-block: clamp(28px, 3.6vw, 52px) clamp(48px, 6vw, 88px);
+  background: var(--ink);
+  color: var(--white);
+  border-bottom: 1px solid var(--ink-hair);
+  isolation: isolate;
+}
+
+.kicker {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin: 0 0 20px;
+  font-family: var(--font-mono);
+  font-size: var(--fs-label);
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: var(--accent-on-dark);
+}
+
+.kickerRule {
+  width: 28px;
+  height: 1px;
+  background: currentColor;
+  opacity: 0.6;
+}
+
+.title {
+  margin: 0 0 18px;
+  max-width: 18ch;
+  font-size: var(--fs-h1);
+  letter-spacing: -0.042em;
+}
+
+.lead {
+  margin: 0;
+  max-width: 48ch;
+  font-size: var(--fs-lead);
+  line-height: 1.6;
+  color: var(--steel-300);
+}
+
+/* ----------------------------------------------------------- quick row */
+
+.quick {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: clamp(12px, 1.6vw, 20px);
+  margin-top: clamp(32px, 4vw, 52px);
+}
+
+.quick a {
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+  padding: clamp(16px, 1.8vw, 22px);
+  border: 1px solid var(--ink-hair);
+  border-radius: var(--radius);
+  font-size: 15px;
+  color: var(--white);
+  transition: border-color 0.4s var(--ease), background 0.4s var(--ease),
+    transform 0.4s var(--ease);
+}
+
+.quick a:hover {
+  border-color: var(--accent);
+  background: rgba(255, 255, 255, 0.03);
+  transform: translateY(-3px);
+}
+
+.quickIcon {
+  flex: none;
+  margin-top: 3px;
+  color: var(--accent-on-dark);
+}
+
+.quickLabel {
+  display: block;
+  margin-bottom: 4px;
+  font-family: var(--font-mono);
+  font-size: 10px;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--steel-700);
+}
+
+/* -------------------------------------------------------------- layout */
+
+.layout {
+  display: grid;
+  grid-template-columns: minmax(0, 1.15fr) minmax(0, 0.85fr);
+  gap: clamp(34px, 5vw, 80px);
+  align-items: start;
+}
+
+.blockHead {
+  display: flex;
+  align-items: baseline;
+  gap: 16px;
+  margin-bottom: clamp(20px, 2.4vw, 30px);
+  padding-bottom: 14px;
+  border-bottom: 1px solid var(--hair);
+}
+
+.blockNum {
+  flex: none;
+  font-family: var(--font-mono);
+  font-size: 10.5px;
+  letter-spacing: 0.2em;
+  color: var(--accent);
+}
+
+.blockTitle {
+  margin: 0;
+  font-size: var(--fs-h3);
+  letter-spacing: -0.028em;
+  color: var(--fg);
+}
+
+/* ------------------------------------------------------------- offices */
+
+.offices {
+  display: grid;
+  border-top: 1px solid var(--hair);
+}
+
+.offices > li {
+  padding: 22px 0;
+  border-bottom: 1px solid var(--hair);
+}
+
+.officeTag {
+  margin: 0 0 8px;
+  font-family: var(--font-mono);
+  font-size: 10px;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--accent);
+}
+
+.officeName {
+  margin: 0 0 10px;
+  font-family: var(--font-display);
+  font-size: var(--fs-h4);
+  font-weight: 500;
+  letter-spacing: -0.02em;
+  color: var(--fg);
+}
+
+.officeAddress {
+  display: flex;
+  gap: 10px;
+  margin-bottom: 12px;
+  font-style: normal;
+  font-size: 14px;
+  line-height: 1.65;
+  color: var(--fg-muted);
+}
+
+.officeIcon {
+  flex: none;
+  margin-top: 4px;
+  color: var(--fg-dim);
+}
+
+.officePhones {
+  display: grid;
+  gap: 6px;
+  padding-left: 26px;
+}
+
+.officePhones li {
+  display: flex;
+  gap: 10px;
+  font-size: 14px;
+  color: var(--fg);
+}
+
+.phoneLabel {
+  min-width: 64px;
+  color: var(--fg-dim);
+}
+
+/* --------------------------------------------------------------- reach */
+
+.reach {
+  margin-top: 26px;
+}
+
+.reachLabel {
+  margin: 0 0 12px;
+  font-family: var(--font-mono);
+  font-size: 10px;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--fg-dim);
+}
+
+.reachList {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+}
+
+.reachList li {
+  padding: 5px 10px;
+  border: 1px solid var(--hair);
+  border-radius: var(--radius);
+  font-size: 12.5px;
+  color: var(--fg-muted);
+}
+
+.registered {
+  margin: 24px 0 0;
+  padding-top: 18px;
+  border-top: 1px solid var(--hair);
+  font-size: 12.5px;
+  line-height: 1.6;
+  color: var(--fg-dim);
+}
+
+/* ---------------------------------------------------------- responsive */
+
+@media (max-width: 980px) {
+  .layout {
+    grid-template-columns: 1fr;
+  }
+  .quick {
+    grid-template-columns: 1fr;
+  }
+}

@@ -36,13 +36,39 @@ export const productBySlug = (slug: string) =>
 export const articleBySlug = (slug: string) =>
   ARTICLES.find((article) => articleSlug(article) === slug);
 
+/**
+ * Pages this build has beyond the homepage data set: the six systems the
+ * live product menu lists without homepage records, and the company pages.
+ * Kept as plain slugs so this module stays free of content imports.
+ */
+export const EXTRA_SYSTEM_SLUGS = [
+  'vfd-houses',
+  'scr-houses',
+  'rpd-system',
+  'load-monitoring-system',
+  'paga-system',
+  'battery-charger',
+] as const;
+
+export const COMPANY_SLUGS = [
+  'about-us',
+  'solutions-and-services',
+  'research-and-developement',
+  'careers',
+  'sustainability',
+  'contact-us',
+  'privacy-policy',
+] as const;
+
+const LOCAL_SLUGS = new Set<string>([...EXTRA_SYSTEM_SLUGS, ...COMPANY_SLUGS, 'insights']);
+
 /** `/slug` when this build has a page for the link, the original href otherwise. */
 export function localHref(href: string): string {
   const override = ARTICLE_SLUG_OVERRIDES[href];
   if (override) return `/${override}`;
   if (!href.startsWith(`${SITE.url}/`)) return href;
   const slug = slugOf(href);
-  if (productBySlug(slug) || articleBySlug(slug)) return `/${slug}`;
+  if (LOCAL_SLUGS.has(slug) || productBySlug(slug) || articleBySlug(slug)) return `/${slug}`;
   return href;
 }
 
