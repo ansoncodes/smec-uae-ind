@@ -1,6 +1,6 @@
 'use client';
 
-import { useEffect, useRef, useState } from 'react';
+import { useRef, useState } from 'react';
 import Image from 'next/image';
 import { FEATURED_SYSTEMS } from '@/lib/experience';
 import { localHref } from '@/lib/routes';
@@ -8,159 +8,174 @@ import { ArrowRight } from './Icons';
 import styles from './SystemFeature.module.css';
 
 /**
- * A single sticky frame that steps through five systems as the page scrolls:
- * the photograph crossfades on the left, the copy swaps on the right, and a
- * progress rail tracks position. Not a carousel — position in the section is
- * the only control, so it reads as one continuous move.
+ * Five systems in one frame, stepped through by the reader.
  *
- * Scroll position is sampled in a rAF-throttled listener and only ever sets an
- * index in state, so nothing lays out per frame. Under reduced motion (and
- * without JavaScript) it degrades to the five systems stacked as plain blocks.
+ * This is a normal-height section: the page scrolls past it at the usual
+ * rate and the controls — a named rail of tabs plus previous/next — are the
+ * only thing that changes the system on show. Every panel is rendered into
+ * the markup, so all five are in the HTML whether or not the reader steps
+ * through them.
  */
 export default function SystemFeature() {
-  const wrapRef = useRef<HTMLDivElement>(null);
   const [active, setActive] = useState(0);
-  const [stacked, setStacked] = useState(false);
+  const tabsRef = useRef<HTMLDivElement>(null);
+  const count = FEATURED_SYSTEMS.length;
 
-  useEffect(() => {
-    const reduced = window.matchMedia('(prefers-reduced-motion: reduce)');
-    const narrow = window.matchMedia('(max-width: 900px)');
+  const go = (next: number) => setActive((next + count) % count);
 
-    const sync = () => setStacked(reduced.matches || narrow.matches);
-    sync();
-    reduced.addEventListener('change', sync);
-    narrow.addEventListener('change', sync);
-
-    let frame = 0;
-    const measure = () => {
-      frame = 0;
-      const el = wrapRef.current;
-      if (!el || reduced.matches || narrow.matches) return;
-      const rect = el.getBoundingClientRect();
-      const travel = rect.height - window.innerHeight;
-      if (travel <= 0) return;
-      const progress = Math.min(1, Math.max(0, -rect.top / travel));
-      const next = Math.min(
-        FEATURED_SYSTEMS.length - 1,
-        Math.floor(progress * FEATURED_SYSTEMS.length)
-      );
-      setActive((current) => (current === next ? current : next));
+  /* Left/right walk the rail and move focus with the selection, per the
+     tabs pattern; Home and End jump to the ends. */
+  const onKeyDown = (event: React.KeyboardEvent) => {
+    const map: Record<string, number> = {
+      ArrowLeft: active - 1,
+      ArrowRight: active + 1,
+      Home: 0,
+      End: count - 1,
     };
-
-    const onScroll = () => {
-      if (frame) return;
-      frame = requestAnimationFrame(measure);
-    };
-
-    measure();
-    window.addEventListener('scroll', onScroll, { passive: true });
-    window.addEventListener('resize', onScroll, { passive: true });
-    return () => {
-      reduced.removeEventListener('change', sync);
-      narrow.removeEventListener('change', sync);
-      window.removeEventListener('scroll', onScroll);
-      window.removeEventListener('resize', onScroll);
-      if (frame) cancelAnimationFrame(frame);
-    };
-  }, []);
+    const next = map[event.key];
+    if (next === undefined) return;
+    event.preventDefault();
+    const index = (next + count) % count;
+    setActive(index);
+    tabsRef.current?.querySelectorAll('button')[index]?.focus();
+  };
 
   return (
     <section
-      className={`${styles.section} grain`}
+      className={`section ${styles.section} grain`}
       id="capability"
       data-tone="dark"
       aria-labelledby="feature-title"
     >
-      <div
-        ref={wrapRef}
-        className={styles.wrap}
-        style={{ ['--count' as string]: FEATURED_SYSTEMS.length }}
-        data-stacked={stacked || undefined}
-      >
-        <div className={styles.sticky}>
-          <div className={`container ${styles.inner}`}>
-            {/* ------------------------------------------------- media */}
-            <div className={styles.stage}>
+      <div className="container">
+        <p className="sectionLabel" data-reveal="fade">
+          <span className="num">03</span>
+          <span>System in focus</span>
+          <span className="rule" />
+        </p>
+
+        <div className={styles.inner}>
+          {/* --------------------------------------------------- media */}
+          <div className={styles.stage} data-reveal="fade">
+            {FEATURED_SYSTEMS.map((system, i) => (
+              <figure
+                key={system.slug}
+                className={styles.frame}
+                data-on={i === active ? 'true' : undefined}
+                aria-hidden={i !== active}
+              >
+                <Image
+                  src={system.image!}
+                  alt={system.title}
+                  width={system.width}
+                  height={system.height}
+                  sizes="(max-width: 900px) 92vw, 46vw"
+                  className={styles.img}
+                  loading="lazy"
+                />
+              </figure>
+            ))}
+            <span className={styles.stageEdge} aria-hidden="true" />
+
+            {/* Docked to the picture, where the affordance is unmissable. */}
+            <div className={styles.stageNav}>
+              <button
+                type="button"
+                className={styles.stepper}
+                onClick={() => go(active - 1)}
+                aria-label="Previous system"
+              >
+                <ArrowRight className={styles.stepperBack} />
+              </button>
+              <span className={styles.stageCount} aria-hidden="true">
+                {String(active + 1).padStart(2, '0')}
+                <span className={styles.stageCountDim}>
+                  {' / '}
+                  {String(count).padStart(2, '0')}
+                </span>
+              </span>
+              <button
+                type="button"
+                className={styles.stepper}
+                onClick={() => go(active + 1)}
+                aria-label="Next system"
+              >
+                <ArrowRight />
+              </button>
+            </div>
+          </div>
+
+          {/* ---------------------------------------------------- copy */}
+          <div className={styles.copyCol}>
+            <h2 id="feature-title" className={styles.h2} data-reveal="up">
+              Precision systems,
+              <br />
+              <span className={styles.h2Dim}>proven on the rig.</span>
+            </h2>
+
+            <div className={styles.slides}>
               {FEATURED_SYSTEMS.map((system, i) => (
-                <figure
+                <article
                   key={system.slug}
-                  className={styles.frame}
-                  data-on={!stacked && i === active ? 'true' : undefined}
-                  aria-hidden={!stacked && i !== active}
+                  className={styles.slide}
+                  id={`system-panel-${i}`}
+                  role="tabpanel"
+                  aria-labelledby={`system-tab-${i}`}
+                  data-on={i === active ? 'true' : undefined}
+                  hidden={i !== active}
                 >
-                  <Image
-                    src={system.image!}
-                    alt={system.title}
-                    width={system.width}
-                    height={system.height}
-                    sizes="(max-width: 900px) 92vw, 46vw"
-                    className={styles.img}
-                    loading="lazy"
-                  />
-                </figure>
+                  <p className={styles.slideKicker}>
+                    {String(i + 1).padStart(2, '0')} / {String(count).padStart(2, '0')}
+                    <span className={styles.slideKickerRule} />
+                    Product system
+                  </p>
+                  <h3 className={styles.slideTitle}>{system.title}</h3>
+                  <p className={styles.slideBody}>{system.body}</p>
+
+                  {system.highlights.length > 0 ? (
+                    <ul className={styles.specs}>
+                      {system.highlights.map((item) => (
+                        <li key={item}>{item}</li>
+                      ))}
+                    </ul>
+                  ) : null}
+
+                  <a className={`arrowLink ${styles.slideCta}`} href={localHref(system.href)}>
+                    Explore System
+                    <ArrowRight className="arrow" />
+                  </a>
+                </article>
               ))}
-              <span className={styles.stageEdge} aria-hidden="true" />
             </div>
 
-            {/* -------------------------------------------------- copy */}
-            <div className={styles.copyCol}>
-              <p className="sectionLabel">
-                <span className="num">03</span>
-                <span>System in focus</span>
-                <span className="rule" />
-              </p>
-
-              <h2 id="feature-title" className={styles.h2}>
-                Precision systems,
-                <br />
-                <span className={styles.h2Dim}>proven on the rig.</span>
-              </h2>
-
-              <div className={styles.slides}>
+            {/* ------------------------------------------------ controls */}
+            <div className={styles.controls}>
+              <p className={styles.controlsHint}>Switch system</p>
+              <div
+                ref={tabsRef}
+                className={styles.rail}
+                role="tablist"
+                aria-label="Featured systems"
+                onKeyDown={onKeyDown}
+              >
                 {FEATURED_SYSTEMS.map((system, i) => (
-                  <article
+                  <button
                     key={system.slug}
-                    className={styles.slide}
-                    data-on={stacked || i === active ? 'true' : undefined}
-                    aria-hidden={!stacked && i !== active}
-                  >
-                    <p className={styles.slideKicker}>
-                      {String(i + 1).padStart(2, '0')} / {String(FEATURED_SYSTEMS.length).padStart(2, '0')}
-                      <span className={styles.slideKickerRule} />
-                      Product system
-                    </p>
-                    <h3 className={styles.slideTitle}>{system.title}</h3>
-                    <p className={styles.slideBody}>{system.body}</p>
-
-                    {system.highlights.length > 0 ? (
-                      <ul className={styles.specs}>
-                        {system.highlights.map((item) => (
-                          <li key={item}>{item}</li>
-                        ))}
-                      </ul>
-                    ) : null}
-
-                    <a className={`arrowLink ${styles.slideCta}`} href={localHref(system.href)}>
-                      Explore System
-                      <ArrowRight className="arrow" />
-                    </a>
-                  </article>
-                ))}
-              </div>
-
-              {/* ---------------------------------------------- rail */}
-              <ol className={styles.rail} aria-hidden="true">
-                {FEATURED_SYSTEMS.map((system, i) => (
-                  <li
-                    key={system.slug}
+                    type="button"
+                    role="tab"
+                    id={`system-tab-${i}`}
+                    aria-selected={i === active}
+                    aria-controls={`system-panel-${i}`}
+                    tabIndex={i === active ? 0 : -1}
                     className={styles.railItem}
                     data-on={i === active ? 'true' : undefined}
+                    onClick={() => setActive(i)}
                   >
                     <span className={styles.railBar} />
                     <span className={styles.railName}>{system.title}</span>
-                  </li>
+                  </button>
                 ))}
-              </ol>
+              </div>
             </div>
           </div>
         </div>
