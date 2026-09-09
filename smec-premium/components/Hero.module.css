@@ -36,14 +36,25 @@
 }
 
 /* Two layers: a directional wash that keeps the copy legible, and a vignette
-   that closes the frame. Both are flat — no decorative colour. */
+   that closes the frame. Both are flat — no decorative colour.
+
+   The left wash carries most of the weight. The banner is a sunset, so the
+   sky behind the headline is the brightest part of the frame; without a deep
+   enough wash the second title line drops to about 1.4:1 against it. */
 .scrim {
   position: absolute;
   inset: 0;
   z-index: 1;
   background:
-    linear-gradient(to top, rgba(6, 8, 10, 0.94) 0%, rgba(6, 8, 10, 0.6) 34%, rgba(6, 8, 10, 0.18) 62%, rgba(6, 8, 10, 0.5) 100%),
-    linear-gradient(to right, rgba(6, 8, 10, 0.82) 0%, rgba(6, 8, 10, 0.35) 42%, rgba(6, 8, 10, 0) 72%);
+    linear-gradient(to top, rgba(6, 8, 10, 0.94) 0%, rgba(6, 8, 10, 0.62) 32%, rgba(6, 8, 10, 0.22) 60%, rgba(6, 8, 10, 0.55) 100%),
+    linear-gradient(
+      to right,
+      rgba(6, 8, 10, 0.93) 0%,
+      rgba(6, 8, 10, 0.8) 26%,
+      rgba(6, 8, 10, 0.45) 52%,
+      rgba(6, 8, 10, 0.08) 78%,
+      rgba(6, 8, 10, 0) 100%
+    );
 }
 
 .vignette {
@@ -74,7 +85,7 @@
   font-size: var(--fs-label);
   letter-spacing: 0.2em;
   text-transform: uppercase;
-  color: var(--steel-300);
+  color: var(--steel-100);
   opacity: 0;
   animation: fadeUp 0.9s var(--ease-out) 80ms forwards;
 }
@@ -88,7 +99,7 @@
 }
 
 .title {
-  margin: 0 0 clamp(24px, 3vw, 40px);
+  margin: 0 0 clamp(18px, 2.1vw, 28px);
   font-size: var(--fs-display);
   font-weight: 500;
   line-height: var(--lh-display);
@@ -111,7 +122,7 @@
 
 .em {
   font-style: normal;
-  color: var(--steel-500);
+  color: rgba(255, 255, 255, 0.7);
 }
 
 .copy {
@@ -124,10 +135,10 @@
 
 .subtitle {
   font-family: var(--font-sans);
-  font-size: var(--fs-lead);
+  font-size: clamp(18px, 1.5vw, 23px);
   font-weight: 500;
-  line-height: 1.4;
-  letter-spacing: 0.005em;
+  line-height: 1.35;
+  letter-spacing: -0.005em;
   color: var(--white);
   text-wrap: balance;
 }
@@ -135,7 +146,7 @@
 .body {
   margin: 0;
   max-width: 46ch;
-  color: var(--steel-300);
+  color: var(--steel-100);
   font-size: var(--fs-body);
   line-height: 1.65;
 }
@@ -144,7 +155,7 @@
   display: flex;
   flex-wrap: wrap;
   gap: 12px;
-  margin-top: 10px;
+  margin-top: 18px;
 }
 
 .cta {
