@@ -1,0 +1,300 @@
+.section {
+  position: relative;
+  background: #07090b;
+  color: var(--white);
+  isolation: isolate;
+  border-top: 1px solid var(--ink-hair);
+}
+
+/* Tall enough to give every system a screen of travel. */
+.wrap {
+  height: calc(var(--count) * 78vh + 100vh);
+}
+
+.sticky {
+  position: sticky;
+  top: 0;
+  height: 100svh;
+  display: flex;
+  align-items: center;
+  overflow: hidden;
+}
+
+.inner {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+  gap: clamp(30px, 5vw, 84px);
+  align-items: center;
+  width: 100%;
+}
+
+/* ---------------------------------------------------------------- stage */
+
+.stage {
+  position: relative;
+  aspect-ratio: 4 / 3.1;
+  border: 1px solid var(--ink-hair);
+  border-radius: var(--radius);
+  background: #0c1014;
+  overflow: hidden;
+}
+
+.frame {
+  position: absolute;
+  inset: 0;
+  margin: 0;
+  opacity: 0;
+  transform: scale(1.05);
+  transition: opacity 0.85s var(--ease), transform 1.3s var(--ease);
+}
+
+.frame[data-on='true'] {
+  opacity: 1;
+  transform: scale(1);
+}
+
+.img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+/* Corner brackets — an engineering-drawing detail rather than a border. */
+.stageEdge {
+  position: absolute;
+  inset: 12px;
+  pointer-events: none;
+  background:
+    linear-gradient(var(--accent), var(--accent)) left top / 22px 1px no-repeat,
+    linear-gradient(var(--accent), var(--accent)) left top / 1px 22px no-repeat,
+    linear-gradient(var(--accent), var(--accent)) right bottom / 22px 1px no-repeat,
+    linear-gradient(var(--accent), var(--accent)) right bottom / 1px 22px no-repeat;
+  opacity: 0.85;
+}
+
+/* ----------------------------------------------------------------- copy */
+
+.copyCol {
+  min-width: 0;
+}
+
+.h2 {
+  margin: 0 0 clamp(22px, 2.6vw, 34px);
+  font-size: clamp(27px, 3.4vw, 46px);
+  letter-spacing: -0.035em;
+}
+
+.h2Dim {
+  color: var(--steel-500);
+}
+
+/* Slides are stacked in one grid cell so the column never jumps height. */
+.slides {
+  display: grid;
+  min-height: 300px;
+}
+
+.slide {
+  grid-area: 1 / 1;
+  opacity: 0;
+  transform: translateY(14px);
+  pointer-events: none;
+  transition: opacity 0.5s var(--ease), transform 0.6s var(--ease);
+}
+
+.slide[data-on='true'] {
+  opacity: 1;
+  transform: none;
+  pointer-events: auto;
+}
+
+.slideKicker {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin: 0 0 14px;
+  font-family: var(--font-mono);
+  font-size: var(--fs-label);
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--accent-on-dark);
+}
+
+.slideKickerRule {
+  width: 26px;
+  height: 1px;
+  background: currentColor;
+  opacity: 0.5;
+}
+
+.slideTitle {
+  margin: 0 0 14px;
+  font-size: clamp(21px, 2.1vw, 30px);
+  font-weight: 500;
+  letter-spacing: -0.025em;
+  color: var(--white);
+}
+
+.slideBody {
+  margin: 0 0 20px;
+  max-width: 52ch;
+  font-size: var(--fs-sm);
+  line-height: 1.7;
+  color: var(--steel-300);
+}
+
+.specs {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 0 22px;
+  margin: 0 0 24px;
+  border-top: 1px solid var(--ink-hair);
+}
+
+.specs li {
+  position: relative;
+  padding: 10px 0 10px 16px;
+  border-bottom: 1px solid var(--ink-hair);
+  font-size: 13px;
+  line-height: 1.45;
+  color: var(--steel-300);
+}
+
+.specs li::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 18px;
+  width: 6px;
+  height: 1px;
+  background: var(--accent);
+}
+
+.slideCta {
+  color: var(--white);
+}
+
+/* ----------------------------------------------------------------- rail */
+
+.rail {
+  display: flex;
+  gap: 10px;
+  margin-top: clamp(20px, 2.6vw, 34px);
+  padding-top: 18px;
+  border-top: 1px solid var(--ink-hair);
+}
+
+.railItem {
+  flex: 1;
+  min-width: 0;
+}
+
+.railBar {
+  display: block;
+  height: 2px;
+  background: rgba(255, 255, 255, 0.16);
+  transition: background 0.5s var(--ease);
+}
+
+.railItem[data-on='true'] .railBar {
+  background: var(--accent);
+}
+
+.railName {
+  display: block;
+  margin-top: 9px;
+  font-family: var(--font-mono);
+  font-size: 9.5px;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--steel-700);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  transition: color 0.5s var(--ease);
+}
+
+.railItem[data-on='true'] .railName {
+  color: var(--steel-100);
+}
+
+/* =========================================================================
+   Stacked fallback — narrow viewports, reduced motion, and no-JS
+   ========================================================================= */
+
+.wrap[data-stacked] {
+  height: auto;
+}
+
+.wrap[data-stacked] .sticky {
+  position: static;
+  height: auto;
+  padding-block: var(--section-y);
+}
+
+.wrap[data-stacked] .inner {
+  grid-template-columns: 1fr;
+  gap: 34px;
+}
+
+.wrap[data-stacked] .stage {
+  display: none;
+}
+
+.wrap[data-stacked] .slides {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 40px;
+  min-height: 0;
+}
+
+.wrap[data-stacked] .slide {
+  grid-area: auto;
+  opacity: 1;
+  transform: none;
+  pointer-events: auto;
+  padding-top: 28px;
+  border-top: 1px solid var(--ink-hair);
+}
+
+.wrap[data-stacked] .rail {
+  display: none;
+}
+
+/* Before hydration the section is one screen tall with the first system
+   shown; JS then decides between the sticky and stacked treatments. */
+@media (max-width: 900px) {
+  .wrap {
+    height: auto;
+  }
+  .sticky {
+    position: static;
+    height: auto;
+    padding-block: var(--section-y);
+  }
+  .inner {
+    grid-template-columns: 1fr;
+  }
+  .stage {
+    display: none;
+  }
+  .slides {
+    grid-template-columns: 1fr;
+    gap: 40px;
+    min-height: 0;
+  }
+  .slide {
+    grid-area: auto;
+    opacity: 1;
+    transform: none;
+    pointer-events: auto;
+    padding-top: 28px;
+    border-top: 1px solid var(--ink-hair);
+  }
+  .rail {
+    display: none;
+  }
+  .specs {
+    grid-template-columns: 1fr;
+  }
+}

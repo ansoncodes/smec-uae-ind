@@ -1,0 +1,241 @@
+.section {
+  isolation: isolate;
+  border-top: 1px solid var(--ink-hair);
+}
+
+.layout {
+  display: grid;
+  grid-template-columns: minmax(220px, 0.85fr) minmax(0, 2.4fr);
+  gap: clamp(28px, 4.5vw, 72px);
+  align-items: start;
+}
+
+/* ---------------------------------------------------------------- aside */
+
+.figure {
+  padding-bottom: 26px;
+  border-bottom: 1px solid var(--hair);
+}
+
+.figureValue {
+  display: block;
+  font-family: var(--font-display);
+  font-size: clamp(56px, 7vw, 96px);
+  font-weight: 500;
+  line-height: 0.92;
+  letter-spacing: -0.05em;
+  color: var(--white);
+}
+
+.figureLabel {
+  display: block;
+  margin-top: 12px;
+  font-family: var(--font-mono);
+  font-size: var(--fs-label);
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: var(--steel-500);
+}
+
+.list {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 2px 14px;
+  margin-top: 24px;
+}
+
+.listItem {
+  display: flex;
+  align-items: center;
+  gap: 9px;
+  padding: 7px 0;
+  font-size: 13px;
+  letter-spacing: 0.01em;
+  color: var(--steel-300);
+  text-transform: capitalize;
+}
+
+.listDot {
+  width: 4px;
+  height: 4px;
+  border-radius: 50%;
+  background: var(--steel-700);
+}
+
+.hq {
+  padding: 2px 6px;
+  border: 1px solid var(--accent);
+  border-radius: 2px;
+  font-family: var(--font-mono);
+  font-size: 8.5px;
+  letter-spacing: 0.14em;
+  color: var(--accent-on-dark);
+}
+
+/* ------------------------------------------------------------------ map */
+
+.mapWrap {
+  min-width: 0;
+}
+
+.map {
+  position: relative;
+  aspect-ratio: 1500 / 728;
+}
+
+/* The source map is grey dots on transparent; on this ground it needs only
+   knocking back, not recolouring. */
+.mapImg {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  opacity: 0.2;
+}
+
+/* ---------------------------------------------------------------- links */
+
+.links {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  overflow: visible;
+}
+
+.link {
+  fill: none;
+  stroke: var(--accent);
+  stroke-width: 1;
+  stroke-opacity: 0.34;
+  stroke-dasharray: 3 5;
+  animation: trace 9s linear infinite;
+  animation-delay: calc(var(--i) * -0.7s);
+}
+
+@keyframes trace {
+  to {
+    stroke-dashoffset: -160;
+  }
+}
+
+/* ----------------------------------------------------------------- pins */
+
+.pins {
+  position: absolute;
+  inset: 0;
+}
+
+.pin {
+  position: absolute;
+  transform: translate(-50%, -50%);
+}
+
+.pinDot {
+  display: block;
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: var(--accent);
+  box-shadow: 0 0 0 1.5px rgba(10, 12, 15, 0.9);
+}
+
+.pinHome .pinDot {
+  width: 10px;
+  height: 10px;
+  background: var(--white);
+  box-shadow: 0 0 0 2px var(--accent);
+}
+
+.pinPulse {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 7px;
+  height: 7px;
+  margin: -3.5px 0 0 -3.5px;
+  border-radius: 50%;
+  border: 1px solid var(--accent);
+  animation: pulse 3.6s var(--ease-out) infinite;
+  animation-delay: calc(var(--i) * 0.42s);
+}
+
+@keyframes pulse {
+  0% {
+    transform: scale(1);
+    opacity: 0.85;
+  }
+  55%,
+  100% {
+    transform: scale(4.6);
+    opacity: 0;
+  }
+}
+
+/* Labels stay out of the way until the pin is hovered or focused. */
+.pinName {
+  position: absolute;
+  left: 50%;
+  bottom: calc(100% + 9px);
+  transform: translateX(-50%) translateY(4px);
+  padding: 4px 8px;
+  border: 1px solid var(--ink-hair);
+  border-radius: 2px;
+  background: rgba(10, 12, 15, 0.94);
+  font-family: var(--font-mono);
+  font-size: 9px;
+  letter-spacing: 0.14em;
+  white-space: nowrap;
+  color: var(--steel-100);
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.3s var(--ease), transform 0.3s var(--ease);
+}
+
+.pin:hover .pinName,
+.pinHome .pinName {
+  opacity: 1;
+  transform: translateX(-50%);
+}
+
+.pinHome .pinName {
+  color: var(--white);
+  border-color: var(--accent);
+}
+
+/* ------------------------------------------------------------ responsive */
+
+@media (max-width: 980px) {
+  .layout {
+    grid-template-columns: 1fr;
+  }
+  .list {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+}
+
+@media (max-width: 640px) {
+  .list {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+  .pinName {
+    display: none;
+  }
+  .pinHome .pinName {
+    display: block;
+  }
+  .mapImg {
+    opacity: 0.24;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .link {
+    animation: none;
+    stroke-dasharray: none;
+    stroke-opacity: 0.28;
+  }
+  .pinPulse {
+    animation: none;
+    opacity: 0;
+  }
+}

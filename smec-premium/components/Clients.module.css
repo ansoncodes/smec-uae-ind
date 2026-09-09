@@ -1,0 +1,92 @@
+.section {
+  position: relative;
+  background: var(--bg);
+  color: var(--fg);
+  padding-block: clamp(56px, 7vw, 104px);
+}
+
+.head {
+  display: flex;
+  align-items: center;
+  gap: clamp(20px, 3vw, 40px);
+  margin-bottom: clamp(30px, 3.6vw, 48px);
+}
+
+.title {
+  flex: none;
+  margin: 0;
+  font-size: clamp(20px, 2.1vw, 28px);
+  font-weight: 500;
+  letter-spacing: -0.025em;
+}
+
+.rule {
+  flex: 1;
+  height: 1px;
+  background: var(--hair);
+  transform-origin: left;
+}
+
+/* ----------------------------------------------------------------- wall */
+
+.wall {
+  display: grid;
+  gap: 10px;
+  overflow: hidden;
+  mask-image: linear-gradient(to right, transparent, #000 7%, #000 93%, transparent);
+  -webkit-mask-image: linear-gradient(to right, transparent, #000 7%, #000 93%, transparent);
+}
+
+.row {
+  overflow: hidden;
+}
+
+.track {
+  display: flex;
+  align-items: center;
+  gap: clamp(28px, 4vw, 68px);
+  width: max-content;
+  padding-block: 6px;
+  animation: marqueeLeft var(--speed) linear infinite;
+}
+
+.trackReverse {
+  animation-name: marqueeRight;
+}
+
+.wall:hover .track {
+  animation-play-state: paused;
+}
+
+.cell {
+  display: grid;
+  place-items: center;
+  height: clamp(52px, 5.4vw, 74px);
+  padding-inline: clamp(10px, 1.4vw, 20px);
+}
+
+/* Marks sit as flat grey until pointed at, so the wall stays quiet. */
+.logo {
+  width: auto;
+  height: auto;
+  max-height: 100%;
+  object-fit: contain;
+  filter: grayscale(1) contrast(0.9);
+  opacity: 0.5;
+  transition: opacity 0.4s var(--ease), filter 0.4s var(--ease);
+}
+
+.cell:hover .logo {
+  opacity: 1;
+  filter: none;
+}
+
+@media (max-width: 640px) {
+  .track {
+    gap: 30px;
+    animation-duration: calc(var(--speed) * 0.7);
+  }
+  .cell {
+    height: 48px;
+  }
+}

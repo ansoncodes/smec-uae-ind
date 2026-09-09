@@ -1,0 +1,305 @@
+.hero {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  min-height: 100svh;
+  padding-top: calc(var(--header-h) + 60px);
+  padding-bottom: 0;
+  background: var(--ink);
+  overflow: hidden;
+  isolation: isolate;
+}
+
+/* --------------------------------------------------------------- picture */
+
+.media {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+}
+
+.image {
+  object-fit: cover;
+  object-position: 58% 50%;
+  transform: scale(1.06);
+  animation: drift 26s var(--ease-io) infinite alternate;
+}
+
+@keyframes drift {
+  from {
+    transform: scale(1.06) translate3d(0, 0, 0);
+  }
+  to {
+    transform: scale(1.14) translate3d(-1.6%, -1.2%, 0);
+  }
+}
+
+/* Two layers: a directional wash that keeps the copy legible, and a vignette
+   that closes the frame. Both are flat — no decorative colour. */
+.scrim {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  background:
+    linear-gradient(to top, rgba(6, 8, 10, 0.94) 0%, rgba(6, 8, 10, 0.6) 34%, rgba(6, 8, 10, 0.18) 62%, rgba(6, 8, 10, 0.5) 100%),
+    linear-gradient(to right, rgba(6, 8, 10, 0.82) 0%, rgba(6, 8, 10, 0.35) 42%, rgba(6, 8, 10, 0) 72%);
+}
+
+.vignette {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  background: radial-gradient(120% 90% at 50% 50%, transparent 42%, rgba(4, 5, 7, 0.6) 100%);
+}
+
+/* ------------------------------------------------------------------ copy */
+
+.inner {
+  position: relative;
+  z-index: 3;
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding-bottom: clamp(40px, 6vw, 90px);
+}
+
+.kicker {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin: 0 0 clamp(20px, 2.4vw, 34px);
+  font-family: var(--font-mono);
+  font-size: var(--fs-label);
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--steel-300);
+  opacity: 0;
+  animation: fadeUp 0.9s var(--ease-out) 80ms forwards;
+}
+
+.kickerDot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: var(--accent);
+  box-shadow: 0 0 0 4px rgba(18, 87, 253, 0.22);
+}
+
+.title {
+  margin: 0 0 clamp(24px, 3vw, 40px);
+  font-size: var(--fs-display);
+  font-weight: 500;
+  line-height: var(--lh-display);
+  letter-spacing: -0.045em;
+  text-transform: uppercase;
+  text-wrap: nowrap;
+}
+
+.line {
+  display: block;
+  overflow: hidden;
+  padding-bottom: 0.04em;
+}
+
+.line > span {
+  display: block;
+  transform: translate3d(0, 108%, 0);
+  animation: riseIn 1.05s var(--ease-out) forwards;
+}
+
+.em {
+  font-style: normal;
+  color: var(--steel-500);
+}
+
+.copy {
+  display: grid;
+  gap: clamp(14px, 1.5vw, 22px);
+  max-width: 640px;
+  opacity: 0;
+  animation: fadeUp 0.9s var(--ease-out) 620ms forwards;
+}
+
+.subtitle {
+  font-family: var(--font-sans);
+  font-size: var(--fs-lead);
+  font-weight: 500;
+  line-height: 1.4;
+  letter-spacing: 0.005em;
+  color: var(--white);
+  text-wrap: balance;
+}
+
+.body {
+  margin: 0;
+  max-width: 46ch;
+  color: var(--steel-300);
+  font-size: var(--fs-body);
+  line-height: 1.65;
+}
+
+.ctas {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  margin-top: 10px;
+}
+
+.cta {
+  min-width: 210px;
+  justify-content: space-between;
+}
+
+/* ------------------------------------------------------------------ foot */
+
+.foot {
+  position: relative;
+  z-index: 3;
+  border-top: 1px solid rgba(255, 255, 255, 0.14);
+  opacity: 0;
+  animation: fadeUp 0.9s var(--ease-out) 820ms forwards;
+}
+
+.footInner {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 24px;
+  min-height: 96px;
+  padding-block: 16px;
+}
+
+.scroll {
+  display: inline-flex;
+  align-items: center;
+  gap: 14px;
+  font-family: var(--font-mono);
+  font-size: var(--fs-label);
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--steel-300);
+  transition: color 0.3s var(--ease);
+}
+
+.scroll:hover {
+  color: var(--white);
+}
+
+.scrollRule {
+  width: 52px;
+  height: 1px;
+  background: currentColor;
+  opacity: 0.5;
+  transform-origin: left;
+  transition: transform 0.5s var(--ease);
+}
+
+.scroll:hover .scrollRule {
+  transform: scaleX(1.35);
+}
+
+.scrollIcon {
+  animation: nudge 2.4s var(--ease-io) infinite;
+}
+
+.badge {
+  flex: none;
+  padding: 10px 14px;
+  background: rgba(255, 255, 255, 0.94);
+  border-radius: var(--radius);
+}
+
+.badgeImg {
+  width: clamp(120px, 12vw, 168px);
+  height: auto;
+}
+
+/* --------------------------------------------------------------- entrance */
+
+@keyframes riseIn {
+  to {
+    transform: translate3d(0, 0, 0);
+  }
+}
+
+@keyframes fadeUp {
+  from {
+    opacity: 0;
+    transform: translate3d(0, 18px, 0);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+@keyframes nudge {
+  0%,
+  70%,
+  100% {
+    transform: translateY(0);
+  }
+  82% {
+    transform: translateY(4px);
+  }
+}
+
+/* ------------------------------------------------------------ responsive */
+
+@media (max-width: 900px) {
+  .hero {
+    min-height: 92svh;
+    padding-top: calc(var(--header-h) + 40px);
+  }
+  .title {
+    text-wrap: wrap;
+  }
+  .footInner {
+    min-height: 78px;
+  }
+}
+
+@media (max-width: 760px) {
+  /* The registered entity name is in the footer; the kicker keeps the place. */
+  .kickerFull {
+    display: none;
+  }
+}
+
+@media (max-width: 640px) {
+  .scrollLabel {
+    display: none;
+  }
+  .scrollRule {
+    width: 34px;
+  }
+  .cta {
+    min-width: 0;
+    flex: 1 1 100%;
+    justify-content: space-between;
+  }
+  .scrim {
+    background:
+      linear-gradient(to top, rgba(6, 8, 10, 0.96) 0%, rgba(6, 8, 10, 0.68) 40%, rgba(6, 8, 10, 0.34) 100%);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .image {
+    animation: none;
+    transform: scale(1.02);
+  }
+  .line > span,
+  .kicker,
+  .copy,
+  .foot {
+    opacity: 1;
+    transform: none;
+    animation: none;
+  }
+  .scrollIcon {
+    animation: none;
+  }
+}

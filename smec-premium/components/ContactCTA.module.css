@@ -1,0 +1,154 @@
+.section {
+  position: relative;
+  padding-block: clamp(80px, 10vw, 156px);
+  background: #06080a;
+  color: var(--white);
+  overflow: hidden;
+  isolation: isolate;
+  border-top: 1px solid var(--ink-hair);
+}
+
+/* Seven hairlines on a slow vertical drift. */
+.lines {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  max-width: var(--container);
+  margin-inline: auto;
+  padding-inline: var(--gutter);
+  pointer-events: none;
+}
+
+.lines span {
+  position: relative;
+  border-left: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+/* A short bright segment slides down each line, well out of phase. */
+.lines span::after {
+  content: '';
+  position: absolute;
+  left: -1px;
+  top: -34%;
+  width: 1px;
+  height: 34%;
+  background: linear-gradient(to bottom, transparent, rgba(18, 87, 253, 0.55), transparent);
+  animation: slip 11s linear infinite;
+  animation-delay: calc(var(--i) * -1.6s);
+}
+
+@keyframes slip {
+  to {
+    transform: translateY(400%);
+  }
+}
+
+.inner {
+  position: relative;
+  z-index: 3;
+  text-align: center;
+}
+
+.kicker {
+  display: inline-flex;
+  align-items: center;
+  gap: 12px;
+  margin: 0 0 clamp(20px, 2.4vw, 30px);
+  font-family: var(--font-mono);
+  font-size: var(--fs-label);
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: var(--steel-300);
+}
+
+.kickerDot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: var(--accent);
+  box-shadow: 0 0 0 4px rgba(18, 87, 253, 0.2);
+}
+
+.title {
+  margin: 0 0 clamp(16px, 1.8vw, 24px);
+  font-size: clamp(32px, 5.4vw, 78px);
+  letter-spacing: -0.045em;
+}
+
+.body {
+  margin: 0 auto clamp(32px, 3.6vw, 46px);
+  max-width: 40ch;
+  font-size: var(--fs-lead);
+  color: var(--steel-300);
+}
+
+.ctas {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 12px;
+}
+
+.cta {
+  min-width: 210px;
+  justify-content: space-between;
+}
+
+/* -------------------------------------------------------------- details */
+
+.details {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: clamp(18px, 3vw, 44px);
+  margin-top: clamp(48px, 5.6vw, 84px);
+  padding-top: clamp(28px, 3.2vw, 42px);
+  border-top: 1px solid var(--ink-hair);
+  text-align: left;
+}
+
+.details li {
+  display: flex;
+  gap: 12px;
+  font-size: 13.5px;
+  line-height: 1.6;
+  color: var(--steel-300);
+}
+
+.icon {
+  flex: none;
+  margin-top: 3px;
+  color: var(--accent-on-dark);
+}
+
+.detailLabel {
+  display: block;
+  margin-bottom: 4px;
+  font-family: var(--font-mono);
+  font-size: 10px;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--steel-700);
+}
+
+@media (max-width: 800px) {
+  .details {
+    grid-template-columns: 1fr;
+    gap: 20px;
+  }
+  .cta {
+    min-width: 0;
+    width: 100%;
+  }
+  .ctas > span {
+    flex: 1 1 100%;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .lines span::after {
+    animation: none;
+    opacity: 0;
+  }
+}

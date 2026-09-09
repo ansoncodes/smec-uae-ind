@@ -1,0 +1,120 @@
+/* Vertical tab, flush to the right edge. */
+.enquiry {
+  position: fixed;
+  z-index: 150;
+  top: 50%;
+  right: 0;
+  transform: translateY(-50%);
+  padding: 18px 11px;
+  background: var(--accent);
+  color: var(--white);
+  border-radius: var(--radius) 0 0 var(--radius);
+  font-family: var(--font-mono);
+  font-size: 10.5px;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  writing-mode: vertical-rl;
+  transition: padding-right 0.4s var(--ease), background 0.4s var(--ease);
+}
+
+.enquiry:hover {
+  padding-right: 18px;
+  background: var(--accent-lift);
+}
+
+/* ---------------------------------------------------------------- stack */
+
+.stack {
+  position: fixed;
+  z-index: 150;
+  right: clamp(14px, 2vw, 26px);
+  bottom: clamp(14px, 2vw, 26px);
+  display: grid;
+  gap: 10px;
+  justify-items: center;
+}
+
+.whatsapp {
+  display: grid;
+  place-items: center;
+  width: 46px;
+  height: 46px;
+  border-radius: 50%;
+  background: var(--whatsapp);
+  color: var(--white);
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.28);
+  transition: transform 0.4s var(--ease);
+}
+
+.whatsapp:hover {
+  transform: translateY(-3px) scale(1.04);
+}
+
+.top {
+  position: relative;
+  display: grid;
+  place-items: center;
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  background: rgba(10, 12, 15, 0.86);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  color: var(--white);
+  opacity: 0;
+  transform: translateY(8px) scale(0.9);
+  pointer-events: none;
+  transition: opacity 0.4s var(--ease), transform 0.4s var(--ease);
+}
+
+.topShown {
+  opacity: 1;
+  transform: none;
+  pointer-events: auto;
+}
+
+.ring {
+  position: absolute;
+  inset: 0;
+  transform: rotate(-90deg);
+  fill: none;
+  stroke-width: 1.5;
+}
+
+.ringTrack {
+  stroke: rgba(255, 255, 255, 0.18);
+}
+
+.ringFill {
+  stroke: var(--accent);
+  stroke-dasharray: 1;
+  transition: stroke-dashoffset 0.12s linear;
+}
+
+.topIcon {
+  transform: rotate(180deg);
+  transition: transform 0.4s var(--ease);
+}
+
+.top:hover .topIcon {
+  transform: rotate(180deg) translateY(2px);
+}
+
+@media (max-width: 700px) {
+  .enquiry {
+    padding: 14px 9px;
+    font-size: 9.5px;
+  }
+  .whatsapp {
+    width: 42px;
+    height: 42px;
+  }
+}
+
+/* On a phone the tab would sit on top of the content it interrupts; the
+   header's Contact link and the WhatsApp button cover the same intent. */
+@media (max-width: 560px) {
+  .enquiry {
+    display: none;
+  }
+}

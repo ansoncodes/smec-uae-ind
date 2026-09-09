@@ -1,0 +1,228 @@
+.section {
+  position: relative;
+  background: #06080a;
+  overflow: hidden;
+  isolation: isolate;
+  border-top: 1px solid var(--ink-hair);
+}
+
+/* The R&D banner sits far back, more texture than picture. */
+.backdrop {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+}
+
+.backdropImg {
+  object-fit: cover;
+  opacity: 0.16;
+  filter: grayscale(0.7) contrast(1.1);
+}
+
+/* Engineering mesh: two hairline grids at different pitches. */
+.mesh {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  background-image:
+    linear-gradient(to right, rgba(255, 255, 255, 0.05) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(255, 255, 255, 0.05) 1px, transparent 1px);
+  background-size: 88px 88px;
+  mask-image: radial-gradient(120% 90% at 70% 40%, #000 25%, transparent 78%);
+  -webkit-mask-image: radial-gradient(120% 90% at 70% 40%, #000 25%, transparent 78%);
+}
+
+.inner {
+  position: relative;
+  z-index: 3;
+}
+
+.layout {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1.05fr);
+  gap: clamp(32px, 5vw, 84px);
+  align-items: center;
+}
+
+/* ----------------------------------------------------------------- copy */
+
+.title {
+  margin: 0 0 clamp(20px, 2.4vw, 30px);
+  font-size: var(--fs-h2);
+  letter-spacing: -0.04em;
+}
+
+.lead {
+  margin: 0 0 16px;
+  max-width: 46ch;
+  font-size: var(--fs-lead);
+  line-height: 1.6;
+  color: var(--steel-100);
+}
+
+.note {
+  margin: 0 0 clamp(26px, 3vw, 36px);
+  max-width: 46ch;
+  font-size: var(--fs-sm);
+  line-height: 1.65;
+  color: var(--steel-500);
+}
+
+.focus {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 0 26px;
+  margin-bottom: clamp(28px, 3.2vw, 40px);
+  border-top: 1px solid var(--ink-hair);
+}
+
+.focus li {
+  padding: 14px 0;
+  border-bottom: 1px solid var(--ink-hair);
+}
+
+.focusKey {
+  display: block;
+  margin-bottom: 5px;
+  font-family: var(--font-mono);
+  font-size: var(--fs-label);
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--accent-on-dark);
+}
+
+.focusVal {
+  display: block;
+  font-size: 13.5px;
+  line-height: 1.5;
+  color: var(--steel-300);
+}
+
+.cta {
+  --btn-bg: var(--white);
+  --btn-fg: var(--ink);
+}
+
+/* ------------------------------------------------------------ schematic */
+
+.schematic {
+  margin: 0;
+  padding: clamp(18px, 2.2vw, 30px);
+  border: 1px solid var(--ink-hair);
+  border-radius: var(--radius);
+  background: rgba(10, 13, 16, 0.72);
+  backdrop-filter: blur(6px);
+  -webkit-backdrop-filter: blur(6px);
+}
+
+.schematicCap {
+  margin-bottom: 16px;
+  padding-bottom: 12px;
+  border-bottom: 1px solid var(--ink-hair);
+  font-family: var(--font-mono);
+  font-size: var(--fs-label);
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--steel-500);
+}
+
+.svg {
+  width: 100%;
+  height: auto;
+}
+
+/* --- nodes --- */
+
+.node rect {
+  fill: rgba(255, 255, 255, 0.03);
+  stroke: rgba(255, 255, 255, 0.22);
+  stroke-width: 1;
+}
+
+.node text {
+  fill: var(--steel-100);
+  font-family: var(--font-mono);
+  font-size: 15px;
+  letter-spacing: 0.06em;
+}
+
+.core rect {
+  fill: rgba(18, 87, 253, 0.1);
+  stroke: var(--accent);
+}
+
+.core text {
+  fill: var(--white);
+  font-size: 19px;
+}
+
+.small {
+  font-size: 12.5px !important;
+  fill: var(--accent-on-dark) !important;
+  letter-spacing: 0.12em;
+}
+
+.dots circle {
+  fill: var(--accent);
+}
+
+/* --- connectors: drawn once the figure enters the viewport --- */
+
+.wires path {
+  stroke: rgba(255, 255, 255, 0.3);
+  stroke-dasharray: 1;
+  stroke-dashoffset: 1;
+}
+
+[data-in='true'] .wires path {
+  animation: draw 1.5s var(--ease-out) forwards;
+}
+
+.wires path:nth-child(2) {
+  animation-delay: 0.1s;
+}
+.wires path:nth-child(3) {
+  animation-delay: 0.2s;
+}
+.wires path:nth-child(4) {
+  animation-delay: 0.35s;
+}
+.wires path:nth-child(5) {
+  animation-delay: 0.45s;
+}
+
+@keyframes draw {
+  to {
+    stroke-dashoffset: 0;
+  }
+}
+
+/* ------------------------------------------------------------ responsive */
+
+@media (max-width: 980px) {
+  .layout {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 560px) {
+  .focus {
+    grid-template-columns: 1fr;
+  }
+  .schematic {
+    padding: 14px;
+  }
+  .node text {
+    font-size: 17px;
+  }
+  .core text {
+    font-size: 21px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .wires path {
+    stroke-dashoffset: 0;
+    animation: none;
+  }
+}
