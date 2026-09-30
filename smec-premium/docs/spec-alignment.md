@@ -45,7 +45,7 @@ Status keys: `[ ]` open · `[x]` done · `[~]` partially done · `[S]` under an 
 
 ## 1. Blocking for launch
 
-- [ ] **1.1 Re-cut routes to the locked architecture** — eight sections, hub pages,
+- [~] **1.1 Re-cut routes to the locked architecture** — eight sections, hub pages,
       products at `/products/<slug>/`. Today's routes mirror the old WordPress paths.
       Do this before launch: changing URLs afterwards means a second redirect round,
       which the spec forbids chaining. `app/` `[L]`
@@ -72,8 +72,11 @@ Status keys: `[ ]` open · `[x]` done · `[~]` partially done · `[S]` under an 
 - [x] **1.8 `app/not-found.tsx`** — real 404 with navigation. `[S]`
 - [ ] **1.9 Staging protection** — password or auth in front of non-production
       environments; `robots.ts` noindex alone is not enough. Needs 0.3. `[M]`
-- [ ] **1.10 Per-page noindex for unapproved content** — the content model needs a
-      publication status that drives both noindex and sitemap exclusion. `[M]`
+- [x] **1.10 Per-page noindex for unapproved content** — the content model needs a
+      publication status that drives both noindex and sitemap exclusion. Done:
+      14 pages are generated as drafts with their reason recorded — 5 company
+      pages needing SMEC facts, 5 safety-critical products needing engineering
+      sign-off, 4 empty resource collections. `[M]`
 - [x] **1.11 Environment-driven site URL** — `SITE.url` was hardcoded to
       `https://smecoilandgas.com`, so every canonical pointed at the old site. Now
       reads `NEXT_PUBLIC_SITE_URL`. Set it once 0.1 lands. `[S]`
@@ -108,22 +111,27 @@ Status keys: `[ ]` open · `[x]` done · `[~]` partially done · `[S]` under an 
       `dateModified`, and a `SearchAction` pointing at WordPress's `?s=`.
       `app/contact-us/page.tsx:53` emits a second, conflicting Organization. One
       `@id`, verified address and contact point, per the spec's §7.1 template. `[M]`
-- [ ] 2.2 `BreadcrumbList` JSON-LD on every indexable non-home page — visible
+- [x] 2.2 `BreadcrumbList` JSON-LD on every indexable non-home page — visible
       breadcrumbs already exist (`components/ui/Breadcrumb.tsx`). `[S]`
-- [ ] 2.3 Breadcrumb trails must point at real hubs, not `/#systems` fragments
+- [x] 2.3 Breadcrumb trails must point at real hubs, not `/#systems` fragments
       (`app/[slug]/page.tsx:111`). Comes with 1.1. `[S]`
-- [ ] 2.4 Missing schema types: `Service` (industries, customers, solutions, programs,
+- [~] 2.4 Missing schema types: `Service` (industries, customers, solutions, programs,
       markets), `SoftwareApplication` (NexWave, ProSet360, NexVerse, NexView),
       `Person` (leadership, MD), `DefinedTerm`/`DefinedTermSet` (glossary),
       `JobPosting`/`CollectionPage` (careers). Generate from visible content, the way
-      `Product` and `FAQPage` already do. `[L]`
+      `Product` and `FAQPage` already do. Done for Product, Service,
+      SoftwareApplication, CollectionPage, FAQPage and BreadcrumbList on the
+      spec pages; Person, DefinedTerm and JobPosting still missing. `[L]`
 - [ ] 2.5 `Article` schema needs ISO `datePublished`/`dateModified`; `lib/articles/*`
       carry dates as prose. `[S]`
-- [ ] 2.6 Answer blocks: 2–3 factual sentences directly under every H1, able to stand
-      alone in search results. The homepage H1 is currently just the brand name. `[M]`
-- [ ] 2.7 FAQs: one block exists sitewide (about-us). The spec wants 3–6 visible
+- [~] 2.6 Answer blocks: 2–3 factual sentences directly under every H1, able to stand
+      alone in search results. Done on all 105 spec pages, from the document.
+      The homepage still carries the old positioning. `[M]`
+- [~] 2.7 FAQs: one block exists sitewide (about-us). The spec wants 3–6 visible
       questions on the homepage, Turnkey, E-House, migration and priority product
-      pages; 48 URLs already have approved FAQ copy in the Content Master. `[L]`
+      pages. Done: the 48 URLs with approved FAQ copy render them, and FAQPage
+      schema is emitted only where the questions are visible. The other 57 need
+      SMEC to write questions or drop the schema. `[L]`
 - [ ] 2.8 OG/Twitter images — no default image and no per-page 1200×630 template, so
       every subpage inherits the homepage card. `[M]`
 - [ ] 2.9 Replace the homepage title "Best SMEC OIL AND GAS Company in India, GCC
@@ -223,3 +231,28 @@ Retired (404/410, no redirect): `/cart`, `/checkout`, `/my-account`, `/thank-you
 6. 2.1–2.5, 2.8 — schema generators and social images.
 7. 1.12–1.16, 2.12 — claims, assets, links, accessibility.
 8. Pre-launch QA against the spec's own checklist, then the 30/60/90 day plan.
+
+---
+
+## 8. How the pages are built
+
+`lib/spec/pages.generated.ts` is the Content Master as data: one record per
+URL with breadcrumb, title, meta, schema types, H1, answer block, body
+sections, FAQs and a publication status. It is generated —
+
+    node scripts/build-spec-content.mjs
+
+— so a new revision of the document becomes a diff rather than a re-typing
+job. Nothing is reworded on the way through.
+
+Each section is one eight-line route (`app/products/[[...path]]/page.tsx` and
+its siblings) delegating to the factories in `lib/spec/route.tsx`, which build
+the metadata, the JSON-LD and the page from that one record. Sections the
+document addresses to the developer rather than the reader ("Homepage
+placement", "Publication control") are flagged `internal` and never rendered;
+specification values are never rendered at all, since they may only be
+published from an approved datasheet.
+
+Worth an editorial pass with SMEC: the document mixes page copy with
+instructions, and a few answer blocks read as guidance ("Use this hub to route
+buyers…") rather than something a visitor should see.
