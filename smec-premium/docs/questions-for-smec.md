@@ -97,11 +97,14 @@ and permission. Same question for the TAQA, SNOC and DEWA marks currently on
 the homepage.
 *Blocks: the OEM partners page, and marks on the homepage.*
 
-**2.5 Leadership: names, roles and a short biography each. And the Managing
-Director's message.**
-Two pages exist and are held out of search because there is nothing approved
-to put on them. A photograph each is wanted but not required.
-*Blocks: two company pages.*
+**2.5 Leadership names and biographies — and can we reuse the MD message you
+have already published?**
+Your current site carries "From the Managing Director's Desk", signed Saiju
+Mohamed, Managing Director, SMEC Group, along with Vision, Mission and Core
+Values, on the Abu Dhabi page. If that is current and approved, it closes two
+of the pages that are held out of search today without anyone writing
+anything. Leadership still needs names, roles and a line each.
+*Blocks: two company pages, one of which may already be answered.*
 
 **2.6 Which projects may be written up, and what may be said about the
 outcome?**
@@ -184,12 +187,22 @@ they deleted?
 Submission is built and dormant. Optional, but cheap.
 *Blocks: nothing.*
 
-**4.4 May we crawl the current site for its PDFs and images?**
-The handover requires an inventory of PDFs and images receiving traffic
-before launch, so valuable URLs are redirected rather than lost. We have
-mapped every HTML URL already; the PDF and image inventory is not done and
-needs a crawl of the live site.
-*Blocks: an item on the migration deliverables list.*
+**4.4 What should happen to 263 legacy image URLs, and should the 15 product
+datasheets be republished?**
+The live site has been crawled and the inventory is in `legacy-inventory.md`.
+The 15 datasheets and 25 images now redirect to their new homes. The
+remaining 263 image URLs will 404 after cutover — copying the
+`/wp-content/uploads/` folder across before launch keeps every one of them
+working and is the only option that loses nothing.
+
+On the datasheets: they are published product PDFs, and they are very likely
+the approved numerical source the product pages are waiting on in 3.1. If
+they are current, hosting them again is better than redirecting them.
+
+**Also needed: Search Console access.** It is the only way to see which old
+URLs and images actually have traffic and inbound links, rather than guessing
+from a crawl.
+*Blocks: an item on the migration deliverables list, and possibly 3.1.*
 
 ---
 

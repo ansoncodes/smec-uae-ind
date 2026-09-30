@@ -17,6 +17,13 @@
  * @typedef {{ from: string, to: string }} Redirect
  */
 
+import {
+  ARCHIVE_REDIRECTS,
+  DATASHEET_REDIRECTS,
+  feedRedirects,
+  IMAGE_REDIRECTS,
+} from './legacy-assets.mjs';
+
 /** @type {Redirect[]} Pages. */
 const PAGE_REDIRECTS = [
   { from: '/home', to: '/' },
@@ -105,6 +112,9 @@ export const KEEP = ['/privacy-policy', '/products'];
  */
 /** @type {string[]} */
 export const RETIRED = [
+  '/elementor-hf/contact-us',
+  '/elementor-hf/footer',
+  '/elementor-hf/headerblog',
   '/cart',
   '/checkout',
   '/my-account',
@@ -131,12 +141,23 @@ export const UNRESOLVED = [
 
 /**
  * Shape `next.config.mjs` expects.
+
+ * Page moves first, then everything the XML sitemap never listed: the fifteen
+ * product datasheets, the images the redesign still uses, the category and
+ * author archives, and the RSS feeds. All of it found by crawling the live
+ * site, because the sitemap is not the same thing as what is indexed (§9).
  *
  * 301, spelled out, rather than `permanent: true` — that flag emits a 308,
  * and the Technical SEO Master asks for 301s by number.
  */
 export const nextRedirects = () =>
-  REDIRECTS
+  [
+    ...REDIRECTS,
+    ...DATASHEET_REDIRECTS,
+    ...IMAGE_REDIRECTS,
+    ...ARCHIVE_REDIRECTS,
+    ...feedRedirects(REDIRECTS),
+  ]
     // A rule whose source differs from its destination only by the trailing
     // slash would redirect the path to itself, and a browser following that
     // gives up after twenty hops.
