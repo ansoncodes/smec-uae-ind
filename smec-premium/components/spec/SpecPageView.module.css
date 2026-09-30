@@ -184,3 +184,17 @@
   max-width: 56ch;
   color: var(--fg-muted);
 }
+
+/* The RFQ form, where a page carries one. */
+.form {
+  padding-bottom: clamp(30px, 4vw, 52px);
+  scroll-margin-top: 96px;
+}
+
+.formLead {
+  max-width: 68ch;
+  margin: 0 0 clamp(26px, 3vw, 38px);
+  font-size: var(--fs-lead);
+  line-height: 1.6;
+  color: var(--fg-dim);
+}

@@ -586,7 +586,8 @@ export const SPEC_PAGES: SpecPage[] = [
           "Site execution required yes/no",
           "File upload: RFQ, BOQ, P&ID, SLD, I/O list, drawings, equipment list, fault history, specification",
           "Consent/privacy statement"
-        ]
+        ],
+        "internal": true
       },
       {
         "heading": "Conversion CTA",

@@ -1,0 +1,379 @@
+/* The form sits on the paper ground of a spec page body. Field styling
+   follows the house pattern: hairline box, white field, accent focus ring. */
+
+.form {
+  display: grid;
+  gap: clamp(24px, 3vw, 36px);
+  max-width: 820px;
+}
+
+.group {
+  display: grid;
+  gap: 18px;
+  margin: 0;
+  padding: 0;
+  border: 0;
+}
+
+.legend {
+  display: block;
+  width: 100%;
+  margin-bottom: 4px;
+  padding: 0 0 12px;
+  border-bottom: 1px solid var(--hair-soft);
+  font-family: var(--font-mono);
+  font-size: 10.5px;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--fg-dim);
+}
+
+.optional {
+  margin-left: 10px;
+  letter-spacing: 0.06em;
+  text-transform: none;
+  font-family: var(--font-sans);
+  font-size: 12.5px;
+  color: var(--steel-500);
+}
+
+.row {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 18px;
+}
+
+.field {
+  display: grid;
+  gap: 8px;
+  min-width: 0;
+}
+
+.field > label:not(.consent) {
+  font-family: var(--font-mono);
+  font-size: 10.5px;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--fg-dim);
+}
+
+.req {
+  margin-left: 8px;
+  letter-spacing: 0.14em;
+  color: var(--accent);
+}
+
+.hint {
+  margin: 0;
+  font-size: 13px;
+  line-height: 1.55;
+  color: var(--fg-dim);
+}
+
+.field input,
+.field select,
+.field textarea {
+  width: 100%;
+  padding: 14px 16px;
+  border: 1px solid var(--hair);
+  border-radius: var(--radius);
+  background: var(--paper-raised);
+  color: var(--fg);
+  font-family: var(--font-sans);
+  font-size: 15px;
+  line-height: 1.5;
+  transition:
+    border-color 0.3s var(--ease),
+    box-shadow 0.3s var(--ease);
+}
+
+.field textarea {
+  resize: vertical;
+  min-height: 130px;
+}
+
+.field select {
+  appearance: none;
+  background-image: linear-gradient(45deg, transparent 50%, var(--accent) 50%),
+    linear-gradient(135deg, var(--accent) 50%, transparent 50%);
+  background-position: calc(100% - 20px) 22px, calc(100% - 15px) 22px;
+  background-size: 5px 5px, 5px 5px;
+  background-repeat: no-repeat;
+  padding-right: 44px;
+}
+
+.field input::placeholder,
+.field textarea::placeholder {
+  color: var(--steel-500);
+}
+
+.field input:focus-visible,
+.field select:focus-visible,
+.field textarea:focus-visible {
+  outline: none;
+  border-color: var(--accent);
+  box-shadow: 0 0 0 3px var(--accent-dim);
+}
+
+/* A field the browser flagged: the border carries it, the message says it,
+   and aria-invalid tells a screen reader — colour is never the only cue. */
+.field input[aria-invalid],
+.field select[aria-invalid],
+.field textarea[aria-invalid] {
+  border-color: #b4231f;
+}
+
+.error {
+  font-size: 13px;
+  line-height: 1.5;
+  color: #b4231f;
+}
+
+/* ------------------------------------------------------------- summary */
+
+.summary {
+  padding: 18px 20px;
+  border: 1px solid #b4231f;
+  border-left-width: 3px;
+  border-radius: var(--radius);
+  background: rgba(180, 35, 31, 0.05);
+}
+
+.summary:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 2px;
+}
+
+.summaryHidden {
+  display: none;
+}
+
+.summaryTitle {
+  margin: 0 0 8px;
+  font-family: var(--font-mono);
+  font-size: 10.5px;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: #b4231f;
+}
+
+.summary ul {
+  margin: 0;
+  padding-left: 18px;
+  display: grid;
+  gap: 6px;
+  font-size: 14px;
+  line-height: 1.5;
+}
+
+.summary a {
+  color: inherit;
+}
+
+/* --------------------------------------------------------------- files */
+
+/* The native control is a grey "Choose Files" button that belongs to no
+   design. The label beside it is the button instead — it already opens the
+   picker — and the input keeps its size so the keyboard can still reach it. */
+.file {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  opacity: 0;
+}
+
+.pick {
+  justify-self: start;
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  padding: 13px 20px;
+  border: 1px dashed var(--hair);
+  border-radius: var(--radius);
+  background: var(--paper-raised);
+  font-family: var(--font-sans);
+  font-size: 14.5px;
+  color: var(--fg);
+  cursor: pointer;
+  transition:
+    border-color 0.3s var(--ease),
+    color 0.3s var(--ease);
+}
+
+.pick:hover {
+  border-color: var(--accent);
+  color: var(--accent);
+}
+
+/* The input is invisible, so its focus ring has to be drawn on the label. */
+.file:focus-visible + .pick,
+.pick:hover {
+  border-style: solid;
+  border-color: var(--accent);
+  box-shadow: 0 0 0 3px var(--accent-dim);
+}
+
+.files {
+  display: grid;
+  gap: 0;
+  margin: 4px 0 0;
+  padding: 0;
+  list-style: none;
+  border-top: 1px solid var(--hair-soft);
+}
+
+.files li {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  padding: 11px 2px;
+  border-bottom: 1px solid var(--hair-soft);
+  font-size: 14px;
+}
+
+.fileName {
+  flex: 1;
+  min-width: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.fileSize {
+  flex: none;
+  font-family: var(--font-mono);
+  font-size: 11.5px;
+  letter-spacing: 0.08em;
+  color: var(--fg-dim);
+}
+
+.remove {
+  flex: none;
+  padding: 4px 6px;
+  border: 0;
+  background: none;
+  font-family: var(--font-mono);
+  font-size: 10.5px;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--fg-dim);
+  cursor: pointer;
+}
+
+.remove:hover,
+.remove:focus-visible {
+  color: #b4231f;
+}
+
+/* ------------------------------------------------------------- consent */
+
+.consent {
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+  font-size: 14px;
+  line-height: 1.6;
+  color: var(--fg);
+  cursor: pointer;
+}
+
+.consent input {
+  flex: none;
+  width: 19px;
+  height: 19px;
+  margin-top: 2px;
+  accent-color: var(--accent);
+}
+
+.consent .req {
+  font-family: var(--font-mono);
+  font-size: 10.5px;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+}
+
+/* The honeypot: out of the layout, out of the tab order, out of the tree. */
+.trap {
+  position: absolute;
+  left: -9999px;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+}
+
+.srOnly {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip-path: inset(50%);
+  white-space: nowrap;
+}
+
+/* ---------------------------------------------------------------- foot */
+
+.foot {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 16px 20px;
+}
+
+.submit {
+  flex: none;
+}
+
+.submit[disabled] {
+  opacity: 0.6;
+  cursor: progress;
+}
+
+.note {
+  margin: 0;
+  flex: 1;
+  min-width: 220px;
+  font-size: 13px;
+  line-height: 1.6;
+  color: var(--fg-dim);
+}
+
+/* ---------------------------------------------------------- success */
+
+.done {
+  display: grid;
+  gap: 14px;
+  justify-items: start;
+  max-width: 620px;
+  padding: clamp(26px, 3vw, 40px);
+  border: 1px solid var(--hair);
+  border-left: 3px solid var(--accent);
+  border-radius: var(--radius);
+  background: var(--paper-raised);
+}
+
+.doneTitle {
+  margin: 0;
+  font-family: var(--font-display);
+  font-size: clamp(20px, 2vw, 27px);
+  font-weight: 500;
+  letter-spacing: -0.02em;
+}
+
+.doneBody {
+  margin: 0;
+  font-size: 15px;
+  line-height: 1.65;
+  color: var(--fg-dim);
+}
+
+@media (max-width: 640px) {
+  .row {
+    grid-template-columns: 1fr;
+  }
+  .submit {
+    width: 100%;
+    justify-content: space-between;
+  }
+}

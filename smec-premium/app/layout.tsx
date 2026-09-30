@@ -2,6 +2,7 @@ import type { Metadata } from 'next';
 import { IBM_Plex_Mono, Inter, Inter_Tight } from 'next/font/google';
 import { CONTACT, FOOTER_ADDRESS, FOOTER_CONTACT, SITE, SOCIALS } from '@/lib/siteData';
 import MotionRoot from '@/components/motion/MotionRoot';
+import ConversionEvents from '@/components/analytics/ConversionEvents';
 import './globals.css';
 
 /* Three families, each doing one job: Inter Tight for display headlines,
@@ -141,6 +142,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         </a>
         {children}
         <MotionRoot />
+        <ConversionEvents />
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}

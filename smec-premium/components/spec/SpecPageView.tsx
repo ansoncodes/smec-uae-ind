@@ -27,12 +27,15 @@ export default function SpecPageView({
   children = [],
   related = [],
   articles = [],
+  form,
 }: {
   page: SpecPage;
   children?: SpecPage[];
   related?: SpecPage[];
   /** Articles filed under a resource collection. */
   articles?: { url: string; article: { title: string; subtitle?: string } }[];
+  /** A page that does something as well as say something — the RFQ form. */
+  form?: React.ReactNode;
 }) {
   const all = publishableSections(page);
   // "Conversion CTA" and "RFQ inputs" describe what a buyer should send. The
@@ -63,9 +66,15 @@ export default function SpecPageView({
             {page.answer ? <p className={styles.answer}>{page.answer}</p> : null}
 
             <div className={styles.actions}>
-              <Link className="btn btn-primary" href="/contact/">
-                Send an RFQ
-              </Link>
+              {form ? (
+                <a className="btn btn-primary" href="#rfq">
+                  Send an RFQ
+                </a>
+              ) : (
+                <Link className="btn btn-primary" href="/contact/">
+                  Send an RFQ
+                </Link>
+              )}
               <a className="btn btn-ghost" href={CONTACT.phoneHref}>
                 Talk to an engineer
               </a>
@@ -73,8 +82,17 @@ export default function SpecPageView({
           </div>
         </header>
 
-        <div className={styles.body}>
+        <div className={styles.body} data-tone="light">
           <div className="container">
+            {form ? (
+              <div className={styles.form} id="rfq">
+                {rfqInputs.length ? (
+                  <p className={styles.formLead}>{rfqInputs.join(' ')}</p>
+                ) : null}
+                {form}
+              </div>
+            ) : null}
+
             {sections.map((block, index) => (
               <section className={styles.block} key={block.heading}>
                 <div className={styles.blockHead}>
@@ -168,7 +186,7 @@ export default function SpecPageView({
           </div>
         </div>
 
-        <SpecClose rfqInputs={rfqInputs} />
+        {form ? null : <SpecClose rfqInputs={rfqInputs} />}
       </main>
     </>
   );

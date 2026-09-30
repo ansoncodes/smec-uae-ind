@@ -43,11 +43,12 @@ export default function FloatingWidgets() {
         href={localHref(`${SITE.url}/contact-us`)}
         className={styles.enquiry}
         aria-label="Quick Enquiry"
+        data-widget="rail"
       >
         <span>Quick Enquiry</span>
       </a>
 
-      <div className={styles.stack}>
+      <div className={styles.stack} data-widget="rail">
         <a
           href={CONTACT.whatsapp}
           className={styles.whatsapp}

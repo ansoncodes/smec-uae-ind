@@ -8,6 +8,7 @@ import { SpecClose, SpecFaqs } from '@/components/spec/SpecBlocks';
 import Breadcrumb from '@/components/ui/Breadcrumb';
 import ProductDetail from '@/components/ProductDetail';
 import ArticleDetail from '@/components/ArticleDetail';
+import RfqForm from '@/components/rfq/RfqForm';
 import { articleBody } from '@/lib/articles';
 import { articleRoute, ARTICLE_ROUTES, articlesIn, legacySystem } from './legacy';
 import { SITE } from '@/lib/siteData';
@@ -257,6 +258,9 @@ export const makePage =
           children={[...childrenOf(page.url)]}
           related={siblingsOf(page)}
           articles={prefix === 'resources' ? articlesIn(page.url) : []}
+          // The contact page is the RFQ page: the document's "RFQ fields"
+          // block is the form's specification, and this is the form.
+          form={page.url === '/contact/' ? <RfqForm /> : undefined}
         />
       </Chrome>
     );

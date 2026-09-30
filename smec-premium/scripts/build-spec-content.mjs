@@ -359,6 +359,7 @@ function gatesFor(page) {
 const INTERNAL_SECTION = [
   /placement$/i,
   /locked content decision/i,
+  /^rfq fields$/i,
   /^publication control/i,
   /^website treatment/i,
   /^technical specification fields$/i,

@@ -61,14 +61,31 @@ Status keys: `[ ]` open · `[x]` done · `[~]` partially done · `[S]` under an 
       `permanent: true`, which emits a 308. Requests to the unslashed form of an old
       URL take the `trailingSlash` 308 first and then the 301 — inherent to
       `trailingSlash: true`, and the live site's own URLs are the slashed form. `[M]`
-- [ ] **1.4 RFQ form** — `components/page/EnquiryForm.tsx:50` builds a `mailto:` URL
-      containing name, company, email, phone and message and sets
-      `window.location.href`. Nothing reaches a server; personal data sits in a URL,
-      which the spec forbids. Replace with a POST to the SMEC lead API
-      (`api.smec.in`, which already handles uploads, consent, spam protection and the
-      sales dashboard), add the spec's field groups, file uploads (RFQ/BOQ/P&ID/SLD/
-      I-O/drawings), a consent checkbox and a success state. `[L]`
-- [ ] **1.5 Analytics** — none exists. Eleven named events required: `rfq_submit`,
+- [x] **1.4 RFQ form** — done. `components/rfq/RfqForm.tsx` posts to
+      `app/api/rfq/route.ts`, which validates again and forwards to the lead API.
+      All six field groups from §18; four fields required, the rest optional, as
+      "progressive qualification" asks. Uploads accept the nine document types with
+      the count, size and extension rules copied from the backend's own validator.
+      On-page success state, no query strings (§9). The campaign key is
+      `LEAD_API_KEY`, server-side only — verified absent from the client bundle.
+      Rate limited per IP: 8 accepted submissions and 40 requests per 10 minutes,
+      counted separately so a visitor fixing a typo is not locked out. Honeypot
+      kept. Tested against a local instance of the real backend: validation,
+      honeypot, oversize and wrong-type files, the limiter, and a full submission
+      with attachments arriving complete in the dashboard's data model.
+      Still needs 0.4 (the destination mailbox or CRM) and 0.9 (the consent
+      wording, currently a plain-English placeholder). `[L]`
+
+      One consequence for 0.3: the handler needs a Node runtime. Static-only
+      hosting would mean posting to the lead API from the browser with the key
+      public, losing the server-side validation and the limiter.
+- [~] **1.5 Analytics** — the eleven events are emitted (`lib/analytics.ts`, plus
+      `components/analytics/ConversionEvents.tsx`, which reads clicks off the
+      document so every phone, email, WhatsApp and RFQ link is counted without
+      per-component wiring). They push onto `window.dataLayer` and stop: no GA4 or
+      GTM container until SMEC provides the ID (0.5). No field values, enquiry text
+      or file contents are sent, per §19.
+      Original note: none exists. Eleven named events required: `rfq_submit`,
       `rfq_file_upload`, `cta_talk_engineer`, `click_phone`, `click_whatsapp`,
       `click_email`, `datasheet_download`, `case_study_view`, `product_to_rfq`,
       `solution_to_rfq`, `form_error`. No RFQ text or file contents may reach
@@ -168,8 +185,9 @@ Status keys: `[ ]` open · `[x]` done · `[~]` partially done · `[S]` under an 
           (`SiteHeader.tsx`) — now `inert`, which hides it and removes focus. `[S]`
     - [ ] Drawer and mega menu: no `aria-modal`, no focus trap, no focus return,
           hover-only open with no `aria-controls`. `[M]`
-    - [ ] Form error messaging: no `aria-invalid`, `aria-describedby`, per-field
-          messages or error summary. `[M]`
+    - [x] Form error messaging: the RFQ form has per-field messages tied with
+          `aria-describedby`, `aria-invalid` on the field, and an error summary
+          that takes focus and links to each field. `[M]`
 - [ ] 2.13 Descriptive image filenames (`/images/1.png`, `749986-middle-1.png`). `[M]`
 - [ ] 2.14 Client logos carry `alt=""` (`Clients.tsx:41`) — identity lost for assistive
       technology even once the section is approved. `[S]`
