@@ -141,14 +141,14 @@ Status keys: `[ ]` open · `[x]` done · `[~]` partially done · `[S]` under an 
       one. `dateModified` needs the editing source (0.2).
       Original note: `Article` schema needs ISO `datePublished`/`dateModified`; `lib/articles/*`
       carry dates as prose. `[S]`
-- [~] 2.6 Answer blocks: 2–3 factual sentences directly under every H1, able to stand
-      alone in search results. Done on all 105 spec pages, from the document.
-      The homepage still carries the old positioning. `[M]`
+- [x] 2.6 Answer blocks: 2–3 factual sentences directly under every H1, able to stand
+      alone in search results. Done on all 105 pages, the homepage included. `[M]`
 - [~] 2.7 FAQs: one block exists sitewide (about-us). The spec wants 3–6 visible
       questions on the homepage, Turnkey, E-House, migration and priority product
       pages. Done: the 48 URLs with approved FAQ copy render them, and FAQPage
-      schema is emitted only where the questions are visible. The other 57 need
-      SMEC to write questions or drop the schema. `[L]`
+      schema is emitted only where the questions are visible — no page claims
+      FAQPage without them. The other 57 URLs need SMEC to write questions; the
+      homepage's three are written but not yet rendered on it. `[L]`
 - [ ] 2.8 OG/Twitter images — no default image and no per-page 1200×630 template, so
       every subpage inherits the homepage card. `[M]`
 - [x] 2.9 Homepage title and description are now the Content Master's
@@ -203,28 +203,32 @@ from visible content · no TODO/FIXME/lorem anywhere.
 
 ---
 
-## 5. Content coverage — 20 built, 39 partial, 46 missing of 105
+## 5. Content coverage — 105 of 105 built, 91 indexable
 
-| Section | Built | Partial | Missing | Notes |
-| --- | --- | --- | --- | --- |
-| Industries (20) | 0 | 8 | 12 | Only one-line cards in `experience.ts` |
-| Customers (8) | 0 | 0 | 8 | No customer-segment content exists |
-| Solutions (16) | 1 | 12 | 3 | **E-Houses has zero coverage** and is a launch priority |
-| Products (31) | 14 | 1 | 16 | Missing ones are plant, marine and safety systems |
-| Digital (7) | 0 | 6 | 1 | One-liners only; NexView absent entirely |
-| Resources (8) | 1 | 3 | 4 | 17 articles map to archaeology/whitepapers; case studies, checklists, calculators, glossary empty |
-| Company (12) | 2 | 7 | 2 | Leadership and MD message need SMEC |
-| Contact + markets (3) | 2 | 2 | 0 | Homepage copy is the old positioning |
+Every URL in the Content Master is built and prerendered. Each page carries the
+document's H1, answer block, body sections, FAQs where it approves them, and its
+breadcrumb; the 14 products and 15 articles this build already had keep their own
+design and depth on top of that.
 
-About 95 of the 105 pages can be built from Content Master copy plus existing `lib/`
-content. The ~10 that genuinely need SMEC input: leadership, MD message,
-certifications, OEM partners, project experience, the four empty resource collections,
-NexView and fuel monitoring.
+| Section | URLs | Indexable | Waiting on SMEC |
+| --- | --- | --- | --- |
+| Products | 31 | 26 | BOP control, fire & gas, flare ignition, gas watch, ICSS |
+| Solutions | 16 | 16 | — |
+| Industries | 21 | 21 | — |
+| Customers | 8 | 8 | — |
+| Digital | 7 | 7 | — |
+| Resources | 8 | 4 | calculators, case studies, checklists, glossary |
+| Company | 11 | 6 | certifications, leadership, MD message, OEM partners, experience |
+| Markets, contact, home | 3 | 3 | — |
 
-Depth warning: only ~22 pages have publishable depth in the spec. Roughly 74 are a
-heading, an answer block and two or three bullet lists — enough to launch, short of the
-spec's own deep-content standard. 57 URLs have FAQ schema specified but no FAQ copy
-written: either drop the schema on those or SMEC writes the questions.
+The 14 that are not indexable render, carry `noindex, follow` and stay out of the
+sitemap until their gate clears (1.10). Nothing asserts a number, certification or
+client the documents have not approved.
+
+Depth is the honest gap: 13 pages are a heading, an answer and two or three bullet
+lists, because that is all the document writes for them. They are accurate and
+indexable, not deep. 48 pages carry approved FAQ copy; no page claims `FAQPage`
+schema without visible questions.
 
 ---
 
