@@ -211,7 +211,7 @@ export default function ProductDetail({
           <ul className={styles.grid}>
             {related.map((item, i) => (
               <li key={item.slug} data-reveal="up" data-reveal-delay={i * 80}>
-                <a className={styles.card} href={`/${item.slug}`}>
+                <a className={styles.card} href={localHref(`/${item.slug}`)}>
                   <span className={styles.cardMedia} data-empty={item.image ? undefined : 'true'}>
                     {item.image ? (
                       <Image

@@ -4,7 +4,7 @@ import { useEffect, useRef, useState } from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
 import { CONTACT, MOBILE_EXTRA_NAV, SITE } from '@/lib/siteData';
-import { TOP_NAV, type TopNavItem } from '@/lib/experience';
+import { TOP_NAV, type TopNavItem } from '@/lib/navigation';
 import { localHref } from '@/lib/routes';
 import { ArrowRight, ArrowUpRight, Chevron, Mail, Phone } from './Icons';
 import styles from './SiteHeader.module.css';
@@ -165,13 +165,9 @@ export default function SiteHeader() {
           <div className={styles.megaInner}>
             <div className={styles.megaAside}>
               <p className={styles.megaKicker}>{item.label}</p>
-              <p className={styles.megaBlurb}>
-                {item.label === 'Products'
-                  ? 'Twelve engineered systems for power, drilling control and rig safety.'
-                  : 'Turnkey engineering across upstream, midstream and downstream operations.'}
-              </p>
+              <p className={styles.megaBlurb}>{item.blurb}</p>
               <a className={styles.megaAll} href={localHref(item.href)}>
-                <span>{item.label === 'Products' ? 'All systems' : 'All capability'}</span>
+                <span>{item.allLabel ?? item.label}</span>
                 <ArrowRight />
               </a>
             </div>

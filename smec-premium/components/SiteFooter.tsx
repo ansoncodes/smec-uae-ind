@@ -68,7 +68,7 @@ export default function SiteFooter() {
 
           <nav className={styles.cols} aria-label="Footer">
             <div className={styles.col}>
-              <p className={styles.colHead}>Company</p>
+              <p className={styles.colHead}>Sections</p>
               <ul>
                 {FOOTER_NAV.map((item) => (
                   <li key={item.label}>
@@ -77,16 +77,11 @@ export default function SiteFooter() {
                     </a>
                   </li>
                 ))}
-                <li>
-                  <Link className="wipeLink" href="/resources/">
-                    Insights
-                  </Link>
-                </li>
               </ul>
             </div>
 
             <div className={styles.col}>
-              <p className={styles.colHead}>Solutions</p>
+              <p className={styles.colHead}>Products</p>
               <ul>
                 {solutions.map((item) => (
                   <li key={item.label}>

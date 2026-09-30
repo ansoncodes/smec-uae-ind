@@ -118,6 +118,13 @@ Status keys: `[ ]` open · `[x]` done · `[~]` partially done · `[S]` under an 
       hardcoded page dates are gone, and the conflicting second Organization went
       with `app/contact-us/`. Nothing about certifications, headcount or founding
       date is asserted (0.7, 0.8). `app/layout.tsx` `[M]`
+- [x] 2.1b Global navigation rebuilt around the locked architecture
+      (`lib/navigation.ts`): Products, Solutions, Industries, Digital, Resources,
+      Company, Contact, with Industries carrying by-asset, by-customer and
+      by-region so no section is unreachable from the header. Every destination is
+      checked against the generated page set at module load, and the footer lists
+      the same sections. Verified by crawling the rendered pages: 102 distinct
+      internal links, all 200, none taking a redirect. `[M]`
 - [x] 2.2 `BreadcrumbList` JSON-LD on every indexable non-home page — visible
       breadcrumbs already exist (`components/ui/Breadcrumb.tsx`). `[S]`
 - [x] 2.3 Breadcrumb trails must point at real hubs, not `/#systems` fragments

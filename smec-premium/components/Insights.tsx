@@ -1,5 +1,6 @@
 import Image from 'next/image';
 import Link from 'next/link';
+import { localHref } from '@/lib/routes';
 import { INSIGHTS } from '@/lib/experience';
 import { ArrowRight } from './Icons';
 import styles from './Insights.module.css';
@@ -42,7 +43,7 @@ export default function Insights() {
         <div className={styles.top}>
           {/* ------------------------------------------------- featured */}
           <article className={styles.featured} data-reveal="up">
-            <Link className={styles.featuredLink} href={`/${featured.slug}`}>
+            <Link className={styles.featuredLink} href={localHref(`/${featured.slug}`)}>
               <div className={styles.featuredMedia}>
                 <Image
                   src={featured.image}
@@ -78,7 +79,7 @@ export default function Insights() {
           <ul className={styles.rail}>
             {rail.map((article, i) => (
               <li key={article.slug} data-reveal="up" data-reveal-delay={i * 80}>
-                <Link className={styles.railItem} href={`/${article.slug}`}>
+                <Link className={styles.railItem} href={localHref(`/${article.slug}`)}>
                   <span className={styles.railMedia}>
                     <Image
                       src={article.image}
@@ -108,7 +109,7 @@ export default function Insights() {
         <ul className={styles.row}>
           {row.map((article, i) => (
             <li key={article.slug} data-reveal="up" data-reveal-delay={i * 90}>
-              <Link className={styles.card} href={`/${article.slug}`}>
+              <Link className={styles.card} href={localHref(`/${article.slug}`)}>
                 <span className={styles.cardMedia}>
                   <Image
                     src={article.image}

@@ -25,7 +25,8 @@ const PAGE_REDIRECTS = [
   { from: '/careers', to: '/company/careers/' },
   { from: '/solutions-and-services', to: '/solutions/' },
   { from: '/e-house-solutions-india', to: '/solutions/e-houses-modular-electrical-rooms/' },
-  { from: '/products', to: '/products/' },
+  // `/products` is not a move: `trailingSlash` already sends it to
+  // `/products/`, and a rule for it would point the path at itself.
   { from: '/shop', to: '/products/' },
   { from: '/contact-us', to: '/contact/' },
   { from: '/blogs', to: '/resources/' },
@@ -89,9 +90,13 @@ export const REDIRECTS = [
   ...POST_REDIRECTS,
 ];
 
-/** Unchanged: legal page the new architecture does not rename. */
-/** @type {string[]} */
-export const KEEP = ['/privacy-policy'];
+/**
+ * Unchanged: the legal page the new architecture does not rename, and the
+ * product index, which keeps its path.
+ *
+ * @type {string[]}
+ */
+export const KEEP = ['/privacy-policy', '/products'];
 
 /**
  * No equivalent and no value: WooCommerce scaffolding and WordPress defaults,
@@ -131,4 +136,9 @@ export const UNRESOLVED = [
  * and the Technical SEO Master asks for 301s by number.
  */
 export const nextRedirects = () =>
-  REDIRECTS.map(({ from, to }) => ({ source: from, destination: to, statusCode: 301 }));
+  REDIRECTS
+    // A rule whose source differs from its destination only by the trailing
+    // slash would redirect the path to itself, and a browser following that
+    // gives up after twenty hops.
+    .filter(({ from, to }) => `${from}/` !== to)
+    .map(({ from, to }) => ({ source: from, destination: to, statusCode: 301 }));

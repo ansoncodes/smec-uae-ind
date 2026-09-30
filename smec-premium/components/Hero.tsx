@@ -63,7 +63,7 @@ export default function Hero() {
           <h2 className={styles.subtitle}>{home?.answer}</h2>
 
           <div className={styles.ctas}>
-            <a className={`btn btnAccent ${styles.cta}`} href="#systems">
+            <a className={`btn btnAccent ${styles.cta}`} href="/solutions/">
               Explore Our Solutions
               <ArrowRight className="arrow" />
             </a>

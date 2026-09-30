@@ -1,5 +1,6 @@
 import Image from 'next/image';
 import Link from 'next/link';
+import { localHref } from '@/lib/routes';
 import { type Article } from '@/lib/siteData';
 import { articleBody, type Block } from '@/lib/articles';
 import { INSIGHTS } from '@/lib/experience';
@@ -129,7 +130,7 @@ export default function ArticleDetail({ article, slug }: { article: Article; slu
           <ul className={styles.moreGrid}>
             {more.map((item, i) => (
               <li key={item.slug} data-reveal="up" data-reveal-delay={i * 90}>
-                <Link href={`/${item.slug}`} className={styles.card}>
+                <Link href={localHref(`/${item.slug}`)} className={styles.card}>
                   <span className={styles.cardMedia}>
                     <Image
                       src={item.image}
