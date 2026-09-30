@@ -45,8 +45,11 @@ export const DATASHEET_REDIRECTS = [
 ].map(([file, to]) => ({ from: `/wp-content/uploads/${file}`, to }));
 
 /**
- * Images the redesign still uses, under their old upload paths. Twenty-five
- * of the 288 on the old site; the rest are WordPress thumbnails, favicons and
+ * Images the redesign still uses, under their old upload paths. Generated
+ * from the crawl rather than written out, because a hand-written version of
+ * this list had nineteen paths that do not exist — an upload path is a date
+ * and a filename, and neither is guessable. Twenty-five of the 288 on the old
+ * site; the rest are WordPress thumbnails, favicons and
  * artwork the new design does not use, and are listed in
  * docs/legacy-inventory.md for SMEC to decide on.
  *
@@ -55,29 +58,29 @@ export const DATASHEET_REDIRECTS = [
 export const IMAGE_REDIRECTS = [
   ['2022/05/Drill-Monitor-System-1.png', 'Drill-Monitor-System-1.png'],
   ['2022/05/SMEC-Oil-and-Gas-Logo.png', 'SMEC-Oil-and-Gas-Logo.png'],
-  ['2024/10/SMEC-Oil-and-Gas-Logo.png', 'SMEC-Oil-and-Gas-Logo.png'],
   ['2024/10/SMEC-Oil-and-Gas-Logo-300x109.png', 'SMEC-Oil-and-Gas-Logo-300x109.png'],
+  ['2024/10/SMEC-Oil-and-Gas-Logo.png', 'SMEC-Oil-and-Gas-Logo.png'],
   ['2024/10/SMEoilandgas-green-3.webp', 'SMEoilandgas-green-3.webp'],
   ['2024/10/map-final-1024x500.png', 'map-final-1024x500.png'],
-  ['2024/10/map-blue-smecoilandgas.png', 'map-blue-smecoilandgas.png'],
-  ['2022/05/Oil-and-gas-Banner.webp', 'Oil-and-gas-Banner.webp'],
-  ['2024/10/Oil-and-gas-Banner.webp', 'Oil-and-gas-Banner.webp'],
-  ['2024/10/SMECoilandhasbanner-3.webp', 'SMECoilandhasbanner-3.webp'],
-  ['2022/05/Power-House-SMEC.png', 'Power-House-SMEC.png'],
-  ['2022/05/Corporate-Video.png', 'Corporate-Video.png'],
-  ['2022/05/Advanced-Perimeter-Security-System.png', 'Advanced-Perimeter-Security-System.png'],
-  ['2022/05/BOP-Control-System-768x460.png', 'BOP-Control-System-768x460.png'],
-  ['2022/05/Gas-Watch-Panel-768x460.webp', 'Gas-Watch-Panel-768x460.webp'],
-  ['2022/05/Flare-Boom-Pilot-Ignition-System-768x460.png', 'Flare-Boom-Pilot-Ignition-System-768x460.png'],
-  ['2022/05/Integrated-Drilling-Control-System-768x460.png', 'Integrated-Drilling-Control-System-768x460.png'],
-  ['2022/05/RPD-System-Jacking-Control-System-768x460.png', 'RPD-System-Jacking-Control-System-768x460.png'],
-  ['2024/10/adipec.png', 'adipec.png'],
-  ['2024/10/Dwin-technology.webp', 'Dwin-technology.webp'],
-  ['2024/10/SMEC-VARD.webp', 'SMEC-VARD.webp'],
-  ['2024/10/Seepages-to-Sensors.webp', 'Seepages-to-Sensors.webp'],
-  ['2024/10/Naharkatiya-Noonmati-Barauni-1962.webp', 'Naharkatiya-Noonmati-Barauni-1962.webp'],
-  ['2024/10/Middle-East-Is-Engineering-Energy.webp', 'Middle-East-Is-Engineering-Energy.webp'],
-  ['2024/10/Engineering-Resilience-Starts-Inside-the-Panel.webp', 'Engineering-Resilience-Starts-Inside-the-Panel.webp'],
+  ['2024/11/adipec.png', 'adipec.png'],
+  ['2025/01/Dwin-technology.webp', 'Dwin-technology.webp'],
+  ['2025/11/From-Shores-to-Sea-Legs-How-ONGC-Built-Indias-Rig-Frontier.webp', 'From-Shores-to-Sea-Legs-How-ONGC-Built-Indias-Rig-Frontier.webp'],
+  ['2025/11/Middle-East-Is-Engineering-Energy.webp', 'Middle-East-Is-Engineering-Energy.webp'],
+  ['2025/11/Seepages-to-Sensors.webp', 'Seepages-to-Sensors.webp'],
+  ['2026/02/Engineering-Resilience-Starts-Inside-the-Panel.webp', 'Engineering-Resilience-Starts-Inside-the-Panel.webp'],
+  ['2026/04/SMEC-VARD.webp', 'SMEC-VARD.webp'],
+  ['2026/08/Advanced-Perimeter-Security-System.png', 'Advanced-Perimeter-Security-System.png'],
+  ['2026/08/BOP-Control-System-768x460.png', 'BOP-Control-System-768x460.png'],
+  ['2026/08/Drill-Monitor-System-1.png', 'Drill-Monitor-System-1.png'],
+  ['2026/08/Flare-Boom-Pilot-Ignition-System-768x460.png', 'Flare-Boom-Pilot-Ignition-System-768x460.png'],
+  ['2026/08/Gas-Watch-Panel-768x460.webp', 'Gas-Watch-Panel-768x460.webp'],
+  ['2026/08/ISO-SMEC-Oil-and-Gas-Solutions-L.L.C-S-724x1024.png', 'ISO-SMEC-Oil-and-Gas-Solutions-L.L.C-S-724x1024.png'],
+  ['2026/08/ISO-SMEC-Oil-and-Gas-Solutions-L.L.C-S.P-14001.png', 'ISO-SMEC-Oil-and-Gas-Solutions-L.L.C-S.P-14001.png'],
+  ['2026/08/ISO-SMEC-Oil-and-Gas-Solutions-L.L.C-S.P-45001-724x1024.png', 'ISO-SMEC-Oil-and-Gas-Solutions-L.L.C-S.P-45001-724x1024.png'],
+  ['2026/08/ISO-SMEC-Oil-and-Gas-Solutions-L.L.C-S.P-50001-724x1024.png', 'ISO-SMEC-Oil-and-Gas-Solutions-L.L.C-S.P-50001-724x1024.png'],
+  ['2026/08/Integrated-Drilling-Control-System-768x460.png', 'Integrated-Drilling-Control-System-768x460.png'],
+  ['2026/08/Power-House-SMEC.png', 'Power-House-SMEC.png'],
+  ['2026/08/RPD-System-Jacking-Control-System-768x460.png', 'RPD-System-Jacking-Control-System-768x460.png'],
 ].map(([file, image]) => ({ from: `/wp-content/uploads/${file}`, to: `/images/${image}` }));
 
 /**
