@@ -25,6 +25,8 @@ const nextConfig = {
   trailingSlash: true,
   images: {
     formats: ['image/avif', 'image/webp'],
+    // Next 16 only serves qualities declared here; the build uses 75 and 82.
+    qualities: [75, 82],
   },
   async headers() {
     return [{ source: '/:path*', headers: securityHeaders }];

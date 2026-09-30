@@ -30,7 +30,13 @@ export default function SpecPageView({
   children?: SpecPage[];
   related?: SpecPage[];
 }) {
-  const sections = publishableSections(page);
+  const all = publishableSections(page);
+  // "Conversion CTA" and "RFQ inputs" describe what a buyer should send. The
+  // component standard puts that with the RFQ block, not in the body under a
+  // heading written for whoever builds the page.
+  const isRfqInputs = (heading: string) => /conversion cta|rfq inputs/i.test(heading);
+  const sections = all.filter((section) => !isRfqInputs(section.heading));
+  const rfqInputs = all.filter((section) => isRfqInputs(section.heading)).flatMap((s) => s.lines);
   const section = page.breadcrumb[1] ?? 'SMEC Oil & Gas';
   const isDraft = page.status === 'draft';
   const showDraftNote = isDraft && process.env.NEXT_PUBLIC_SITE_ENV !== 'production';
@@ -153,8 +159,9 @@ export default function SpecPageView({
           <div className="container">
             <h2 className={styles.closeTitle}>Send the requirement</h2>
             <p className={styles.closeNote}>
-              Send the available drawings, specification, make and model, site and required date. An
-              engineer reviews the scope and replies.
+              {rfqInputs.length
+                ? rfqInputs.join(' ')
+                : 'Send the available drawings, specification, make and model, site and required date. An engineer reviews the scope and replies.'}
             </p>
             <div className={styles.actions} style={{ justifyContent: 'center' }}>
               <Link className="btn btn-primary" href="/contact/">
