@@ -386,13 +386,19 @@
   z-index: -1;
   background: var(--ink);
   opacity: 0;
+  /* visibility, not opacity alone: a transparent drawer still holds its ~30
+     links in the tab order and the accessibility tree. Delayed so the fade
+     out still plays. */
+  visibility: hidden;
   pointer-events: none;
-  transition: opacity 0.4s var(--ease);
+  transition: opacity 0.4s var(--ease), visibility 0s linear 0.4s;
 }
 
 .drawerOpen {
   opacity: 1;
+  visibility: visible;
   pointer-events: auto;
+  transition: opacity 0.4s var(--ease), visibility 0s;
 }
 
 .drawerScroll {

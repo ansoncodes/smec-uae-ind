@@ -222,7 +222,7 @@ export const SYSTEM_INDEX = listed;
 
 /* --------------------------------------------------------------- process */
 
-/** SMEC's own description of itself as a complete EPC company. */
+/** The delivery chain for a defined package, design through commissioning. */
 export const PROCESS = [
   { step: 'Design', note: 'Requirement capture, engineering and drawings' },
   { step: 'Engineering', note: 'Estimation and system architecture' },

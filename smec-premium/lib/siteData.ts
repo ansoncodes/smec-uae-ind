@@ -245,7 +245,12 @@ export const STATS = [
 
 export const WHO_WE_ARE = {
   title: 'Who We Are',
-  body: 'SMEC is a complete EPC company delivering turnkey solutions. Design, Estimation, Build, Installation and Commissioning all done under one roof. A team of professionals with superior skill is the key asset of SMEC, teams with system integration of the leading OEMs in the  bulbs our strength.',
+  /* Content Master, /company/about/ answer block. The previous text claimed
+     SMEC was "a complete EPC company" - which the Technical Master forbids
+     unless that contractual responsibility is verified - and ended in a
+     garbled clause inherited from WordPress. */
+  body:
+    'SMEC Oil & Gas Solutions LLC is positioned as a complete engineering and turnkey system-solution provider for defined project packages. The delivery model combines regional client engagement, project coordination, site execution and commissioning from the UAE with detailed engineering, automation, system integration, manufacturing, FAT, R&D and remote support from India.',
 } as const;
 
 /* -------------------------------------------------------- certifications */

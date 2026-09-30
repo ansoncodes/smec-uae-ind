@@ -77,14 +77,14 @@ Status keys: `[ ]` open · `[x]` done · `[~]` partially done · `[S]` under an 
 - [x] **1.11 Environment-driven site URL** — `SITE.url` was hardcoded to
       `https://smecoilandgas.com`, so every canonical pointed at the old site. Now
       reads `NEXT_PUBLIC_SITE_URL`. Set it once 0.1 lands. `[S]`
-- [ ] **1.12 Unverified EPC claim** — "SMEC is a complete EPC company"
+- [x] **1.12 Unverified EPC claim** — "SMEC is a complete EPC company"
       (`lib/siteData.ts` `WHO_WE_ARE`, `components/SiteFooter.tsx:45`) and
       "multinational EPC organisation" (`lib/companyPages.ts:44,51`). The spec: do not
       describe SMEC as the full EPC contractor unless that contractual responsibility
-      is verified. Replace with the Content Master's approved positioning. `[S]`
-- [ ] **1.13 Garbled homepage copy** — the same `WHO_WE_ARE` paragraph ends
+      is verified. Replaced with the Content Master's /company/about/ positioning, verbatim. Also struck from the about-us meta description, the about-us body and the R&D paragraph. `[S]`
+- [x] **1.13 Garbled homepage copy** — the same `WHO_WE_ARE` paragraph ends
       "system integration of the leading OEMs in the  bulbs our strength", inherited
-      verbatim from WordPress. `[S]`
+      verbatim from WordPress. Gone with 1.12. `[S]`
 - [ ] **1.14 Gated assets are published** — 14 client logos (`Clients.tsx`),
       TAQA/SNOC/DEWA partner marks (`Credentials.tsx`), certificate scans
       (`Certifications.tsx`), the ADNOC ICV badge and the 25 years / 10 countries /
@@ -133,10 +133,10 @@ Status keys: `[ ]` open · `[x]` done · `[~]` partially done · `[S]` under an 
       (0.3). `next.config.mjs` `[S]`
 - [x] 2.11 AVIF alongside WebP. `next.config.mjs` `[S]`
 - [ ] 2.12 Accessibility — WCAG 2.2 AA is the acceptance baseline:
-    - [ ] Closed mobile drawer keeps ~30 links in the tab order
-          (`SiteHeader.module.css:383` uses only `opacity`/`pointer-events`). `[S]`
-    - [ ] `aria-hidden` on the utility rail whose links stay focusable
-          (`SiteHeader.tsx:94`). `[S]`
+    - [x] Closed mobile drawer keeps ~30 links in the tab order
+          (`SiteHeader.module.css` used only `opacity`/`pointer-events`; now `visibility`, delayed so the fade still plays). `[S]`
+    - [x] `aria-hidden` on the utility rail whose links stay focusable
+          (`SiteHeader.tsx`) — now `inert`, which hides it and removes focus. `[S]`
     - [ ] Drawer and mega menu: no `aria-modal`, no focus trap, no focus return,
           hover-only open with no `aria-controls`. `[M]`
     - [ ] Form error messaging: no `aria-invalid`, `aria-describedby`, per-field

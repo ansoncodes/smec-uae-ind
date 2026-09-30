@@ -42,8 +42,9 @@ export default function SiteFooter() {
               />
             </Link>
             <p className={styles.blurb}>
-              A complete EPC company delivering turnkey solutions for the oil and gas industry —
-              design, estimation, build, installation and commissioning under one roof.
+              A complete engineering and turnkey system-solution provider for defined project
+              packages — from engineering and procurement through build, integration, FAT, site
+              execution and commissioning.
             </p>
 
             <ul className={styles.socials}>

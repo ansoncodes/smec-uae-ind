@@ -91,7 +91,7 @@ export default function SiteHeader() {
       onMouseLeave={release}
     >
       {/* utility rail — contact details, folded away once the page scrolls */}
-      <div className={styles.rail} aria-hidden={condensed}>
+      <div className={styles.rail} inert={condensed}>
         <div className={styles.railInner}>
           <span className={styles.railNote}>Abu Dhabi · Kochi · Global support</span>
           <div className={styles.railLinks}>
