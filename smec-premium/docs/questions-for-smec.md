@@ -11,24 +11,20 @@ it takes.
 
 ## 1. Management — decisions, not documents
 
-**1.1 Confirm the production domain is `smecoilandgas.com`.**
-Indicated, not yet confirmed. The build already assumes it, so canonicals,
-the sitemap, schema and social cards are correct as they stand.
+**1.1 Production domain — answered: `smecoilandgas.com`.** ✓
 
-Three things follow from it being the *same* domain as the current site
-rather than a new one, and each needs a yes:
+Because it is the domain the current site already uses, the switch is a
+replacement rather than a move. Three things still need a yes, but they are
+cutover decisions rather than questions about the domain:
 
-- Seven WooCommerce and WordPress leftovers start returning 404 where they
-  currently return 200: `/cart`, `/checkout`, `/my-account`, `/thank-you`,
-  `/sample-page`, `/hi`, `/test`. That is intended, but it is visible.
-- Every image and PDF currently served from `/wp-content/uploads/...` will
-  stop working, because those paths do not exist in the new build. Anything
-  with traffic or inbound links needs preserving or redirecting — see 4.4,
-  which this makes urgent rather than tidy.
-- There is no window where both sites are reachable. The cutover is a single
-  switch on one domain, so we should agree a rollback plan before it.
-
-*Blocks: launch. Everything else about the domain is already done.*
+- Seven WordPress and WooCommerce leftovers (`/cart`, `/checkout`,
+  `/my-account`, `/thank-you`, `/sample-page`, `/hi`, `/test`) plus three
+  Elementor template fragments start returning 404 where they return 200
+  today. That is deliberate, but it happens on a live domain.
+- 263 legacy image URLs break unless the `/wp-content/uploads/` folder is
+  copied across first — see 4.4.
+- There is no period where both sites are reachable, so we should agree a
+  rollback plan before the switch. Staging will need its own subdomain.
 
 **1.2 Where should an RFQ land — a mailbox, or a CRM?**
 The form is built and tested; it needs a destination. Also confirm the public
@@ -206,13 +202,12 @@ from a crawl.
 
 ---
 
-## The five that actually hold up a launch
+## The four that actually hold up a launch
 
-1. The production domain (1.1)
-2. Where an RFQ lands (1.2)
-3. Hosting, and staging protection (1.3)
-4. Client logos and the counters — approve them or take them down (2.1, 2.2)
-5. Privacy and consent wording (4.2)
+1. Where an RFQ lands (1.2)
+2. Hosting, and staging protection (1.3)
+3. Client logos and the counters — approve them or take them down (2.1, 2.2)
+4. Privacy and consent wording (4.2)
 
-Everything else makes the site better or closes a checklist row. These five
-decide whether it can go live at all.
+The domain is settled. Everything else on this list makes the site better or
+closes a checklist row; these four decide whether it can go live at all.
