@@ -78,7 +78,7 @@ export default function SiteFooter() {
                   </li>
                 ))}
                 <li>
-                  <Link className="wipeLink" href="/insights">
+                  <Link className="wipeLink" href="/resources/">
                     Insights
                   </Link>
                 </li>

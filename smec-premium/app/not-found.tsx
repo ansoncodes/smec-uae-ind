@@ -13,11 +13,11 @@ import styles from './not-found.module.css';
  * re-cut (docs/spec-alignment.md 1.1).
  */
 const DESTINATIONS = [
-  { href: '/#systems', label: 'Products' },
-  { href: '/solutions-and-services', label: 'Solutions' },
-  { href: '/#industries', label: 'Industries' },
-  { href: '/insights', label: 'Insights' },
-  { href: '/contact-us', label: 'Contact' },
+  { href: '/products/', label: 'Products' },
+  { href: '/solutions/', label: 'Solutions' },
+  { href: '/industries/', label: 'Industries' },
+  { href: '/resources/', label: 'Resources' },
+  { href: '/contact/', label: 'Contact' },
 ];
 
 export default function NotFound() {

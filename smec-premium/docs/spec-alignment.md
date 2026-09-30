@@ -45,15 +45,22 @@ Status keys: `[ ]` open · `[x]` done · `[~]` partially done · `[S]` under an 
 
 ## 1. Blocking for launch
 
-- [~] **1.1 Re-cut routes to the locked architecture** — eight sections, hub pages,
-      products at `/products/<slug>/`. Today's routes mirror the old WordPress paths.
-      Do this before launch: changing URLs afterwards means a second redirect round,
-      which the spec forbids chaining. `app/` `[L]`
+- [x] **1.1 Re-cut routes to the locked architecture** — done. Eight sections, each
+      an optional catch-all prerendering its hub and children from the Content
+      Master; 105 URLs, 91 indexable. The 14 product pages and 15 articles this
+      build already had keep their design and depth at their new addresses
+      (`lib/spec/legacy.ts`). The old routes (`app/[slug]`, `about-us`, `careers`,
+      `contact-us`, `insights`, `solutions-and-services`) are deleted.
+      `app/`, `lib/spec/` `[L]`
 - [x] **1.2 `trailingSlash: true`** — the URL lock requires trailing slashes.
       `next.config.mjs` `[S]`
-- [ ] **1.3 Redirect map wired** — `lib/redirects.ts` holds the full old→new map
-      (section 6 below). Wire it into `next.config.mjs` **with** 1.1, not before: the
-      old paths are what this build currently serves. `[M]`
+- [x] **1.3 Redirect map wired** — done, with 1.1. `lib/redirects.mjs` (moved from
+      `.ts` so the config and the app share one copy) is served by
+      `next.config.mjs`. Verified against a running server: every live URL is a
+      single 301 to a 200, including the 15 posts. `statusCode: 301` rather than
+      `permanent: true`, which emits a 308. Requests to the unslashed form of an old
+      URL take the `trailingSlash` 308 first and then the 301 — inherent to
+      `trailingSlash: true`, and the live site's own URLs are the slashed form. `[M]`
 - [ ] **1.4 RFQ form** — `components/page/EnquiryForm.tsx:50` builds a `mailto:` URL
       containing name, company, email, phone and message and sets
       `window.location.href`. Nothing reaches a server; personal data sits in a URL,
@@ -95,22 +102,22 @@ Status keys: `[ ]` open · `[x]` done · `[~]` partially done · `[S]` under an 
 - [ ] **1.15 Placeholder photography** — `lib/scaffold.ts` and the seven
       `SCAFFOLD-*.jpg` files are stock imagery standing in for client assets, used on
       About, Careers, the company pages and all five industry panels. Needs 0.6. `[M]`
-- [ ] **1.16 Links that still point at the old site** — `lib/routes.ts` `localHref()`
-      falls back to absolute `smecoilandgas.com` URLs for pages this build lacks, and
-      every article ends with a "Read the original" link to the WordPress post
-      (`ArticleDetail.tsx:108`). After migration these are links to a dead or
-      competing site. `[M]`
+- [x] **1.16 Links that still point at the old site** — done. `localHref()` now
+      resolves every old path through the redirect map, so internal links land on the
+      canonical URL instead of taking a 301. The "Read the original" link is gone:
+      the article's original address redirects to the page it was on. `[M]`
 
 ---
 
 ## 2. Required by the spec
 
-- [ ] 2.1 Rebuild the sitewide Organization JSON-LD. `app/layout.tsx:70` mirrors the
-      old Rank Math graph: a `['Person','Organization']` hybrid, a logo at
-      `/wp-content/uploads/2022/05/smec-logo.png`, hardcoded `datePublished` /
-      `dateModified`, and a `SearchAction` pointing at WordPress's `?s=`.
-      `app/contact-us/page.tsx:53` emits a second, conflicting Organization. One
-      `@id`, verified address and contact point, per the spec's §7.1 template. `[M]`
+- [x] 2.1 Rebuild the sitewide Organization JSON-LD — done. One `Organization` at
+      `#organization` (legal entity, Abu Dhabi address, sales contact point, the four
+      social profiles, the logo from `/public`) and the `WebSite` that belongs to it.
+      The Person hybrid, the `/wp-content/` logo, the fake `?s=` SearchAction and the
+      hardcoded page dates are gone, and the conflicting second Organization went
+      with `app/contact-us/`. Nothing about certifications, headcount or founding
+      date is asserted (0.7, 0.8). `app/layout.tsx` `[M]`
 - [x] 2.2 `BreadcrumbList` JSON-LD on every indexable non-home page — visible
       breadcrumbs already exist (`components/ui/Breadcrumb.tsx`). `[S]`
 - [x] 2.3 Breadcrumb trails must point at real hubs, not `/#systems` fragments
@@ -122,7 +129,10 @@ Status keys: `[ ]` open · `[x]` done · `[~]` partially done · `[S]` under an 
       `Product` and `FAQPage` already do. Done for Product, Service,
       SoftwareApplication, CollectionPage, FAQPage and BreadcrumbList on the
       spec pages; Person, DefinedTerm and JobPosting still missing. `[L]`
-- [ ] 2.5 `Article` schema needs ISO `datePublished`/`dateModified`; `lib/articles/*`
+- [~] 2.5 `Article` schema emits ISO `datePublished` where the article carries a
+      date and omits it where none exists rather than inventing one; 12 of 15 have
+      one. `dateModified` needs the editing source (0.2).
+      Original note: `Article` schema needs ISO `datePublished`/`dateModified`; `lib/articles/*`
       carry dates as prose. `[S]`
 - [~] 2.6 Answer blocks: 2–3 factual sentences directly under every H1, able to stand
       alone in search results. Done on all 105 spec pages, from the document.
@@ -134,8 +144,12 @@ Status keys: `[ ]` open · `[x]` done · `[~]` partially done · `[S]` under an 
       SMEC to write questions or drop the schema. `[L]`
 - [ ] 2.8 OG/Twitter images — no default image and no per-page 1200×630 template, so
       every subpage inherits the homepage card. `[M]`
-- [ ] 2.9 Replace the homepage title "Best SMEC OIL AND GAS Company in India, GCC
-      Countries" with the Content Master's, and add a `title.template`. `[S]`
+- [x] 2.9 Homepage title and description are now the Content Master's
+      ("Oil & Gas Engineering, E&I & Automation | SMEC"), and the H1 is the locked
+      "Engineering Critical Energy Assets" with the approved answer sentence under
+      it. No `title.template`: the document specifies the full title tag per URL, and
+      a template would append a second suffix to the ones that already carry "| SMEC".
+      `lib/siteData.ts`, `components/Hero.tsx` `[S]`
 - [x] 2.10 Security headers: nosniff, Referrer-Policy, frame protection,
       Permissions-Policy. HSTS and CSP belong at the edge once the host is known
       (0.3). `next.config.mjs` `[S]`

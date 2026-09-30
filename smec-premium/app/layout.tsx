@@ -1,6 +1,6 @@
 import type { Metadata } from 'next';
 import { IBM_Plex_Mono, Inter, Inter_Tight } from 'next/font/google';
-import { SITE } from '@/lib/siteData';
+import { CONTACT, FOOTER_ADDRESS, FOOTER_CONTACT, SITE, SOCIALS } from '@/lib/siteData';
 import MotionRoot from '@/components/motion/MotionRoot';
 import './globals.css';
 
@@ -62,58 +62,69 @@ export const viewport = {
   themeColor: '#0a0c0f',
 };
 
-/** Mirrors the Rank Math @graph emitted by the live site. */
+/**
+ * Site-wide structured data: one Organization node and the WebSite that
+ * belongs to it, both with stable @ids the page-level graphs point at.
+ *
+ * This replaces the Rank Math graph the live site emits, which marked the
+ * company up as `['Person', 'Organization']`, pointed its logo at a
+ * /wp-content/ upload path, advertised a `?s=` site search that does not
+ * exist here, and carried one hardcoded set of page dates on every URL.
+ *
+ * Every value below is one this repo already holds: the legal entity and
+ * address from the footer, the numbers and email from the contact block, the
+ * logo from /public. Nothing about certifications, headcount, revenue or
+ * founding date is asserted, because none of that is verified yet
+ * (docs/spec-alignment.md 0.7).
+ */
+const LOGO = {
+  '@type': 'ImageObject',
+  '@id': `${SITE.url}/#logo`,
+  url: `${SITE.url}${SITE.logo}`,
+  contentUrl: `${SITE.url}${SITE.logo}`,
+  caption: SITE.name,
+  width: 741,
+  height: 268,
+  inLanguage: 'en',
+};
+
 const jsonLd = {
   '@context': 'https://schema.org',
   '@graph': [
     {
-      '@type': ['Person', 'Organization'],
-      '@id': `${SITE.url}/#person`,
-      name: 'SMEC Oil and Gas',
-      logo: {
-        '@type': 'ImageObject',
-        '@id': `${SITE.url}/#logo`,
-        url: `${SITE.url}/wp-content/uploads/2022/05/smec-logo.png`,
-        contentUrl: `${SITE.url}/wp-content/uploads/2022/05/smec-logo.png`,
-        caption: 'SMEC Oil & Gas',
-        inLanguage: 'en-US',
-        width: '197',
-        height: '48',
+      '@type': 'Organization',
+      '@id': `${SITE.url}/#organization`,
+      name: FOOTER_ADDRESS[1],
+      alternateName: SITE.name,
+      url: SITE.url,
+      logo: LOGO,
+      image: { '@id': `${SITE.url}/#logo` },
+      email: CONTACT.email,
+      telephone: FOOTER_CONTACT[0].value,
+      address: {
+        '@type': 'PostalAddress',
+        streetAddress: FOOTER_ADDRESS[2],
+        addressLocality: 'Abu Dhabi',
+        addressCountry: 'AE',
       },
-      image: {
-        '@type': 'ImageObject',
-        '@id': `${SITE.url}/#logo`,
-        url: `${SITE.url}/wp-content/uploads/2022/05/smec-logo.png`,
-        contentUrl: `${SITE.url}/wp-content/uploads/2022/05/smec-logo.png`,
-        caption: 'SMEC Oil & Gas',
-        inLanguage: 'en-US',
-        width: '197',
-        height: '48',
-      },
+      contactPoint: [
+        {
+          '@type': 'ContactPoint',
+          contactType: 'sales',
+          telephone: FOOTER_CONTACT[0].value,
+          email: CONTACT.email,
+          availableLanguage: 'en',
+        },
+      ],
+      sameAs: SOCIALS.map((social) => social.href),
     },
     {
       '@type': 'WebSite',
       '@id': `${SITE.url}/#website`,
       url: SITE.url,
-      name: 'SMEC Oil & Gas',
-      publisher: { '@id': `${SITE.url}/#person` },
-      inLanguage: 'en-US',
-      potentialAction: {
-        '@type': 'SearchAction',
-        target: `${SITE.url}/?s={search_term_string}`,
-        'query-input': 'required name=search_term_string',
-      },
-    },
-    {
-      '@type': 'WebPage',
-      '@id': `${SITE.url}#webpage`,
-      url: SITE.url,
-      name: SITE.title,
-      datePublished: '2024-10-18T08:41:50+00:00',
-      dateModified: '2026-08-13T11:29:33+00:00',
-      about: { '@id': `${SITE.url}/#person` },
-      isPartOf: { '@id': `${SITE.url}/#website` },
-      inLanguage: 'en-US',
+      name: SITE.name,
+      publisher: { '@id': `${SITE.url}/#organization` },
+      inLanguage: 'en',
     },
   ],
 };

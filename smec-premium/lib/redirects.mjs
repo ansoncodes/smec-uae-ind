@@ -9,16 +9,16 @@
  *
  * Destinations are the Content Master's locked URLs, trailing slash included.
  *
- * NOT WIRED YET. This build still serves the old paths, so switching the
- * redirects on before the routes are re-cut would 301 the live pages into
- * 404s. `next.config.mjs` picks this up in the same change that moves the
- * routes (checklist 1.1/1.3).
+ * Kept as .mjs, not .ts, because `next.config.mjs` serves these redirects and
+ * `lib/spec/legacy.ts` reads the same map to decide which existing page each
+ * new URL renders. One copy, so a visitor's 301 and the content they land on
+ * cannot disagree.
+ *
+ * @typedef {{ from: string, to: string }} Redirect
  */
 
-export type Redirect = { from: string; to: string };
-
-/** Pages. */
-const PAGE_REDIRECTS: Redirect[] = [
+/** @type {Redirect[]} Pages. */
+const PAGE_REDIRECTS = [
   { from: '/home', to: '/' },
   { from: '/about-us', to: '/company/about/' },
   { from: '/smec-oil-gas-solutions-llc-abu-dhabi', to: '/company/abu-dhabi-office/' },
@@ -29,10 +29,14 @@ const PAGE_REDIRECTS: Redirect[] = [
   { from: '/shop', to: '/products/' },
   { from: '/contact-us', to: '/contact/' },
   { from: '/blogs', to: '/resources/' },
+  // Not a WordPress URL: the insights index this build added before the
+  // architecture was locked.
+  { from: '/insights', to: '/resources/' },
 ];
 
 /** Product pages — the old flat paths move under /products/. */
-const PRODUCT_REDIRECTS: Redirect[] = [
+/** @type {Redirect[]} */
+const PRODUCT_REDIRECTS = [
   { from: '/power-house', to: '/products/power-houses/' },
   { from: '/vfd-houses', to: '/products/vfd-houses/' },
   { from: '/scr-houses', to: '/products/scr-houses/' },
@@ -53,8 +57,10 @@ const PRODUCT_REDIRECTS: Redirect[] = [
 /**
  * Posts. The history pieces are exactly the "Asset Archaeology" format the
  * Content Master describes; the rest are technical guides.
+ *
+ * @type {Redirect[]}
  */
-const POST_REDIRECTS: Redirect[] = [
+const POST_REDIRECTS = [
   ...[
     'digboi-the-forgotten-flame-that-lit-indias-oil-gas-story',
     'from-seepages-to-sensors-the-complete-timeline-of-oil-gas-firsts-global-india',
@@ -76,21 +82,24 @@ const POST_REDIRECTS: Redirect[] = [
   ].map((slug) => ({ from: `/${slug}`, to: `/resources/whitepapers/${slug}/` })),
 ];
 
-export const REDIRECTS: Redirect[] = [
+/** @type {Redirect[]} */
+export const REDIRECTS = [
   ...PAGE_REDIRECTS,
   ...PRODUCT_REDIRECTS,
   ...POST_REDIRECTS,
 ];
 
 /** Unchanged: legal page the new architecture does not rename. */
-export const KEEP: string[] = ['/privacy-policy'];
+/** @type {string[]} */
+export const KEEP = ['/privacy-policy'];
 
 /**
  * No equivalent and no value: WooCommerce scaffolding and WordPress defaults,
  * all of them currently live and indexable on smecoilandgas.com. These get a
  * real 404, not a redirect.
  */
-export const RETIRED: string[] = [
+/** @type {string[]} */
+export const RETIRED = [
   '/cart',
   '/checkout',
   '/my-account',
@@ -105,7 +114,8 @@ export const RETIRED: string[] = [
  * decision (checklist 0.11) before it can be redirected or retired — do not
  * quietly point these at the homepage.
  */
-export const UNRESOLVED: string[] = [
+/** @type {string[]} */
+export const UNRESOLVED = [
   '/research-and-developement',
   '/sustainability',
   '/employee-training',
@@ -114,6 +124,11 @@ export const UNRESOLVED: string[] = [
   '/smec-at-adipec-2024',
 ];
 
-/** Shape `next.config.mjs` expects. */
+/**
+ * Shape `next.config.mjs` expects.
+ *
+ * 301, spelled out, rather than `permanent: true` — that flag emits a 308,
+ * and the Technical SEO Master asks for 301s by number.
+ */
 export const nextRedirects = () =>
-  REDIRECTS.map(({ from, to }) => ({ source: from, destination: to, permanent: true }));
+  REDIRECTS.map(({ from, to }) => ({ source: from, destination: to, statusCode: 301 }));

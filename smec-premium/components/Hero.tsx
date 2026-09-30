@@ -1,6 +1,7 @@
 import Image from 'next/image';
 import { HERO, SITE } from '@/lib/siteData';
 import { localHref } from '@/lib/routes';
+import { specPage } from '@/lib/spec';
 import { ArrowDown, ArrowRight } from './Icons';
 import styles from './Hero.module.css';
 
@@ -9,10 +10,18 @@ import styles from './Hero.module.css';
  * cinematic scrim and a film-grain layer, with the headline set at display
  * scale. The entrance is pure CSS on load — no JavaScript on the critical
  * path — and the photograph drifts very slowly to keep the frame alive.
+ *
+ * The H1 and the sentence under it are the locked homepage copy from the
+ * Content Master, read from the spec record rather than retyped, so the
+ * heading a visitor sees and the one the document approved stay the same
+ * string. The company name moved to the kicker, where it belongs: the H1
+ * answers what SMEC does, not who it is.
  */
 export default function Hero() {
+  const home = specPage('/');
+
   return (
-    <section className={`${styles.hero} grain`} id="top" aria-label={HERO.title}>
+    <section className={`${styles.hero} grain`} id="top" aria-label={home?.h1 ?? HERO.title}>
       <div className={styles.media}>
         <Image
           src={HERO.image}
@@ -36,24 +45,22 @@ export default function Hero() {
           Abu Dhabi &nbsp;·&nbsp; Est. 2000
         </p>
 
-        <h1 className={styles.title}>
+        <h1 className={`${styles.title} ${styles.titleLong}`}>
           <span className={styles.line}>
-            <span style={{ animationDelay: '120ms' }}>SMEC</span>
+            <span style={{ animationDelay: '120ms' }}>Engineering</span>
           </span>
           <span className={styles.line}>
             <span style={{ animationDelay: '220ms' }}>
-              Oil &amp; <em className={styles.em}>Gas</em>
+              Critical <em className={styles.em}>Energy</em>
             </span>
+          </span>
+          <span className={styles.line}>
+            <span style={{ animationDelay: '320ms' }}>Assets</span>
           </span>
         </h1>
 
         <div className={styles.copy}>
-          <h2 className={styles.subtitle}>
-            Turnkey engineering solutions for the oil &amp; gas industry
-          </h2>
-          <p className={styles.body}>
-            Delivering reliable, customized solutions for onshore and offshore operations.
-          </p>
+          <h2 className={styles.subtitle}>{home?.answer}</h2>
 
           <div className={styles.ctas}>
             <a className={`btn btnAccent ${styles.cta}`} href="#systems">

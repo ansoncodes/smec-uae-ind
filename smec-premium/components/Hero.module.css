@@ -108,6 +108,13 @@
   text-wrap: nowrap;
 }
 
+/* Three long words instead of two short ones: the same frame, one step down
+   the scale, so "CRITICAL ENERGY" still sets on a single line on a phone. */
+.titleLong {
+  font-size: clamp(30px, 6.4vw, 88px);
+  letter-spacing: -0.04em;
+}
+
 .line {
   display: block;
   overflow: hidden;
@@ -141,14 +148,6 @@
   letter-spacing: -0.005em;
   color: var(--white);
   text-wrap: balance;
-}
-
-.body {
-  margin: 0;
-  max-width: 46ch;
-  color: var(--steel-100);
-  font-size: var(--fs-body);
-  line-height: 1.65;
 }
 
 .ctas {

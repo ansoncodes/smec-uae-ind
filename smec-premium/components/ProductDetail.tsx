@@ -15,9 +15,20 @@ import styles from './ProductDetail.module.css';
  * pages put their specification — or, failing that, the head of their feature
  * list — on the plate instead, so the frame never sits empty.
  */
-export default function ProductDetail({ system }: { system: SystemDetail }) {
+export default function ProductDetail({
+  system,
+  title,
+  lead: leadOverride,
+}: {
+  system: SystemDetail;
+  /** The Content Master's H1 for this URL, which outranks the old title. */
+  title?: string;
+  /** Its answer block, which stands in for the old opening paragraph. */
+  lead?: string;
+}) {
   const related = relatedSystems(system.slug);
-  const [lead, ...rest] = system.body.length > 0 ? system.body : [system.tagline];
+  const [firstBody, ...rest] = system.body.length > 0 ? system.body : [system.tagline];
+  const lead = leadOverride ?? firstBody;
   const hasDetail = system.sections.length > 0 || Boolean(system.specs);
 
   /* Stand-in for the picture: the first few spec rows, or the first few
@@ -40,7 +51,7 @@ export default function ProductDetail({ system }: { system: SystemDetail }) {
             </p>
 
             <h1 id="product-title" className={styles.title}>
-              {system.title}
+              {title ?? system.title}
             </h1>
 
             {system.subtitle ? <p className={styles.subtitle}>{system.subtitle}</p> : null}
@@ -63,7 +74,7 @@ export default function ProductDetail({ system }: { system: SystemDetail }) {
             ) : null}
 
             <div className={styles.ctas}>
-              <a className="btn btnAccent" href="/contact-us">
+              <a className="btn btnAccent" href="/contact/">
                 Enquire About This System
                 <ArrowRight className="arrow" />
               </a>
@@ -234,7 +245,7 @@ export default function ProductDetail({ system }: { system: SystemDetail }) {
           </ul>
 
           <p className={styles.backRow}>
-            <Link className="arrowLink" href="/#systems">
+            <Link className="arrowLink" href="/products/">
               All systems
               <ArrowRight className="arrow" />
             </Link>

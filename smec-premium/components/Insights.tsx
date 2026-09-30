@@ -32,7 +32,7 @@ export default function Insights() {
               Technical writing from the SMEC team on the systems, history and direction of oil
               and gas engineering.
             </p>
-            <Link className={`arrowLink ${styles.viewAll}`} href="/insights">
+            <Link className={`arrowLink ${styles.viewAll}`} href="/resources/">
               View All Insights
               <ArrowRight className="arrow" />
             </Link>

@@ -1,5 +1,6 @@
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
+import { nextRedirects } from './lib/redirects.mjs';
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 
@@ -31,9 +32,11 @@ const nextConfig = {
   async headers() {
     return [{ source: '/:path*', headers: securityHeaders }];
   },
-  // Redirects live in lib/redirects.ts and get wired in the same change that
-  // re-cuts the routes (docs/spec-alignment.md, 1.1 and 1.3). Wiring them now
-  // would 301 the paths this build currently serves into 404s.
+  // The WordPress map, plus this build's own retired paths. One hop each,
+  // permanent, and nothing lands on the homepage.
+  async redirects() {
+    return nextRedirects();
+  },
 };
 
 export default nextConfig;

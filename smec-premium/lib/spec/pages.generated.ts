@@ -109,7 +109,8 @@ export const SPEC_PAGES: SpecPage[] = [
           "Homepage flow: asset → engineering problem → system architecture → SMEC scope → evidence → RFQ.",
           "Mission/Vision, MD Message, leadership, certifications, OEM partners, offices, legal/corporate detail and history belong under Company.",
           "Use concise proof points only when verified. Do not use unverified counts, authorizations, certifications, outcomes or client logos."
-        ]
+        ],
+        "internal": true
       }
     ],
     "specTreatment": [],

@@ -4,9 +4,23 @@ import SiteHeader from '@/components/SiteHeader';
 import SiteFooter from '@/components/SiteFooter';
 import FloatingWidgets from '@/components/FloatingWidgets';
 import SpecPageView from '@/components/spec/SpecPageView';
+import { SpecClose, SpecFaqs } from '@/components/spec/SpecBlocks';
+import Breadcrumb from '@/components/ui/Breadcrumb';
+import ProductDetail from '@/components/ProductDetail';
+import ArticleDetail from '@/components/ArticleDetail';
+import { articleBody } from '@/lib/articles';
+import { articleRoute, ARTICLE_ROUTES, articlesIn, legacySystem } from './legacy';
 import { SITE } from '@/lib/siteData';
 import { canonicalPath } from '@/lib/routes';
-import { childrenOf, isPublished, segmentsOf, siblingsOf, specPage, SPEC_ROUTES } from './index';
+import {
+  breadcrumbTrail,
+  childrenOf,
+  isPublished,
+  segmentsOf,
+  siblingsOf,
+  specPage,
+  SPEC_ROUTES,
+} from './index';
 import type { SpecPage } from './types';
 
 /**
@@ -21,13 +35,38 @@ const pagesUnder = (prefix: string) =>
   SPEC_ROUTES.filter((page) => page.url === `/${prefix}/` || page.url.startsWith(`/${prefix}/`));
 
 /** The paths a section prerenders, including its own hub (an empty path). */
-export const makeStaticParams = (prefix: string) => async () =>
-  pagesUnder(prefix).map((page) => ({ path: segmentsOf(page.url).slice(1) }));
+export const makeStaticParams = (prefix: string) => async () => [
+  ...pagesUnder(prefix).map((page) => ({ path: segmentsOf(page.url).slice(1) })),
+  // The 17 articles keep their slugs and move under their collection.
+  ...(prefix === 'resources' ? ARTICLE_ROUTES.map((route) => ({ path: route.segments })) : []),
+];
 
 const lookup = (prefix: string, path: string[] | undefined) =>
   specPage(canonicalPath([prefix, ...(path ?? [])].join('/')));
 
 const absolute = (url: string) => `${SITE.url}${url}`;
+
+/** Articles carry their date as prose ("14 January 2025"); schema wants ISO. */
+function isoDate(value: string | undefined) {
+  if (!value) return undefined;
+  const parsed = new Date(value);
+  return Number.isNaN(parsed.valueOf()) ? undefined : parsed.toISOString().slice(0, 10);
+}
+
+/**
+ * BreadcrumbList from a rendered trail: the same crumbs the visitor sees, in
+ * the same order, with the last one left without a URL because it is the page
+ * they are already on.
+ */
+const breadcrumbList = (trail: { label: string; href?: string }[]) => ({
+  '@type': 'BreadcrumbList',
+  itemListElement: trail.map((crumb, index) => ({
+    '@type': 'ListItem',
+    position: index + 1,
+    name: crumb.label,
+    ...(index === trail.length - 1 || !crumb.href ? {} : { item: absolute(crumb.href) }),
+  })),
+});
 
 /**
  * Structured data, generated from the visible content of the page and the
@@ -36,21 +75,15 @@ const absolute = (url: string) => `${SITE.url}${url}`;
  */
 function jsonLd(page: SpecPage) {
   const graph: Record<string, unknown>[] = [
-    {
-      '@type': 'BreadcrumbList',
-      itemListElement: page.breadcrumb.map((label, index) => ({
-        '@type': 'ListItem',
-        position: index + 1,
-        name: label,
-        ...(index === page.breadcrumb.length - 1
-          ? {}
-          : {
-              item: absolute(
-                index === 0 ? '/' : canonicalPath(segmentsOf(page.url).slice(0, index).join('/'))
-              ),
-            }),
-      })),
-    },
+    breadcrumbList(
+      page.breadcrumb.map((label, index) => ({
+        label,
+        href:
+          index === 0
+            ? '/'
+            : canonicalPath(segmentsOf(page.url).slice(0, index).join('/')),
+      }))
+    ),
   ];
 
   const base = {
@@ -94,7 +127,27 @@ function jsonLd(page: SpecPage) {
 export const makeMetadata =
   (prefix: string) =>
   async ({ params }: Params): Promise<Metadata> => {
-    const page = lookup(prefix, (await params).path);
+    const path = (await params).path;
+
+    if (prefix === 'resources') {
+      const route = articleRoute(path ?? []);
+      if (route) {
+        const description = route.article.subtitle || route.article.title;
+        return {
+          title: `${route.article.title} — SMEC Oil & Gas`,
+          description,
+          alternates: { canonical: route.url },
+          openGraph: {
+            type: 'article',
+            url: absolute(route.url),
+            title: route.article.title,
+            description,
+          },
+        };
+      }
+    }
+
+    const page = lookup(prefix, path);
     if (!page) return {};
 
     const title = page.seoTitle || `${page.h1} — SMEC Oil & Gas`;
@@ -116,22 +169,95 @@ export const makeMetadata =
     };
   };
 
+const Chrome = ({ children, ld }: { children: React.ReactNode; ld?: unknown }) => (
+  <>
+    <SiteHeader />
+    {children}
+    <SiteFooter />
+    <FloatingWidgets />
+    {ld ? (
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(ld) }}
+      />
+    ) : null}
+  </>
+);
+
 export const makePage =
   (prefix: string) =>
   async ({ params }: Params) => {
-    const page = lookup(prefix, (await params).path);
+    const path = (await params).path;
+
+    // An article: the existing page, at its new home under a collection.
+    if (prefix === 'resources') {
+      const route = articleRoute(path ?? []);
+      if (route) {
+        const trail = [
+          { label: 'Home', href: '/' },
+          { label: 'Resources', href: '/resources/' },
+          { label: specPage(route.collection)?.h1 ?? 'Articles', href: route.collection },
+          { label: route.article.title },
+        ];
+        const published = isoDate(articleBody(route.slug)?.date);
+
+        return (
+          <Chrome
+            ld={{
+              '@context': 'https://schema.org',
+              '@graph': [
+                breadcrumbList(trail),
+                {
+                  '@type': 'Article',
+                  headline: route.article.title,
+                  description: route.article.subtitle,
+                  url: absolute(route.url),
+                  publisher: { '@id': `${SITE.url}/#organization` },
+                  ...(published ? { datePublished: published } : {}),
+                },
+              ],
+            }}
+          >
+            <Breadcrumb trail={trail} />
+            <main id="main">
+              <ArticleDetail article={route.article} slug={route.slug} />
+              <SpecClose />
+            </main>
+          </Chrome>
+        );
+      }
+    }
+
+    const page = lookup(prefix, path);
     if (!page) notFound();
 
+    // A product this build already has: keep its design and depth, take the
+    // H1, answer block and FAQs from the document.
+    const system = prefix === 'products' ? legacySystem(page.url) : undefined;
+
+    if (system) {
+      return (
+        <Chrome ld={jsonLd(page)}>
+          <Breadcrumb trail={breadcrumbTrail(page)} />
+          <main id="main">
+            <ProductDetail system={system} title={page.h1} lead={page.answer} />
+            <div className="container">
+              <SpecFaqs page={page} index={1} />
+            </div>
+            <SpecClose />
+          </main>
+        </Chrome>
+      );
+    }
+
     return (
-      <>
-        <SiteHeader />
-        <SpecPageView page={page} children={childrenOf(page.url)} related={siblingsOf(page)} />
-        <SiteFooter />
-        <FloatingWidgets />
-        <script
-          type="application/ld+json"
-          dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd(page)) }}
+      <Chrome ld={jsonLd(page)}>
+        <SpecPageView
+          page={page}
+          children={[...childrenOf(page.url)]}
+          related={siblingsOf(page)}
+          articles={prefix === 'resources' ? articlesIn(page.url) : []}
         />
-      </>
+      </Chrome>
     );
   };

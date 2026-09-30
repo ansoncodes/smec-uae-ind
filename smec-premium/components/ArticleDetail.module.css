@@ -179,22 +179,6 @@
   color: var(--ink);
 }
 
-.foot {
-  max-width: 74ch;
-  margin: clamp(36px, 4vw, 56px) auto 0;
-  padding-top: 24px;
-  border-top: 1px solid var(--paper-hair);
-}
-
-.source {
-  display: inline-flex;
-  align-items: center;
-  gap: 8px;
-  font-size: var(--fs-sm);
-  font-weight: 500;
-  color: var(--accent);
-}
-
 /* ------------------------------------------------------------------ more */
 
 .moreGrid {

@@ -12,8 +12,15 @@ export const SITE = {
    */
   url: process.env.NEXT_PUBLIC_SITE_URL ?? 'https://smecoilandgas.com',
   name: 'SMEC Oil & Gas',
-  title: 'Best SMEC OIL AND GAS Company in India, GCC Countries',
-  description: 'Best SMEC OIL AND GAS Company in India, GCC Countries with Automation',
+  /**
+   * The live title and description are keyword-stuffed ("Best SMEC OIL AND GAS
+   * Company in India, GCC Countries"), which the Technical SEO Master rules
+   * out. These are the approved homepage title and meta description from the
+   * Content Master (docs/spec-alignment.md 2.2).
+   */
+  title: 'Oil & Gas Engineering, E&I & Automation | SMEC',
+  description:
+    'E&I, automation, engineered products, rig modernization and digital engineering for critical energy assets.',
   logo: '/images/SMEC-Oil-and-Gas-Logo.png',
   logoFooter: '/images/SMEC-Oil-and-Gas-Logo-300x109.png',
 } as const;

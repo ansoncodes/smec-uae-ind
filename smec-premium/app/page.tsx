@@ -1,6 +1,7 @@
 import SiteHeader from '@/components/SiteHeader';
 import Hero from '@/components/Hero';
 import Credentials from '@/components/Credentials';
+import AssetBrief from '@/components/AssetBrief';
 import About from '@/components/About';
 import Systems from '@/components/Systems';
 import SystemFeature from '@/components/SystemFeature';
@@ -24,6 +25,7 @@ import FloatingWidgets from '@/components/FloatingWidgets';
  * ground so the eye gets a beat between sections:
  *
  *   hero · credentials      dark
+ *   asset intents           dark
  *   01 about                paper
  *   02 systems · 03 focus   dark
  *   04 industries           paper
@@ -41,6 +43,7 @@ export default function HomePage() {
       <main id="main">
         <Hero />
         <Credentials />
+        <AssetBrief />
         <About />
         <Systems />
         <SystemFeature />

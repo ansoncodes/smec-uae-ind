@@ -2,6 +2,7 @@ import Link from 'next/link';
 import Breadcrumb from '@/components/ui/Breadcrumb';
 import { CONTACT } from '@/lib/siteData';
 import { breadcrumbTrail, publishableSections, type SpecPage } from '@/lib/spec';
+import { isRfqInputsHeading, SpecClose, SpecFaqs } from './SpecBlocks';
 import styles from './SpecPageView.module.css';
 
 /**
@@ -25,18 +26,22 @@ export default function SpecPageView({
   page,
   children = [],
   related = [],
+  articles = [],
 }: {
   page: SpecPage;
   children?: SpecPage[];
   related?: SpecPage[];
+  /** Articles filed under a resource collection. */
+  articles?: { url: string; article: { title: string; subtitle?: string } }[];
 }) {
   const all = publishableSections(page);
   // "Conversion CTA" and "RFQ inputs" describe what a buyer should send. The
   // component standard puts that with the RFQ block, not in the body under a
   // heading written for whoever builds the page.
-  const isRfqInputs = (heading: string) => /conversion cta|rfq inputs/i.test(heading);
-  const sections = all.filter((section) => !isRfqInputs(section.heading));
-  const rfqInputs = all.filter((section) => isRfqInputs(section.heading)).flatMap((s) => s.lines);
+  const sections = all.filter((section) => !isRfqInputsHeading(section.heading));
+  const rfqInputs = all
+    .filter((section) => isRfqInputsHeading(section.heading))
+    .flatMap((section) => section.lines);
   const section = page.breadcrumb[1] ?? 'SMEC Oil & Gas';
   const isDraft = page.status === 'draft';
   const showDraftNote = isDraft && process.env.NEXT_PUBLIC_SITE_ENV !== 'production';
@@ -114,22 +119,30 @@ export default function SpecPageView({
               </section>
             ) : null}
 
-            {page.faqs.length ? (
+            {articles.length ? (
               <section className={styles.block}>
                 <div className={styles.blockHead}>
                   <span className={styles.blockNum}>
                     {String(sections.length + (children.length ? 2 : 1)).padStart(2, '0')}
                   </span>
-                  <h2 className={styles.blockTitle}>Common questions</h2>
+                  <h2 className={styles.blockTitle}>In this collection</h2>
                 </div>
-                {page.faqs.map((faq) => (
-                  <details className={styles.faq} key={faq.q}>
-                    <summary>{faq.q}</summary>
-                    <p>{faq.a}</p>
-                  </details>
-                ))}
+                <ul className={styles.cards}>
+                  {articles.map((entry) => (
+                    <li key={entry.url}>
+                      <Link className={styles.card} href={entry.url}>
+                        <span className={styles.cardTitle}>{entry.article.title}</span>
+                        {entry.article.subtitle ? (
+                          <span className={styles.cardNote}>{entry.article.subtitle}</span>
+                        ) : null}
+                      </Link>
+                    </li>
+                  ))}
+                </ul>
               </section>
             ) : null}
+
+            <SpecFaqs page={page} index={sections.length + (children.length ? 2 : 1)} />
 
             {related.length ? (
               <section className={styles.block}>
@@ -155,24 +168,7 @@ export default function SpecPageView({
           </div>
         </div>
 
-        <section className={styles.close}>
-          <div className="container">
-            <h2 className={styles.closeTitle}>Send the requirement</h2>
-            <p className={styles.closeNote}>
-              {rfqInputs.length
-                ? rfqInputs.join(' ')
-                : 'Send the available drawings, specification, make and model, site and required date. An engineer reviews the scope and replies.'}
-            </p>
-            <div className={styles.actions} style={{ justifyContent: 'center' }}>
-              <Link className="btn btn-primary" href="/contact/">
-                Send an RFQ
-              </Link>
-              <a className="btn btn-ghost" href={CONTACT.emailHref}>
-                {CONTACT.email}
-              </a>
-            </div>
-          </div>
-        </section>
+        <SpecClose rfqInputs={rfqInputs} />
       </main>
     </>
   );
