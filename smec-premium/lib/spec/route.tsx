@@ -10,8 +10,17 @@ import ProductDetail from '@/components/ProductDetail';
 import ArticleDetail from '@/components/ArticleDetail';
 import RfqForm from '@/components/rfq/RfqForm';
 import { articleBody } from '@/lib/articles';
+import { GLOSSARY, glossarySchema } from '@/lib/glossary';
+import {
+  jobPostingSchema,
+  LEADERSHIP,
+  MANAGING_DIRECTOR,
+  personSchema,
+  VACANCIES,
+} from '@/lib/people';
 import { articleRoute, ARTICLE_ROUTES, articlesIn, legacySystem } from './legacy';
 import { SITE } from '@/lib/siteData';
+import { ogImageFor } from '@/lib/og';
 import { canonicalPath } from '@/lib/routes';
 import {
   breadcrumbTrail,
@@ -110,6 +119,22 @@ function jsonLd(page: SpecPage) {
     graph.push({ '@type': 'CollectionPage', ...base });
   }
 
+  // The remaining types the schema table assigns by page, each emitted only
+  // where the page shows the thing being marked up.
+  if (page.url === '/company/leadership/') {
+    graph.push(...personSchema(LEADERSHIP, SITE.url));
+  }
+  if (page.url === '/company/md-message/' && MANAGING_DIRECTOR) {
+    graph.push(...personSchema([MANAGING_DIRECTOR], SITE.url));
+  }
+  if (page.url === '/company/careers/') {
+    // Role families are not vacancies; JobPosting goes on live roles only.
+    graph.push(...jobPostingSchema(VACANCIES, SITE.url));
+  }
+  if (page.url === '/resources/glossary/' && GLOSSARY.length) {
+    graph.push(glossarySchema(SITE.url, page.url));
+  }
+
   // Only for questions and answers that are visible on the same page.
   if (page.faqs.length) {
     graph.push({
@@ -143,6 +168,7 @@ export const makeMetadata =
             url: absolute(route.url),
             title: route.article.title,
             description,
+            images: ogImageFor(route.url, route.article.title),
           },
         };
       }
@@ -166,6 +192,7 @@ export const makeMetadata =
         url: absolute(page.url),
         title,
         description,
+        images: ogImageFor(page.url, page.h1),
       },
     };
   };
@@ -258,6 +285,7 @@ export const makePage =
           children={[...childrenOf(page.url)]}
           related={siblingsOf(page)}
           articles={prefix === 'resources' ? articlesIn(page.url) : []}
+          glossary={page.url === '/resources/glossary/' ? GLOSSARY : []}
           // The contact page is the RFQ page: the document's "RFQ fields"
           // block is the form's specification, and this is the form.
           form={page.url === '/contact/' ? <RfqForm /> : undefined}

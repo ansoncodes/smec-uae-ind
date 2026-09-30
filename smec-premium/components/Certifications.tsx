@@ -62,11 +62,16 @@ export default function Certifications() {
       {/* ------------------------------------------- accreditation marks */}
       <div className={styles.marks} aria-label="Accreditation and certification bodies">
         <div className={styles.marksTrack}>
-          {marks.map((src, i) => (
-            <span key={`${src}-${i}`} className={styles.mark} aria-hidden={i >= CERT_LOGOS.length}>
+          {marks.map((mark, i) => (
+            <span
+              key={`${mark.src}-${i}`}
+              className={styles.mark}
+              aria-hidden={i >= CERT_LOGOS.length}
+            >
               <Image
-                src={src}
-                alt=""
+                src={mark.src}
+                // The strip is duplicated to loop; only the first pass is read.
+                alt={i >= CERT_LOGOS.length ? '' : mark.alt}
                 width={160}
                 height={80}
                 sizes="140px"

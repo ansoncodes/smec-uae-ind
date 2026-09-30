@@ -69,11 +69,14 @@
   background: #0e1216;
 }
 
-/* A blurred copy of the artwork fills the plate behind the whole image. */
-.coverBlur {
-  object-fit: cover;
-  filter: blur(26px) saturate(0.7) brightness(0.5);
-  transform: scale(1.2);
+/* The plate behind the artwork used to be a second, blurred copy of the
+   same file — two requests per cover and per card, for decoration. It is
+   drawn instead. */
+.cover,
+.cardMedia {
+  background:
+    radial-gradient(120% 90% at 50% 0%, rgba(18, 87, 253, 0.14), transparent 62%),
+    linear-gradient(180deg, #11161c, #0b0e12);
 }
 
 .coverInner {

@@ -75,15 +75,6 @@ export default function ArticleDetail({ article, slug }: { article: Article; slu
           </div>
 
           <div className={styles.cover}>
-            <Image
-              src={article.image}
-              alt=""
-              fill
-              sizes="300px"
-              quality={30}
-              className={styles.coverBlur}
-              aria-hidden="true"
-            />
             <div className={styles.coverInner}>
               <Image
                 src={article.image}
@@ -132,15 +123,6 @@ export default function ArticleDetail({ article, slug }: { article: Article; slu
               <li key={item.slug} data-reveal="up" data-reveal-delay={i * 90}>
                 <Link href={localHref(`/${item.slug}`)} className={styles.card}>
                   <span className={styles.cardMedia}>
-                    <Image
-                      src={item.image}
-                      alt=""
-                      fill
-                      sizes="200px"
-                      quality={30}
-                      className={styles.coverBlur}
-                      aria-hidden="true"
-                    />
                     <span className={styles.cardInner}>
                       <Image
                         src={item.image}

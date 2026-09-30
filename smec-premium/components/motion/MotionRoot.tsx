@@ -1,6 +1,7 @@
 'use client';
 
 import { useEffect } from 'react';
+import { usePathname } from 'next/navigation';
 
 /**
  * The whole site's motion layer, mounted once.
@@ -22,6 +23,8 @@ const REVEAL = '[data-reveal]';
 const PARALLAX = '[data-parallax]';
 
 export default function MotionRoot() {
+  const pathname = usePathname();
+
   useEffect(() => {
     const reduced = window.matchMedia('(prefers-reduced-motion: reduce)');
     if (reduced.matches) return;
@@ -72,21 +75,10 @@ export default function MotionRoot() {
     const sweepTimer = window.setTimeout(sweep, 2200);
     document.addEventListener('visibilitychange', sweep);
 
-    // Sections that mount later (route changes, client sections) join in.
-    const mutations = new MutationObserver((records) => {
-      for (const record of records) {
-        for (const node of record.addedNodes) {
-          if (node.nodeType !== 1) continue;
-          const el = node as HTMLElement;
-          if (el.matches(REVEAL) && !seen.has(el)) {
-            seen.add(el);
-            observer.observe(el);
-          }
-          observe(el);
-        }
-      }
-    });
-    mutations.observe(document.body, { childList: true, subtree: true });
+    /* Sections that mount later join in when the route changes — this effect
+       re-runs on `pathname`. A MutationObserver over the whole body subtree
+       used to do this, and stayed alive for the life of the page to catch a
+       handful of navigations. */
 
     /* ---------------------------------------------------------- parallax */
 
@@ -118,40 +110,13 @@ export default function MotionRoot() {
     window.addEventListener('scroll', onScroll, { passive: true });
     window.addEventListener('resize', onScroll, { passive: true });
 
-    /* ------------------------------------------------- smooth scrolling */
-
-    let lenis: { destroy: () => void; raf: (t: number) => void } | null = null;
-    let rafId = 0;
-    let cancelled = false;
-
-    // Loaded after paint so it never sits on the critical path.
-    const idle =
-      window.requestIdleCallback?.bind(window) ??
-      ((cb: () => void) => window.setTimeout(cb, 200));
-
-    idle(() => {
-      if (cancelled) return;
-      import('lenis')
-        .then(({ default: Lenis }) => {
-          if (cancelled) return;
-          const instance = new Lenis({
-            duration: 1.05,
-            easing: (t: number) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
-            smoothWheel: true,
-            touchMultiplier: 1.6,
-          });
-          lenis = instance as unknown as typeof lenis;
-          const loop = (time: number) => {
-            instance.raf(time);
-            rafId = requestAnimationFrame(loop);
-          };
-          rafId = requestAnimationFrame(loop);
-          instance.on('scroll', onScroll);
-        })
-        .catch(() => {
-          /* smooth scroll is an enhancement; native scrolling still works */
-        });
-    });
+    /* Smooth scrolling is the browser's job now. Lenis used to take the
+       wheel, easing every scroll through a requestAnimationFrame loop that
+       ran for as long as the page was open — main-thread work on every
+       frame, which is exactly the input-responsiveness risk §16 warns about,
+       and a scroll that no longer matched the visitor's own device settings.
+       In-page anchors below still animate, and CSS scroll-behavior covers
+       the rest. */
 
     /* ------------------------------------------------- in-page anchors */
 
@@ -169,19 +134,15 @@ export default function MotionRoot() {
     document.addEventListener('click', onClick);
 
     return () => {
-      cancelled = true;
       window.clearTimeout(sweepTimer);
       document.removeEventListener('visibilitychange', sweep);
       observer.disconnect();
-      mutations.disconnect();
       window.removeEventListener('scroll', onScroll);
       window.removeEventListener('resize', onScroll);
       document.removeEventListener('click', onClick);
       if (frame) cancelAnimationFrame(frame);
-      if (rafId) cancelAnimationFrame(rafId);
-      lenis?.destroy();
     };
-  }, []);
+  }, [pathname]);
 
   return null;
 }

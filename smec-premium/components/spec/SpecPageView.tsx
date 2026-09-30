@@ -2,6 +2,7 @@ import Link from 'next/link';
 import Breadcrumb from '@/components/ui/Breadcrumb';
 import { CONTACT } from '@/lib/siteData';
 import { breadcrumbTrail, publishableSections, type SpecPage } from '@/lib/spec';
+import type { GlossaryTerm } from '@/lib/glossary';
 import { isRfqInputsHeading, SpecClose, SpecFaqs } from './SpecBlocks';
 import styles from './SpecPageView.module.css';
 
@@ -27,6 +28,7 @@ export default function SpecPageView({
   children = [],
   related = [],
   articles = [],
+  glossary = [],
   form,
 }: {
   page: SpecPage;
@@ -34,6 +36,8 @@ export default function SpecPageView({
   related?: SpecPage[];
   /** Articles filed under a resource collection. */
   articles?: { url: string; article: { title: string; subtitle?: string } }[];
+  /** Terms defined on this page, each linking to the page that owns it. */
+  glossary?: GlossaryTerm[];
   /** A page that does something as well as say something — the RFQ form. */
   form?: React.ReactNode;
 }) {
@@ -157,6 +161,27 @@ export default function SpecPageView({
                     </li>
                   ))}
                 </ul>
+              </section>
+            ) : null}
+
+            {glossary.length ? (
+              <section className={styles.block}>
+                <div className={styles.blockHead}>
+                  <span className={styles.blockNum}>
+                    {String(sections.length + 1).padStart(2, '0')}
+                  </span>
+                  <h2 className={styles.blockTitle}>Terms</h2>
+                </div>
+                <dl className={styles.terms}>
+                  {glossary.map((entry) => (
+                    <div key={entry.term}>
+                      <dt>
+                        <Link href={entry.url}>{entry.term}</Link>
+                      </dt>
+                      <dd>{entry.definition}</dd>
+                    </div>
+                  ))}
+                </dl>
               </section>
             ) : null}
 

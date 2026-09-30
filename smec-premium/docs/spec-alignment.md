@@ -146,13 +146,16 @@ Status keys: `[ ]` open · `[x]` done · `[~]` partially done · `[S]` under an 
       breadcrumbs already exist (`components/ui/Breadcrumb.tsx`). `[S]`
 - [x] 2.3 Breadcrumb trails must point at real hubs, not `/#systems` fragments
       (`app/[slug]/page.tsx:111`). Comes with 1.1. `[S]`
-- [~] 2.4 Missing schema types: `Service` (industries, customers, solutions, programs,
-      markets), `SoftwareApplication` (NexWave, ProSet360, NexVerse, NexView),
-      `Person` (leadership, MD), `DefinedTerm`/`DefinedTermSet` (glossary),
-      `JobPosting`/`CollectionPage` (careers). Generate from visible content, the way
-      `Product` and `FAQPage` already do. Done for Product, Service,
-      SoftwareApplication, CollectionPage, FAQPage and BreadcrumbList on the
-      spec pages; Person, DefinedTerm and JobPosting still missing. `[L]`
+- [~] 2.4 Schema types, all generated from visible content. Done: `Product`,
+      `Service`, `SoftwareApplication`, `CollectionPage`, `FAQPage`, `Article`,
+      `BreadcrumbList`, `Organization`, `WebSite`, and `DefinedTermSet` with 46
+      `DefinedTerm` entries on the glossary — each term taken from the page that
+      owns it, so a definition cannot drift from the product it describes.
+
+      `Person` and `JobPosting` are wired (`lib/people.ts`) and emit nothing,
+      because both need facts SMEC has not approved: names and roles for leadership
+      and the MD, live vacancies for careers (0.8). Fill the two lists and the
+      markup appears. Nothing is invented to satisfy a validator. `[L]`
 - [~] 2.5 `Article` schema emits ISO `datePublished` where the article carries a
       date and omits it where none exists rather than inventing one; 12 of 15 have
       one. `dateModified` needs the editing source (0.2).
@@ -166,8 +169,12 @@ Status keys: `[ ]` open · `[x]` done · `[~]` partially done · `[S]` under an 
       schema is emitted only where the questions are visible — no page claims
       FAQPage without them. The other 57 URLs need SMEC to write questions; the
       homepage's three are written but not yet rendered on it. `[L]`
-- [ ] 2.8 OG/Twitter images — no default image and no per-page 1200×630 template, so
-      every subpage inherits the homepage card. `[M]`
+- [x] 2.8 OG/Twitter images — done. `app/api/og/route.tsx` draws a 1200×630 card
+      per URL from that page's own record: section, H1 and answer on the ink ground.
+      Absolute URL with dimensions and alt, as §21 asks. Next's `opengraph-image`
+      file convention could not be used — every section is an optional catch-all and
+      a catch-all must be the last segment of its route — so the endpoint takes the
+      path instead and caches for a day. `[M]`
 - [x] 2.9 Homepage title and description are now the Content Master's
       ("Oil & Gas Engineering, E&I & Automation | SMEC"), and the H1 is the locked
       "Engineering Critical Energy Assets" with the approved answer sentence under
@@ -178,34 +185,61 @@ Status keys: `[ ]` open · `[x]` done · `[~]` partially done · `[S]` under an 
       Permissions-Policy. HSTS and CSP belong at the edge once the host is known
       (0.3). `next.config.mjs` `[S]`
 - [x] 2.11 AVIF alongside WebP. `next.config.mjs` `[S]`
-- [ ] 2.12 Accessibility — WCAG 2.2 AA is the acceptance baseline:
+- [x] 2.12 Accessibility — WCAG 2.2 AA is the acceptance baseline. All four
+      items below are closed; a full audit against the standard is still worth
+      running before launch.
     - [x] Closed mobile drawer keeps ~30 links in the tab order
           (`SiteHeader.module.css` used only `opacity`/`pointer-events`; now `visibility`, delayed so the fade still plays). `[S]`
     - [x] `aria-hidden` on the utility rail whose links stay focusable
           (`SiteHeader.tsx`) — now `inert`, which hides it and removes focus. `[S]`
-    - [ ] Drawer and mega menu: no `aria-modal`, no focus trap, no focus return,
-          hover-only open with no `aria-controls`. `[M]`
+    - [x] Drawer and mega menu: the drawer is `role="dialog"` with `aria-modal`,
+          `inert` while closed, a Tab cycle that stays inside it, and focus that
+          returns to the burger on close. Each mega trigger declares
+          `aria-controls`; Down opens its panel and moves into it, Escape closes
+          and returns focus, and tabbing out closes it. `[M]`
     - [x] Form error messaging: the RFQ form has per-field messages tied with
           `aria-describedby`, `aria-invalid` on the field, and an error summary
           that takes focus and links to each field. `[M]`
-- [ ] 2.13 Descriptive image filenames (`/images/1.png`, `749986-middle-1.png`). `[M]`
-- [ ] 2.14 Client logos carry `alt=""` (`Clients.tsx:41`) — identity lost for assistive
+- [x] 2.13 Descriptive image filenames — done. 41 files renamed: every client and
+      accreditation mark (`1.png` → `accreditation-nielit.png`, `6.png` →
+      `client-shelf-drilling.png`), the ADNOC ICV badge, the partner marks that
+      carried CDN hashes, and the article artwork (`1111.png`, `second-blog.png`).
+      No numbered image files remain and every reference resolves. `[M]`
+- [x] 2.14 Client and accreditation marks now carry the name of the organisation
+      they belong to, identified from the artwork itself. The marquee duplicates each
+      strip to loop, so only the first pass is named and the copy stays `alt=""`.
+      Original note: Client logos carry `alt=""` (`Clients.tsx:41`) — identity lost for assistive
       technology even once the section is approved. `[S]`
 
 ---
 
 ## 3. Worth fixing while in there
 
-- [ ] 3.1 Two `priority` images per page compete for the LCP preload
-      (`ProductDetail.tsx:83`, `PageShell.tsx:129`, `ArticleDetail.tsx:91`, each
-      alongside `SiteHeader.tsx:116`). `[S]`
-- [ ] 3.2 Duplicate blurred backdrop images double requests per card
+- [x] 3.1 One preload per page, and it is the page's own hero — verified across
+      the built HTML. The header logo no longer preloads (it sits at the top of the
+      document and is fetched immediately anyway), and the two homepage system cards
+      that were marked `loading="eager"` are lazy: eager emits a preload link too,
+      which is how section 02 was competing with the hero. `[S]`
+- [x] 3.2 The blurred plate behind every article cover and card was a second copy
+      of the same artwork — two requests each, for decoration. It is drawn in CSS
+      now; an article page fetches its cover once.
+      Original note: Duplicate blurred backdrop images double requests per card
       (`insights/page.tsx:57-65`, `ArticleDetail.tsx:78-83,145-152`). `[S]`
-- [ ] 3.3 Lenis smooth scroll (`MotionRoot.tsx:134`) hijacks native scrolling and keeps
-      a body-subtree `MutationObserver` alive for the page lifetime — INP risk. `[S]`
-- [ ] 3.4 `Counter.tsx:28` resets to 0 after hydration, so the credentials strip visibly
+- [x] 3.3 Lenis is gone, with its dependency. It eased every scroll through a
+      requestAnimationFrame loop that ran for as long as the page was open, which is
+      the input-responsiveness risk §16 warns about, and it overrode the visitor's
+      own device settings. `scroll-behavior: smooth` covers in-page links and is
+      switched off under reduced motion. The body-subtree `MutationObserver` is
+      replaced by a re-scan when the route changes. `[S]`
+- [x] 3.4 Counters hold their figure until they are scrolled into view, then count
+      from zero. `setValue(0)` ran on mount, so a visible figure blinked back to 0 on
+      load; zero now belongs to the animation.
+      Original note: `Counter.tsx:28` resets to 0 after hydration, so the credentials strip visibly
       swaps numbers post-paint. `[S]`
-- [ ] 3.5 Three font families and eight weights; the spec asks to limit weights. `[S]`
+- [x] 3.5 Three font files, down from eight. Inter and Inter Tight load as
+      variable fonts — one file each, covering every weight the design uses,
+      including the 450 the header asks for — and the mono ships the single weight
+      the stylesheets actually use. `[S]`
 
 ---
 

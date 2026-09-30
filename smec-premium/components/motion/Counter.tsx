@@ -25,7 +25,6 @@ export default function Counter({ to, suffix = '', duration = 1800 }: Props) {
     if (!node) return;
     if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
 
-    setValue(0);
     let frame = 0;
     let start = 0;
 
@@ -33,6 +32,10 @@ export default function Counter({ to, suffix = '', duration = 1800 }: Props) {
       ([entry]) => {
         if (!entry.isIntersecting) return;
         observer.disconnect();
+
+        // Zero belongs to the animation, not to hydration: setting it on
+        // mount made every visible figure blink back to 0 on load.
+        setValue(0);
 
         const tick = (now: number) => {
           if (!start) start = now;

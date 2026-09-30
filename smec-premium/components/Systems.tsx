@@ -69,7 +69,9 @@ export default function Systems() {
                     height={system.height}
                     sizes="(max-width: 720px) 92vw, (max-width: 1100px) 46vw, 40vw"
                     className={styles.img}
-                    loading={i < 2 ? 'eager' : 'lazy'}
+                    // Section 02 is below the fold on every viewport; eager
+                    // here bought two more preloads competing with the hero.
+                    loading="lazy"
                   />
                   <span className={styles.num} aria-hidden="true">
                     {String(i + 1).padStart(2, '0')}

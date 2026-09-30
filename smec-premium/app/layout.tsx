@@ -1,32 +1,37 @@
 import type { Metadata } from 'next';
 import { IBM_Plex_Mono, Inter, Inter_Tight } from 'next/font/google';
 import { CONTACT, FOOTER_ADDRESS, FOOTER_CONTACT, SITE, SOCIALS } from '@/lib/siteData';
+import { ogImageFor } from '@/lib/og';
 import MotionRoot from '@/components/motion/MotionRoot';
 import ConversionEvents from '@/components/analytics/ConversionEvents';
 import './globals.css';
 
 /* Three families, each doing one job: Inter Tight for display headlines,
    Inter for running text and UI, IBM Plex Mono for the technical micro-labels.
-   Inter and Inter Tight are variable, so this is three files in total. */
+
+   Inter and Inter Tight are declared without a weight, which loads the
+   variable font: one file per family covering every weight, in place of the
+   three static cuts each was shipping. The mono is not variable and nothing
+   asks it for more than one weight, so it ships one. Three files, down from
+   eight, and the spec's "limit weights" (§16) is met by loading fewer files
+   rather than by taking weights away from the design. */
 const display = Inter_Tight({
   subsets: ['latin'],
   variable: '--font-display-var',
   display: 'swap',
-  weight: ['400', '500', '600'],
 });
 
 const sans = Inter({
   subsets: ['latin'],
   variable: '--font-sans-var',
   display: 'swap',
-  weight: ['400', '500', '600'],
 });
 
 const mono = IBM_Plex_Mono({
   subsets: ['latin'],
   variable: '--font-mono-var',
   display: 'swap',
-  weight: ['400', '500'],
+  weight: ['400'],
 });
 
 export const metadata: Metadata = {
@@ -48,11 +53,13 @@ export const metadata: Metadata = {
     siteName: SITE.name,
     title: SITE.title,
     description: SITE.description,
+    images: ogImageFor('/', SITE.title),
   },
   twitter: {
     card: 'summary_large_image',
     title: SITE.title,
     description: SITE.description,
+    images: ogImageFor('/', SITE.title),
   },
 };
 
