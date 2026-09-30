@@ -22,7 +22,33 @@ Status keys: `[ ]` open · `[x]` done · `[~]` partially done · `[S]` under an 
 > [`questions-for-smec.md`](./questions-for-smec.md).
  (everything else waits on 0.1 and 0.2)
 
-- [ ] **0.1 Production domain.** No document names one. Drives canonicals, sitemap,
+- [~] **0.1 Production domain — expected to be `smecoilandgas.com`** (client,
+      unconfirmed). The build already defaults to it, so canonicals, the sitemap,
+      schema `@id`s and social-card URLs are correct as they stand.
+
+      What follows from it being the *same* domain as the current site, rather than
+      a new one:
+
+      - The redirect map is live from the first request, because this build serves
+        the paths the old site serves. Already tested: every live URL is one 301 to
+        a 200.
+      - `/cart`, `/checkout`, `/my-account`, `/thank-you`, `/sample-page`, `/hi` and
+        `/test` start returning 404 on a domain where they currently return 200.
+        That is the intent (§9: a true 404 rather than a soft landing), but it is a
+        visible change on a live domain, so it should be a decision rather than a
+        surprise.
+      - **Legacy `/wp-content/` assets break.** Every image and PDF indexed or
+        linked at `https://smecoilandgas.com/wp-content/uploads/...` will 404 after
+        cutover, because those paths do not exist in this build. §9 requires
+        valuable legacy assets to be preserved or redirected. This is the
+        inventory in 4.4 of the question list, and it now has a deadline.
+      - Staging cannot share the domain. It needs its own host or subdomain with
+        authentication (1.9), and production must not inherit its noindex.
+      - There is no DNS move to a new name, so the cutover is a hosting change on
+        one domain — which means no window where both sites are reachable, and no
+        way to soft-launch. Worth planning as a single switch with a rollback.
+
+      Original note: no document names one. Drives canonicals, sitemap,
       schema `@id`s, OG URLs. **SMEC**
 - [ ] **0.2 Content source.** The brief requires non-technical editing of title, meta,
       H1, answer block, FAQs and CTAs, with a Draft → Engineering Review → Corporate

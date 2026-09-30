@@ -11,11 +11,24 @@ it takes.
 
 ## 1. Management — decisions, not documents
 
-**1.1 What is the production domain?**
-Everything canonical is built from it: every `<link rel=canonical>`, every
-sitemap entry, the schema `@id`s, the social-card URLs. It is one environment
-variable to change, but nothing can go live until it is fixed.
-*Blocks: launch.*
+**1.1 Confirm the production domain is `smecoilandgas.com`.**
+Indicated, not yet confirmed. The build already assumes it, so canonicals,
+the sitemap, schema and social cards are correct as they stand.
+
+Three things follow from it being the *same* domain as the current site
+rather than a new one, and each needs a yes:
+
+- Seven WooCommerce and WordPress leftovers start returning 404 where they
+  currently return 200: `/cart`, `/checkout`, `/my-account`, `/thank-you`,
+  `/sample-page`, `/hi`, `/test`. That is intended, but it is visible.
+- Every image and PDF currently served from `/wp-content/uploads/...` will
+  stop working, because those paths do not exist in the new build. Anything
+  with traffic or inbound links needs preserving or redirecting — see 4.4,
+  which this makes urgent rather than tidy.
+- There is no window where both sites are reachable. The cutover is a single
+  switch on one domain, so we should agree a rollback plan before it.
+
+*Blocks: launch. Everything else about the domain is already done.*
 
 **1.2 Where should an RFQ land — a mailbox, or a CRM?**
 The form is built and tested; it needs a destination. Also confirm the public
