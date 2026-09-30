@@ -35,20 +35,6 @@ export function childrenOf(url: string): SpecPage[] {
 }
 
 /** Siblings, for the related-pages block on a leaf page. */
-export function siblingsOf(page: SpecPage, limit = 6): SpecPage[] {
-  const segments = segmentsOf(page.url);
-  if (segments.length < 2) return [];
-
-  const parent = canonicalPath(segments.slice(0, -1).join('/'));
-  return childrenOf(parent)
-    .filter((candidate) => candidate.url !== page.url)
-    .slice(0, limit);
-}
-
-/**
- * Breadcrumb with hrefs. The labels are the document's; the links are built
- * from the URL, so a crumb can only ever point at a hub that exists.
- */
 export function breadcrumbTrail(page: SpecPage): { label: string; href?: string }[] {
   const segments = segmentsOf(page.url);
 

@@ -1,17 +1,18 @@
 import { SPEC_PAGES, specPage } from '@/lib/spec';
 
 /**
- * The global navigation, built from the locked architecture.
+ * The global navigation, and it is not a design decision.
  *
- * Every destination is one of the Content Master's URLs, and the URLs are
- * checked against the generated page set at module load: a menu entry that
- * points at a page the document does not define is dropped rather than
- * shipped as a dead link. Labels are written short for a menu — the pages
- * keep the document's own H1.
+ * §31 of the Technical Master is a lock that supersedes every other
+ * navigation table in the handover: eight top-level items, in this order,
+ * with Industries & Markets and By Customer as separate entries. The product
+ * groupings below are the document's four categories and its own assignment
+ * of entities to them, not a grouping invented here.
  *
- * The old menu was the WordPress one (About · Products · Solutions and
- * Services · R&D · Careers · Contact), with the products listed flat and
- * three of the eight sections missing entirely.
+ * Every destination is checked against the generated page set at module load,
+ * so an entry pointing at a page the document does not define is dropped
+ * rather than shipped. Labels are written short for a menu; the pages keep
+ * the document's own H1.
  */
 
 export type MegaEntry = { label: string; href: string; blurb?: string };
@@ -40,32 +41,48 @@ const column = (heading: string, pairs: [string, string][]): MegaColumn => ({
   entries: entries(pairs),
 });
 
-/* The 30 products do not fit in a menu, so each column carries the systems
-   asked for most often and "All products" carries the rest. */
+/* §31, "Products consolidation": one Products tab, four categories beneath
+   it, and these are the entities the document files under each. All thirty
+   are listed, so every product page is reachable from the navigation. */
 const megaProducts: MegaColumn[] = [
-  column('Drilling & rig systems', [
+  column('Electrical & modular packages', [
+    ['/solutions/e-houses-modular-electrical-rooms/', 'E-Houses & Modular Electrical Rooms'],
+    ['/products/mcc-pcc-power-distribution/', 'MCC, PCC & Distribution'],
+    ['/products/plc-hmi-drive-panels/', 'PLC, HMI & Drive Panels'],
+    ['/products/battery-charger/', 'Battery Chargers'],
+  ]),
+  column('Rig & offshore systems', [
     ['/products/power-houses/', 'Power Houses'],
     ['/products/vfd-houses/', 'VFD Houses'],
     ['/products/scr-houses/', 'SCR Houses'],
-    ['/products/dms3000-drill-monitoring-system/', 'DMS3000 Drill Monitoring'],
+    ['/products/dms3000-drill-monitoring-system/', 'DMS3000'],
     ['/products/integrated-drilling-control-system/', 'Integrated Drilling Control'],
     ['/products/top-drive-control-system/', 'Top Drive Control'],
-  ]),
-  column('Power & control', [
-    ['/products/mcc-pcc-power-distribution/', 'MCC, PCC & Distribution'],
-    ['/products/plc-hmi-drive-panels/', 'PLC, HMI & Drive Panels'],
-    ['/products/generator-control-pms/', 'Generator Control & PMS'],
-    ['/products/plant-automation-scada/', 'Plant Automation & SCADA'],
-    ['/products/battery-charger/', 'Battery Chargers'],
-    ['/products/illumination-hut/', 'Illumination Huts'],
-  ]),
-  column('Safety & monitoring', [
-    ['/products/fire-gas-detection/', 'Fire & Gas Detection'],
-    ['/products/gas-watch-panel/', 'Gas Watch Panel'],
-    ['/products/flare-ignition-system/', 'Flare Ignition'],
-    ['/products/explosion-proof-cctv/', 'Explosion-Proof CCTV'],
-    ['/products/paga-system/', 'PAGA System'],
+    ['/products/jacking-control-system/', 'Jacking Control'],
+    ['/products/rpd-system/', 'RPD'],
     ['/products/load-monitoring-system/', 'Load Monitoring'],
+    ['/products/bop-control-system/', 'BOP Control'],
+    ['/products/generator-control-pms/', 'Generator Control & PMS'],
+    ['/products/skidding-current-monitoring/', 'Skidding Current Monitoring'],
+  ]),
+  column('Safety, communication & marine', [
+    ['/products/gas-watch-panel/', 'Gas Watch'],
+    ['/products/fire-gas-detection/', 'Fire & Gas'],
+    ['/products/paga-system/', 'PAGA'],
+    ['/products/explosion-proof-cctv/', 'Explosion-Proof CCTV'],
+    ['/products/flare-ignition-system/', 'Flare Ignition'],
+    ['/products/ballast-control-system/', 'Ballast Control'],
+    ['/products/marine-growth-prevention/', 'Marine Growth Prevention'],
+    ['/products/bilge-alarm-system/', 'Bilge Alarm'],
+    ['/products/driller-talkback-av-alarm/', 'Driller Talkback & AV Alarm'],
+    ['/products/automatic-fire-fighting-control/', 'Automatic Fire Fighting'],
+    ['/products/illumination-hut/', 'Illumination Hut'],
+  ]),
+  column('Plant & control systems', [
+    ['/products/integrated-control-safety-system/', 'ICSS'],
+    ['/products/boiler-burner-management/', 'Boiler & Burner Management'],
+    ['/products/plant-automation-scada/', 'Plant Automation & SCADA'],
+    ['/products/dam-level-monitoring/', 'Dam Level Monitoring'],
   ]),
 ];
 
@@ -93,26 +110,42 @@ const megaSolutions: MegaColumn[] = [
   ]),
 ];
 
-/* Industries, customers and markets are three ways into the same question —
-   which asset, whose asset, where — so they share one panel. */
+/* §31 item 1 keeps industries and markets together under one tab. */
 const megaIndustries: MegaColumn[] = [
-  column('By asset', [
+  column('Segments', [
     ['/industries/upstream/', 'Upstream'],
     ['/industries/midstream/', 'Midstream'],
     ['/industries/downstream/', 'Downstream'],
     ['/industries/onshore/', 'Onshore'],
   ]),
-  column('By customer', [
-    ['/customers/iocs/', 'IOCs'],
-    ['/customers/nocs/', 'NOCs'],
-    ['/customers/drilling-contractors/', 'Drilling Contractors'],
-    ['/customers/epc-contractors/', 'EPC Contractors'],
-    ['/customers/fleet-operators/', 'Fleet Operators'],
-    ['/customers/oem-package-vendors/', 'OEM & Package Vendors'],
+  column('Assets & facilities', [
+    ['/industries/upstream/offshore-drilling/', 'Offshore Drilling'],
+    ['/industries/upstream/onshore-drilling/', 'Onshore Drilling'],
+    ['/industries/upstream/production-facilities/', 'Production Facilities'],
+    ['/industries/midstream/pipelines/', 'Pipelines'],
+    ['/industries/midstream/lng-terminals/', 'LNG Terminals'],
+    ['/industries/downstream/refineries/', 'Refineries'],
+    ['/industries/downstream/gas-processing/', 'Gas Processing'],
   ]),
-  column('By region', [
+  column('Markets', [
     ['/markets/middle-east/', 'Middle East'],
     ['/markets/global-project-support/', 'Global Project Support'],
+  ]),
+];
+
+const megaCustomers: MegaColumn[] = [
+  column('Operators', [
+    ['/customers/iocs/', 'IOCs'],
+    ['/customers/nocs/', 'NOCs'],
+    ['/customers/fleet-operators/', 'Fleet Operators'],
+  ]),
+  column('Contractors', [
+    ['/customers/drilling-contractors/', 'Drilling Contractors'],
+    ['/customers/epc-contractors/', 'EPC Contractors'],
+  ]),
+  column('Vendors & industry', [
+    ['/customers/oem-package-vendors/', 'OEM & Package Vendors'],
+    ['/customers/industrial-manufacturers/', 'Industrial Manufacturers'],
   ]),
 ];
 
@@ -126,6 +159,20 @@ const megaDigital: MegaColumn[] = [
     ['/digital/industrial-ai-video-nexview/', 'NexView — AI Video'],
     ['/digital/fuel-monitoring/', 'Fuel Monitoring'],
     ['/digital/digital-engineering/', 'Digital Engineering'],
+  ]),
+];
+
+const megaResources: MegaColumn[] = [
+  column('Reading', [
+    ['/resources/whitepapers/', 'Technical Guides & Whitepapers'],
+    ['/resources/asset-archaeology/', 'Asset Archaeology'],
+    ['/resources/case-studies/', 'Case Studies'],
+  ]),
+  column('Reference', [
+    ['/resources/faqs/', 'Engineering FAQs'],
+    ['/resources/glossary/', 'Glossary'],
+    ['/resources/checklists/', 'Checklists'],
+    ['/resources/calculators/', 'Calculators'],
   ]),
 ];
 
@@ -154,14 +201,25 @@ const hubBlurb = (url: string, fallback: string) => {
   return first && first.length <= 130 ? first : fallback;
 };
 
+/** The eight, in the order §31 locks them. */
 export const TOP_NAV: TopNavItem[] = [
   {
-    label: 'Products',
-    href: '/products/',
-    watch: 'systems',
-    allLabel: 'All products',
-    blurb: hubBlurb('/products/', 'Engineered systems for power, drilling control and rig safety.'),
-    mega: megaProducts,
+    label: 'Industries & Markets',
+    href: '/industries/',
+    watch: 'industries',
+    allLabel: 'All industries',
+    blurb: hubBlurb(
+      '/industries/',
+      'Upstream, midstream and downstream assets, onshore and offshore.'
+    ),
+    mega: megaIndustries,
+  },
+  {
+    label: 'By Customer',
+    href: '/customers/',
+    allLabel: 'All customer types',
+    blurb: hubBlurb('/customers/', 'Operators, contractors and vendors, each with its own scope.'),
+    mega: megaCustomers,
   },
   {
     label: 'Solutions',
@@ -172,15 +230,12 @@ export const TOP_NAV: TopNavItem[] = [
     mega: megaSolutions,
   },
   {
-    label: 'Industries',
-    href: '/industries/',
-    watch: 'industries',
-    allLabel: 'All industries',
-    blurb: hubBlurb(
-      '/industries/',
-      'Upstream, midstream and downstream assets, onshore and offshore.'
-    ),
-    mega: megaIndustries,
+    label: 'Products',
+    href: '/products/',
+    watch: 'systems',
+    allLabel: 'All products',
+    blurb: hubBlurb('/products/', 'Engineered systems for power, drilling control and rig safety.'),
+    mega: megaProducts,
   },
   {
     label: 'Digital',
@@ -193,7 +248,14 @@ export const TOP_NAV: TopNavItem[] = [
     ),
     mega: megaDigital,
   },
-  { label: 'Resources', href: '/resources/', watch: 'insights' },
+  {
+    label: 'Resources',
+    href: '/resources/',
+    watch: 'insights',
+    allLabel: 'All resources',
+    blurb: hubBlurb('/resources/', 'Guides, histories, case studies and engineering reference.'),
+    mega: megaResources,
+  },
   {
     label: 'Company',
     href: '/company/',
@@ -202,5 +264,5 @@ export const TOP_NAV: TopNavItem[] = [
     blurb: hubBlurb('/company/', 'Profile, offices, certifications, experience and careers.'),
     mega: megaCompany,
   },
-  { label: 'Contact', href: '/contact/', watch: 'contact' },
+  { label: 'Contact / RFQ', href: '/contact/', watch: 'contact' },
 ];

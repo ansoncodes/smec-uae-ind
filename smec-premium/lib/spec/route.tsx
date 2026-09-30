@@ -27,10 +27,10 @@ import {
   childrenOf,
   isPublished,
   segmentsOf,
-  siblingsOf,
   specPage,
   SPEC_ROUTES,
 } from './index';
+import { relatedFor } from './clusters';
 import type { SpecPage } from './types';
 
 /**
@@ -283,7 +283,7 @@ export const makePage =
         <SpecPageView
           page={page}
           children={[...childrenOf(page.url)]}
-          related={siblingsOf(page)}
+          related={relatedFor(page)}
           articles={prefix === 'resources' ? articlesIn(page.url) : []}
           glossary={page.url === '/resources/glossary/' ? GLOSSARY : []}
           // The contact page is the RFQ page: the document's "RFQ fields"

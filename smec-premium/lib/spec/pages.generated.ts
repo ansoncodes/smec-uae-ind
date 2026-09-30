@@ -108,7 +108,7 @@ export const SPEC_PAGES: SpecPage[] = [
           "Do not place the full Mission, Vision, MD message, corporate history, legal-entity explanation, leadership biographies, certification detail or OEM-partner detail on the homepage.",
           "Homepage flow: asset → engineering problem → system architecture → SMEC scope → evidence → RFQ.",
           "Mission/Vision, MD Message, leadership, certifications, OEM partners, offices, legal/corporate detail and history belong under Company.",
-          "Use concise proof points only when verified. Do not use unverified counts, authorizations, certifications, outcomes or client logos."
+          "Use concise proof points only when verified."
         ],
         "internal": true
       }
@@ -194,12 +194,6 @@ export const SPEC_PAGES: SpecPage[] = [
           "Project management and regional execution",
           "Mobilization and commissioning support",
           "Lifecycle/service coordination"
-        ]
-      },
-      {
-        "heading": "Publish only verified credentials",
-        "lines": [
-          "Office address, trade licence details, certifications, ICV status and contact information must be verified before launch."
         ]
       },
       {
@@ -364,7 +358,8 @@ export const SPEC_PAGES: SpecPage[] = [
           "Relevant engineering/business experience",
           "Regions/sectors supported",
           "Approved LinkedIn/profile link"
-        ]
+        ],
+        "internal": true
       },
       {
         "heading": "Conversion CTA",
@@ -406,7 +401,8 @@ export const SPEC_PAGES: SpecPage[] = [
           "Long-term support across asset lifecycle",
           "Investment in digital capability only where it improves an operating decision",
           "Safety, quality and technical integrity"
-        ]
+        ],
+        "internal": true
       },
       {
         "heading": "Conversion CTA",
@@ -1220,7 +1216,7 @@ export const SPEC_PAGES: SpecPage[] = [
       {
         "heading": "Deployment principle",
         "lines": [
-          "Begin with the CCTV estate, camera coverage, scene quality and target event. AI accuracy depends on the scene, camera placement, lighting, occlusion and use case; do not promise universal detection performance without site validation."
+          "Begin with the CCTV estate, camera coverage, scene quality and target event. AI accuracy depends on the scene, camera placement, lighting, occlusion and use case."
         ]
       },
       {
@@ -2305,7 +2301,7 @@ export const SPEC_PAGES: SpecPage[] = [
       {
         "heading": "National strategy context",
         "lines": [
-          "Reference UAE Net Zero 2050, Saudi Vision 2030, Oman Vision 2040 and Qatar National Vision 2030 as market context only. Do not imply government endorsement or participation in specific national programmes."
+          "Reference UAE Net Zero 2050, Saudi Vision 2030, Oman Vision 2040 and Qatar National Vision 2030 as market context only."
         ]
       },
       {
@@ -2414,8 +2410,7 @@ export const SPEC_PAGES: SpecPage[] = [
       {
         "heading": "RFQ inputs",
         "lines": [
-          "Fire strategy, suppression type, cause/effect, detector/release list, area classification and authority/class requirements.",
-          "Publication control: numerical ratings, standards, hazardous-area classifications, SIL/class claims and OEM authorizations must be checked against the latest approved SMEC/project datasheet before launch."
+          "Fire strategy, suppression type, cause/effect, detector/release list, area classification and authority/class requirements."
         ]
       }
     ],
@@ -2521,8 +2516,7 @@ export const SPEC_PAGES: SpecPage[] = [
       {
         "heading": "RFQ inputs",
         "lines": [
-          "Tank plan, pump/valve list, P&IDs, existing PLC/HMI, I/O, operating philosophy and class requirements.",
-          "Publication control: numerical ratings, standards, hazardous-area classifications, SIL/class claims and OEM authorizations must be checked against the latest approved SMEC/project datasheet before launch."
+          "Tank plan, pump/valve list, P&IDs, existing PLC/HMI, I/O, operating philosophy and class requirements."
         ]
       }
     ],
@@ -2696,8 +2690,7 @@ export const SPEC_PAGES: SpecPage[] = [
       {
         "heading": "RFQ inputs",
         "lines": [
-          "Bilge point list, sensor type, existing alarm panel, required alarm levels, IAS/AMS interface and class requirements.",
-          "Publication control: numerical ratings, standards, hazardous-area classifications, SIL/class claims and OEM authorizations must be checked against the latest approved SMEC/project datasheet before launch."
+          "Bilge point list, sensor type, existing alarm panel, required alarm levels, IAS/AMS interface and class requirements."
         ]
       }
     ],
@@ -2803,8 +2796,7 @@ export const SPEC_PAGES: SpecPage[] = [
       {
         "heading": "RFQ inputs",
         "lines": [
-          "P&ID, burner management narrative, burner/fuel data, cause/effect, existing PLC/flame controller and applicable standards.",
-          "Publication control: numerical ratings, standards, hazardous-area classifications, SIL/class claims and OEM authorizations must be checked against the latest approved SMEC/project datasheet before launch."
+          "P&ID, burner management narrative, burner/fuel data, cause/effect, existing PLC/flame controller and applicable standards."
         ]
       }
     ],
@@ -2979,8 +2971,7 @@ export const SPEC_PAGES: SpecPage[] = [
       {
         "heading": "RFQ inputs",
         "lines": [
-          "Measurement range, sensor preference, sites, power availability, communications, alarm levels and dashboard requirements.",
-          "Publication control: numerical ratings, standards, hazardous-area classifications, SIL/class claims and OEM authorizations must be checked against the latest approved SMEC/project datasheet before launch."
+          "Measurement range, sensor preference, sites, power availability, communications, alarm levels and dashboard requirements."
         ]
       }
     ],
@@ -3154,8 +3145,7 @@ export const SPEC_PAGES: SpecPage[] = [
       {
         "heading": "RFQ inputs",
         "lines": [
-          "Station/zone list, environment, alarm philosophy, existing communications, required interfaces and hazardous-area requirements.",
-          "Publication control: numerical ratings, standards, hazardous-area classifications, SIL/class claims and OEM authorizations must be checked against the latest approved SMEC/project datasheet before launch."
+          "Station/zone list, environment, alarm philosophy, existing communications, required interfaces and hazardous-area requirements."
         ]
       }
     ],
@@ -3329,8 +3319,7 @@ export const SPEC_PAGES: SpecPage[] = [
       {
         "heading": "RFQ inputs",
         "lines": [
-          "F&G philosophy, cause/effect, detector list, area classification, existing controller, SIL/project requirements and test procedure.",
-          "Publication control: numerical ratings, standards, hazardous-area classifications, SIL/class claims and OEM authorizations must be checked against the latest approved SMEC/project datasheet before launch."
+          "F&G philosophy, cause/effect, detector list, area classification, existing controller, SIL/project requirements and test procedure."
         ]
       }
     ],
@@ -3580,8 +3569,7 @@ export const SPEC_PAGES: SpecPage[] = [
       {
         "heading": "RFQ inputs",
         "lines": [
-          "Generator data, SLD, breaker/protection details, operating philosophy, load list, existing PMS/controller make and blackout/load-shedding philosophy.",
-          "Publication control: numerical ratings, standards, hazardous-area classifications, SIL/class claims and OEM authorizations must be checked against the latest approved SMEC/project datasheet before launch."
+          "Generator data, SLD, breaker/protection details, operating philosophy, load list, existing PMS/controller make and blackout/load-shedding philosophy."
         ]
       }
     ],
@@ -3686,8 +3674,7 @@ export const SPEC_PAGES: SpecPage[] = [
       {
         "heading": "RFQ inputs",
         "lines": [
-          "Lighting load schedule, SLD, feeder count, voltage, enclosure/environment, hazardous-area requirements and transport limits.",
-          "Publication control: numerical ratings, standards, hazardous-area classifications, SIL/class claims and OEM authorizations must be checked against the latest approved SMEC/project datasheet before launch."
+          "Lighting load schedule, SLD, feeder count, voltage, enclosure/environment, hazardous-area requirements and transport limits."
         ]
       }
     ],
@@ -3793,8 +3780,7 @@ export const SPEC_PAGES: SpecPage[] = [
       {
         "heading": "RFQ inputs",
         "lines": [
-          "Control/safety philosophy, SIL requirements, cause/effect, I/O, existing platforms, network architecture and shutdown window.",
-          "Publication control: numerical ratings, standards, hazardous-area classifications, SIL/class claims and OEM authorizations must be checked against the latest approved SMEC/project datasheet before launch."
+          "Control/safety philosophy, SIL requirements, cause/effect, I/O, existing platforms, network architecture and shutdown window."
         ]
       }
     ],
@@ -4106,8 +4092,7 @@ export const SPEC_PAGES: SpecPage[] = [
       {
         "heading": "RFQ inputs",
         "lines": [
-          "Existing system make/model, treatment technology, electrode/load data, drawings, alarms and required retrofit scope.",
-          "Publication control: numerical ratings, standards, hazardous-area classifications, SIL/class claims and OEM authorizations must be checked against the latest approved SMEC/project datasheet before launch."
+          "Existing system make/model, treatment technology, electrode/load data, drawings, alarms and required retrofit scope."
         ]
       }
     ],
@@ -4212,8 +4197,7 @@ export const SPEC_PAGES: SpecPage[] = [
       {
         "heading": "RFQ inputs",
         "lines": [
-          "SLD, load/motor list, fault level, feeder schedule, protection philosophy, communications and enclosure requirements.",
-          "Publication control: numerical ratings, standards, hazardous-area classifications, SIL/class claims and OEM authorizations must be checked against the latest approved SMEC/project datasheet before launch."
+          "SLD, load/motor list, fault level, feeder schedule, protection philosophy, communications and enclosure requirements."
         ]
       }
     ],
@@ -4388,8 +4372,7 @@ export const SPEC_PAGES: SpecPage[] = [
       {
         "heading": "RFQ inputs",
         "lines": [
-          "P&IDs, I/O, control narrative, SLD, equipment list, existing PLC/SCADA and project objectives.",
-          "Publication control: numerical ratings, standards, hazardous-area classifications, SIL/class claims and OEM authorizations must be checked against the latest approved SMEC/project datasheet before launch."
+          "P&IDs, I/O, control narrative, SLD, equipment list, existing PLC/SCADA and project objectives."
         ]
       }
     ],
@@ -4494,8 +4477,7 @@ export const SPEC_PAGES: SpecPage[] = [
       {
         "heading": "RFQ inputs",
         "lines": [
-          "I/O list, control narrative, existing platform, motor/drive list, network architecture, panel environment and approved OEM preference.",
-          "Publication control: numerical ratings, standards, hazardous-area classifications, SIL/class claims and OEM authorizations must be checked against the latest approved SMEC/project datasheet before launch."
+          "I/O list, control narrative, existing platform, motor/drive list, network architecture, panel environment and approved OEM preference."
         ]
       }
     ],
@@ -4806,8 +4788,7 @@ export const SPEC_PAGES: SpecPage[] = [
       {
         "heading": "RFQ inputs",
         "lines": [
-          "Motor/drive list, current ranges, skidding architecture, control drawings, alarm limits and required display/history.",
-          "Publication control: numerical ratings, standards, hazardous-area classifications, SIL/class claims and OEM authorizations must be checked against the latest approved SMEC/project datasheet before launch."
+          "Motor/drive list, current ranges, skidding architecture, control drawings, alarm limits and required display/history."
         ]
       }
     ],
@@ -4912,8 +4893,7 @@ export const SPEC_PAGES: SpecPage[] = [
       {
         "heading": "RFQ inputs",
         "lines": [
-          "Top-drive make/model, motor/drive data, schematics, PLC/HMI backups, I/O, fault history and required campaign date.",
-          "Publication control: numerical ratings, standards, hazardous-area classifications, SIL/class claims and OEM authorizations must be checked against the latest approved SMEC/project datasheet before launch."
+          "Top-drive make/model, motor/drive data, schematics, PLC/HMI backups, I/O, fault history and required campaign date."
         ]
       }
     ],
@@ -5074,7 +5054,8 @@ export const SPEC_PAGES: SpecPage[] = [
           "Timeline, scale, engineering challenge and what the asset unlocked",
           "Current status and modernization relevance",
           "Links to lifecycle/brownfield owner pages"
-        ]
+        ],
+        "internal": true
       },
       {
         "heading": "Conversion CTA",
@@ -5112,7 +5093,8 @@ export const SPEC_PAGES: SpecPage[] = [
           "No black-box calculators",
           "Show units and assumptions",
           "Do not use calculators as a substitute for certified design"
-        ]
+        ],
+        "internal": true
       },
       {
         "heading": "Conversion CTA",
@@ -5149,11 +5131,11 @@ export const SPEC_PAGES: SpecPage[] = [
       {
         "heading": "Content structure",
         "lines": [
-          "Use only approved client names/logos",
           "Avoid quantified outcomes without evidence/approval",
           "Include architecture diagrams where permitted",
           "Link to relevant product/solution/industry"
-        ]
+        ],
+        "internal": true
       },
       {
         "heading": "Conversion CTA",
@@ -5195,7 +5177,8 @@ export const SPEC_PAGES: SpecPage[] = [
           "PLC migration readiness",
           "Shutdown/turnaround readiness",
           "Remote-monitoring data audit"
-        ]
+        ],
+        "internal": true
       },
       {
         "heading": "Conversion CTA",
@@ -5235,7 +5218,8 @@ export const SPEC_PAGES: SpecPage[] = [
           "Procurement-stage questions",
           "Technical qualification questions",
           "Lifecycle and retrofit questions"
-        ]
+        ],
+        "internal": true
       },
       {
         "heading": "Conversion CTA",
@@ -5273,7 +5257,8 @@ export const SPEC_PAGES: SpecPage[] = [
           "DefinedTermSet schema",
           "One canonical definition per term",
           "Cross-link to product/service pages"
-        ]
+        ],
+        "internal": true
       },
       {
         "heading": "Conversion CTA",
@@ -5317,7 +5302,8 @@ export const SPEC_PAGES: SpecPage[] = [
           "RPD basics",
           "Drilling-mud gas detection",
           "Digital twin qualification"
-        ]
+        ],
+        "internal": true
       },
       {
         "heading": "Conversion CTA",

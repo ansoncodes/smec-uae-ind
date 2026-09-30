@@ -22,5 +22,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
         page.url === '/' ? 1 : Math.max(0.4, 1 - page.url.split('/').filter(Boolean).length * 0.2),
     })),
     ...ARTICLE_ROUTES.map((route) => ({ url: `${SITE.url}${route.url}`, priority: 0.4 })),
+    // Kept from the old site by name, and linked from the footer.
+    { url: `${SITE.url}/privacy-policy/`, priority: 0.3 },
   ];
 }

@@ -365,9 +365,42 @@ const INTERNAL_SECTION = [
   /^technical specification fields$/i,
   /^developer copy/i,
   /on this website$/i,
+  /^profile fields$/i,
+  /^content structure$/i,
+  /^suggested .* themes$/i,
 ];
 
+/**
+ * Instructions do not only appear as headings. Some are sentences inside an
+ * ordinary block — "Publication control: numerical ratings … must be checked
+ * by engineering" sat in the RFQ inputs of seventeen product pages. The
+ * Technical Master is explicit that an internal editorial note must never
+ * reach the page (§34), so lines are filtered as well as headings.
+ */
+const INTERNAL_LINE = [
+  /^publication control\b/i,
+  /^website treatment\b/i,
+  /^developer copy\b/i,
+  /^placement\b/i,
+  /^use only approved/i,
+  /must be (checked|approved|verified) (by|before)/i,
+  /^do not publish\b/i,
+  /sign-?off (is )?required/i,
+];
+
+/**
+ * Some lines are half content, half instruction: "AI accuracy depends on the
+ * scene, camera placement, lighting, occlusion and use case; do not promise
+ * universal detection performance without site validation." The sentence is
+ * for the visitor, the clause after it is for whoever writes the page.
+ */
+const trimInstruction = (line) =>
+  line
+    .replace(/[;.]\s*do not (promise|publish|imply|state|claim|use|expose)\b[^.;]*[.;]?\s*$/i, '.')
+    .trim();
+
 const isInternalSection = (heading) => INTERNAL_SECTION.some((re) => re.test(heading));
+const isInternalLine = (line) => INTERNAL_LINE.some((re) => re.test(line.trim()));
 
 const SECTION_LABELS = {
   industries: 'Industries & Markets',
@@ -413,10 +446,16 @@ const pages = [...byUrl.values()]
       intent: page.intent ?? '',
       h1: page.h1 ?? '',
       answer: page.answer ?? '',
-      sections: page.sections.map((section) => ({
-        ...section,
-        ...(isInternalSection(section.heading) ? { internal: true } : {}),
-      })),
+      sections: page.sections
+        .map((section) => ({
+          ...section,
+          lines: section.lines
+            .filter((line) => !isInternalLine(line))
+            .map(trimInstruction),
+          ...(isInternalSection(section.heading) ? { internal: true } : {}),
+        }))
+        // A block that was nothing but instructions is not a block.
+        .filter((section) => section.internal || section.lines.length),
       specTreatment: page.specTreatment,
       faqs: page.faqs ?? [],
       // Draft pages render, but stay out of the index and the sitemap until

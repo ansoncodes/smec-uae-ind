@@ -1,3 +1,4 @@
+import type { Metadata } from 'next';
 import Link from 'next/link';
 import SiteHeader from '@/components/SiteHeader';
 import SiteFooter from '@/components/SiteFooter';
@@ -12,6 +13,18 @@ import styles from './not-found.module.css';
  * hubs (/products/, /solutions/, /industries/, /contact/) with the route
  * re-cut (docs/spec-alignment.md 1.1).
  */
+/**
+ * A 404 inherits the root metadata otherwise, which gave it the homepage's
+ * title and a canonical pointing at the homepage — a page claiming to be
+ * another page (§26: canonical equals the page's own preferred URL).
+ */
+export const metadata: Metadata = {
+  title: 'Page not found — SMEC Oil & Gas',
+  description: 'The page has moved or the address is mistyped.',
+  robots: { index: false, follow: true },
+  alternates: {},
+};
+
 const DESTINATIONS = [
   { href: '/products/', label: 'Products' },
   { href: '/solutions/', label: 'Solutions' },
