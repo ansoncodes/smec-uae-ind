@@ -1,9 +1,10 @@
 import Image from 'next/image';
 import Link from 'next/link';
+import { localHref } from '@/lib/routes';
 import { type Article } from '@/lib/siteData';
 import { articleBody, type Block } from '@/lib/articles';
 import { INSIGHTS } from '@/lib/experience';
-import { ArrowRight, ArrowUpRight } from './Icons';
+import { ArrowRight } from './Icons';
 import styles from './ArticleDetail.module.css';
 
 function renderBlock(block: Block, i: number) {
@@ -74,15 +75,6 @@ export default function ArticleDetail({ article, slug }: { article: Article; slu
           </div>
 
           <div className={styles.cover}>
-            <Image
-              src={article.image}
-              alt=""
-              fill
-              sizes="300px"
-              quality={30}
-              className={styles.coverBlur}
-              aria-hidden="true"
-            />
             <div className={styles.coverInner}>
               <Image
                 src={article.image}
@@ -106,18 +98,6 @@ export default function ArticleDetail({ article, slug }: { article: Article; slu
               <p>{article.subtitle || article.title}</p>
             )}
           </div>
-
-          <footer className={styles.foot}>
-            <a
-              className={styles.source}
-              href={article.href}
-              target="_blank"
-              rel="noopener noreferrer"
-            >
-              <span className="wipeLink">Read the original</span>
-              <ArrowUpRight />
-            </a>
-          </footer>
         </div>
       </article>
 
@@ -141,17 +121,8 @@ export default function ArticleDetail({ article, slug }: { article: Article; slu
           <ul className={styles.moreGrid}>
             {more.map((item, i) => (
               <li key={item.slug} data-reveal="up" data-reveal-delay={i * 90}>
-                <Link href={`/${item.slug}`} className={styles.card}>
+                <Link href={localHref(`/${item.slug}`)} className={styles.card}>
                   <span className={styles.cardMedia}>
-                    <Image
-                      src={item.image}
-                      alt=""
-                      fill
-                      sizes="200px"
-                      quality={30}
-                      className={styles.coverBlur}
-                      aria-hidden="true"
-                    />
                     <span className={styles.cardInner}>
                       <Image
                         src={item.image}
@@ -176,7 +147,7 @@ export default function ArticleDetail({ article, slug }: { article: Article; slu
           </ul>
 
           <p className={styles.backRow}>
-            <Link className="arrowLink" href="/insights">
+            <Link className="arrowLink" href="/resources/">
               All insights
               <ArrowRight className="arrow" />
             </Link>

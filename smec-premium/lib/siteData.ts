@@ -4,10 +4,23 @@
  */
 
 export const SITE = {
-  url: 'https://smecoilandgas.com',
+  /**
+   * The production domain is still an open decision (Developer Handover Brief
+   * §35, docs/spec-alignment.md 0.1), so it comes from the environment and
+   * every canonical, sitemap entry and schema @id follows it. The old domain
+   * is only the local fallback — set NEXT_PUBLIC_SITE_URL per environment.
+   */
+  url: process.env.NEXT_PUBLIC_SITE_URL ?? 'https://smecoilandgas.com',
   name: 'SMEC Oil & Gas',
-  title: 'Best SMEC OIL AND GAS Company in India, GCC Countries',
-  description: 'Best SMEC OIL AND GAS Company in India, GCC Countries with Automation',
+  /**
+   * The live title and description are keyword-stuffed ("Best SMEC OIL AND GAS
+   * Company in India, GCC Countries"), which the Technical SEO Master rules
+   * out. These are the approved homepage title and meta description from the
+   * Content Master (docs/spec-alignment.md 2.2).
+   */
+  title: 'Oil & Gas Engineering, E&I & Automation | SMEC',
+  description:
+    'E&I, automation, engineered products, rig modernization and digital engineering for critical energy assets.',
   logo: '/images/SMEC-Oil-and-Gas-Logo.png',
   logoFooter: '/images/SMEC-Oil-and-Gas-Logo-300x109.png',
 } as const;
@@ -80,7 +93,7 @@ export const HERO = {
   ],
   cta: { label: 'Contact Us', href: 'https://smecoilandgas.com/contact-us' },
   badge: {
-    src: '/images/749986-middle-1.png',
+    src: '/images/adnoc-in-country-value-certified.png',
     width: 465,
     height: 270,
     alt: 'ADNOC In-Country Value Certified',
@@ -91,25 +104,25 @@ export const HERO = {
 
 export const PARTNERS = [
   {
-    src: '/images/taqa_small_logo-rru8ulgnlu8td7wvqij424kredlu1nqzy7gjyuthnk.webp',
+    src: '/images/partner-taqa.webp',
     alt: 'TAQA',
     width: 150,
     height: 80,
   },
   {
-    src: '/images/SNOC_Logo_Horizontal-rru8zeexxffn4rixn6740ffedj1np17caty87jpx7c.png',
+    src: '/images/partner-snoc.png',
     alt: 'Sharjah National Oil Corporation',
     width: 100,
     height: 60,
   },
   {
-    src: '/images/Logo_of_DEWA-rru8yaxrs63eb9cg5yeuh5wkel3dsjpf2v6u8l9txq.png',
+    src: '/images/partner-dewa.png',
     alt: 'Dubai Electricity & Water Authority',
     width: 250,
     height: 59,
   },
   {
-    src: '/images/ADNOC_1200X630-1664370288755-rru90xvfqkxhqgp3or9ge0xrr0c103xrtlzjl3etn0.webp',
+    src: '/images/partner-adnoc.webp',
     alt: 'ADNOC',
     width: 150,
     height: 78,
@@ -239,7 +252,12 @@ export const STATS = [
 
 export const WHO_WE_ARE = {
   title: 'Who We Are',
-  body: 'SMEC is a complete EPC company delivering turnkey solutions. Design, Estimation, Build, Installation and Commissioning all done under one roof. A team of professionals with superior skill is the key asset of SMEC, teams with system integration of the leading OEMs in the  bulbs our strength.',
+  /* Content Master, /company/about/ answer block. The previous text claimed
+     SMEC was "a complete EPC company" - which the Technical Master forbids
+     unless that contractual responsibility is verified - and ended in a
+     garbled clause inherited from WordPress. */
+  body:
+    'SMEC Oil & Gas Solutions LLC is positioned as a complete engineering and turnkey system-solution provider for defined project packages. The delivery model combines regional client engagement, project coordination, site execution and commissioning from the UAE with detailed engineering, automation, system integration, manufacturing, FAT, R&D and remote support from India.',
 } as const;
 
 /* -------------------------------------------------------- certifications */
@@ -271,41 +289,46 @@ export const CERTIFICATES = [
   },
 ];
 
-/** Accreditation / certification body logos scrolling under the certificates. */
+/**
+ * Accreditation and certification marks under the certificates. Each one
+ * carries the body it belongs to: a logo with alt="" is a mark a screen
+ * reader cannot name, and these are the evidence the page is making.
+ */
 export const CERT_LOGOS = [
-  '/images/1.png',
-  '/images/2-1.png',
-  '/images/3-1.png',
-  '/images/4-1.png',
-  '/images/5-1.png',
-  '/images/6-1.png',
-  '/images/7-1.png',
-  '/images/8-1.png',
-  '/images/9-1.png',
-  '/images/10.png',
-  '/images/12.png',
-  '/images/ISO-2001-2015.png',
-  '/images/ISO-14001.png',
-  '/images/ISO-40001.png',
+  { src: '/images/accreditation-nielit.png', alt: 'NIELIT' },
+  { src: '/images/accreditation-essci.png', alt: 'Electronics Sector Skills Council of India' },
+  { src: '/images/accreditation-cgsc.png', alt: 'Capital Goods Skill Council' },
+  { src: '/images/accreditation-make-in-india.png', alt: 'Make in India' },
+  { src: '/images/accreditation-nsdc.png', alt: 'National Skill Development Corporation' },
+  { src: '/images/accreditation-iecex.png', alt: 'IECEx' },
+  { src: '/images/accreditation-iisc.png', alt: 'India International Skill Centre' },
+  { src: '/images/accreditation-fm-approved.png', alt: 'FM Approved' },
+  { src: '/images/accreditation-esdm.png', alt: 'Electronics System Design & Manufacturing' },
+  { src: '/images/accreditation-msme.png', alt: 'Ministry of MSME, Government of India' },
+  { src: '/images/accreditation-qro.png', alt: 'Quality Research Organization' },
+  { src: '/images/iso-9001-2015.png', alt: 'ISO 9001:2015' },
+  { src: '/images/iso-14001-2015.png', alt: 'ISO 14001:2015' },
+  { src: '/images/iso-45001.png', alt: 'ISO 45001' },
 ];
 
 /* --------------------------------------------------------------- clients */
 
+/** Client marks, each named. See the note on CERT_LOGOS. */
 export const CLIENT_LOGOS = [
-  '/images/6.png',
-  '/images/7.png',
-  '/images/8.png',
-  '/images/9.png',
-  '/images/1-1.png',
-  '/images/2-2.png',
-  '/images/3-2.png',
-  '/images/4-2.png',
-  '/images/5-2.png',
-  '/images/ades-energy4099-1.png',
-  '/images/2.png',
-  '/images/3.png',
-  '/images/4.png',
-  '/images/5.png',
+  { src: '/images/client-shelf-drilling.png', alt: 'Shelf Drilling' },
+  { src: '/images/client-gail.png', alt: 'GAIL' },
+  { src: '/images/client-kongsberg.png', alt: 'Kongsberg' },
+  { src: '/images/client-jindal-drilling.png', alt: 'Jindal Drilling & Industries' },
+  { src: '/images/client-nov.png', alt: 'NOV' },
+  { src: '/images/client-indianoil.png', alt: 'IndianOil' },
+  { src: '/images/client-reliance-industries.png', alt: 'Reliance Industries' },
+  { src: '/images/client-hpcl.png', alt: 'Hindustan Petroleum (HPCL)' },
+  { src: '/images/client-cochin-shipyard.png', alt: 'Cochin Shipyard (CSL)' },
+  { src: '/images/client-ades.png', alt: 'ADES' },
+  { src: '/images/client-hindustan-shipyard.png', alt: 'Hindustan Shipyard (HSL)' },
+  { src: '/images/client-ongc.png', alt: 'ONGC' },
+  { src: '/images/client-focus-energy.png', alt: 'Focus Energy' },
+  { src: '/images/client-schlumberger.png', alt: 'Schlumberger' },
 ];
 
 /* ------------------------------------------------------- global presence */
@@ -381,14 +404,14 @@ export const ARTICLES: Article[] = [
     title: 'Retrofit Solutions',
     subtitle: 'Extending the Life Cycle of Oil & Gas Infrastructure',
     href: 'https://smecoilandgas.com/retrofit-solutions',
-    image: '/images/fourth-blog.png',
+    image: '/images/article-powering-the-future.png',
     alt: 'Retrofit Solutions',
   },
   {
     title: 'The Birth of India’s Offshore Energy Journey!',
     subtitle: 'SMEC Automation Pvt Ltd',
     href: 'https://smecoilandgas.com/the-birth-of-indias-offshore-energy-journey',
-    image: '/images/11112.png',
+    image: '/images/article-wellhead-data-collection.png',
     alt: 'The Birth of India’s Offshore Energy Journey',
   },
   {
@@ -402,14 +425,14 @@ export const ARTICLES: Article[] = [
     title: 'Navigating Automation Architecture :',
     subtitle: 'SMEC Automation Pvt Ltd',
     href: 'https://smecoilandgas.com/navigating-automation-architecture',
-    image: '/images/1111.png',
+    image: '/images/article-automation-architecture.png',
     alt: 'Navigating Automation Architecture',
   },
   {
     title: 'Flare Ignition Systems',
     subtitle: 'The Guardians of Industrial Safety and Environmental Compliance',
     href: 'https://smecoilandgas.com/flare-ignition-systems',
-    image: '/images/fifth-blog.png',
+    image: '/images/article-fueling-the-future.png',
     alt: 'Flare Ignition Systems',
   },
   {
@@ -430,7 +453,7 @@ export const ARTICLES: Article[] = [
     title: 'Digital Oilfields',
     subtitle: 'How Digital Oilfields are Transforming Exploration and Production in Oil & Gas',
     href: 'https://smecoilandgas.com/fueling-the-future',
-    image: '/images/1-2.png',
+    image: '/images/article-digital-oilfields.png',
     alt: 'Digital Oilfields',
   },
   {
@@ -452,7 +475,7 @@ export const ARTICLES: Article[] = [
     title: 'Digboi: The Forgotten Flame That Lit India’s Oil & Gas Story!',
     subtitle: 'SMEC Automation Pvt Ltd',
     href: 'https://smecoilandgas.com/digboi-the-forgotten-flame-that-lit-indias-oil-gas-story',
-    image: '/images/11113.png',
+    image: '/images/article-digital-twin.png',
     alt: 'Digboi: The Forgotten Flame That Lit India’s Oil & Gas Story',
   },
   {
@@ -487,14 +510,14 @@ export const ARTICLES: Article[] = [
     title: 'Optimizing Wellhead Data Collection',
     subtitle: 'Leveraging Advanced Software Solutions for Enhanced Oil & Gas Operations',
     href: 'https://smecoilandgas.com/optimizing-wellhead-data-collection',
-    image: '/images/second-blog.png',
+    image: '/images/article-critical-systems-reliability.png',
     alt: 'Optimizing Wellhead Data Collection',
   },
   {
     title: 'Powering the Future of Oil & Gas with Automation',
     subtitle: '',
     href: 'https://smecoilandgas.com/powering-the-future-of-oil-gas-with-automation',
-    image: '/images/thrid-blog.png',
+    image: '/images/article-flare-ignition-systems.png',
     alt: 'Powering the Future of Oil & Gas with Automation',
   },
 ];

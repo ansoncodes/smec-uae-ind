@@ -22,23 +22,9 @@ import {
 import { productDetails } from '@/lib/productDetails';
 import { articleSlug, slugOf } from '@/lib/routes';
 
-/* ------------------------------------------------------------------ nav */
-
-export type MegaEntry = { label: string; href: string; blurb: string };
-export type MegaColumn = { heading: string; entries: MegaEntry[] };
-
-export type TopNavItem = {
-  label: string;
-  href: string;
-  /** Section id on this page, for the scroll-spy indicator. */
-  watch?: string;
-  mega?: MegaColumn[];
-};
-
 /**
- * Blurbs are one-line reductions of each system's own strapline on the live
- * site; the four systems without a page there are described by their full
- * product name only, as the site names them.
+ * One-line reductions of each system's own strapline on the live site, used
+ * by the homepage system cards.
  */
 const SYSTEM_BLURBS: Record<string, string> = {
   'power-house': 'PCR, SCR and VFD houses built to the rig',
@@ -56,88 +42,6 @@ const SYSTEM_BLURBS: Record<string, string> = {
   'flare-boom-ignition-system': 'Flare boom and pilot ignition',
   'integrated-drilling-control-system': 'One command centre for rig operations',
 };
-
-const blurbFor = (href: string) => SYSTEM_BLURBS[slugOf(href)] ?? '';
-
-const entry = (i: number): MegaEntry => ({
-  label: PRODUCT_LINKS[i].label,
-  href: PRODUCT_LINKS[i].href,
-  blurb: blurbFor(PRODUCT_LINKS[i].href),
-});
-
-/* Grouped by discipline rather than by the menu's original order. */
-const megaProducts: MegaColumn[] = [
-  { heading: 'Power & Distribution', entries: [entry(0), entry(1), entry(9)] },
-  { heading: 'Drilling & Control', entries: [entry(2), entry(12), entry(5), entry(6), entry(7)] },
-  { heading: 'Safety & Security', entries: [entry(3), entry(4), entry(8), entry(10), entry(11)] },
-];
-
-const megaSolutions: MegaColumn[] = [
-  {
-    heading: 'Capability',
-    entries: [
-      {
-        label: 'Solutions and Services',
-        href: `${SITE.url}/solutions-and-services`,
-        blurb: 'Upstream, midstream and downstream field operations',
-      },
-      {
-        label: 'Turnkey EPC',
-        href: `${SITE.url}/solutions-and-services`,
-        blurb: 'Design, build, install and commission under one roof',
-      },
-      {
-        label: 'Retrofit & Upgrade',
-        href: `${SITE.url}/retrofit-solutions`,
-        blurb: 'Extending the life cycle of existing infrastructure',
-      },
-    ],
-  },
-  {
-    heading: 'Engineering',
-    entries: [
-      {
-        label: 'System Integration',
-        href: `${SITE.url}/solutions-and-services`,
-        blurb: 'Integration across the leading OEM platforms',
-      },
-      {
-        label: 'Research & Development',
-        href: `${SITE.url}/research-and-developement`,
-        blurb: 'Automation technology for oil and gas operations',
-      },
-      {
-        label: 'Sustainability',
-        href: `${SITE.url}/sustainability`,
-        blurb: 'Efficiency and awareness across energy operations',
-      },
-    ],
-  },
-  {
-    heading: 'Group',
-    entries: [
-      { label: 'SMEC Marine', href: 'https://smecmarine.com/', blurb: 'Marine electrical integration' },
-      { label: 'SMEC Offshore', href: 'https://smecoffshore.com/', blurb: 'Offshore engineering services' },
-      { label: 'SMEC Automation', href: 'https://smecautomation.com/', blurb: 'Industrial automation' },
-    ],
-  },
-];
-
-export const TOP_NAV: TopNavItem[] = [
-  { label: 'About', href: `${SITE.url}/about-us`, watch: 'about' },
-  { label: 'Products', href: '#systems', watch: 'systems', mega: megaProducts },
-  {
-    label: 'Solutions',
-    href: `${SITE.url}/solutions-and-services`,
-    watch: 'capability',
-    mega: megaSolutions,
-  },
-  { label: 'R&D', href: `${SITE.url}/research-and-developement`, watch: 'innovation' },
-  { label: 'Industries', href: '#industries', watch: 'industries' },
-  { label: 'Insights', href: '#insights', watch: 'insights' },
-  { label: 'Careers', href: `${SITE.url}/careers`, watch: 'careers' },
-  { label: 'Contact', href: `${SITE.url}/contact-us`, watch: 'contact' },
-];
 
 /* --------------------------------------------------------------- systems */
 
@@ -222,7 +126,7 @@ export const SYSTEM_INDEX = listed;
 
 /* --------------------------------------------------------------- process */
 
-/** SMEC's own description of itself as a complete EPC company. */
+/** The delivery chain for a defined package, design through commissioning. */
 export const PROCESS = [
   { step: 'Design', note: 'Requirement capture, engineering and drawings' },
   { step: 'Engineering', note: 'Estimation and system architecture' },
@@ -359,11 +263,18 @@ export const INSIGHTS: Insight[] = ARTICLES.map((article) => {
 
 /* --------------------------------------------------------------- footer */
 
+/**
+ * The eight sections of the locked architecture, so the footer is a route
+ * into every part of the site rather than a copy of the old WordPress menu.
+ */
 export const FOOTER_NAV: NavItem[] = [
-  { label: 'About Us', href: `${SITE.url}/about-us` },
-  { label: 'Solutions and Services', href: `${SITE.url}/solutions-and-services` },
-  { label: 'Research & Development', href: `${SITE.url}/research-and-developement` },
-  { label: 'Sustainability', href: `${SITE.url}/sustainability` },
-  { label: 'Careers', href: `${SITE.url}/careers` },
-  { label: 'Contact Us', href: `${SITE.url}/contact-us` },
+  { label: 'Products', href: '/products/' },
+  { label: 'Solutions', href: '/solutions/' },
+  { label: 'Industries', href: '/industries/' },
+  { label: 'By customer', href: '/customers/' },
+  { label: 'Digital', href: '/digital/' },
+  { label: 'Resources', href: '/resources/' },
+  { label: 'Company', href: '/company/' },
+  { label: 'Careers', href: '/company/careers/' },
+  { label: 'Contact', href: '/contact/' },
 ];

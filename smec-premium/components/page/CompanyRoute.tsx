@@ -8,18 +8,28 @@ import Breadcrumb from '@/components/ui/Breadcrumb';
 import PageShell from '@/components/page/PageShell';
 import { companyPage } from '@/lib/companyPages';
 import { SITE } from '@/lib/siteData';
+import { canonicalPath } from '@/lib/routes';
 
 /** Metadata for a company page, from its own record. */
+/**
+ * Pages the locked architecture has no home for. They are real content, so
+ * they are not deleted, and they have no approved destination, so they are
+ * not redirected — they stay reachable and out of the index until SMEC
+ * decides (docs/spec-alignment.md 0.11).
+ */
+const UNPLACED = ['sustainability', 'research-and-developement'];
+
 export function companyMetadata(slug: string): Metadata {
   const page = companyPage(slug);
   if (!page) return {};
   return {
     title: page.metaTitle,
     description: page.metaDescription,
-    alternates: { canonical: `/${slug}` },
+    alternates: { canonical: canonicalPath(slug) },
+    ...(UNPLACED.includes(slug) ? { robots: { index: false, follow: true } } : {}),
     openGraph: {
       type: 'website',
-      url: `${SITE.url}/${slug}`,
+      url: `${SITE.url}${canonicalPath(slug)}`,
       title: page.metaTitle,
       description: page.metaDescription,
       ...(page.image ? { images: [{ url: page.image }] } : {}),
@@ -54,7 +64,7 @@ export default function CompanyRoute({ slug }: { slug: string }) {
         '@type': 'WebPage',
         name: page.metaTitle,
         description: page.metaDescription,
-        url: `${SITE.url}/${slug}`,
+        url: `${SITE.url}${canonicalPath(slug)}`,
         isPartOf: { '@type': 'WebSite', name: SITE.name, url: SITE.url },
       };
 

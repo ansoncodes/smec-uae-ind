@@ -42,8 +42,9 @@ export default function SiteFooter() {
               />
             </Link>
             <p className={styles.blurb}>
-              A complete EPC company delivering turnkey solutions for the oil and gas industry —
-              design, estimation, build, installation and commissioning under one roof.
+              A complete engineering and turnkey system-solution provider for defined project
+              packages — from engineering and procurement through build, integration, FAT, site
+              execution and commissioning.
             </p>
 
             <ul className={styles.socials}>
@@ -67,7 +68,7 @@ export default function SiteFooter() {
 
           <nav className={styles.cols} aria-label="Footer">
             <div className={styles.col}>
-              <p className={styles.colHead}>Company</p>
+              <p className={styles.colHead}>Sections</p>
               <ul>
                 {FOOTER_NAV.map((item) => (
                   <li key={item.label}>
@@ -76,16 +77,11 @@ export default function SiteFooter() {
                     </a>
                   </li>
                 ))}
-                <li>
-                  <Link className="wipeLink" href="/insights">
-                    Insights
-                  </Link>
-                </li>
               </ul>
             </div>
 
             <div className={styles.col}>
-              <p className={styles.colHead}>Solutions</p>
+              <p className={styles.colHead}>Products</p>
               <ul>
                 {solutions.map((item) => (
                   <li key={item.label}>

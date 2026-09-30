@@ -34,11 +34,17 @@ export default function Clients() {
               className={`${styles.track} ${i === 1 ? styles.trackReverse : ''}`}
               style={{ ['--speed' as string]: `${58 + i * 12}s` }}
             >
-              {[...row, ...row].map((src, j) => (
-                <span key={`${src}-${j}`} className={styles.cell} aria-hidden={j >= row.length}>
+              {[...row, ...row].map((mark, j) => (
+                <span
+                  key={`${mark.src}-${j}`}
+                  className={styles.cell}
+                  aria-hidden={j >= row.length}
+                >
                   <Image
-                    src={src}
-                    alt=""
+                    src={mark.src}
+                    // The second copy is the marquee's loop, so only the first
+                    // names the client; a duplicate would be read twice.
+                    alt={j >= row.length ? '' : mark.alt}
                     width={190}
                     height={90}
                     sizes="170px"

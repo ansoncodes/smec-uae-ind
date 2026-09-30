@@ -129,6 +129,9 @@
   display: inline-flex;
   align-items: center;
   gap: 6px;
+  /* The locked labels are long ("Industries & Markets", "Contact / RFQ");
+     letting them wrap doubles the height of the bar. */
+  white-space: nowrap;
   padding: 10px 6px;
   font-size: var(--fs-sm);
   font-weight: 450;
@@ -318,10 +321,12 @@
   transform: translateX(5px);
 }
 
+/* Products carries four categories, the rest two or three, so the grid
+   takes its column count from the panel rather than assuming three. */
 .megaCols {
   display: grid;
-  grid-template-columns: repeat(3, minmax(0, 1fr));
-  gap: clamp(20px, 2.6vw, 44px);
+  grid-template-columns: repeat(auto-fit, minmax(190px, 1fr));
+  gap: clamp(18px, 2.2vw, 40px);
 }
 
 .megaHeading {
@@ -386,13 +391,19 @@
   z-index: -1;
   background: var(--ink);
   opacity: 0;
+  /* visibility, not opacity alone: a transparent drawer still holds its ~30
+     links in the tab order and the accessibility tree. Delayed so the fade
+     out still plays. */
+  visibility: hidden;
   pointer-events: none;
-  transition: opacity 0.4s var(--ease);
+  transition: opacity 0.4s var(--ease), visibility 0s linear 0.4s;
 }
 
 .drawerOpen {
   opacity: 1;
+  visibility: visible;
   pointer-events: auto;
+  transition: opacity 0.4s var(--ease), visibility 0s;
 }
 
 .drawerScroll {
@@ -502,7 +513,8 @@
     gap: 2px;
   }
   .navLink {
-    font-size: 13.5px;
+    font-size: 13px;
+    padding: 10px 4px;
   }
   .railNote {
     display: none;

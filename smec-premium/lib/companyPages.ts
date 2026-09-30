@@ -41,14 +41,14 @@ export const companyPages: CompanyPage[] = [
     lead: 'Transforming the oil and gas landscape with innovative, safe, and sustainable solutions.',
     metaTitle: 'About Us — SMEC Oil & Gas',
     metaDescription:
-      'SMEC is a multinational EPC organisation delivering electrical, controls, instrumentation, mechanical and hydraulics engineering to the oil and gas industry.',
+      'SMEC combines Middle East project execution with India engineering, automation, panel manufacturing, FAT and lifecycle support.',
     image: '/images/scaffold/SCAFFOLD-who-we-are-crew.jpg',
     imageAlt: 'Rig crew in protective equipment at work',
     sections: [
       {
         t: 'prose',
         body: [
-          'We introduce SMEC as a multinational EPC organisation, globally recognized for its distinctive services specifically in the electrical, controls, instrumentation, mechanical and hydraulics sectors. SMEC has over two decades of service history, serving various organizations of different verticals such as oil and gas, marine, defence, and industries.',
+          'We introduce SMEC as a complete engineering and turnkey system-solution provider for defined project packages, globally recognized for its distinctive services specifically in the electrical, controls, instrumentation, mechanical and hydraulics sectors. SMEC has over two decades of service history, serving various organizations of different verticals such as oil and gas, marine, defence, and industries.',
           'SMEC is recognized for its unique solutions, which are tailor-made for each individual system based on the purpose it serves and the area it is being used in. SMEC’s facilities are equipped with machinery and highly skilled professionals who are efficient enough to deliver the services within the committed time without compromising the quality.',
           'SMEC’s successful global presence was achieved by enhancing its capabilities as a one-stop solution to meet total client requirements. Established in 2001 and ever since our team of experts has grown, our area of expertise has expanded, and the value of our service is recognized worldwide. Our precise, innovative and effective use of the latest technologies has helped us to produce one of the most eminent facilities and products.',
         ],
@@ -373,7 +373,7 @@ export const companyPages: CompanyPage[] = [
         body: [
           'Today SMEC has employed over 500 employees across the globe.',
           'We are having highly experienced engineers, who have earned the respect and trust with their years of service with major OEMs. Highly skilled professionals who are a rare blend of various prominent skills have developed facilities to manufacture our best products.',
-          'Our engineers with the R&D wing are engaged in developing future technologies which can be readily installed for your hassle-free operations. Being an EPC organisation, it is very important for us to develop various teams of engineering professionals who are experts in handling turnkey projects. Our recruits are handpicked and trained to handle crucial situations. We take pride to have each one of them on our team as they are the best we can ever work with.',
+          'Our engineers with the R&D wing are engaged in developing future technologies which can be readily installed for your hassle-free operations. Delivering turnkey packages end to end, it is very important for us to develop various teams of engineering professionals who are experts in handling turnkey projects. Our recruits are handpicked and trained to handle crucial situations. We take pride to have each one of them on our team as they are the best we can ever work with.',
         ],
       },
       {
