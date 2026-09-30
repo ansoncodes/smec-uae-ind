@@ -3,6 +3,7 @@ import Breadcrumb from '@/components/ui/Breadcrumb';
 import { CONTACT } from '@/lib/siteData';
 import { breadcrumbTrail, publishableSections, type SpecPage } from '@/lib/spec';
 import type { GlossaryTerm } from '@/lib/glossary';
+import { evidenceFor } from '@/lib/evidence';
 import { isRfqInputsHeading, SpecClose, SpecFaqs } from './SpecBlocks';
 import styles from './SpecPageView.module.css';
 
@@ -49,6 +50,7 @@ export default function SpecPageView({
   const rfqInputs = all
     .filter((section) => isRfqInputsHeading(section.heading))
     .flatMap((section) => section.lines);
+  const evidence = evidenceFor(page.url);
   const section = page.breadcrumb[1] ?? 'SMEC Oil & Gas';
   const isDraft = page.status === 'draft';
   const showDraftNote = isDraft && process.env.NEXT_PUBLIC_SITE_ENV !== 'production';
@@ -158,6 +160,55 @@ export default function SpecPageView({
                           <span className={styles.cardNote}>{entry.article.subtitle}</span>
                         ) : null}
                       </Link>
+                    </li>
+                  ))}
+                </ul>
+              </section>
+            ) : null}
+
+            {evidence.length ? (
+              <section className={styles.block}>
+                <div className={styles.blockHead}>
+                  <span className={styles.blockNum}>
+                    {String(sections.length + 1).padStart(2, '0')}
+                  </span>
+                  <h2 className={styles.blockTitle}>Evidence</h2>
+                </div>
+                <ul className={styles.evidence}>
+                  {evidence.map((item) => (
+                    <li key={item.title}>
+                      <p className={styles.evidenceAsset}>{item.asset}</p>
+                      <h3 className={styles.evidenceTitle}>
+                        {item.href ? <Link href={item.href}>{item.title}</Link> : item.title}
+                      </h3>
+                      <dl className={styles.evidenceRows}>
+                        <div>
+                          <dt>Problem</dt>
+                          <dd>{item.problem}</dd>
+                        </div>
+                        <div>
+                          <dt>Scope</dt>
+                          <dd>{item.scope}</dd>
+                        </div>
+                        {item.architecture ? (
+                          <div>
+                            <dt>Architecture</dt>
+                            <dd>{item.architecture}</dd>
+                          </div>
+                        ) : null}
+                        {item.testing ? (
+                          <div>
+                            <dt>Testing</dt>
+                            <dd>{item.testing}</dd>
+                          </div>
+                        ) : null}
+                        {item.outcome ? (
+                          <div>
+                            <dt>Outcome</dt>
+                            <dd>{item.outcome}</dd>
+                          </div>
+                        ) : null}
+                      </dl>
                     </li>
                   ))}
                 </ul>

@@ -9,7 +9,10 @@ import Breadcrumb from '@/components/ui/Breadcrumb';
 import ProductDetail from '@/components/ProductDetail';
 import ArticleDetail from '@/components/ArticleDetail';
 import RfqForm from '@/components/rfq/RfqForm';
+import Calculators from '@/components/tools/Calculators';
+import Checklists from '@/components/tools/Checklists';
 import { articleBody } from '@/lib/articles';
+import { evidenceFor, evidenceSchema } from '@/lib/evidence';
 import { GLOSSARY, glossarySchema } from '@/lib/glossary';
 import {
   jobPostingSchema,
@@ -134,6 +137,9 @@ function jsonLd(page: SpecPage) {
   if (page.url === '/resources/glossary/' && GLOSSARY.length) {
     graph.push(glossarySchema(SITE.url, page.url));
   }
+
+  // Evidence cards, where a page has approved ones. Empty until it does.
+  graph.push(...evidenceSchema(evidenceFor(page.url), SITE.url));
 
   // Only for questions and answers that are visible on the same page.
   if (page.faqs.length) {
@@ -286,9 +292,16 @@ export const makePage =
           related={relatedFor(page)}
           articles={prefix === 'resources' ? articlesIn(page.url) : []}
           glossary={page.url === '/resources/glossary/' ? GLOSSARY : []}
-          // The contact page is the RFQ page: the document's "RFQ fields"
-          // block is the form's specification, and this is the form.
-          form={page.url === '/contact/' ? <RfqForm /> : undefined}
+          // Pages that do something as well as say something.
+          form={
+            page.url === '/contact/' ? (
+              <RfqForm />
+            ) : page.url === '/resources/calculators/' ? (
+              <Calculators />
+            ) : page.url === '/resources/checklists/' ? (
+              <Checklists />
+            ) : undefined
+          }
         />
       </Chrome>
     );

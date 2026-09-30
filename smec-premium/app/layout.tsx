@@ -2,8 +2,15 @@ import type { Metadata } from 'next';
 import { IBM_Plex_Mono, Inter, Inter_Tight } from 'next/font/google';
 import { CONTACT, FOOTER_ADDRESS, FOOTER_CONTACT, SITE, SOCIALS } from '@/lib/siteData';
 import { ogImageFor } from '@/lib/og';
-import MotionRoot from '@/components/motion/MotionRoot';
-import ConversionEvents from '@/components/analytics/ConversionEvents';
+import dynamic from 'next/dynamic';
+
+/* Neither renders anything: one attaches the reveal observers, the other a
+   click listener. Loading them as their own chunk keeps their evaluation off
+   the critical path, where they were competing with the header's hydration
+   for the main thread. */
+const MotionRoot = dynamic(() => import('@/components/motion/MotionRoot'));
+const ConversionEvents = dynamic(() => import('@/components/analytics/ConversionEvents'));
+const ConsentBanner = dynamic(() => import('@/components/analytics/ConsentBanner'));
 import './globals.css';
 
 /* Three families, each doing one job: Inter Tight for display headlines,
@@ -150,6 +157,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         {children}
         <MotionRoot />
         <ConversionEvents />
+        <ConsentBanner />
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}

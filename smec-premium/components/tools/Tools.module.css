@@ -1,0 +1,218 @@
+/* Checklists and calculators, on the paper ground of a spec page body. */
+
+.tools {
+  display: grid;
+  gap: clamp(24px, 3vw, 40px);
+}
+
+.tool {
+  padding: clamp(22px, 2.6vw, 34px);
+  border: 1px solid var(--paper-hair);
+  border-radius: var(--radius);
+  background: var(--paper-raised);
+}
+
+.toolTitle {
+  margin: 0 0 8px;
+  font-family: var(--font-display);
+  font-size: clamp(20px, 1.9vw, 26px);
+  font-weight: 500;
+  letter-spacing: -0.02em;
+}
+
+.toolQuestion {
+  margin: 0 0 22px;
+  max-width: 68ch;
+  color: var(--steel-700);
+  font-size: 15.5px;
+  line-height: 1.65;
+}
+
+/* ----------------------------------------------------------- calculators */
+
+.fields {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(170px, 1fr));
+  gap: 14px 18px;
+}
+
+.field {
+  display: grid;
+  gap: 7px;
+  font-size: 13px;
+  color: var(--steel-700);
+}
+
+.unit {
+  font-style: normal;
+  color: var(--steel-500);
+}
+
+.field input {
+  width: 100%;
+  padding: 11px 13px;
+  border: 1px solid var(--paper-hair);
+  border-radius: var(--radius);
+  background: var(--paper);
+  color: var(--ink);
+  font-family: var(--font-mono);
+  font-size: 15px;
+}
+
+.field input:focus-visible {
+  outline: none;
+  border-color: var(--accent);
+  box-shadow: 0 0 0 3px var(--accent-dim);
+}
+
+.result {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  gap: 8px 16px;
+  margin: 22px 0 0;
+  padding: 16px 18px;
+  border-left: 3px solid var(--accent);
+  background: var(--paper);
+}
+
+.resultLabel {
+  font-family: var(--font-mono);
+  font-size: 10.5px;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--steel-500);
+}
+
+.resultValue {
+  font-family: var(--font-display);
+  font-size: clamp(24px, 2.4vw, 34px);
+  font-weight: 500;
+  letter-spacing: -0.02em;
+}
+
+.resultValue em {
+  font-style: normal;
+  font-size: 0.5em;
+  letter-spacing: 0.04em;
+  color: var(--steel-500);
+}
+
+.resultAside {
+  font-size: 14px;
+  color: var(--steel-700);
+}
+
+/* ------------------------------------------------- assumptions and limits */
+
+.notes {
+  display: grid;
+  gap: 14px;
+  margin: 22px 0 0;
+  padding-top: 20px;
+  border-top: 1px solid var(--paper-hair-soft);
+}
+
+.notes > div {
+  display: grid;
+  grid-template-columns: minmax(120px, 15%) 1fr;
+  gap: 6px 24px;
+}
+
+.notes dt {
+  font-family: var(--font-mono);
+  font-size: 10.5px;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--steel-500);
+  padding-top: 3px;
+}
+
+.notes dd {
+  margin: 0;
+  color: var(--steel-700);
+  font-size: 14.5px;
+  line-height: 1.65;
+}
+
+.notes ul {
+  margin: 0;
+  padding-left: 18px;
+  display: grid;
+  gap: 5px;
+}
+
+.formula {
+  font-family: var(--font-mono);
+  font-size: 13.5px;
+  line-height: 1.7;
+}
+
+.review {
+  margin: 0;
+  max-width: 78ch;
+  font-size: 13.5px;
+  line-height: 1.7;
+  color: var(--steel-500);
+}
+
+/* ------------------------------------------------------------ checklists */
+
+.group + .group {
+  margin-top: 20px;
+}
+
+.groupHeading {
+  margin: 0 0 10px;
+  font-family: var(--font-mono);
+  font-size: 10.5px;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--steel-500);
+}
+
+.checkItems {
+  display: grid;
+  gap: 0;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  border-top: 1px solid var(--paper-hair-soft);
+}
+
+.checkItems li {
+  position: relative;
+  padding: 10px 0 10px 28px;
+  border-bottom: 1px solid var(--paper-hair-soft);
+  color: var(--steel-700);
+  font-size: 15px;
+  line-height: 1.6;
+}
+
+/* An empty box: this is a list to work through, on screen or on paper. */
+.checkItems li::before {
+  content: '';
+  position: absolute;
+  left: 2px;
+  top: 15px;
+  width: 11px;
+  height: 11px;
+  border: 1px solid var(--steel-500);
+  border-radius: 1px;
+}
+
+.toolCta {
+  margin: 22px 0 0;
+  font-size: 14.5px;
+  color: var(--steel-700);
+}
+
+.toolCta a {
+  color: var(--accent);
+}
+
+@media (max-width: 720px) {
+  .notes > div {
+    grid-template-columns: 1fr;
+  }
+}

@@ -224,7 +224,7 @@ export const SPEC_PAGES: SpecPage[] = [
     ],
     "intent": "SMEC careers; automation jobs Kochi; oil gas engineering jobs",
     "h1": "Careers",
-    "answer": "SMEC careers should attract engineers who can work across design, integration, testing and field execution. Live vacancies should be separate indexable JobPosting pages with location, employment type, qualifications, experience, responsibilities and application route.",
+    "answer": "Engineering careers in automation, electrical, instrumentation, marine, oil and gas, commissioning and digital systems.",
     "sections": [
       {
         "heading": "Role families",
@@ -348,7 +348,7 @@ export const SPEC_PAGES: SpecPage[] = [
     ],
     "intent": "SMEC leadership",
     "h1": "Leadership",
-    "answer": "Leadership profiles should establish technical and delivery accountability. Each profile should include role, area of responsibility, relevant experience and approved professional biography — not generic motivational copy.",
+    "answer": "Meet the leadership responsible for SMEC's engineering, project delivery, technology and business operations.",
     "sections": [
       {
         "heading": "Profile fields",
@@ -434,7 +434,7 @@ export const SPEC_PAGES: SpecPage[] = [
     ],
     "intent": "SMEC OEM partners",
     "h1": "OEM Partners",
-    "answer": "OEM and platform relationships should be presented as evidence of engineering ecosystem, not as an unqualified logo wall. Each logo must have current permission/status and a short description of where the technology fits within SMEC's scope.",
+    "answer": "Verified OEM relationships and technology platforms used in SMEC engineering and integration projects.",
     "sections": [
       {
         "heading": "Suggested structure",
@@ -482,7 +482,7 @@ export const SPEC_PAGES: SpecPage[] = [
     ],
     "intent": "SMEC oil gas projects",
     "h1": "Clients & Project Experience",
-    "answer": "Project experience should be searchable by asset type and engineering scope rather than shown only as client logos. Use verified cards with project location, asset type, problem/scope, SMEC work, systems involved and FAT/SAT status where approved.",
+    "answer": "Verified project experience across drilling, offshore, E&I, automation, brownfield, electrical and digital engineering.",
     "sections": [
       {
         "heading": "Card structure",
@@ -5085,7 +5085,7 @@ export const SPEC_PAGES: SpecPage[] = [
     ],
     "intent": "engineering calculators oil gas",
     "h1": "Engineering Calculators",
-    "answer": "Publish calculators only where the formula, units, assumptions and limitations have been reviewed by engineering. Each tool should show the equation basis and state that project design requires engineering verification.",
+    "answer": "Reviewed engineering calculators for selected electrical, instrumentation and automation planning tasks.",
     "sections": [
       {
         "heading": "Content structure",

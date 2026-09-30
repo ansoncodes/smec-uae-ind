@@ -399,6 +399,26 @@ const trimInstruction = (line) =>
     .replace(/[;.]\s*do not (promise|publish|imply|state|claim|use|expose)\b[^.;]*[.;]?\s*$/i, '.')
     .trim();
 
+/**
+ * An answer block written to the developer rather than to the visitor.
+ *
+ * Five pages open with a sentence like "Publish calculators only where the
+ * formula, units, assumptions and limitations have been reviewed by
+ * engineering" — a rule for whoever builds the page, printed as the first
+ * thing a reader sees. §34 keeps internal notes off the page; §5 wants an
+ * answer block that stands alone in a search result. The meta description is
+ * written for exactly that, so it stands in.
+ */
+const ANSWER_IS_INSTRUCTION = [
+  /^(publish|use only|do not|keep|render|write|avoid|maintain)\b/i,
+  /^each [a-z ]+ should\b/i,
+  /should (be presented|be searchable|include|establish|attract|show|state)\b/i,
+  /reviewed by engineering/i,
+];
+
+const answerIsInstruction = (answer) =>
+  !!answer && ANSWER_IS_INSTRUCTION.some((re) => re.test(answer.trim()));
+
 const isInternalSection = (heading) => INTERNAL_SECTION.some((re) => re.test(heading));
 const isInternalLine = (line) => INTERNAL_LINE.some((re) => re.test(line.trim()));
 
@@ -445,7 +465,9 @@ const pages = [...byUrl.values()]
         .filter(Boolean),
       intent: page.intent ?? '',
       h1: page.h1 ?? '',
-      answer: page.answer ?? '',
+      answer: answerIsInstruction(page.answer)
+        ? page.metaDescription || ''
+        : page.answer ?? '',
       sections: page.sections
         .map((section) => ({
           ...section,

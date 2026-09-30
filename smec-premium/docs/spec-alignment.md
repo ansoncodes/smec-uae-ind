@@ -16,7 +16,11 @@ Status keys: `[ ]` open · `[x]` done · `[~]` partially done · `[S]` under an 
 
 ---
 
-## 0. Decisions still open — SMEC (everything else waits on 0.1 and 0.2)
+## 0. Decisions still open — SMEC
+
+> These are written up for SMEC, with what each one blocks, in
+> [`questions-for-smec.md`](./questions-for-smec.md).
+ (everything else waits on 0.1 and 0.2)
 
 - [ ] **0.1 Production domain.** No document names one. Drives canonicals, sitemap,
       schema `@id`s, OG URLs. **SMEC**
@@ -79,7 +83,13 @@ Status keys: `[ ]` open · `[x]` done · `[~]` partially done · `[S]` under an 
       One consequence for 0.3: the handler needs a Node runtime. Static-only
       hosting would mean posting to the lead API from the browser with the key
       public, losing the server-side validation and the limiter.
-- [~] **1.5 Analytics** — the eleven events are emitted (`lib/analytics.ts`, plus
+- [~] **1.5 Analytics** — events and consent are built; only the container ID is
+      missing (0.5). `lib/consent.ts` holds the visitor's choice, `track()` queues
+      events until it is made and discards them if consent is refused, and
+      `components/analytics/ConsentBanner.tsx` asks once, with stand-in wording for
+      legal to replace (0.9). It is fixed to the viewport, so CLS stays 0.000, and
+      Decline is the same size as Accept.
+      Original note: the eleven events are emitted (`lib/analytics.ts`, plus
       `components/analytics/ConversionEvents.tsx`, which reads clicks off the
       document so every phone, email, WhatsApp and RFQ link is counted without
       per-component wiring). They push onto `window.dataLayer` and stop: no GA4 or
@@ -163,7 +173,13 @@ Status keys: `[ ]` open · `[x]` done · `[~]` partially done · `[S]` under an 
       carry dates as prose. `[S]`
 - [x] 2.6 Answer blocks: 2–3 factual sentences directly under every H1, able to stand
       alone in search results. Done on all 105 pages, the homepage included. `[M]`
-- [~] 2.7 FAQs: one block exists sitewide (about-us). The spec wants 3–6 visible
+- [~] 2.7 FAQs: 48 URLs render approved copy. Drafts for the 37 buyer-facing pages
+      without any are in `docs/faq-drafts.md` — 123 questions, of which 16 answers
+      need an engineer because the page does not say enough to answer honestly. A
+      review document, not content: §32 forbids rendering unapproved FAQ copy or its
+      schema. Company and resource pages are deliberately excluded; §6 asks for FAQs
+      on product, solution and industry pages.
+      Original note: one block exists sitewide (about-us). The spec wants 3–6 visible
       questions on the homepage, Turnkey, E-House, migration and priority product
       pages. Done: the 48 URLs with approved FAQ copy render them, and FAQPage
       schema is emitted only where the questions are visible — no page claims
@@ -200,6 +216,32 @@ Status keys: `[ ]` open · `[x]` done · `[~]` partially done · `[S]` under an 
     - [x] Form error messaging: the RFQ form has per-field messages tied with
           `aria-describedby`, `aria-invalid` on the field, and an error summary
           that takes focus and links to each field. `[M]`
+- [x] 2.15 Core Web Vitals measured (§16, §26, and a required UAT row): Slow 4G,
+      4x CPU, 360x800, cold cache, on home, a product, a solution, an article, the
+      RFQ page and a hub. LCP 0.9-1.3s, CLS 0.000 everywhere, TBT 0-190ms — all
+      inside "good". `MotionRoot` and `ConversionEvents` load as their own chunk so
+      they stop competing with the header's hydration. Re-measure on the real host
+      before launch; a lab figure is not field data. `[M]`
+- [x] 2.16 CSP, in report-only (§20). Enforcing a policy written before the analytics
+      container, the consent tool and the host are known would block one of them on
+      launch day. This is the policy the site needs today, so switching to enforcing
+      is a one-word change once the reports are clean. HSTS belongs at the edge
+      (0.3). `next.config.mjs` `[S]`
+- [x] 2.17 IndexNow (§24): `scripts/indexnow.mjs` submits the URLs you name, or the
+      whole sitemap with `--all` for a launch. Dormant until `INDEXNOW_KEY` exists;
+      `app/indexnow-key/` serves the key file and needs one rewrite rule from the
+      host. `[S]`
+- [x] 2.18 Evidence component (§12 row 9, Brief §6): `lib/evidence.ts` and the card on
+      every spec page, with `CreativeWork` generated from the visible card. Empty
+      until a project is approved (0.8) — the site had nowhere to put approved
+      evidence even when it arrived. `[M]`
+- [x] 2.19 Checklists and calculators (§23), two of each, rendering on their pages:
+      UPS/DC battery autonomy, generator and transformer loading, the E-House enquiry
+      checklist, the control-system migration readiness checklist. Each carries the
+      formula, units, assumptions, limitations and engineering-review statement §23
+      requires. Engineering utilities rather than company claims, so the gate is an
+      engineer's review, not SMEC facts. Both pages stay noindex until that review.
+      `[M]`
 - [x] 2.13 Descriptive image filenames — done. 41 files renamed: every client and
       accreditation mark (`1.png` → `accreditation-nielit.png`, `6.png` →
       `client-shelf-drilling.png`), the ADNOC ICV badge, the partner marks that
