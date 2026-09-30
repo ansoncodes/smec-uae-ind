@@ -73,3 +73,15 @@ export function localHref(href: string): string {
 }
 
 export const isExternal = (href: string) => !href.startsWith('/');
+
+/**
+ * Canonical form of an internal path: leading slash, trailing slash, no
+ * duplicates. The spec requires the canonical, the sitemap entry and the
+ * served URL to be the same string, and `trailingSlash: true` decides that
+ * format — so page metadata and the sitemap both go through here instead of
+ * building paths by hand.
+ */
+export function canonicalPath(path: string): string {
+  const trimmed = path.replace(/^\/+|\/+$/g, '');
+  return trimmed ? `/${trimmed}/` : '/';
+}

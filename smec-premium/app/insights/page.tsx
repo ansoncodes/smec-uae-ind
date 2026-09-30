@@ -10,15 +10,16 @@ import { INSIGHTS } from '@/lib/experience';
 import { SITE } from '@/lib/siteData';
 import { ArrowRight } from '@/components/Icons';
 import styles from './insights.module.css';
+import { canonicalPath } from '@/lib/routes';
 
 export const metadata: Metadata = {
   title: 'Insights & Perspectives — SMEC Oil & Gas',
   description:
     'Technical writing from the SMEC team on the systems, history and direction of oil and gas engineering.',
-  alternates: { canonical: '/insights' },
+  alternates: { canonical: canonicalPath('/insights') },
   openGraph: {
     type: 'website',
-    url: `${SITE.url}/insights`,
+    url: `${SITE.url}${canonicalPath('/insights')}`,
     title: 'Insights & Perspectives — SMEC Oil & Gas',
     description:
       'Technical writing from the SMEC team on the systems, history and direction of oil and gas engineering.',

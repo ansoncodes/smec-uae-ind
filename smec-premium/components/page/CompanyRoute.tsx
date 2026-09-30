@@ -8,6 +8,7 @@ import Breadcrumb from '@/components/ui/Breadcrumb';
 import PageShell from '@/components/page/PageShell';
 import { companyPage } from '@/lib/companyPages';
 import { SITE } from '@/lib/siteData';
+import { canonicalPath } from '@/lib/routes';
 
 /** Metadata for a company page, from its own record. */
 export function companyMetadata(slug: string): Metadata {
@@ -16,10 +17,10 @@ export function companyMetadata(slug: string): Metadata {
   return {
     title: page.metaTitle,
     description: page.metaDescription,
-    alternates: { canonical: `/${slug}` },
+    alternates: { canonical: canonicalPath(slug) },
     openGraph: {
       type: 'website',
-      url: `${SITE.url}/${slug}`,
+      url: `${SITE.url}${canonicalPath(slug)}`,
       title: page.metaTitle,
       description: page.metaDescription,
       ...(page.image ? { images: [{ url: page.image }] } : {}),
@@ -54,7 +55,7 @@ export default function CompanyRoute({ slug }: { slug: string }) {
         '@type': 'WebPage',
         name: page.metaTitle,
         description: page.metaDescription,
-        url: `${SITE.url}/${slug}`,
+        url: `${SITE.url}${canonicalPath(slug)}`,
         isPartOf: { '@type': 'WebSite', name: SITE.name, url: SITE.url },
       };
 

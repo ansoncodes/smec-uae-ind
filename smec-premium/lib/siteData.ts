@@ -4,7 +4,13 @@
  */
 
 export const SITE = {
-  url: 'https://smecoilandgas.com',
+  /**
+   * The production domain is still an open decision (Developer Handover Brief
+   * §35, docs/spec-alignment.md 0.1), so it comes from the environment and
+   * every canonical, sitemap entry and schema @id follows it. The old domain
+   * is only the local fallback — set NEXT_PUBLIC_SITE_URL per environment.
+   */
+  url: process.env.NEXT_PUBLIC_SITE_URL ?? 'https://smecoilandgas.com',
   name: 'SMEC Oil & Gas',
   title: 'Best SMEC OIL AND GAS Company in India, GCC Countries',
   description: 'Best SMEC OIL AND GAS Company in India, GCC Countries with Automation',

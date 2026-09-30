@@ -7,15 +7,16 @@ import EnquiryForm from '@/components/page/EnquiryForm';
 import { Mail, Phone, Pin, WhatsApp } from '@/components/Icons';
 import { CONTACT, FOOTER_ADDRESS, FOOTER_CONTACT, MARQUEE_COUNTRIES, SITE } from '@/lib/siteData';
 import styles from './contact.module.css';
+import { canonicalPath } from '@/lib/routes';
 
 export const metadata: Metadata = {
   title: 'Contact Us — SMEC Oil & Gas',
   description:
     'Fueling innovation in oil and gas — connect with SMEC for automation, electrical and instrumentation solutions. Offices in Abu Dhabi, Dubai and Kochi.',
-  alternates: { canonical: '/contact-us' },
+  alternates: { canonical: canonicalPath('/contact-us') },
   openGraph: {
     type: 'website',
-    url: `${SITE.url}/contact-us`,
+    url: `${SITE.url}${canonicalPath('/contact-us')}`,
     title: 'Contact Us — SMEC Oil & Gas',
     description:
       'Fueling innovation in oil and gas — connect with SMEC for automation, electrical and instrumentation solutions.',

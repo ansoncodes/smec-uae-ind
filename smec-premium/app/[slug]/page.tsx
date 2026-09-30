@@ -8,7 +8,7 @@ import Breadcrumb from '@/components/ui/Breadcrumb';
 import ProductDetail from '@/components/ProductDetail';
 import ArticleDetail from '@/components/ArticleDetail';
 import { ARTICLES, SITE } from '@/lib/siteData';
-import { articleBySlug, articleSlug } from '@/lib/routes';
+import { articleBySlug, articleSlug, canonicalPath } from '@/lib/routes';
 import { ALL_SYSTEMS, systemDetail } from '@/lib/systems';
 import { articleBody } from '@/lib/articles';
 
@@ -36,10 +36,10 @@ export async function generateMetadata({ params }: Params): Promise<Metadata> {
     return {
       title: `${system.title} — SMEC Oil & Gas`,
       description,
-      alternates: { canonical: `/${slug}` },
+      alternates: { canonical: canonicalPath(slug) },
       openGraph: {
         type: 'website',
-        url: `${SITE.url}/${slug}`,
+        url: `${SITE.url}${canonicalPath(slug)}`,
         title: system.title,
         description,
         ...(system.image
@@ -56,10 +56,10 @@ export async function generateMetadata({ params }: Params): Promise<Metadata> {
     return {
       title: `${article.title} — SMEC Oil & Gas`,
       description,
-      alternates: { canonical: `/${slug}` },
+      alternates: { canonical: canonicalPath(slug) },
       openGraph: {
         type: 'article',
-        url: `${SITE.url}/${slug}`,
+        url: `${SITE.url}${canonicalPath(slug)}`,
         title: article.title,
         description,
         images: [{ url: article.image }],
@@ -83,7 +83,7 @@ export default async function Page({ params }: Params) {
         name: system.title,
         description: system.body[0] ?? system.tagline,
         ...(system.image ? { image: `${SITE.url}${system.image}` } : {}),
-        url: `${SITE.url}/${slug}`,
+        url: `${SITE.url}${canonicalPath(slug)}`,
         brand: { '@type': 'Brand', name: 'SMEC' },
       }
     : {
