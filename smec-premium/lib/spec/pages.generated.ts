@@ -2,11 +2,12 @@
  * GENERATED — do not edit.
  *
  * Sources: docs/source/SMEC_Website_Content_Master_2026_V3_DEEP_CONTENT.md
- *          docs/source/prototypes/ (merged over it on 31 URLs)
+ *          docs/source/prototypes/ (merged over it on 31 URLs,
+ *          and the sole source of 3 more)
  * Rebuild: node scripts/build-spec-content.mjs
  *
- * 105 pages · 14 draft (noindex until their gate clears)
- * · 58 with approved FAQ copy.
+ * 108 pages · 15 draft (noindex until their gate clears)
+ * · 61 with approved FAQ copy.
  */
 
 import type { SpecPage } from './types';
@@ -3377,6 +3378,128 @@ export const SPEC_PAGES: SpecPage[] = [
     ]
   },
   {
+    "url": "/products/emergency-shutdown-systems/",
+    "breadcrumb": [
+      "Home",
+      "Products",
+      "Emergency Shutdown Systems"
+    ],
+    "seoTitle": "Emergency Shutdown (ESD) Systems | SMEC",
+    "metaDescription": "ESD system engineering and integration: every trip traced from the initiating sensor through the logic solver to the final element and the required safe state.",
+    "schema": [
+      "Product",
+      "BreadcrumbList",
+      "FAQPage only for visible FAQs"
+    ],
+    "intent": "ESD system integration; safety instrumented system",
+    "h1": "Emergency Shutdown Systems",
+    "answer": "An emergency shutdown system is defined by its shutdown functions: each trip traced from the initiating sensor through the logic solver to the final element and the required safe state. SMEC engineers those functions and their field interfaces, including bypass management, diagnostics and proof-test requirements. The required integrity follows the project hazard and risk assessment and cannot be inferred from a certified PLC.",
+    "sections": [
+      {
+        "heading": "ESD Systems Built Around the Required Safe State",
+        "lines": [
+          "An emergency shutdown system is only as dependable as its defined shutdown functions and field interfaces. SMEC's ESD engineering should trace each trip from initiating event to final element, including bypass management, diagnostics and proof-test requirements."
+        ]
+      },
+      {
+        "heading": "How it works",
+        "lines": [
+          "Safety functions — Each trip is defined from initiating sensor through logic solver to final element and required safe state.",
+          "Logic solver — Safety PLC, I/O, redundancy and segregation are chosen against the safety requirements specification and project functional safety assessment.",
+          "Operations — Bypasses, resets, trip diagnostics and maintenance access require controlled procedures.",
+          "Validation — Cause-and-effect FAT, loop checks and final-element proof testing verify implemented functions; SIL cannot be inferred from PLC certification alone."
+        ]
+      },
+      {
+        "heading": "Key components",
+        "lines": [
+          "Safety PLC/logic solver. The safety plc/logic solver is selected for the equipment, operating duty and site conditions.",
+          "ESD pushbuttons. The esd pushbuttons is selected for the equipment, operating duty and site conditions.",
+          "Shutdown valves. Valve actuation and position feedback must follow the approved process control and fail-safe philosophy, including loss-of-power behaviour.",
+          "Trip relays. The trip relays is selected for the equipment, operating duty and site conditions.",
+          "Redundancy options. The redundancy options is selected for the equipment, operating duty and site conditions.",
+          "Permissives. The permissives is selected for the equipment, operating duty and site conditions.",
+          "Cause-and-effect. The cause-and-effect is selected for the equipment, operating duty and site conditions.",
+          "Operator indication. The operator indication is selected for the equipment, operating duty and site conditions.",
+          "Historian interfaces. The historian interfaces is selected for the equipment, operating duty and site conditions."
+        ]
+      },
+      {
+        "heading": "Upgrades & retrofits",
+        "lines": [
+          "Migrate a legacy logic solver with independent functional safety review.",
+          "Improve bypass, diagnostics and proof-test documentation.",
+          "Extend SIF interfaces only following hazard assessment and SRS update.",
+          "Retrofit scope depends on existing OEM interfaces, component condition, available space, shutdown windows and the approval basis of any safety-related functions."
+        ]
+      },
+      {
+        "heading": "Applications",
+        "lines": [
+          "Onshore production",
+          "Refineries",
+          "Pipelines",
+          "Offshore platforms"
+        ]
+      },
+      {
+        "heading": "Testing & documentation",
+        "lines": [
+          "Relevant IEC, ISO, API, classification-society, hazardous-area or functional-safety requirements must be selected according to the specific system and installation. Where applicable, the project package may include electrical drawings, GA layouts, datasheets, I/O schedules, cause-and-effect, communication lists, inspection records, FAT/SAT procedures, calibration records and as-built documents. No unverified compliance certification is claimed here."
+        ]
+      }
+    ],
+    "specTreatment": [
+      {
+        "parameter": "IEC 61511 lifecycle applicability",
+        "treatment": "Selected to match the connected equipment, operating duty and site conditions."
+      },
+      {
+        "parameter": "SIL allocation by project study",
+        "treatment": "Selected to match the connected equipment, operating duty and site conditions."
+      },
+      {
+        "parameter": "SRS",
+        "treatment": "Selected to match the connected equipment, operating duty and site conditions."
+      },
+      {
+        "parameter": "Segregation",
+        "treatment": "Selected to match the connected equipment, operating duty and site conditions."
+      },
+      {
+        "parameter": "Bypass management",
+        "treatment": "Selected to match the connected equipment, operating duty and site conditions."
+      },
+      {
+        "parameter": "Proof-test intervals",
+        "treatment": "Selected to match the connected equipment, operating duty and site conditions."
+      },
+      {
+        "parameter": "FAT/SAT and functional safety assessment",
+        "treatment": "Selected to match the connected equipment, operating duty and site conditions."
+      }
+    ],
+    "faqs": [
+      {
+        "q": "Can ESD be integrated with plant SCADA?",
+        "a": "Status and approved commands can be interfaced while maintaining required safety independence."
+      },
+      {
+        "q": "Is every ESD system SIL-rated?",
+        "a": "Not necessarily; the required integrity follows the project hazard/risk assessment."
+      },
+      {
+        "q": "What documentation is essential?",
+        "a": "SRS, cause-and-effect, shutdown narratives, I/O list and applicable site standards."
+      }
+    ],
+    "status": "draft",
+    "gates": [
+      "Safety-critical: ratings, standards and any SIL/Ex claim need engineering sign-off.",
+      "Specifications are project-specific and need the approved datasheet."
+    ]
+  },
+  {
     "url": "/products/explosion-proof-cctv/",
     "breadcrumb": [
       "Home",
@@ -5453,6 +5576,131 @@ export const SPEC_PAGES: SpecPage[] = [
     ]
   },
   {
+    "url": "/products/pipeline-scada-rtu/",
+    "breadcrumb": [
+      "Home",
+      "Products",
+      "Pipeline SCADA & RTU Systems"
+    ],
+    "seoTitle": "Pipeline SCADA & RTU Systems | SMEC",
+    "metaDescription": "Pipeline SCADA and RTU systems for remote stations, pumps, valves and metering, engineered as one supervisory architecture with local fail-safe control.",
+    "schema": [
+      "Product",
+      "BreadcrumbList",
+      "FAQPage only for visible FAQs"
+    ],
+    "intent": "pipeline SCADA RTU system; remote station automation",
+    "h1": "Pipeline SCADA & RTU Systems",
+    "answer": "Pipeline SCADA connects geographically distributed stations — RTUs, metering, valves and pump or compressor sites — to one supervisory environment of operator displays, alarms, trends and controlled remote commands. SMEC engineers that architecture around command authority, communications availability and alarm priority, with local control retained when a link is lost.",
+    "sections": [
+      {
+        "heading": "Pipeline Visibility from Remote Station to Control Room",
+        "lines": [
+          "Pipeline SCADA must connect dispersed stations without losing clarity about command authority, communications status or alarm priority. SMEC's engineering scope can bring RTUs, metering, valves, pump/compressor stations and supervisory systems into a coherent architecture."
+        ]
+      },
+      {
+        "heading": "How it works",
+        "lines": [
+          "Remote stations — RTUs collect pipeline pressure, flow, metering, valve and equipment data at geographically distributed stations.",
+          "Supervisory layer — SCADA provides operator displays, alarms, historical trends and controlled remote commands.",
+          "Communications — Latency, outages, redundancy, time synchronisation and store-and-forward requirements shape the telemetry design.",
+          "Cyber and safety — Remote-control authority, network segregation and fail-safe local operation are essential; leak detection is a separate engineered function."
+        ]
+      },
+      {
+        "heading": "Key components",
+        "lines": [
+          "RTU/PLC panels. An RTU acquires remote station measurements and status, timestamps events and exchanges authorised commands with SCADA while preserving local control on link loss.",
+          "Remote I/O. The remote i/o is selected for the equipment, operating duty and site conditions.",
+          "Telemetry gateways. The telemetry gateways is selected for the equipment, operating duty and site conditions.",
+          "Pump and compressor interfaces. The pump and compressor interfaces is selected for the equipment, operating duty and site conditions.",
+          "Valve stations. Valve actuation and position feedback must follow the approved process control and fail-safe philosophy, including loss-of-power behaviour.",
+          "Alarm/event logging. Alarm thresholds, priorities, delays and operator actions must be documented to avoid nuisance alarms and missed critical events.",
+          "Historian. The historian is selected for the equipment, operating duty and site conditions.",
+          "SCADA HMI. SCADA consolidates remote station measurements, alarms, trends and supervisory commands; local protective functions remain in field controls.",
+          "Redundant communication options. Protocols, command authority, network availability, loss-of-link response and cybersecurity boundaries must be agreed for every equipment interface."
+        ]
+      },
+      {
+        "heading": "Upgrades & retrofits",
+        "lines": [
+          "Migrate SCADA servers and historian while retaining compatible station RTUs.",
+          "Replace ageing field RTUs in phases and add communication redundancy.",
+          "Extend pump/compressor/valve station monitoring with secure control boundaries.",
+          "Retrofit scope depends on existing OEM interfaces, component condition, available space, shutdown windows and the approval basis of any safety-related functions."
+        ]
+      },
+      {
+        "heading": "Applications",
+        "lines": [
+          "Crude pipelines",
+          "Gas pipelines",
+          "Terminals",
+          "Gathering networks"
+        ]
+      },
+      {
+        "heading": "Testing & documentation",
+        "lines": [
+          "Relevant IEC, ISO, API, classification-society, hazardous-area or functional-safety requirements must be selected according to the specific system and installation. Where applicable, the project package may include electrical drawings, GA layouts, datasheets, I/O schedules, cause-and-effect, communication lists, inspection records, FAT/SAT procedures, calibration records and as-built documents. No unverified compliance certification is claimed here."
+        ]
+      }
+    ],
+    "specTreatment": [
+      {
+        "parameter": "Communications topology and latency",
+        "treatment": "Protocols, command authority, network availability, loss-of-link response and cybersecurity boundaries must be agreed for every equipment interface."
+      },
+      {
+        "parameter": "Store-and-forward",
+        "treatment": "Selected to match the connected equipment, operating duty and site conditions."
+      },
+      {
+        "parameter": "Cybersecurity zoning",
+        "treatment": "Selected to match the connected equipment, operating duty and site conditions."
+      },
+      {
+        "parameter": "Time synchronisation",
+        "treatment": "Selected to match the connected equipment, operating duty and site conditions."
+      },
+      {
+        "parameter": "Fail-safe control",
+        "treatment": "Selected to match the connected equipment, operating duty and site conditions."
+      },
+      {
+        "parameter": "Data quality",
+        "treatment": "Selected to match the connected equipment, operating duty and site conditions."
+      },
+      {
+        "parameter": "Redundancy",
+        "treatment": "Selected to match the connected equipment, operating duty and site conditions."
+      },
+      {
+        "parameter": "Pipeline-specific operational requirements",
+        "treatment": "Selected to match the connected equipment, operating duty and site conditions."
+      }
+    ],
+    "faqs": [
+      {
+        "q": "Is SCADA a leak detection system?",
+        "a": "No. SCADA provides data and controls; leak detection requires a separately defined detection methodology."
+      },
+      {
+        "q": "Can mixed-vendor RTUs be integrated?",
+        "a": "Often, subject to protocols, licensing, data mapping and cybersecurity requirements."
+      },
+      {
+        "q": "What is required for an RFQ?",
+        "a": "Station count, tag lists, telecoms details, existing RTUs, network diagram and control-room scope."
+      }
+    ],
+    "status": "approved",
+    "gates": [
+      "Specifications are project-specific and need the approved datasheet."
+    ]
+  },
+  {
     "url": "/products/plant-automation-scada/",
     "breadcrumb": [
       "Home",
@@ -6521,6 +6769,130 @@ export const SPEC_PAGES: SpecPage[] = [
       {
         "q": "What determines VFD size?",
         "a": "Motor data, duty cycle, overload requirement, ambient conditions and driven-machine torque."
+      }
+    ],
+    "status": "approved",
+    "gates": [
+      "Specifications are project-specific and need the approved datasheet."
+    ]
+  },
+  {
+    "url": "/products/wellhead-skid-controls/",
+    "breadcrumb": [
+      "Home",
+      "Products",
+      "Onshore Wellhead & Skid Control Systems"
+    ],
+    "seoTitle": "Wellhead & Skid Control Panels | SMEC",
+    "metaDescription": "Wellhead and skid control panels for onshore well pads and packaged equipment: local control sequences, protective interfaces, telemetry and remote visibility.",
+    "schema": [
+      "Product",
+      "BreadcrumbList",
+      "FAQPage only for visible FAQs"
+    ],
+    "intent": "wellhead control panel; skid control panel oil gas",
+    "h1": "Onshore Wellhead & Skid Control Systems",
+    "answer": "Wellhead and skid control panels run the local sequences for a well pad or a packaged skid — pressures, temperatures, valve positions and equipment states — while an RTU or PLC interface carries alarms and operating data to a central SCADA. SMEC engineers the panel, its protective interfaces and its telemetry around remote power, site exposure and field maintainability, so that a loss of communications does not defeat a locally required protective function.",
+    "sections": [
+      {
+        "heading": "Field-Ready Controls for Wellheads and Packaged Equipment",
+        "lines": [
+          "Distributed onshore assets demand controls that are maintainable in the field and visible from the operations centre. SMEC can engineer wellhead and skid controls around local operating logic, protective interfaces, telemetry and the realities of remote power and communications."
+        ]
+      },
+      {
+        "heading": "How it works",
+        "lines": [
+          "Local control — Wellhead/skid panels acquire pressures, temperatures, valve positions and equipment states while executing defined local sequences.",
+          "Remote connectivity — RTU/PLC interfaces can transmit alarms and operational data to a central SCADA system via site-approved telecoms.",
+          "Safety boundaries — Loss of communications must not defeat locally required protective functions.",
+          "Remote deployment — Power availability, solar/DC options, dust/heat exposure and field maintainability influence enclosure and hardware selection."
+        ]
+      },
+      {
+        "heading": "Key components",
+        "lines": [
+          "Wellhead control panels. Panel layout, ingress protection, segregation, component selection and service clearance follow the installation environment, load schedule and maintenance requirements.",
+          "PLC/RTU. An RTU acquires remote station measurements and status, timestamps events and exchanges authorised commands with SCADA while preserving local control on link loss.",
+          "Valve actuation interfaces. Valve actuation and position feedback must follow the approved process control and fail-safe philosophy, including loss-of-power behaviour.",
+          "Pressure/temperature/flow inputs. The pressure/temperature/flow inputs is selected for the equipment, operating duty and site conditions.",
+          "Pump/compressor skids. The pump/compressor skids is selected for the equipment, operating duty and site conditions.",
+          "Local HMI. The local hmi is selected for the equipment, operating duty and site conditions.",
+          "Remote alarms. Alarm thresholds, priorities, delays and operator actions must be documented to avoid nuisance alarms and missed critical events.",
+          "SCADA communications. SCADA consolidates remote station measurements, alarms, trends and supervisory commands; local protective functions remain in field controls."
+        ]
+      },
+      {
+        "heading": "Upgrades & retrofits",
+        "lines": [
+          "Replace legacy RTUs or PLCs without disturbing essential local protection.",
+          "Add telemetry, event logging and remote diagnostics.",
+          "Extend instrumentation and skid integration for additional production equipment.",
+          "Retrofit scope depends on existing OEM interfaces, component condition, available space, shutdown windows and the approval basis of any safety-related functions."
+        ]
+      },
+      {
+        "heading": "Applications",
+        "lines": [
+          "Land well pads",
+          "Production skids",
+          "Gathering stations",
+          "Remote oilfields"
+        ]
+      },
+      {
+        "heading": "Testing & documentation",
+        "lines": [
+          "Relevant IEC, ISO, API, classification-society, hazardous-area or functional-safety requirements must be selected according to the specific system and installation. Where applicable, the project package may include electrical drawings, GA layouts, datasheets, I/O schedules, cause-and-effect, communication lists, inspection records, FAT/SAT procedures, calibration records and as-built documents. No unverified compliance certification is claimed here."
+        ]
+      }
+    ],
+    "specTreatment": [
+      {
+        "parameter": "Site power availability",
+        "treatment": "Electrical supply and distribution require verified voltage, frequency, load, short-circuit level, protection coordination and earthing arrangements."
+      },
+      {
+        "parameter": "Hazardous-area classification",
+        "treatment": "Selected to match the connected equipment, operating duty and site conditions."
+      },
+      {
+        "parameter": "Environmental protection",
+        "treatment": "Protection settings, trip contacts and fault discrimination must coordinate with upstream and downstream equipment and be demonstrated during testing."
+      },
+      {
+        "parameter": "Telecoms coverage",
+        "treatment": "Selected to match the connected equipment, operating duty and site conditions."
+      },
+      {
+        "parameter": "Fail-safe states",
+        "treatment": "Selected to match the connected equipment, operating duty and site conditions."
+      },
+      {
+        "parameter": "Cybersecurity",
+        "treatment": "Selected to match the connected equipment, operating duty and site conditions."
+      },
+      {
+        "parameter": "Maintainability",
+        "treatment": "Selected to match the connected equipment, operating duty and site conditions."
+      },
+      {
+        "parameter": "OEM skid boundaries",
+        "treatment": "Selected to match the connected equipment, operating duty and site conditions."
+      }
+    ],
+    "faqs": [
+      {
+        "q": "Can existing RTUs be reused?",
+        "a": "Possibly, after checking spare capacity, protocol support and lifecycle condition."
+      },
+      {
+        "q": "What happens if telemetry fails?",
+        "a": "Local safe-state behaviour must follow the approved control philosophy."
+      },
+      {
+        "q": "What is needed for a quote?",
+        "a": "P&IDs, I/O list, wellhead/skid equipment details, power and communications requirements."
       }
     ],
     "status": "approved",

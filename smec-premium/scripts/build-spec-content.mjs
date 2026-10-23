@@ -462,28 +462,59 @@ const PRODUCT_MERGE = [
 ];
 
 /**
- * Three prototype product pages have no built URL that is the same subject.
- * They are not merged, because the nearest page would be published under
- * someone else's H1 — and they are not dropped either: each is a written
- * page of 4,800-5,400 characters, which makes them the cheapest new pages
- * available in the handover. Adding a URL is a decision for the team, not
- * for a content generator, so they are listed here and printed on every run.
+ * Three prototype product pages are subjects this build has no page for, so
+ * they are created here rather than merged. The team settled the URLs on 23
+ * October, taking the architecture docx's form in each case.
+ *
+ * Adding a URL is not the thing section 0 of the build plan forbids. Nothing
+ * redirects to these and nothing links to them from the old site, so the
+ * verified redirect map is untouched; what section 0 rules out is moving or
+ * deleting a URL that map already resolves. Each page is 4,800-5,400
+ * characters of finished copy, so they publish like any other product page.
+ *
+ * The Content Master has no entry for them, so the fields it would have
+ * written are written here: SEO title, meta description, H1 and the answer
+ * block. The answer blocks are built from the prototype's own opening
+ * paragraphs, in the register the Technical Master asks for — two or three
+ * sentences that stand alone in a search result — and claim nothing the
+ * prototype does not already say. The search intents are the architecture
+ * docx's, not a target invented here.
  */
-const PRODUCTS_DEFERRED = [
+const PRODUCT_PAGES_ADDED = [
   {
     file: 'products/pipeline-scada-rtu-systems.md',
-    reason:
-      'no built page; nearest is /products/plant-automation-scada/, a different subject. Candidate new URL: /products/pipeline-scada-rtu/',
+    url: '/products/pipeline-scada-rtu/',
+    h1: 'Pipeline SCADA & RTU Systems',
+    seoTitle: 'Pipeline SCADA & RTU Systems | SMEC',
+    metaDescription:
+      'Pipeline SCADA and RTU systems for remote stations, pumps, valves and metering, engineered as one supervisory architecture with local fail-safe control.',
+    intent: 'pipeline SCADA RTU system; remote station automation',
+    answer:
+      'Pipeline SCADA connects geographically distributed stations — RTUs, metering, valves and pump or compressor sites — to one supervisory environment of operator displays, alarms, trends and controlled remote commands. SMEC engineers that architecture around command authority, communications availability and alarm priority, with local control retained when a link is lost.',
   },
   {
     file: 'products/onshore-wellhead-skid-controls.md',
-    reason:
-      'no built page. Candidate new URL: /products/wellhead-skid-controls/ (the architecture docx slug)',
+    // The prototype slug is /products/onshore-wellhead-skid-controls; the
+    // docx form is shorter and the page covers packaged skids generally.
+    url: '/products/wellhead-skid-controls/',
+    h1: 'Onshore Wellhead & Skid Control Systems',
+    seoTitle: 'Wellhead & Skid Control Panels | SMEC',
+    metaDescription:
+      'Wellhead and skid control panels for onshore well pads and packaged equipment: local control sequences, protective interfaces, telemetry and remote visibility.',
+    intent: 'wellhead control panel; skid control panel oil gas',
+    answer:
+      'Wellhead and skid control panels run the local sequences for a well pad or a packaged skid — pressures, temperatures, valve positions and equipment states — while an RTU or PLC interface carries alarms and operating data to a central SCADA. SMEC engineers the panel, its protective interfaces and its telemetry around remote power, site exposure and field maintainability, so that a loss of communications does not defeat a locally required protective function.',
   },
   {
     file: 'products/emergency-shutdown-systems.md',
-    reason:
-      'no built page; /products/integrated-control-safety-system/ is control-and-safety integration, not ESD. Candidate new URL: /products/emergency-shutdown-system/',
+    url: '/products/emergency-shutdown-systems/',
+    h1: 'Emergency Shutdown Systems',
+    seoTitle: 'Emergency Shutdown (ESD) Systems | SMEC',
+    metaDescription:
+      'ESD system engineering and integration: every trip traced from the initiating sensor through the logic solver to the final element and the required safe state.',
+    intent: 'ESD system integration; safety instrumented system',
+    answer:
+      'An emergency shutdown system is defined by its shutdown functions: each trip traced from the initiating sensor through the logic solver to the final element and the required safe state. SMEC engineers those functions and their field interfaces, including bypass management, diagnostics and proof-test requirements. The required integrity follows the project hazard and risk assessment and cannot be inferred from a certified PLC.',
   },
 ];
 
@@ -780,6 +811,7 @@ function withoutRepeats(blocks, seen) {
 }
 
 const merged = new Set();
+const created = new Set();
 const mergeReport = [];
 
 function applyPrototype(url, parsed, { capabilities, faqs, intro, shared }) {
@@ -890,8 +922,31 @@ for (const entry of PRODUCT_MERGE) {
   });
 }
 
-for (const entry of PRODUCTS_DEFERRED) {
-  fs.accessSync(path.join(PROTOTYPES, entry.file));
+for (const entry of PRODUCT_PAGES_ADDED) {
+  if (byUrl.has(entry.url)) throw new Error(`${entry.url} already exists: merge it, do not add it`);
+
+  byUrl.set(entry.url, {
+    url: entry.url,
+    seoTitle: entry.seoTitle,
+    metaDescription: entry.metaDescription,
+    // The field format the Content Master writes, so one parser reads both.
+    schema: 'Product + BreadcrumbList + FAQPage only for visible FAQs',
+    intent: entry.intent,
+    h1: entry.h1,
+    answer: entry.answer,
+    sections: [],
+    specTreatment: [],
+    faqs: [],
+  });
+
+  const parsed = parseProduct(entry.file);
+  created.add(entry.url);
+  applyPrototype(entry.url, parsed, {
+    intro: parsed.intro,
+    capabilities: parsed.capabilities,
+    shared: parsed.shared,
+    faqs: parsed.faqs,
+  });
 }
 
 /* ------------------------------------------------------------- publishing */
@@ -901,6 +956,11 @@ for (const entry of PRODUCTS_DEFERRED) {
  * people, certifications, OEM authorisations, client outcomes, and the
  * resource collections that have no items written yet.
  */
+
+/**
+ * The five safety-critical pages the Content Master flags, by URL, because
+ * that is how the document flags them.
+ */
 const NEEDS_ENGINEERING = new Set([
   '/products/bop-control-system/',
   '/products/gas-watch-panel/',
@@ -908,6 +968,73 @@ const NEEDS_ENGINEERING = new Set([
   '/products/fire-gas-detection/',
   '/products/integrated-control-safety-system/',
 ]);
+
+/**
+ * A list is no use for a page that arrives from a source the list predates,
+ * so the same gate is read out of the copy as well: a page that names an
+ * integrity level, a functional-safety or explosion-protection standard, one
+ * of the certification schemes, or Ex construction is making a claim an
+ * engineer has to stand behind, whoever wrote it.
+ */
+const SAFETY_CLAIM = [
+  /\bSIL\b/,
+  /\bIEC\s?6(1508|1511|0079)\b/i,
+  /\bATEX\b/i,
+  /\bIECEx\b/i,
+  /\bEx[- ](proof|rated|d|ia|ib|e|n|p)\b/i,
+  /\bexplosion[- ]proof\b/i,
+  /\bintrinsically safe\b/i,
+  /\bfunctional safety\b/i,
+  /\bsafety[- ]instrumented\b/i,
+];
+
+/**
+ * What the rule deliberately does not read as a claim: the standards
+ * disclaimer every prototype product page closes with, which is the opposite
+ * of a claim, and the words "hazardous area" and "certification" on their
+ * own, which appear on approved pages as an RFQ input and as a request for
+ * documents. A page's own name is stripped before the test for the same
+ * reason — the explosion-proof CCTV page is not claiming anything by saying
+ * what it is called.
+ */
+const SAFETY_DISCLAIMER = [
+  /^Relevant IEC, ISO, API, classification-society/i,
+  /^No unverified compliance certification is claimed here/i,
+];
+
+const escapeRe = (value) => value.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+
+/** The terms a page's published copy uses that need sign-off, if any. */
+function safetyClaims(page) {
+  const names = [page.h1, (page.seoTitle ?? '').split('|')[0].trim()]
+    .filter(Boolean)
+    .map(escapeRe);
+  const own = names.length ? new RegExp(names.join('|'), 'gi') : null;
+
+  const lines = [
+    page.answer ?? '',
+    ...(page.sections ?? [])
+      .filter((block) => !block.internal && !isInternalSection(block.heading))
+      .flatMap((block) => [block.heading, ...block.lines]),
+    ...(page.faqs ?? []).flatMap((faq) => [faq.q, faq.a]),
+  ].filter(Boolean);
+
+  const found = new Set();
+
+  for (const line of lines) {
+    for (const sentence of line.split(/(?<=[.;])\s+/)) {
+      const text = sentence.trim();
+      if (SAFETY_DISCLAIMER.some((re) => re.test(text))) continue;
+      const claim = own ? text.replace(own, ' ') : text;
+      for (const re of SAFETY_CLAIM) {
+        const match = re.exec(claim);
+        if (match) found.add(match[0]);
+      }
+    }
+  }
+
+  return [...found];
+}
 
 const NEEDS_SMEC = {
   '/company/leadership/': 'names, roles and biographies',
@@ -921,10 +1048,23 @@ const NEEDS_SMEC = {
   '/resources/glossary/': 'glossary terms',
 };
 
+/**
+ * The rule is applied to the pages built from the prototypes, not to the ones
+ * the Content Master already classified: re-opening those is a review to run
+ * deliberately, not a side effect of adding a page. The one page outside this
+ * set whose copy also trips it is printed on every run, so the difference is
+ * visible rather than quietly carried.
+ */
+const safetyGated = new Map();
+
 function gatesFor(page) {
   const gates = [];
   if (NEEDS_SMEC[page.url]) gates.push(`Needs SMEC: ${NEEDS_SMEC[page.url]}.`);
-  if (NEEDS_ENGINEERING.has(page.url)) {
+
+  const claims = safetyClaims(page);
+  if (claims.length && !NEEDS_ENGINEERING.has(page.url)) safetyGated.set(page.url, claims);
+
+  if (NEEDS_ENGINEERING.has(page.url) || (created.has(page.url) && claims.length)) {
     gates.push('Safety-critical: ratings, standards and any SIL/Ex claim need engineering sign-off.');
   }
   if (!page.answer) gates.push('The Content Master gives no answer block for this page.');
@@ -1035,11 +1175,29 @@ function derivedBreadcrumb(url, h1) {
 
 const pages = [...byUrl.values()]
   .map((page) => {
-    const gates = gatesFor(page);
     const breadcrumb = (page.breadcrumb ?? '')
       .split('›')
       .map((part) => part.trim())
       .filter(Boolean);
+
+    const sections = page.sections
+      .map((section) => ({
+        ...section,
+        lines: section.lines
+          .filter((line) => !isInternalLine(line))
+          .map(trimInstruction),
+        ...(isInternalSection(section.heading) ? { internal: true } : {}),
+      }))
+      // A block that was nothing but instructions is not a block.
+      .filter((section) => section.internal || section.lines.length);
+
+    const answer = answerIsInstruction(page.answer)
+      ? page.metaDescription || ''
+      : page.answer ?? '';
+
+    // Gated on what the page publishes, which is why this runs after the
+    // internal sections and developer notes have been taken out of it.
+    const gates = gatesFor({ ...page, sections, answer });
 
     return {
       url: page.url,
@@ -1052,19 +1210,8 @@ const pages = [...byUrl.values()]
         .filter(Boolean),
       intent: page.intent ?? '',
       h1: page.h1 ?? '',
-      answer: answerIsInstruction(page.answer)
-        ? page.metaDescription || ''
-        : page.answer ?? '',
-      sections: page.sections
-        .map((section) => ({
-          ...section,
-          lines: section.lines
-            .filter((line) => !isInternalLine(line))
-            .map(trimInstruction),
-          ...(isInternalSection(section.heading) ? { internal: true } : {}),
-        }))
-        // A block that was nothing but instructions is not a block.
-        .filter((section) => section.internal || section.lines.length),
+      answer,
+      sections,
       specTreatment: page.specTreatment,
       faqs: page.faqs ?? [],
       // Draft pages render, but stay out of the index and the sitemap until
@@ -1081,7 +1228,8 @@ const banner = `/**
  * GENERATED — do not edit.
  *
  * Sources: docs/source/SMEC_Website_Content_Master_2026_V3_DEEP_CONTENT.md
- *          docs/source/prototypes/ (merged over it on ${merged.size} URLs)
+ *          docs/source/prototypes/ (merged over it on ${merged.size - created.size} URLs,
+ *          and the sole source of ${created.size} more)
  * Rebuild: node scripts/build-spec-content.mjs
  *
  * ${pages.length} pages · ${drafts.length} draft (noindex until their gate clears)
@@ -1118,15 +1266,36 @@ if (conflicts.length) {
   for (const c of conflicts) console.log(`    ${c.url}: kept "${c.kept}", ignored "${c.ignored}"`);
 }
 
-console.log(`\nprototype content merged onto ${merged.size} URLs (published characters):`);
-for (const row of mergeReport.sort((a, b) => a.url.localeCompare(b.url))) {
-  const gain = row.after - row.before;
+const onExisting = mergeReport.filter((row) => !created.has(row.url));
+
+console.log(
+  `\nprototype content merged onto ${merged.size - created.size} existing URLs (published characters):`
+);
+for (const row of onExisting.sort((a, b) => a.url.localeCompare(b.url))) {
   console.log(
-    `  ${row.url.padEnd(52)} ${String(row.before).padStart(5)} → ${String(row.after).padStart(5)}  (+${gain})`
+    `  ${row.url.padEnd(52)} ${String(row.before).padStart(5)} → ${String(row.after).padStart(5)}  (+${row.after - row.before})`
   );
 }
 console.log(
-  `  total ${mergeReport.reduce((n, r) => n + r.before, 0)} → ${mergeReport.reduce((n, r) => n + r.after, 0)}`
+  `  total ${onExisting.reduce((n, r) => n + r.before, 0)} → ${onExisting.reduce((n, r) => n + r.after, 0)}`
 );
-console.log(`\nprototype pages held back (${PRODUCTS_DEFERRED.length}), no built URL is the same subject:`);
-for (const entry of PRODUCTS_DEFERRED) console.log(`  ${entry.file} — ${entry.reason}`);
+
+console.log(`\n${created.size} pages the prototype is the only source for:`);
+for (const row of mergeReport.filter((r) => created.has(r.url))) {
+  const page = pages.find((p) => p.url === row.url);
+  const claims = safetyGated.get(row.url);
+  console.log(
+    `  ${row.url.padEnd(52)} ${String(row.after).padStart(5)} characters · ${page.status}${
+      claims ? ` · safety claims: ${claims.join(', ')}` : ''
+    }`
+  );
+}
+
+const alsoClaiming = [...safetyGated].filter(([url]) => !created.has(url));
+if (alsoClaiming.length) {
+  console.log('\npages outside that set whose copy also names a safety claim:');
+  for (const [url, claims] of alsoClaiming) {
+    const page = pages.find((p) => p.url === url);
+    console.log(`  ${url.padEnd(52)} ${page.status} · ${claims.join(', ')} — not changed here`);
+  }
+}

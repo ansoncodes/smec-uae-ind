@@ -52,6 +52,10 @@ Status keys: `[ ]` open · `[x]` done · `[~]` partially done · `[S]` under an 
       `lib/scaffold.ts`), product renders, diagrams. **SMEC**
 - [ ] 0.7 Approved datasheets for every numerical product claim — 16 of the 30 product
       pages in the Content Master ship with placeholder parameters. **SMEC**
+      *The prototype merge adds a specification table to 17 more pages. They
+      carry no numbers — they are design-basis notes, kept internal and never
+      rendered — so the datasheet ask is unchanged at 16 pages, but the
+      "specifications need the approved datasheet" gate now prints on 33.*
 - [ ] 0.8 Approved certifications, OEM authorisations, client names/logos, leadership
       bios, MD message, office/entity details. **SMEC**
 - [ ] 0.9 Privacy policy, cookie/consent wording, form consent text, data-retention
@@ -67,7 +71,7 @@ Status keys: `[ ]` open · `[x]` done · `[~]` partially done · `[S]` under an 
 
 - [x] **1.1 Re-cut routes to the locked architecture** — done. Eight sections, each
       an optional catch-all prerendering its hub and children from the Content
-      Master; 105 URLs, 91 indexable. The 14 product pages and 15 articles this
+      Master; 108 URLs, 93 indexable. The 14 product pages and 15 articles this
       build already had keep their design and depth at their new addresses
       (`lib/spec/legacy.ts`). The old routes (`app/[slug]`, `about-us`, `careers`,
       `contact-us`, `insights`, `solutions-and-services`) are deleted.
@@ -188,7 +192,7 @@ Status keys: `[ ]` open · `[x]` done · `[~]` partially done · `[S]` under an 
       Original note: `Article` schema needs ISO `datePublished`/`dateModified`; `lib/articles/*`
       carry dates as prose. `[S]`
 - [x] 2.6 Answer blocks: 2–3 factual sentences directly under every H1, able to stand
-      alone in search results. Done on all 105 pages, the homepage included. `[M]`
+      alone in search results. Done on all 108 pages, the homepage included. `[M]`
 - [~] 2.7 FAQs: 48 URLs render approved copy. Drafts for the 37 buyer-facing pages
       without any are in `docs/faq-drafts.md` — 123 questions, of which 16 answers
       need an engineer because the page does not say enough to answer honestly. A
@@ -313,16 +317,33 @@ from visible content · no TODO/FIXME/lorem anywhere.
 
 ---
 
-## 5. Content coverage — 105 of 105 built, 91 indexable
+## 5. Content coverage — 108 built, 93 indexable
 
 Every URL in the Content Master is built and prerendered. Each page carries the
 document's H1, answer block, body sections, FAQs where it approves them, and its
 breadcrumb; the 14 products and 15 articles this build already had keep their own
 design and depth on top of that.
 
+Three more pages are not in the Content Master at all. Pipeline SCADA & RTU,
+wellhead and skid controls and emergency shutdown are finished pages in the
+client's October prototypes with no URL on our side, so they were given one —
+an addition the redirect map does not feel, since nothing on the live site
+points at them. Their SEO title, meta description, H1 and answer block are
+written in `scripts/build-spec-content.mjs`, which is where anyone revising
+them should look.
+
+Emergency shutdown is the sixth page held for engineering sign-off, alongside
+the five the Content Master names. It was not added to a list by hand: its
+copy names SIL and functional safety, and the generator now reads that gate
+out of the published copy rather than taking it from a list, so a page that
+arrives from a new source is classified by what it says. One page outside that
+check, `/products/explosion-proof-cctv/`, names Ex-rated equipment and is
+indexable today. It is printed on every generator run and left as it is —
+reclassifying pages the Content Master settled is a review to run on purpose.
+
 | Section | URLs | Indexable | Waiting on SMEC |
 | --- | --- | --- | --- |
-| Products | 31 | 26 | BOP control, fire & gas, flare ignition, gas watch, ICSS |
+| Products | 34 | 28 | BOP control, fire & gas, flare ignition, gas watch, ICSS, ESD |
 | Solutions | 16 | 16 | — |
 | Industries | 21 | 21 | — |
 | Customers | 8 | 8 | — |
@@ -331,14 +352,18 @@ design and depth on top of that.
 | Company | 11 | 6 | certifications, leadership, MD message, OEM partners, experience |
 | Markets, contact, home | 3 | 3 | — |
 
-The 14 that are not indexable render, carry `noindex, follow` and stay out of the
+The 15 that are not indexable render, carry `noindex, follow` and stay out of the
 sitemap until their gate clears (1.10). Nothing asserts a number, certification or
 client the documents have not approved.
 
 Depth is the honest gap: 13 pages are a heading, an answer and two or three bullet
 lists, because that is all the document writes for them. They are accurate and
-indexable, not deep. 48 pages carry approved FAQ copy; no page claims `FAQPage`
-schema without visible questions.
+indexable, not deep. That was written before the client's prototype copy was
+merged, and it no longer describes the commercial pages: the 15 solution and 19
+product URLs the prototypes reach carry 3,600–10,000 characters each. What is
+left thin is industries and resources, which is why they ship behind `noindex`.
+61 pages carry approved FAQ copy; no page claims `FAQPage` schema without
+visible questions.
 
 ---
 
@@ -361,7 +386,7 @@ Retired (404/410, no redirect): `/cart`, `/checkout`, `/my-account`, `/thank-you
 1. 0.1 and 0.2 — domain and content source. Everything else is shaped by them.
 2. 1.1 + 1.3 — routes to the locked IA, redirect map wired, breadcrumbs to real hubs.
 3. 1.10 — content model per page type with publication status.
-4. Pour in Content Master copy (95 of 105 pages possible without new SMEC writing).
+4. Pour in Content Master copy (95 of its 105 pages possible without new SMEC writing).
 5. 1.4 + 1.5 — RFQ form to the lead API, uploads, consent, the eleven events.
 6. 2.1–2.5, 2.8 — schema generators and social images.
 7. 1.12–1.16, 2.12 — claims, assets, links, accessibility.

@@ -84,9 +84,13 @@ const CLUSTERS: string[][] = [
     '/industries/midstream/pumping-stations/',
   ],
   // Safety and fire, which the product set splits across several pages.
+  // Detection sits with shutdown: the trip an F&G system raises is executed
+  // by the ESD, and a buyer reading one is specifying the other.
   [
     '/products/fire-gas-detection/',
     '/products/gas-watch-panel/',
+    '/products/emergency-shutdown-systems/',
+    '/products/integrated-control-safety-system/',
     '/products/flare-ignition-system/',
     '/products/automatic-fire-fighting-control/',
     '/products/explosion-proof-cctv/',
@@ -109,6 +113,19 @@ const CLUSTERS: string[][] = [
     '/products/generator-control-pms/',
     '/industries/downstream/petrochemicals/',
     '/customers/industrial-manufacturers/',
+  ],
+  // Remote and distributed assets: a station or a well pad runs its own
+  // control locally and reports to a supervisory system over telemetry, so
+  // the SCADA, RTU and wellhead pages answer one buyer's question together.
+  [
+    '/products/pipeline-scada-rtu/',
+    '/products/wellhead-skid-controls/',
+    '/products/plant-automation-scada/',
+    '/industries/midstream/pipelines/',
+    '/industries/midstream/pumping-stations/',
+    '/industries/upstream/production-facilities/',
+    '/industries/upstream/well-services/',
+    '/digital/remote-monitoring-nexwave/',
   ],
   // Where SMEC delivers from, and to.
   [

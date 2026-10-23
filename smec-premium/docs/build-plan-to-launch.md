@@ -107,9 +107,18 @@ Ordered so that nothing waits on anything the client still owes.
 
 ### Days 2–4 — the bulk of the build
 
-- [ ] **Merge 13 solution pages** from `docs/source/prototypes/solutions/` onto
+- [x] **Merge 13 solution pages** from `docs/source/prototypes/solutions/` onto
       the 15 built URLs per the table above. Richest content in the handover.
-- [ ] **Merge 20 product pages** from `docs/source/prototypes/products/`.
+      *Done: `scripts/build-spec-content.mjs` reads the prototypes as a second
+      source and merges them over the Content Master.*
+- [x] **Merge 20 product pages** from `docs/source/prototypes/products/`.
+      *17 merged onto built URLs. The other three — Pipeline SCADA & RTU,
+      wellhead and skid controls, emergency shutdown — are subjects this build
+      had no page for, so on 23 October the team added
+      `/products/pipeline-scada-rtu/`, `/products/wellhead-skid-controls/` and
+      `/products/emergency-shutdown-systems/`, taking the architecture docx's
+      slug in each case. 105 pages becomes 108; nothing on the live site points
+      at the new URLs, so the verified redirect map is untouched.*
 - [ ] **Rebuild the 65-item catalogue.** Only 31 rows carry a landing URL and
       they resolve to 19 distinct pages; the rest route to an enquiry action.
 - [ ] **Rebuild Tab 1's internal links.** 34 of its 38 outbound product URLs do
