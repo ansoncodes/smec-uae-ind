@@ -4,7 +4,12 @@ import SiteHeader from '@/components/SiteHeader';
 import SiteFooter from '@/components/SiteFooter';
 import FloatingWidgets from '@/components/FloatingWidgets';
 import SpecPageView from '@/components/spec/SpecPageView';
-import { SpecClose, SpecFaqs } from '@/components/spec/SpecBlocks';
+import {
+  isRfqInputsHeading,
+  SpecClose,
+  SpecFaqs,
+  SpecSections,
+} from '@/components/spec/SpecBlocks';
 import Breadcrumb from '@/components/ui/Breadcrumb';
 import ProductDetail from '@/components/ProductDetail';
 import ArticleDetail from '@/components/ArticleDetail';
@@ -29,6 +34,7 @@ import {
   breadcrumbTrail,
   childrenOf,
   isPublished,
+  publishableSections,
   segmentsOf,
   specPage,
   SPEC_ROUTES,
@@ -270,11 +276,22 @@ export const makePage =
     const system = prefix === 'products' ? legacySystem(page.url) : undefined;
 
     if (system) {
+      // The body the document and the client's prototype write for this URL.
+      // "RFQ inputs" belongs with the closing block, not under a heading.
+      const body = publishableSections(page).filter(
+        (section) => !isRfqInputsHeading(section.heading)
+      );
+
       return (
         <Chrome ld={jsonLd(page)}>
           <Breadcrumb trail={breadcrumbTrail(page)} />
           <main id="main">
-            <ProductDetail system={system} title={page.h1} lead={page.answer} />
+            <ProductDetail
+              system={system}
+              title={page.h1}
+              lead={page.answer}
+              detail={body.length ? <SpecSections sections={body} /> : undefined}
+            />
             <div className="container">
               <SpecFaqs page={page} index={1} />
             </div>
