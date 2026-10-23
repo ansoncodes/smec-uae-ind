@@ -42,8 +42,10 @@ const column = (heading: string, pairs: [string, string][]): MegaColumn => ({
 });
 
 /* §31, "Products consolidation": one Products tab, four categories beneath
-   it, and these are the entities the document files under each. All thirty
-   are listed, so every product page is reachable from the navigation. */
+   it, and these are the entities the document files under each. All of them
+   are listed, so every product page is reachable from the navigation — the
+   three pages built from the client's prototype included, filed under the
+   same four categories. */
 const megaProducts: MegaColumn[] = [
   column('Electrical & modular packages', [
     ['/solutions/e-houses-modular-electrical-rooms/', 'E-Houses & Modular Electrical Rooms'],
@@ -66,6 +68,7 @@ const megaProducts: MegaColumn[] = [
     ['/products/skidding-current-monitoring/', 'Skidding Current Monitoring'],
   ]),
   column('Safety, communication & marine', [
+    ['/products/emergency-shutdown-systems/', 'Emergency Shutdown (ESD)'],
     ['/products/gas-watch-panel/', 'Gas Watch'],
     ['/products/fire-gas-detection/', 'Fire & Gas'],
     ['/products/paga-system/', 'PAGA'],
@@ -82,6 +85,8 @@ const megaProducts: MegaColumn[] = [
     ['/products/integrated-control-safety-system/', 'ICSS'],
     ['/products/boiler-burner-management/', 'Boiler & Burner Management'],
     ['/products/plant-automation-scada/', 'Plant Automation & SCADA'],
+    ['/products/pipeline-scada-rtu/', 'Pipeline SCADA & RTU'],
+    ['/products/wellhead-skid-controls/', 'Wellhead & Skid Controls'],
     ['/products/dam-level-monitoring/', 'Dam Level Monitoring'],
   ]),
 ];

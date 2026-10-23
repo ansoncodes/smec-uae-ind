@@ -19,12 +19,20 @@ export default function ProductDetail({
   system,
   title,
   lead: leadOverride,
+  detail,
 }: {
   system: SystemDetail;
   /** The Content Master's H1 for this URL, which outranks the old title. */
   title?: string;
   /** Its answer block, which stands in for the old opening paragraph. */
   lead?: string;
+  /**
+   * The document's body for this URL — how the system works, its components
+   * and its retrofit scope, which the client's prototype copy deepened.
+   * Rendered under the overview so the page carries both what this build
+   * already had and what the handover added.
+   */
+  detail?: React.ReactNode;
 }) {
   const related = relatedSystems(system.slug);
   const [firstBody, ...rest] = system.body.length > 0 ? system.body : [system.tagline];
@@ -189,11 +197,28 @@ export default function ProductDetail({
         </section>
       ) : null}
 
+      {/* ----------------------------------------------------- engineering */}
+      {detail ? (
+        <section className="section" data-tone="light" aria-labelledby="product-detail">
+          <div className="container">
+            <p className="sectionLabel" data-reveal="fade">
+              <span className="num">02</span>
+              <span>Engineering detail</span>
+              <span className="rule" />
+            </p>
+            <h2 id="product-detail" className="visuallyHidden">
+              Engineering detail
+            </h2>
+            {detail}
+          </div>
+        </section>
+      ) : null}
+
       {/* --------------------------------------------------------- related */}
       <section className="section" data-tone="dark" aria-labelledby="related-products">
         <div className="container">
           <p className="sectionLabel" data-reveal="fade">
-            <span className="num">02</span>
+            <span className="num">{detail ? '03' : '02'}</span>
             <span>More from the range</span>
             <span className="rule" />
           </p>

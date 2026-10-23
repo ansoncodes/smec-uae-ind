@@ -4,7 +4,7 @@ import { CONTACT } from '@/lib/siteData';
 import { breadcrumbTrail, publishableSections, type SpecPage } from '@/lib/spec';
 import type { GlossaryTerm } from '@/lib/glossary';
 import { evidenceFor } from '@/lib/evidence';
-import { isRfqInputsHeading, SpecClose, SpecFaqs } from './SpecBlocks';
+import { isRfqInputsHeading, SpecClose, SpecFaqs, SpecSections } from './SpecBlocks';
 import styles from './SpecPageView.module.css';
 
 /**
@@ -16,13 +16,6 @@ import styles from './SpecPageView.module.css';
  * to the developer are dropped, and specification values are not rendered at
  * all — they may only be published from an approved datasheet.
  */
-
-/** Bullets in the document are short lines without terminal punctuation. */
-function looksLikeList(lines: string[]) {
-  if (lines.length < 2) return false;
-  const bulletish = lines.filter((line) => line.length < 120 && !/[.!?:]$/.test(line));
-  return bulletish.length >= Math.ceil(lines.length * 0.6);
-}
 
 export default function SpecPageView({
   page,
@@ -99,28 +92,7 @@ export default function SpecPageView({
               </div>
             ) : null}
 
-            {sections.map((block, index) => (
-              <section className={styles.block} key={block.heading}>
-                <div className={styles.blockHead}>
-                  <span className={styles.blockNum}>{String(index + 1).padStart(2, '0')}</span>
-                  <h2 className={styles.blockTitle}>{block.heading}</h2>
-                </div>
-
-                {looksLikeList(block.lines) ? (
-                  <ul className={styles.points}>
-                    {block.lines.map((line) => (
-                      <li key={line}>{line}</li>
-                    ))}
-                  </ul>
-                ) : (
-                  <div className={styles.prose}>
-                    {block.lines.map((line) => (
-                      <p key={line}>{line}</p>
-                    ))}
-                  </div>
-                )}
-              </section>
-            ))}
+            <SpecSections sections={sections} />
 
             {children.length ? (
               <section className={styles.block}>

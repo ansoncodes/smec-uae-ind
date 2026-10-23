@@ -1,11 +1,13 @@
 /**
  * GENERATED — do not edit.
  *
- * Source: docs/source/SMEC_Website_Content_Master_2026_V3_DEEP_CONTENT.md
+ * Sources: docs/source/SMEC_Website_Content_Master_2026_V3_DEEP_CONTENT.md
+ *          docs/source/prototypes/ (merged over it on 31 URLs,
+ *          and the sole source of 3 more)
  * Rebuild: node scripts/build-spec-content.mjs
  *
- * 105 pages · 14 draft (noindex until their gate clears)
- * · 48 with approved FAQ copy.
+ * 108 pages · 15 draft (noindex until their gate clears)
+ * · 61 with approved FAQ copy.
  */
 
 import type { SpecPage } from './types';
@@ -2864,6 +2866,13 @@ export const SPEC_PAGES: SpecPage[] = [
     "answer": "BOP control is a safety-critical well-control function. SMEC's website should position support around approved electrical/control, monitoring, panel, HMI and integration scope — and never imply certification or authority beyond the actual project package and applicable well-control requirements.",
     "sections": [
       {
+        "heading": "BOP Control Interfaces Designed Around Verified Well-Control Logic",
+        "lines": [
+          "BOP control is a safety-critical function. SMEC's engineering discussion should begin with the existing BOP equipment, applicable well-control requirements, control philosophy and test evidence—not generic claims of faster response or guaranteed safety.",
+          "BOP control is a safety-critical function. The engineering discussion should begin with the existing BOP equipment, applicable well-control requirements, control philosophy and test evidence—not generic claims of faster response or guaranteed safety."
+        ]
+      },
+      {
         "heading": "Technical scope / product architecture",
         "lines": [
           "Control-panel and HMI interfaces",
@@ -2888,6 +2897,51 @@ export const SPEC_PAGES: SpecPage[] = [
         ]
       },
       {
+        "heading": "How it works",
+        "lines": [
+          "Well-control interface — The BOP control package operates defined well-control functions through approved hydraulic/pneumatic and electrical interfaces.",
+          "Control stations — Local/remote stations, selector logic, status indication and diagnostics are mapped to the BOP OEM and well-control specification.",
+          "Redundancy and testing — Accumulator capacity, fail-safe behavior, testing and independent verification are safety-critical and cannot be assumed from PLC hardware alone.",
+          "Scope boundary — Control-panel modernisation must be distinguished from supply or recertification of the mechanical BOP stack."
+        ]
+      },
+      {
+        "heading": "Key components",
+        "lines": [
+          "Local and remote control panels. Panel layout, ingress protection, segregation, component selection and service clearance follow the installation environment, load schedule and maintenance requirements.",
+          "Hydraulic/pneumatic interfaces as specified. Hydraulic pressure, accumulator capacity, valve logic and instrument feedback must be checked against the equipment OEM documentation and approved safety functions.",
+          "Valve status feedback. Valve actuation and position feedback must follow the approved process control and fail-safe philosophy, including loss-of-power behaviour.",
+          "Pressure monitoring. The pressure monitoring is selected for the equipment, operating duty and site conditions.",
+          "Alarms. Alarm thresholds, priorities, delays and operator actions must be documented to avoid nuisance alarms and missed critical events.",
+          "Redundancy interfaces. The redundancy interfaces is selected for the equipment, operating duty and site conditions.",
+          "Event recording. The event recording is selected for the equipment, operating duty and site conditions.",
+          "Equipment diagnostics. The equipment diagnostics is selected for the equipment, operating duty and site conditions."
+        ]
+      },
+      {
+        "heading": "Upgrades & retrofits",
+        "lines": [
+          "Replace obsolete panel indication or approved interface components under well-control change management.",
+          "Improve alarm/event traceability where permitted by OEM and well-control specification.",
+          "Renew cabling, connectors or instrumentation with documented testing and approvals.",
+          "Retrofit scope depends on existing OEM interfaces, component condition, available space, shutdown windows and the approval basis of any safety-related functions."
+        ]
+      },
+      {
+        "heading": "Applications",
+        "lines": [
+          "Land rigs",
+          "Jack-ups",
+          "Well-control upgrades"
+        ]
+      },
+      {
+        "heading": "Testing & documentation",
+        "lines": [
+          "Relevant IEC, ISO, API, classification-society, hazardous-area or functional-safety requirements must be selected according to the specific system and installation. Where applicable, the project package may include electrical drawings, GA layouts, datasheets, I/O schedules, cause-and-effect, communication lists, inspection records, FAT/SAT procedures, calibration records and as-built documents. No unverified compliance certification is claimed here."
+        ]
+      },
+      {
         "heading": "Conversion CTA",
         "lines": [
           "Send the datasheet/specification, existing make/model (if retrofit), drawings and required delivery/mobilization date.",
@@ -2895,7 +2949,32 @@ export const SPEC_PAGES: SpecPage[] = [
         ]
       }
     ],
-    "specTreatment": [],
+    "specTreatment": [
+      {
+        "parameter": "Well-control specification and OEM authority",
+        "treatment": "Selected to match the connected equipment, operating duty and site conditions."
+      },
+      {
+        "parameter": "Fail-safe states",
+        "treatment": "Selected to match the connected equipment, operating duty and site conditions."
+      },
+      {
+        "parameter": "Pressure and accumulator requirements",
+        "treatment": "Selected to match the connected equipment, operating duty and site conditions."
+      },
+      {
+        "parameter": "Functional testing",
+        "treatment": "Selected to match the connected equipment, operating duty and site conditions."
+      },
+      {
+        "parameter": "Hazardous-area suitability",
+        "treatment": "Selected to match the connected equipment, operating duty and site conditions."
+      },
+      {
+        "parameter": "Independent verification where required",
+        "treatment": "Selected to match the connected equipment, operating duty and site conditions."
+      }
+    ],
     "faqs": [
       {
         "q": "Can BOP Control System Engineering be supplied for new build, retrofit or replacement?",
@@ -2908,11 +2987,20 @@ export const SPEC_PAGES: SpecPage[] = [
       {
         "q": "What information is required for quotation?",
         "a": "Send the make/model or required specification, datasheets, drawings, ratings, interfaces, fault details where applicable, site location and required date or shutdown/mobilization window."
+      },
+      {
+        "q": "Can an existing BOP control panel be modernised?",
+        "a": "Potentially, but only after a formal safety and OEM/interface assessment."
+      },
+      {
+        "q": "What documentation is needed?",
+        "a": "BOP and hydraulic schematics, approved logic, cause-and-effect documents and test requirements."
       }
     ],
     "status": "draft",
     "gates": [
-      "Safety-critical: ratings, standards and any SIL/Ex claim need engineering sign-off."
+      "Safety-critical: ratings, standards and any SIL/Ex claim need engineering sign-off.",
+      "Specifications are project-specific and need the approved datasheet."
     ]
   },
   {
@@ -3039,6 +3127,12 @@ export const SPEC_PAGES: SpecPage[] = [
     "answer": "DMS3000 provides a configurable drilling-data view for rig personnel, bringing selected drilling, pit, machinery and process signals into operator displays. It can be applied as a full monitoring system or as a partial/total upgrade of an ageing drilling-monitoring installation.",
     "sections": [
       {
+        "heading": "Give the Driller the Data the Operation Actually Needs",
+        "lines": [
+          "The DMS3000 drilling monitoring system brings critical rig parameters into a usable operator view. Rather than adding another display, SMEC focuses on sensor availability, signal quality, alarm relevance and the practical needs of drillers and toolpushers."
+        ]
+      },
+      {
         "heading": "Technical scope / product architecture",
         "lines": [
           "Driller and toolpusher displays",
@@ -3064,6 +3158,52 @@ export const SPEC_PAGES: SpecPage[] = [
         ]
       },
       {
+        "heading": "How it works",
+        "lines": [
+          "Measurement chain — Drilling parameters may include hookload, weight on bit, rotary torque/speed, standpipe pressure, pump strokes, pit levels and other available rig signals.",
+          "Acquisition — Signal conditioning, PLC/DAQ interfaces, scaling, time stamps and sensor calibration determine whether the displayed data is trustworthy.",
+          "Operator views — Driller and toolpusher displays prioritise live values, limits, trends and alarms; page layouts should follow operating tasks rather than a fixed template.",
+          "Data handling — Historical records, export, remote visibility and alarm events can be configured where data ownership, network and storage are defined."
+        ]
+      },
+      {
+        "heading": "Key components",
+        "lines": [
+          "Hookload and weight-on-bit interfaces. Load measurement requires a verified mechanical load path, correctly sized sensor, signal conditioning and traceable calibration.",
+          "Standpipe pressure. The standpipe pressure is selected for the equipment, operating duty and site conditions.",
+          "Rotary speed/torque. The rotary speed/torque is selected for the equipment, operating duty and site conditions.",
+          "Mud pit and pump signals. The mud pit and pump signals is selected for the equipment, operating duty and site conditions.",
+          "Drilling parameter displays. The drilling parameter displays is selected for the equipment, operating duty and site conditions.",
+          "Alarms and trends. Alarm thresholds, priorities, delays and operator actions must be documented to avoid nuisance alarms and missed critical events.",
+          "Historical records. The historical records is selected for the equipment, operating duty and site conditions.",
+          "Rig-to-office interfaces where specified. The rig-to-office interfaces where specified is selected for the equipment, operating duty and site conditions."
+        ]
+      },
+      {
+        "heading": "Upgrades & retrofits",
+        "lines": [
+          "Reuse serviceable instruments while migrating legacy display and acquisition systems.",
+          "Add drilling measurements, trending and historical event retrieval.",
+          "Introduce approved rig-to-office data visibility without changing the driller’s control authority.",
+          "Retrofit scope depends on existing OEM interfaces, component condition, available space, shutdown windows and the approval basis of any safety-related functions."
+        ]
+      },
+      {
+        "heading": "Applications",
+        "lines": [
+          "Land rigs",
+          "Jack-ups",
+          "Drilling retrofits",
+          "Rig reactivation"
+        ]
+      },
+      {
+        "heading": "Testing & documentation",
+        "lines": [
+          "Relevant IEC, ISO, API, classification-society, hazardous-area or functional-safety requirements must be selected according to the specific system and installation. Where applicable, the project package may include electrical drawings, GA layouts, datasheets, I/O schedules, cause-and-effect, communication lists, inspection records, FAT/SAT procedures, calibration records and as-built documents. No unverified compliance certification is claimed here."
+        ]
+      },
+      {
         "heading": "Conversion CTA",
         "lines": [
           "Send the datasheet/specification, existing make/model (if retrofit), drawings and required delivery/mobilization date.",
@@ -3071,7 +3211,36 @@ export const SPEC_PAGES: SpecPage[] = [
         ]
       }
     ],
-    "specTreatment": [],
+    "specTreatment": [
+      {
+        "parameter": "Existing sensor and PLC protocols",
+        "treatment": "Sensor technology, range, accuracy, location and calibration interval are selected from the physical variable and operating environment."
+      },
+      {
+        "parameter": "Signal validation",
+        "treatment": "Selected to match the connected equipment, operating duty and site conditions."
+      },
+      {
+        "parameter": "Update rates",
+        "treatment": "Selected to match the connected equipment, operating duty and site conditions."
+      },
+      {
+        "parameter": "Time synchronisation",
+        "treatment": "Selected to match the connected equipment, operating duty and site conditions."
+      },
+      {
+        "parameter": "Alarm rationalisation",
+        "treatment": "Alarm thresholds, priorities, delays and operator actions must be documented to avoid nuisance alarms and missed critical events."
+      },
+      {
+        "parameter": "HMI ergonomics",
+        "treatment": "Selected to match the connected equipment, operating duty and site conditions."
+      },
+      {
+        "parameter": "Redundancy and data retention",
+        "treatment": "Selected to match the connected equipment, operating duty and site conditions."
+      }
+    ],
     "faqs": [
       {
         "q": "Can DMS3000 Drilling Monitoring System be supplied for new build, retrofit or replacement?",
@@ -3084,10 +3253,24 @@ export const SPEC_PAGES: SpecPage[] = [
       {
         "q": "What information is required for quotation?",
         "a": "Send the make/model or required specification, datasheets, drawings, ratings, interfaces, fault details where applicable, site location and required date or shutdown/mobilization window."
+      },
+      {
+        "q": "Can DMS3000 reuse existing field instruments?",
+        "a": "Often yes, after checking signal types, calibration and interface compatibility."
+      },
+      {
+        "q": "Is DMS3000 suitable for partial upgrades?",
+        "a": "The scope can be assessed as a new installation, partial modernisation or replacement."
+      },
+      {
+        "q": "What should an enquiry include?",
+        "a": "Rig type, existing DMS/PLC, parameter list, console photographs and desired data outputs."
       }
     ],
     "status": "approved",
-    "gates": []
+    "gates": [
+      "Specifications are project-specific and need the approved datasheet."
+    ]
   },
   {
     "url": "/products/driller-talkback-av-alarm/",
@@ -3195,6 +3378,128 @@ export const SPEC_PAGES: SpecPage[] = [
     ]
   },
   {
+    "url": "/products/emergency-shutdown-systems/",
+    "breadcrumb": [
+      "Home",
+      "Products",
+      "Emergency Shutdown Systems"
+    ],
+    "seoTitle": "Emergency Shutdown (ESD) Systems | SMEC",
+    "metaDescription": "ESD system engineering and integration: every trip traced from the initiating sensor through the logic solver to the final element and the required safe state.",
+    "schema": [
+      "Product",
+      "BreadcrumbList",
+      "FAQPage only for visible FAQs"
+    ],
+    "intent": "ESD system integration; safety instrumented system",
+    "h1": "Emergency Shutdown Systems",
+    "answer": "An emergency shutdown system is defined by its shutdown functions: each trip traced from the initiating sensor through the logic solver to the final element and the required safe state. SMEC engineers those functions and their field interfaces, including bypass management, diagnostics and proof-test requirements. The required integrity follows the project hazard and risk assessment and cannot be inferred from a certified PLC.",
+    "sections": [
+      {
+        "heading": "ESD Systems Built Around the Required Safe State",
+        "lines": [
+          "An emergency shutdown system is only as dependable as its defined shutdown functions and field interfaces. SMEC's ESD engineering should trace each trip from initiating event to final element, including bypass management, diagnostics and proof-test requirements."
+        ]
+      },
+      {
+        "heading": "How it works",
+        "lines": [
+          "Safety functions — Each trip is defined from initiating sensor through logic solver to final element and required safe state.",
+          "Logic solver — Safety PLC, I/O, redundancy and segregation are chosen against the safety requirements specification and project functional safety assessment.",
+          "Operations — Bypasses, resets, trip diagnostics and maintenance access require controlled procedures.",
+          "Validation — Cause-and-effect FAT, loop checks and final-element proof testing verify implemented functions; SIL cannot be inferred from PLC certification alone."
+        ]
+      },
+      {
+        "heading": "Key components",
+        "lines": [
+          "Safety PLC/logic solver. The safety plc/logic solver is selected for the equipment, operating duty and site conditions.",
+          "ESD pushbuttons. The esd pushbuttons is selected for the equipment, operating duty and site conditions.",
+          "Shutdown valves. Valve actuation and position feedback must follow the approved process control and fail-safe philosophy, including loss-of-power behaviour.",
+          "Trip relays. The trip relays is selected for the equipment, operating duty and site conditions.",
+          "Redundancy options. The redundancy options is selected for the equipment, operating duty and site conditions.",
+          "Permissives. The permissives is selected for the equipment, operating duty and site conditions.",
+          "Cause-and-effect. The cause-and-effect is selected for the equipment, operating duty and site conditions.",
+          "Operator indication. The operator indication is selected for the equipment, operating duty and site conditions.",
+          "Historian interfaces. The historian interfaces is selected for the equipment, operating duty and site conditions."
+        ]
+      },
+      {
+        "heading": "Upgrades & retrofits",
+        "lines": [
+          "Migrate a legacy logic solver with independent functional safety review.",
+          "Improve bypass, diagnostics and proof-test documentation.",
+          "Extend SIF interfaces only following hazard assessment and SRS update.",
+          "Retrofit scope depends on existing OEM interfaces, component condition, available space, shutdown windows and the approval basis of any safety-related functions."
+        ]
+      },
+      {
+        "heading": "Applications",
+        "lines": [
+          "Onshore production",
+          "Refineries",
+          "Pipelines",
+          "Offshore platforms"
+        ]
+      },
+      {
+        "heading": "Testing & documentation",
+        "lines": [
+          "Relevant IEC, ISO, API, classification-society, hazardous-area or functional-safety requirements must be selected according to the specific system and installation. Where applicable, the project package may include electrical drawings, GA layouts, datasheets, I/O schedules, cause-and-effect, communication lists, inspection records, FAT/SAT procedures, calibration records and as-built documents. No unverified compliance certification is claimed here."
+        ]
+      }
+    ],
+    "specTreatment": [
+      {
+        "parameter": "IEC 61511 lifecycle applicability",
+        "treatment": "Selected to match the connected equipment, operating duty and site conditions."
+      },
+      {
+        "parameter": "SIL allocation by project study",
+        "treatment": "Selected to match the connected equipment, operating duty and site conditions."
+      },
+      {
+        "parameter": "SRS",
+        "treatment": "Selected to match the connected equipment, operating duty and site conditions."
+      },
+      {
+        "parameter": "Segregation",
+        "treatment": "Selected to match the connected equipment, operating duty and site conditions."
+      },
+      {
+        "parameter": "Bypass management",
+        "treatment": "Selected to match the connected equipment, operating duty and site conditions."
+      },
+      {
+        "parameter": "Proof-test intervals",
+        "treatment": "Selected to match the connected equipment, operating duty and site conditions."
+      },
+      {
+        "parameter": "FAT/SAT and functional safety assessment",
+        "treatment": "Selected to match the connected equipment, operating duty and site conditions."
+      }
+    ],
+    "faqs": [
+      {
+        "q": "Can ESD be integrated with plant SCADA?",
+        "a": "Status and approved commands can be interfaced while maintaining required safety independence."
+      },
+      {
+        "q": "Is every ESD system SIL-rated?",
+        "a": "Not necessarily; the required integrity follows the project hazard/risk assessment."
+      },
+      {
+        "q": "What documentation is essential?",
+        "a": "SRS, cause-and-effect, shutdown narratives, I/O list and applicable site standards."
+      }
+    ],
+    "status": "draft",
+    "gates": [
+      "Safety-critical: ratings, standards and any SIL/Ex claim need engineering sign-off.",
+      "Specifications are project-specific and need the approved datasheet."
+    ]
+  },
+  {
     "url": "/products/explosion-proof-cctv/",
     "breadcrumb": [
       "Home",
@@ -3212,6 +3517,12 @@ export const SPEC_PAGES: SpecPage[] = [
     "h1": "Explosion-Proof CCTV & Perimeter Security",
     "answer": "Industrial CCTV in hazardous and offshore environments requires more than camera selection. SMEC supports camera/VMS architecture, hazardous-area equipment selection to project certification requirements, network/power interfaces, control-room integration and selected AI video analytics through NexView.",
     "sections": [
+      {
+        "heading": "Industrial Surveillance Designed for Hazardous and High-Risk Sites",
+        "lines": [
+          "Industrial CCTV is not only about image capture. For oil and gas sites, the architecture must address hazardous-area suitability, coverage, network resilience, recording, access control and the events operators need to investigate."
+        ]
+      },
       {
         "heading": "Technical scope / product architecture",
         "lines": [
@@ -3238,6 +3549,59 @@ export const SPEC_PAGES: SpecPage[] = [
         ]
       },
       {
+        "heading": "How it works",
+        "lines": [
+          "Camera selection — Fixed/PTZ/thermal and Ex-rated cameras are chosen according to coverage, light, process hazards and zone classification.",
+          "Network — Video bandwidth, storage retention, UPS, cybersecurity and network resilience must be sized as one system.",
+          "Installation — Camera/enclosure certification, mounting, cable glands and environmental protection must match the hazardous-area requirements."
+        ]
+      },
+      {
+        "heading": "Key components",
+        "lines": [
+          "Ex-rated camera options. Camera selection considers hazardous-area approval where applicable, field of view, lighting, lens, environmental protection and network/storage capacity.",
+          "PTZ and fixed cameras. Camera selection considers hazardous-area approval where applicable, field of view, lighting, lens, environmental protection and network/storage capacity.",
+          "Thermal imaging interfaces. The thermal imaging interfaces is selected for the equipment, operating duty and site conditions.",
+          "Perimeter intrusion. The perimeter intrusion is selected for the equipment, operating duty and site conditions.",
+          "Video management. The video management is selected for the equipment, operating duty and site conditions.",
+          "Event alarms. Alarm thresholds, priorities, delays and operator actions must be documented to avoid nuisance alarms and missed critical events.",
+          "Recording and storage. The recording and storage is selected for the equipment, operating duty and site conditions.",
+          "Control-room integration. The control-room integration is selected for the equipment, operating duty and site conditions."
+        ]
+      },
+      {
+        "heading": "Configurations & options",
+        "lines": [
+          "Project-engineered options can include the following, where technically appropriate and approved for the installation:",
+          "Operational events: Perimeter intrusion, restricted-area monitoring and alarm interfaces may be added through approved VMS/analytics integration."
+        ]
+      },
+      {
+        "heading": "Upgrades & retrofits",
+        "lines": [
+          "Upgrade camera coverage and Ex-rated hardware following a site survey.",
+          "Migrate VMS, recording and network infrastructure.",
+          "Add approved perimeter analytics and centralised event management.",
+          "Retrofit scope depends on existing OEM interfaces, component condition, available space, shutdown windows and the approval basis of any safety-related functions."
+        ]
+      },
+      {
+        "heading": "Applications",
+        "lines": [
+          "Refineries",
+          "Terminals",
+          "Rigs",
+          "Remote well pads",
+          "Perimeter security"
+        ]
+      },
+      {
+        "heading": "Testing & documentation",
+        "lines": [
+          "Relevant IEC, ISO, API, classification-society, hazardous-area or functional-safety requirements must be selected according to the specific system and installation. Where applicable, the project package may include electrical drawings, GA layouts, datasheets, I/O schedules, cause-and-effect, communication lists, inspection records, FAT/SAT procedures, calibration records and as-built documents. No unverified compliance certification is claimed here."
+        ]
+      },
+      {
         "heading": "Conversion CTA",
         "lines": [
           "Send the datasheet/specification, existing make/model (if retrofit), drawings and required delivery/mobilization date.",
@@ -3245,7 +3609,40 @@ export const SPEC_PAGES: SpecPage[] = [
         ]
       }
     ],
-    "specTreatment": [],
+    "specTreatment": [
+      {
+        "parameter": "Zone certification",
+        "treatment": "Selected to match the connected equipment, operating duty and site conditions."
+      },
+      {
+        "parameter": "Environmental ratings",
+        "treatment": "Selected to match the connected equipment, operating duty and site conditions."
+      },
+      {
+        "parameter": "Optical coverage",
+        "treatment": "Selected to match the connected equipment, operating duty and site conditions."
+      },
+      {
+        "parameter": "Network bandwidth",
+        "treatment": "Selected to match the connected equipment, operating duty and site conditions."
+      },
+      {
+        "parameter": "Cyber access controls",
+        "treatment": "Selected to match the connected equipment, operating duty and site conditions."
+      },
+      {
+        "parameter": "Recording retention",
+        "treatment": "Selected to match the connected equipment, operating duty and site conditions."
+      },
+      {
+        "parameter": "Power/UPS",
+        "treatment": "UPS/DC autonomy is selected from critical load demand and required ride-through duration; battery maintenance and alarm contacts must be considered."
+      },
+      {
+        "parameter": "Integration with site security procedures",
+        "treatment": "Selected to match the connected equipment, operating duty and site conditions."
+      }
+    ],
     "faqs": [
       {
         "q": "Can Explosion-Proof CCTV for Oil & Gas be supplied for new build, retrofit or replacement?",
@@ -3258,10 +3655,24 @@ export const SPEC_PAGES: SpecPage[] = [
       {
         "q": "What information is required for quotation?",
         "a": "Send the make/model or required specification, datasheets, drawings, ratings, interfaces, fault details where applicable, site location and required date or shutdown/mobilization window."
+      },
+      {
+        "q": "Can ordinary CCTV be installed in a hazardous area?",
+        "a": "Equipment and installation must meet the site's hazardous-area classification."
+      },
+      {
+        "q": "Does CCTV include AI video analytics?",
+        "a": "Analytics can be specified as an optional interface, but are not assumed in every CCTV package."
+      },
+      {
+        "q": "What is needed for a proposal?",
+        "a": "Plot plan, zone classification, camera locations, retention period and network constraints."
       }
     ],
     "status": "approved",
-    "gates": []
+    "gates": [
+      "Specifications are project-specific and need the approved datasheet."
+    ]
   },
   {
     "url": "/products/fire-gas-detection/",
@@ -3281,6 +3692,12 @@ export const SPEC_PAGES: SpecPage[] = [
     "h1": "Fire & Gas Detection System Integration",
     "answer": "Fire & Gas systems detect project-defined fire and gas hazards and initiate alarms or approved protective actions through a safety architecture. SMEC should position engineering, panel/interface, field-device integration, testing and modernization only within approved project and functional-safety boundaries.",
     "sections": [
+      {
+        "heading": "Fire & Gas Detection Designed Around Coverage and Response",
+        "lines": [
+          "Fire and gas detection is a facility-wide protection function. The engineering work starts with credible hazards, detector coverage, alarm actions and the interfaces between field devices, the F&G logic solver and shutdown systems."
+        ]
+      },
       {
         "heading": "2026 market / lifecycle context",
         "lines": [
@@ -3313,7 +3730,48 @@ export const SPEC_PAGES: SpecPage[] = [
       {
         "heading": "Applications",
         "lines": [
-          "Oil & gas plants, rigs, offshore, terminals, marine and industrial hazardous areas."
+          "Refineries",
+          "Compressor stations",
+          "Terminals",
+          "Offshore facilities",
+          "Onshore production"
+        ]
+      },
+      {
+        "heading": "How it works",
+        "lines": [
+          "Field devices — Combustible/toxic gas, flame, smoke and heat detection technologies are selected against credible hazards and coverage requirements.",
+          "Logic and response — F&G panels implement annunciation, voting and cause-and-effect outputs to ESD, PAGA or other defined interfaces.",
+          "Coverage — Detector placement requires hazard/dispersion and visibility considerations; quantity alone does not establish adequate coverage.",
+          "Lifecycle — Calibration, bump/proof testing, device diagnostics and records are part of maintaining detection performance."
+        ]
+      },
+      {
+        "heading": "Key components",
+        "lines": [
+          "Combustible and toxic gas detection. The combustible and toxic gas detection is selected for the equipment, operating duty and site conditions.",
+          "Flame/smoke/heat detectors. The flame/smoke/heat detectors is selected for the equipment, operating duty and site conditions.",
+          "F&G panels. Panel layout, ingress protection, segregation, component selection and service clearance follow the installation environment, load schedule and maintenance requirements.",
+          "Alarm annunciation. Alarm thresholds, priorities, delays and operator actions must be documented to avoid nuisance alarms and missed critical events.",
+          "Cause-and-effect. The cause-and-effect is selected for the equipment, operating duty and site conditions.",
+          "ESD interfaces. The esd interfaces is selected for the equipment, operating duty and site conditions.",
+          "Detector diagnostics. The detector diagnostics is selected for the equipment, operating duty and site conditions.",
+          "Event records. The event records is selected for the equipment, operating duty and site conditions."
+        ]
+      },
+      {
+        "heading": "Upgrades & retrofits",
+        "lines": [
+          "Replace obsolete detectors/panels while maintaining approved cause-and-effect.",
+          "Extend coverage after a hazard or layout change.",
+          "Add health diagnostics and improve calibration/maintenance records.",
+          "Retrofit scope depends on existing OEM interfaces, component condition, available space, shutdown windows and the approval basis of any safety-related functions."
+        ]
+      },
+      {
+        "heading": "Testing & documentation",
+        "lines": [
+          "Relevant IEC, ISO, API, classification-society, hazardous-area or functional-safety requirements must be selected according to the specific system and installation. Where applicable, the project package may include electrical drawings, GA layouts, datasheets, I/O schedules, cause-and-effect, communication lists, inspection records, FAT/SAT procedures, calibration records and as-built documents. No unverified compliance certification is claimed here."
         ]
       },
       {
@@ -3347,6 +3805,34 @@ export const SPEC_PAGES: SpecPage[] = [
       {
         "parameter": "Testing",
         "treatment": "FAT/SAT/functional tests according to approved test procedure."
+      },
+      {
+        "parameter": "Hazardous-area classification",
+        "treatment": "Selected to match the connected equipment, operating duty and site conditions."
+      },
+      {
+        "parameter": "Detector coverage study",
+        "treatment": "Selected to match the connected equipment, operating duty and site conditions."
+      },
+      {
+        "parameter": "Voting philosophy",
+        "treatment": "Selected to match the connected equipment, operating duty and site conditions."
+      },
+      {
+        "parameter": "Proof testing",
+        "treatment": "Selected to match the connected equipment, operating duty and site conditions."
+      },
+      {
+        "parameter": "Field device certification",
+        "treatment": "Selected to match the connected equipment, operating duty and site conditions."
+      },
+      {
+        "parameter": "Alarm management",
+        "treatment": "Alarm thresholds, priorities, delays and operator actions must be documented to avoid nuisance alarms and missed critical events."
+      },
+      {
+        "parameter": "SIL requirements where specified",
+        "treatment": "Selected to match the connected equipment, operating duty and site conditions."
       }
     ],
     "faqs": [
@@ -3361,6 +3847,18 @@ export const SPEC_PAGES: SpecPage[] = [
       {
         "q": "What information is required for quotation?",
         "a": "Send the make/model or required specification, datasheets, drawings, ratings, interfaces, fault details where applicable, site location and required date or shutdown/mobilization window."
+      },
+      {
+        "q": "Does F&G automatically include ESD?",
+        "a": "The systems may interface, but scope and independent safety functions must be defined."
+      },
+      {
+        "q": "Can old detectors be retained?",
+        "a": "Only after suitability, certification, lifecycle and calibration checks."
+      },
+      {
+        "q": "What inputs are needed?",
+        "a": "Plot plan, hazard study, detector schedule, cause-and-effect and site standards."
       }
     ],
     "status": "draft",
@@ -3388,6 +3886,12 @@ export const SPEC_PAGES: SpecPage[] = [
     "answer": "A flare ignition system must reliably deliver ignition energy from the control point to the pilot under the environmental and hazardous-area conditions of the installation. SMEC supports engineered ignition packages including ignition points, HEA cards/tips, HV cables, pilot interfaces, hazardous-area junction/control panels, field stations and commissioning.",
     "sections": [
       {
+        "heading": "Reliable Pilot Ignition Begins with the Entire Ignition Circuit",
+        "lines": [
+          "A flare pilot ignition package must be engineered around the pilot arrangement, ignition energy, cable routing, environmental exposure and safe operating procedure. SMEC's scope can include ignition controls, field junction boxes, high-voltage cables and status interfaces as specified."
+        ]
+      },
+      {
         "heading": "Technical scope / product architecture",
         "lines": [
           "Multiple ignition-point architecture as project-defined",
@@ -3414,6 +3918,52 @@ export const SPEC_PAGES: SpecPage[] = [
         ]
       },
       {
+        "heading": "How it works",
+        "lines": [
+          "Ignition path — An ignition control panel energises pilot ignition devices through specified cables, field junction boxes and ignition hardware.",
+          "Pilot arrangement — Pilot count, tip arrangement, distance and environmental exposure influence the ignition architecture.",
+          "Feedback — Flame proving or ignition status indication is specified separately from the act of generating a spark.",
+          "Field installation — HV insulation, earthing, Ex-rated equipment and safe test procedures are essential for offshore and process-area installations."
+        ]
+      },
+      {
+        "heading": "Key components",
+        "lines": [
+          "Ignition control panel. Panel layout, ingress protection, segregation, component selection and service clearance follow the installation environment, load schedule and maintenance requirements.",
+          "Ignition cards. The ignition cards is selected for the equipment, operating duty and site conditions.",
+          "Pilot igniters and tips. Pilot ignition depends on the complete circuit: ignition energy, electrodes, high-voltage cable condition, earthing and the site operating procedure.",
+          "High-voltage cable interfaces. The high-voltage cable interfaces is selected for the equipment, operating duty and site conditions.",
+          "Field junction boxes. The field junction boxes is selected for the equipment, operating duty and site conditions.",
+          "Pushbutton stations. The pushbutton stations is selected for the equipment, operating duty and site conditions.",
+          "Status feedback. The status feedback is selected for the equipment, operating duty and site conditions.",
+          "Hazardous-area equipment. The hazardous-area equipment is selected for the equipment, operating duty and site conditions."
+        ]
+      },
+      {
+        "heading": "Upgrades & retrofits",
+        "lines": [
+          "Replace ignition cards, HV cabling and field junction boxes as needed.",
+          "Add pilot points or local/remote initiation stations to an approved sequence.",
+          "Introduce flame status feedback where supported by the pilot arrangement.",
+          "Retrofit scope depends on existing OEM interfaces, component condition, available space, shutdown windows and the approval basis of any safety-related functions."
+        ]
+      },
+      {
+        "heading": "Applications",
+        "lines": [
+          "Offshore platforms",
+          "Well testing",
+          "Production facilities",
+          "Refineries"
+        ]
+      },
+      {
+        "heading": "Testing & documentation",
+        "lines": [
+          "Relevant IEC, ISO, API, classification-society, hazardous-area or functional-safety requirements must be selected according to the specific system and installation. Where applicable, the project package may include electrical drawings, GA layouts, datasheets, I/O schedules, cause-and-effect, communication lists, inspection records, FAT/SAT procedures, calibration records and as-built documents. No unverified compliance certification is claimed here."
+        ]
+      },
+      {
         "heading": "Conversion CTA",
         "lines": [
           "Send the datasheet/specification, existing make/model (if retrofit), drawings and required delivery/mobilization date.",
@@ -3421,7 +3971,40 @@ export const SPEC_PAGES: SpecPage[] = [
         ]
       }
     ],
-    "specTreatment": [],
+    "specTreatment": [
+      {
+        "parameter": "Pilot count and location",
+        "treatment": "Pilot ignition depends on the complete circuit: ignition energy, electrodes, high-voltage cable condition, earthing and the site operating procedure."
+      },
+      {
+        "parameter": "Ignition distance",
+        "treatment": "Selected to match the connected equipment, operating duty and site conditions."
+      },
+      {
+        "parameter": "Cable length",
+        "treatment": "Selected to match the connected equipment, operating duty and site conditions."
+      },
+      {
+        "parameter": "Enclosure protection",
+        "treatment": "Protection settings, trip contacts and fault discrimination must coordinate with upstream and downstream equipment and be demonstrated during testing."
+      },
+      {
+        "parameter": "Earthing",
+        "treatment": "Protective earthing, bonding, power/control cable segregation and shield termination reduce shock risk and electrical interference."
+      },
+      {
+        "parameter": "Purge/operating sequence",
+        "treatment": "Selected to match the connected equipment, operating duty and site conditions."
+      },
+      {
+        "parameter": "Flame confirmation interface",
+        "treatment": "Selected to match the connected equipment, operating duty and site conditions."
+      },
+      {
+        "parameter": "Hazardous-area certification",
+        "treatment": "Selected to match the connected equipment, operating duty and site conditions."
+      }
+    ],
     "faqs": [
       {
         "q": "Can Flare Pilot Ignition System be supplied for new build, retrofit or replacement?",
@@ -3434,11 +4017,24 @@ export const SPEC_PAGES: SpecPage[] = [
       {
         "q": "What information is required for quotation?",
         "a": "Send the make/model or required specification, datasheets, drawings, ratings, interfaces, fault details where applicable, site location and required date or shutdown/mobilization window."
+      },
+      {
+        "q": "Can an old ignition panel be replaced while retaining pilot hardware?",
+        "a": "Sometimes, after compatibility and condition checks."
+      },
+      {
+        "q": "Is flame detection included?",
+        "a": "It can be specified as an interface or package element, but must be explicitly defined."
+      },
+      {
+        "q": "What should the RFQ include?",
+        "a": "Pilot count, existing ignition arrangement, drawings, hazardous-area rating and site conditions."
       }
     ],
     "status": "draft",
     "gates": [
-      "Safety-critical: ratings, standards and any SIL/Ex claim need engineering sign-off."
+      "Safety-critical: ratings, standards and any SIL/Ex claim need engineering sign-off.",
+      "Specifications are project-specific and need the approved datasheet."
     ]
   },
   {
@@ -3459,6 +4055,12 @@ export const SPEC_PAGES: SpecPage[] = [
     "h1": "Gas Watch Drilling Mud Gas Detection System",
     "answer": "Gas Watch is a drilling-mud gas detection chain, not simply a standalone detector. Gas released from returning drilling mud is extracted at the mud-flow point, transported as a conditioned sample, measured for total gas and H2S, and converted into local alarms and analogue/digital outputs for drilling or supervisory systems.",
     "sections": [
+      {
+        "heading": "Gas Watch: Bring Drilling Gas Conditions into Clear View",
+        "lines": [
+          "Mud-gas monitoring supports early awareness of gas conditions in the drilling process. A useful Gas Watch package combines suitable detection, sample handling or sensor installation, alarm logic and reliable communication to the drilling team."
+        ]
+      },
       {
         "heading": "Technical scope / product architecture",
         "lines": [
@@ -3485,6 +4087,50 @@ export const SPEC_PAGES: SpecPage[] = [
         ]
       },
       {
+        "heading": "How it works",
+        "lines": [
+          "Detection — Total gas and H2S detection may be included depending on the drilling process and selected detector technology.",
+          "Field arrangement — Sampling lines, extraction, sensor location and response time can dominate system performance.",
+          "Alarm interface — Local annunciation, analogue outputs, alarm contacts and DMS/PLC integration are configured around the alarm philosophy.",
+          "Hazardous areas — Detector and panel certification, cable glands, enclosures and calibration provisions must match the installation zone."
+        ]
+      },
+      {
+        "heading": "Key components",
+        "lines": [
+          "Total gas and H2S detection options. The total gas and h2s detection options is selected for the equipment, operating duty and site conditions.",
+          "Local alarm panel. Alarm thresholds, priorities, delays and operator actions must be documented to avoid nuisance alarms and missed critical events.",
+          "Analogue/digital outputs. The analogue/digital outputs is selected for the equipment, operating duty and site conditions.",
+          "Detector health. The detector health is selected for the equipment, operating duty and site conditions.",
+          "Alarm history. Alarm thresholds, priorities, delays and operator actions must be documented to avoid nuisance alarms and missed critical events.",
+          "PLC/DMS integration. The plc/dms integration is selected for the equipment, operating duty and site conditions.",
+          "Hazardous-area equipment as specified. The hazardous-area equipment as specified is selected for the equipment, operating duty and site conditions."
+        ]
+      },
+      {
+        "heading": "Upgrades & retrofits",
+        "lines": [
+          "Replace ageing detectors or gas analyser modules after compatibility review.",
+          "Extend H2S/total-gas alarm channels and integrate with DMS where required.",
+          "Modernise local annunciation, calibration access and alarm event records."
+        ]
+      },
+      {
+        "heading": "Applications",
+        "lines": [
+          "Land rigs",
+          "Offshore rigs",
+          "Mud logging",
+          "Rig safety"
+        ]
+      },
+      {
+        "heading": "Testing & documentation",
+        "lines": [
+          "Relevant IEC, ISO, API, classification-society, hazardous-area or functional-safety requirements must be selected according to the specific system and installation. Where applicable, the project package may include electrical drawings, GA layouts, datasheets, I/O schedules, cause-and-effect, communication lists, inspection records, FAT/SAT procedures, calibration records and as-built documents. No unverified compliance certification is claimed here."
+        ]
+      },
+      {
         "heading": "Conversion CTA",
         "lines": [
           "Send the datasheet/specification, existing make/model (if retrofit), drawings and required delivery/mobilization date.",
@@ -3492,7 +4138,36 @@ export const SPEC_PAGES: SpecPage[] = [
         ]
       }
     ],
-    "specTreatment": [],
+    "specTreatment": [
+      {
+        "parameter": "Gas species and measurement range",
+        "treatment": "Selected to match the connected equipment, operating duty and site conditions."
+      },
+      {
+        "parameter": "Response time",
+        "treatment": "Selected to match the connected equipment, operating duty and site conditions."
+      },
+      {
+        "parameter": "Sampling arrangement",
+        "treatment": "Selected to match the connected equipment, operating duty and site conditions."
+      },
+      {
+        "parameter": "Detector calibration",
+        "treatment": "Selected to match the connected equipment, operating duty and site conditions."
+      },
+      {
+        "parameter": "Zone classification",
+        "treatment": "Selected to match the connected equipment, operating duty and site conditions."
+      },
+      {
+        "parameter": "IECEx/ATEX requirements where applicable",
+        "treatment": "Selected to match the connected equipment, operating duty and site conditions."
+      },
+      {
+        "parameter": "Alarm philosophy",
+        "treatment": "Alarm thresholds, priorities, delays and operator actions must be documented to avoid nuisance alarms and missed critical events."
+      }
+    ],
     "faqs": [
       {
         "q": "Can Drilling Mud Gas Detection | Gas Watch be supplied for new build, retrofit or replacement?",
@@ -3505,11 +4180,24 @@ export const SPEC_PAGES: SpecPage[] = [
       {
         "q": "What information is required for quotation?",
         "a": "Send the make/model or required specification, datasheets, drawings, ratings, interfaces, fault details where applicable, site location and required date or shutdown/mobilization window."
+      },
+      {
+        "q": "Is Gas Watch the same as a general refinery gas detector?",
+        "a": "No; drilling mud-gas applications and fixed-area gas detection have different measurement arrangements."
+      },
+      {
+        "q": "Can alarms be integrated into DMS or rig PLC?",
+        "a": "Yes, subject to approved interfaces and alarm ownership."
+      },
+      {
+        "q": "What details are required for an RFQ?",
+        "a": "Gas type, range, number of points, hazardous-area classification and required outputs."
       }
     ],
     "status": "draft",
     "gates": [
-      "Safety-critical: ratings, standards and any SIL/Ex claim need engineering sign-off."
+      "Safety-critical: ratings, standards and any SIL/Ex claim need engineering sign-off.",
+      "Specifications are project-specific and need the approved datasheet."
     ]
   },
   {
@@ -3530,6 +4218,12 @@ export const SPEC_PAGES: SpecPage[] = [
     "h1": "Generator Control & Power Management Systems",
     "answer": "Generator control and PMS coordinate generator availability, synchronization, load sharing, protection interfaces, load shedding and recovery so the electrical system responds predictably as loads change.",
     "sections": [
+      {
+        "heading": "Generator PMS That Manages the Transition, Not Just the Steady State",
+        "lines": [
+          "Power management is tested when the load changes, a generator trips or the bus must recover. SMEC engineers generator controls around synchronisation, kW/kVAr sharing, load shedding, protection and operating sequences for isolated and grid-connected systems."
+        ]
+      },
       {
         "heading": "2026 market / lifecycle context",
         "lines": [
@@ -3563,7 +4257,47 @@ export const SPEC_PAGES: SpecPage[] = [
       {
         "heading": "Applications",
         "lines": [
-          "Drilling rigs, vessels, isolated plants, utilities, E-Houses and generator packages."
+          "Drilling rigs",
+          "Offshore platforms",
+          "Marine vessels",
+          "Captive power plants"
+        ]
+      },
+      {
+        "heading": "How it works",
+        "lines": [
+          "Synchronisation — Voltage, frequency, phase-angle and breaker permissives govern synchronising and dead-bus closing.",
+          "Load control — Governor and AVR interfaces coordinate active/reactive load sharing, generator starts/stops and operating modes.",
+          "Disturbance response — Priority load shedding, bus transfer and blackout recovery logic should be verified against realistic failure cases.",
+          "Diagnostics — Event logs, breaker status, generator measurements and protection alarms support fault analysis."
+        ]
+      },
+      {
+        "heading": "Key components",
+        "lines": [
+          "Synchronising and breaker controls. The synchronising and breaker controls is selected for the equipment, operating duty and site conditions.",
+          "Load sharing. Load measurement requires a verified mechanical load path, correctly sized sensor, signal conditioning and traceable calibration.",
+          "Automatic start/stop. The automatic start/stop is selected for the equipment, operating duty and site conditions.",
+          "Load shedding. Load measurement requires a verified mechanical load path, correctly sized sensor, signal conditioning and traceable calibration.",
+          "Bus tie logic. The bus tie logic is selected for the equipment, operating duty and site conditions.",
+          "Blackout recovery. The blackout recovery is selected for the equipment, operating duty and site conditions.",
+          "Alarms. Alarm thresholds, priorities, delays and operator actions must be documented to avoid nuisance alarms and missed critical events.",
+          "Generator and engine interfaces. The generator connection must accommodate voltage/frequency variation, transient load steps, breaker status and coordinated protection. Interface signals should be identified in the single-line diagram and I/O schedule."
+        ]
+      },
+      {
+        "heading": "Upgrades & retrofits",
+        "lines": [
+          "Replace legacy synchronisers and PMS controllers while preserving verified protection.",
+          "Add priority load-shedding and blackout recovery sequences.",
+          "Integrate additional generators after load-sharing and fault studies.",
+          "Retrofit scope depends on existing OEM interfaces, component condition, available space, shutdown windows and the approval basis of any safety-related functions."
+        ]
+      },
+      {
+        "heading": "Testing & documentation",
+        "lines": [
+          "Relevant IEC, ISO, API, classification-society, hazardous-area or functional-safety requirements must be selected according to the specific system and installation. Where applicable, the project package may include electrical drawings, GA layouts, datasheets, I/O schedules, cause-and-effect, communication lists, inspection records, FAT/SAT procedures, calibration records and as-built documents. No unverified compliance certification is claimed here."
         ]
       },
       {
@@ -3597,6 +4331,38 @@ export const SPEC_PAGES: SpecPage[] = [
       {
         "parameter": "Testing",
         "treatment": "FAT/SAT/functional tests according to approved test procedure."
+      },
+      {
+        "parameter": "Generator governor/AVR compatibility",
+        "treatment": "The generator connection must accommodate voltage/frequency variation, transient load steps, breaker status and coordinated protection. Interface signals should be identified in the single-line diagram and I/O schedule."
+      },
+      {
+        "parameter": "Operating modes",
+        "treatment": "Selected to match the connected equipment, operating duty and site conditions."
+      },
+      {
+        "parameter": "Protection coordination",
+        "treatment": "Protection settings, trip contacts and fault discrimination must coordinate with upstream and downstream equipment and be demonstrated during testing."
+      },
+      {
+        "parameter": "Load-step study",
+        "treatment": "Load measurement requires a verified mechanical load path, correctly sized sensor, signal conditioning and traceable calibration."
+      },
+      {
+        "parameter": "Dead-bus close",
+        "treatment": "Selected to match the connected equipment, operating duty and site conditions."
+      },
+      {
+        "parameter": "Interlocks",
+        "treatment": "Permissives and trips prevent unsafe sequencing, such as enabling a drive without cooling, lubrication, breaker readiness or the required machinery state."
+      },
+      {
+        "parameter": "Redundancy",
+        "treatment": "Selected to match the connected equipment, operating duty and site conditions."
+      },
+      {
+        "parameter": "HMI and event logging",
+        "treatment": "Selected to match the connected equipment, operating duty and site conditions."
       }
     ],
     "faqs": [
@@ -3611,6 +4377,18 @@ export const SPEC_PAGES: SpecPage[] = [
       {
         "q": "What information is required for quotation?",
         "a": "Send the make/model or required specification, datasheets, drawings, ratings, interfaces, fault details where applicable, site location and required date or shutdown/mobilization window."
+      },
+      {
+        "q": "Can an existing PMS be modernised without replacing generators?",
+        "a": "Often yes, subject to governor, AVR, breaker and protection compatibility."
+      },
+      {
+        "q": "What is the difference between load sharing and load shedding?",
+        "a": "Load sharing distributes demand among online generators; load shedding disconnects selected loads when supply is insufficient."
+      },
+      {
+        "q": "What data is needed?",
+        "a": "Generator ratings, SLD, breaker details, governor/AVR data and operating philosophy."
       }
     ],
     "status": "approved",
@@ -3849,6 +4627,12 @@ export const SPEC_PAGES: SpecPage[] = [
     "answer": "An Integrated Drilling Control System coordinates operator commands, machinery controls, drives, interlocks and selected rig package interfaces through a common control architecture. SMEC can engineer new systems or modernize legacy control layers while preserving required machinery and field interfaces.",
     "sections": [
       {
+        "heading": "One Driller Console. Coordinated Rig Control.",
+        "lines": [
+          "Integrated drilling control connects the operator, machinery controls and protective interlocks across the drilling package. The engineering challenge is not simply bringing equipment onto one screen: it is defining ownership of commands, safe states and interface behaviour between OEM subsystems."
+        ]
+      },
+      {
         "heading": "Technical scope / product architecture",
         "lines": [
           "PLC/control architecture",
@@ -3874,6 +4658,53 @@ export const SPEC_PAGES: SpecPage[] = [
         ]
       },
       {
+        "heading": "How it works",
+        "lines": [
+          "Command architecture — A driller console coordinates commands and status from drawworks, top drive, mud pumps and other subsystems without overriding equipment-specific safety ownership.",
+          "Control networks — PLC and remote I/O networks exchange setpoints, feedback, permissives and diagnostics through documented interfaces.",
+          "Safe operating states — Manual/automatic modes, E-stops, loss-of-communication responses and protective interlocks are defined by the approved control philosophy.",
+          "Human-machine interface — Operator screens should distinguish commanded state, actual state, inhibited action and active fault."
+        ]
+      },
+      {
+        "heading": "Key components",
+        "lines": [
+          "Driller console and HMI. The driller console and hmi is selected for the equipment, operating duty and site conditions.",
+          "Top drive interface. The top drive interface is selected for the equipment, operating duty and site conditions.",
+          "Drawworks controls. The drawworks controls is selected for the equipment, operating duty and site conditions.",
+          "Mud pump integration. The mud pump integration is selected for the equipment, operating duty and site conditions.",
+          "Alarms. Alarm thresholds, priorities, delays and operator actions must be documented to avoid nuisance alarms and missed critical events.",
+          "Equipment permissives. The equipment permissives is selected for the equipment, operating duty and site conditions.",
+          "PLC networks. The plc networks is selected for the equipment, operating duty and site conditions.",
+          "Diagnostics. The diagnostics is selected for the equipment, operating duty and site conditions.",
+          "Remote I/O. The remote i/o is selected for the equipment, operating duty and site conditions."
+        ]
+      },
+      {
+        "heading": "Upgrades & retrofits",
+        "lines": [
+          "Migrate a legacy driller console while retaining compatible OEM machinery controllers.",
+          "Add verified equipment interfaces and diagnostic pages.",
+          "Replace obsolete PLC/network equipment with staged factory simulation.",
+          "Retrofit scope depends on existing OEM interfaces, component condition, available space, shutdown windows and the approval basis of any safety-related functions."
+        ]
+      },
+      {
+        "heading": "Applications",
+        "lines": [
+          "Land rigs",
+          "Jack-ups",
+          "Rig reactivation",
+          "Automation retrofits"
+        ]
+      },
+      {
+        "heading": "Testing & documentation",
+        "lines": [
+          "Relevant IEC, ISO, API, classification-society, hazardous-area or functional-safety requirements must be selected according to the specific system and installation. Where applicable, the project package may include electrical drawings, GA layouts, datasheets, I/O schedules, cause-and-effect, communication lists, inspection records, FAT/SAT procedures, calibration records and as-built documents. No unverified compliance certification is claimed here."
+        ]
+      },
+      {
         "heading": "Conversion CTA",
         "lines": [
           "Send the datasheet/specification, existing make/model (if retrofit), drawings and required delivery/mobilization date.",
@@ -3881,7 +4712,36 @@ export const SPEC_PAGES: SpecPage[] = [
         ]
       }
     ],
-    "specTreatment": [],
+    "specTreatment": [
+      {
+        "parameter": "Functional design specification",
+        "treatment": "Selected to match the connected equipment, operating duty and site conditions."
+      },
+      {
+        "parameter": "Cause-and-effect matrix",
+        "treatment": "Selected to match the connected equipment, operating duty and site conditions."
+      },
+      {
+        "parameter": "Safety boundaries",
+        "treatment": "Selected to match the connected equipment, operating duty and site conditions."
+      },
+      {
+        "parameter": "Communication failure modes",
+        "treatment": "Protocols, command authority, network availability, loss-of-link response and cybersecurity boundaries must be agreed for every equipment interface."
+      },
+      {
+        "parameter": "Manual/automatic transfer",
+        "treatment": "Selected to match the connected equipment, operating duty and site conditions."
+      },
+      {
+        "parameter": "Cybersecurity segmentation",
+        "treatment": "Selected to match the connected equipment, operating duty and site conditions."
+      },
+      {
+        "parameter": "Legacy interface mapping",
+        "treatment": "Selected to match the connected equipment, operating duty and site conditions."
+      }
+    ],
     "faqs": [
       {
         "q": "Can Integrated Drilling Control System be supplied for new build, retrofit or replacement?",
@@ -3894,10 +4754,20 @@ export const SPEC_PAGES: SpecPage[] = [
       {
         "q": "What information is required for quotation?",
         "a": "Send the make/model or required specification, datasheets, drawings, ratings, interfaces, fault details where applicable, site location and required date or shutdown/mobilization window."
+      },
+      {
+        "q": "Does integrated drilling control replace every OEM controller?",
+        "a": "Not necessarily; existing equipment controllers may be retained through verified interfaces."
+      },
+      {
+        "q": "What is required for an initial study?",
+        "a": "Rig equipment list, existing control architecture, electrical drawings and operating sequences."
       }
     ],
     "status": "approved",
-    "gates": []
+    "gates": [
+      "Specifications are project-specific and need the approved datasheet."
+    ]
   },
   {
     "url": "/products/jacking-control-system/",
@@ -3917,6 +4787,12 @@ export const SPEC_PAGES: SpecPage[] = [
     "h1": "Jacking Control System",
     "answer": "Jacking systems coordinate motors/drives, brakes, pinion/rack machinery, leg position and load-related signals during elevated-risk rig moves. SMEC supports control-system engineering, modernization, operator interfaces, diagnostics and integration around the installed jacking machinery.",
     "sections": [
+      {
+        "heading": "Jacking Control That Understands Load, Motion and Interlocks",
+        "lines": [
+          "Jack-up rig jacking is a coordinated mechanical and electrical operation. Control-system engineering must respect motor groups, brakes, leg movement, operating limits and the relationships between machinery feedback and operator commands."
+        ]
+      },
       {
         "heading": "Technical scope / product architecture",
         "lines": [
@@ -3943,6 +4819,51 @@ export const SPEC_PAGES: SpecPage[] = [
         ]
       },
       {
+        "heading": "How it works",
+        "lines": [
+          "Drive groups — Jack-up legs use coordinated motor/gearbox/brake groups; drive sequencing and permissives must respect load sharing and rig-specific operating limits.",
+          "Feedback — Position, speed, brake status, motor current and load information support operation and fault diagnosis.",
+          "Interlocks — Emergency stops, travel limits, brake-release confirmation and safe-mode transitions follow OEM-approved logic.",
+          "Mechanical condition — Control modernisation does not remove the need to assess rack/pinion wear, gearbox condition and brake performance."
+        ]
+      },
+      {
+        "heading": "Key components",
+        "lines": [
+          "Motor group sequencing. The motor group sequencing is selected for the equipment, operating duty and site conditions.",
+          "Brake release logic. Brake status and release permissives must be verified against the machine operating sequence, including stop and loss-of-power scenarios.",
+          "Leg position. The leg position is selected for the equipment, operating duty and site conditions.",
+          "Load and current monitoring. Load measurement requires a verified mechanical load path, correctly sized sensor, signal conditioning and traceable calibration.",
+          "Speed control. The speed control is selected for the equipment, operating duty and site conditions.",
+          "Alarms and interlocks. Permissives and trips prevent unsafe sequencing, such as enabling a drive without cooling, lubrication, breaker readiness or the required machinery state.",
+          "Operator stations. The operator stations is selected for the equipment, operating duty and site conditions.",
+          "Drive/PLC retrofit. The drive/plc retrofit is selected for the equipment, operating duty and site conditions."
+        ]
+      },
+      {
+        "heading": "Upgrades & retrofits",
+        "lines": [
+          "Migrate PLC/HMI while retaining proven motor/brake hardware if approved.",
+          "Add motor-current, brake and gearbox condition data.",
+          "Integrate RPD visibility and enhanced event diagnostics subject to OEM limits.",
+          "Retrofit scope depends on existing OEM interfaces, component condition, available space, shutdown windows and the approval basis of any safety-related functions."
+        ]
+      },
+      {
+        "heading": "Applications",
+        "lines": [
+          "Jack-up rigs",
+          "Rig life extension",
+          "Jacking system retrofit"
+        ]
+      },
+      {
+        "heading": "Testing & documentation",
+        "lines": [
+          "Relevant IEC, ISO, API, classification-society, hazardous-area or functional-safety requirements must be selected according to the specific system and installation. Where applicable, the project package may include electrical drawings, GA layouts, datasheets, I/O schedules, cause-and-effect, communication lists, inspection records, FAT/SAT procedures, calibration records and as-built documents. No unverified compliance certification is claimed here."
+        ]
+      },
+      {
         "heading": "Conversion CTA",
         "lines": [
           "Send the datasheet/specification, existing make/model (if retrofit), drawings and required delivery/mobilization date.",
@@ -3950,7 +4871,40 @@ export const SPEC_PAGES: SpecPage[] = [
         ]
       }
     ],
-    "specTreatment": [],
+    "specTreatment": [
+      {
+        "parameter": "Load distribution",
+        "treatment": "Load measurement requires a verified mechanical load path, correctly sized sensor, signal conditioning and traceable calibration."
+      },
+      {
+        "parameter": "Motor/gearbox grouping",
+        "treatment": "Selected to match the connected equipment, operating duty and site conditions."
+      },
+      {
+        "parameter": "Position measurement",
+        "treatment": "Selected to match the connected equipment, operating duty and site conditions."
+      },
+      {
+        "parameter": "Emergency stops",
+        "treatment": "Selected to match the connected equipment, operating duty and site conditions."
+      },
+      {
+        "parameter": "Brake proving",
+        "treatment": "Brake status and release permissives must be verified against the machine operating sequence, including stop and loss-of-power scenarios."
+      },
+      {
+        "parameter": "Permissive logic",
+        "treatment": "Selected to match the connected equipment, operating duty and site conditions."
+      },
+      {
+        "parameter": "Legacy drawings",
+        "treatment": "Selected to match the connected equipment, operating duty and site conditions."
+      },
+      {
+        "parameter": "Operator procedures",
+        "treatment": "Selected to match the connected equipment, operating duty and site conditions."
+      }
+    ],
     "faqs": [
       {
         "q": "Can Jack-Up Rig Jacking Control System be supplied for new build, retrofit or replacement?",
@@ -3963,10 +4917,24 @@ export const SPEC_PAGES: SpecPage[] = [
       {
         "q": "What information is required for quotation?",
         "a": "Send the make/model or required specification, datasheets, drawings, ratings, interfaces, fault details where applicable, site location and required date or shutdown/mobilization window."
+      },
+      {
+        "q": "Can jacking controls be upgraded independently of gearboxes?",
+        "a": "Sometimes, but the mechanical condition and instrumentation must be assessed together."
+      },
+      {
+        "q": "How does this relate to RPD monitoring?",
+        "a": "RPD is a related measurement and protection concern that should be linked to jacking control."
+      },
+      {
+        "q": "What should be supplied for an RFQ?",
+        "a": "Jacking OEM, motor/gearbox details, existing schematics, alarms and retrofit scope."
       }
     ],
     "status": "approved",
-    "gates": []
+    "gates": [
+      "Specifications are project-specific and need the approved datasheet."
+    ]
   },
   {
     "url": "/products/load-monitoring-system/",
@@ -3986,6 +4954,12 @@ export const SPEC_PAGES: SpecPage[] = [
     "h1": "Load Monitoring System",
     "answer": "Load monitoring gives operators a structured view of project-defined leg, machinery or structural load signals during critical operations. SMEC can engineer sensing interfaces, signal conditioning, displays, alarms, trends and integration with jacking or supervisory systems.",
     "sections": [
+      {
+        "heading": "Load Monitoring That Turns Force into an Actionable Signal",
+        "lines": [
+          "Load monitoring is useful only when measurement, calibration and operator response are defined together. SMEC's scope can integrate load cells or existing instrumentation with displays, alarms and machinery-control interfaces."
+        ]
+      },
       {
         "heading": "Technical scope / product architecture",
         "lines": [
@@ -4011,6 +4985,52 @@ export const SPEC_PAGES: SpecPage[] = [
         ]
       },
       {
+        "heading": "How it works",
+        "lines": [
+          "Sensing — Load cells, strain-based sensors or existing transducers measure defined mechanical loads where properly installed and calibrated.",
+          "Signal processing — Excitation, signal conditioning, noise control and analogue/digital conversion affect measurement accuracy.",
+          "Operator information — Displays, trends and configurable alarms present load information to operators or machinery controllers.",
+          "Limits — Calibration uncertainty, mechanical load path and overload protection must be assessed before using readings in a protective function."
+        ]
+      },
+      {
+        "heading": "Key components",
+        "lines": [
+          "Load cells and sensor interfaces. Sensor technology, range, accuracy, location and calibration interval are selected from the physical variable and operating environment.",
+          "Analogue/digital acquisition. The analogue/digital acquisition is selected for the equipment, operating duty and site conditions.",
+          "Local indicators. The local indicators is selected for the equipment, operating duty and site conditions.",
+          "HMI trends. The hmi trends is selected for the equipment, operating duty and site conditions.",
+          "Alarm thresholds. Alarm thresholds, priorities, delays and operator actions must be documented to avoid nuisance alarms and missed critical events.",
+          "Data logging. The data logging is selected for the equipment, operating duty and site conditions.",
+          "PLC/DMS integration. The plc/dms integration is selected for the equipment, operating duty and site conditions.",
+          "Calibration interfaces. The calibration interfaces is selected for the equipment, operating duty and site conditions."
+        ]
+      },
+      {
+        "heading": "Upgrades & retrofits",
+        "lines": [
+          "Replace load sensors and re-establish traceable calibration.",
+          "Add remote indication, trends and event logging.",
+          "Integrate additional load points with existing PLC/DMS interfaces.",
+          "Retrofit scope depends on existing OEM interfaces, component condition, available space, shutdown windows and the approval basis of any safety-related functions."
+        ]
+      },
+      {
+        "heading": "Applications",
+        "lines": [
+          "Jacking equipment",
+          "Drilling machinery",
+          "Lifting systems",
+          "Bulk weight monitoring"
+        ]
+      },
+      {
+        "heading": "Testing & documentation",
+        "lines": [
+          "Relevant IEC, ISO, API, classification-society, hazardous-area or functional-safety requirements must be selected according to the specific system and installation. Where applicable, the project package may include electrical drawings, GA layouts, datasheets, I/O schedules, cause-and-effect, communication lists, inspection records, FAT/SAT procedures, calibration records and as-built documents. No unverified compliance certification is claimed here."
+        ]
+      },
+      {
         "heading": "Conversion CTA",
         "lines": [
           "Send the datasheet/specification, existing make/model (if retrofit), drawings and required delivery/mobilization date.",
@@ -4018,7 +5038,40 @@ export const SPEC_PAGES: SpecPage[] = [
         ]
       }
     ],
-    "specTreatment": [],
+    "specTreatment": [
+      {
+        "parameter": "Measurement range and overload",
+        "treatment": "Load measurement requires a verified mechanical load path, correctly sized sensor, signal conditioning and traceable calibration."
+      },
+      {
+        "parameter": "Accuracy",
+        "treatment": "Selected to match the connected equipment, operating duty and site conditions."
+      },
+      {
+        "parameter": "Environmental protection",
+        "treatment": "Protection settings, trip contacts and fault discrimination must coordinate with upstream and downstream equipment and be demonstrated during testing."
+      },
+      {
+        "parameter": "Mounting",
+        "treatment": "Selected to match the connected equipment, operating duty and site conditions."
+      },
+      {
+        "parameter": "Signal conditioning",
+        "treatment": "Selected to match the connected equipment, operating duty and site conditions."
+      },
+      {
+        "parameter": "Cable noise",
+        "treatment": "Selected to match the connected equipment, operating duty and site conditions."
+      },
+      {
+        "parameter": "Calibration traceability",
+        "treatment": "Selected to match the connected equipment, operating duty and site conditions."
+      },
+      {
+        "parameter": "Safety-related use and independent verification",
+        "treatment": "Selected to match the connected equipment, operating duty and site conditions."
+      }
+    ],
     "faqs": [
       {
         "q": "Can Jack-Up Rig Load Monitoring System be supplied for new build, retrofit or replacement?",
@@ -4031,10 +5084,24 @@ export const SPEC_PAGES: SpecPage[] = [
       {
         "q": "What information is required for quotation?",
         "a": "Send the make/model or required specification, datasheets, drawings, ratings, interfaces, fault details where applicable, site location and required date or shutdown/mobilization window."
+      },
+      {
+        "q": "Can load monitoring connect to an existing PLC?",
+        "a": "Yes, where signal type, scan rate and interface capacity are suitable."
+      },
+      {
+        "q": "What determines sensor selection?",
+        "a": "Load range, installation geometry, accuracy, environment and calibration access."
+      },
+      {
+        "q": "Can load monitoring replace lifting certification?",
+        "a": "No. Monitoring complements, but does not replace, required equipment inspection or certification."
       }
     ],
     "status": "approved",
-    "gates": []
+    "gates": [
+      "Specifications are project-specific and need the approved datasheet."
+    ]
   },
   {
     "url": "/products/marine-growth-prevention/",
@@ -4160,6 +5227,12 @@ export const SPEC_PAGES: SpecPage[] = [
     "answer": "MCCs and PCCs organize motor feeders, protection, switching, metering and automation interfaces into maintainable electrical assemblies. SMEC can support new panels, replacements and brownfield modifications against approved project specifications.",
     "sections": [
       {
+        "heading": "Control Panels Designed for the Plant They Will Actually Operate",
+        "lines": [
+          "A control panel is the physical point where power, signals, protection and maintenance meet. SMEC engineers industrial panels to suit the equipment duty, installation environment, interface requirements and factory acceptance criteria—not simply a standard enclosure size."
+        ]
+      },
+      {
         "heading": "2026 market / lifecycle context",
         "lines": [
           "Brownfield demand is driven as much by obsolescence, spare availability and expansion as by new CAPEX. Retrofit-friendly panel engineering is therefore as important as new-build manufacture."
@@ -4191,7 +5264,49 @@ export const SPEC_PAGES: SpecPage[] = [
       {
         "heading": "Applications",
         "lines": [
-          "Oil & gas facilities, utilities, rigs, marine, manufacturing and infrastructure."
+          "Refineries",
+          "Factories",
+          "Marine",
+          "Rigs",
+          "Utilities",
+          "EPC projects"
+        ]
+      },
+      {
+        "heading": "How it works",
+        "lines": [
+          "Power panels — MCCs manage motor feeders; PCCs distribute electrical power; starter panels provide defined motor starting/protection arrangements.",
+          "Automation panels — PLC, HMI, RTU, marshalling and VFD panels combine control hardware with plant field and network interfaces.",
+          "Electrical design — Continuous current, short-circuit withstand, heat dissipation, segregation, wiring and earthing are engineered for the application.",
+          "Factory verification — Panel inspection, wiring continuity, I/O simulation, protection settings and functional FAT are specified for the delivered scope."
+        ]
+      },
+      {
+        "heading": "Key components",
+        "lines": [
+          "MCC and PCC. The mcc and pcc is selected for the equipment, operating duty and site conditions.",
+          "PLC/HMI/SCADA panels. PLC/HMI functions present status, operating modes, permissives, faults and event history. Commands and safety-related shutdown functions must remain correctly separated.",
+          "VFD and soft-starter panels. Panel layout, ingress protection, segregation, component selection and service clearance follow the installation environment, load schedule and maintenance requirements.",
+          "Starter panels. Panel layout, ingress protection, segregation, component selection and service clearance follow the installation environment, load schedule and maintenance requirements.",
+          "RTU and marshalling panels. An RTU acquires remote station measurements and status, timestamps events and exchanges authorised commands with SCADA while preserving local control on link loss.",
+          "Distribution boards. The distribution boards is selected for the equipment, operating duty and site conditions.",
+          "ESD/F&G interfaces. The esd/f&g interfaces is selected for the equipment, operating duty and site conditions.",
+          "Custom control desks. The custom control desks is selected for the equipment, operating duty and site conditions."
+        ]
+      },
+      {
+        "heading": "Upgrades & retrofits",
+        "lines": [
+          "Replace obsolete PLCs, breakers, drives and starters in existing panel footprints when feasible.",
+          "Expand feeder or I/O capacity subject to electrical/thermal checks.",
+          "Add remote diagnostics and improve documentation/FAT coverage.",
+          "Retrofit scope depends on existing OEM interfaces, component condition, available space, shutdown windows and the approval basis of any safety-related functions."
+        ]
+      },
+      {
+        "heading": "Testing & documentation",
+        "lines": [
+          "Relevant IEC, ISO, API, classification-society, hazardous-area or functional-safety requirements must be selected according to the specific system and installation. Where applicable, the project package may include electrical drawings, GA layouts, datasheets, I/O schedules, cause-and-effect, communication lists, inspection records, FAT/SAT procedures, calibration records and as-built documents. No unverified compliance certification is claimed here."
         ]
       },
       {
@@ -4225,6 +5340,38 @@ export const SPEC_PAGES: SpecPage[] = [
       {
         "parameter": "Testing",
         "treatment": "FAT/SAT/functional tests according to approved test procedure."
+      },
+      {
+        "parameter": "Electrical ratings and short-circuit withstand",
+        "treatment": "Selected to match the connected equipment, operating duty and site conditions."
+      },
+      {
+        "parameter": "Thermal calculations",
+        "treatment": "Selected to match the connected equipment, operating duty and site conditions."
+      },
+      {
+        "parameter": "Segregation",
+        "treatment": "Selected to match the connected equipment, operating duty and site conditions."
+      },
+      {
+        "parameter": "Ingress protection",
+        "treatment": "Protection settings, trip contacts and fault discrimination must coordinate with upstream and downstream equipment and be demonstrated during testing."
+      },
+      {
+        "parameter": "Cable entry",
+        "treatment": "Selected to match the connected equipment, operating duty and site conditions."
+      },
+      {
+        "parameter": "Component lifecycle",
+        "treatment": "Selected to match the connected equipment, operating duty and site conditions."
+      },
+      {
+        "parameter": "Documentation",
+        "treatment": "Selected to match the connected equipment, operating duty and site conditions."
+      },
+      {
+        "parameter": "IEC 61439 applicability for LV assemblies",
+        "treatment": "Selected to match the connected equipment, operating duty and site conditions."
       }
     ],
     "faqs": [
@@ -4239,6 +5386,18 @@ export const SPEC_PAGES: SpecPage[] = [
       {
         "q": "What information is required for quotation?",
         "a": "Send the make/model or required specification, datasheets, drawings, ratings, interfaces, fault details where applicable, site location and required date or shutdown/mobilization window."
+      },
+      {
+        "q": "What is the difference between MCC and PCC?",
+        "a": "An MCC focuses on motor feeders/control; a PCC handles broader power distribution and control."
+      },
+      {
+        "q": "Can a panel be built to an existing plant standard?",
+        "a": "Yes, after reviewing approved specifications, makes, ratings and documentation requirements."
+      },
+      {
+        "q": "What should be shared for pricing?",
+        "a": "SLD, I/O list, load list, drawings, standards, quantities and site conditions."
       }
     ],
     "status": "approved",
@@ -4265,6 +5424,12 @@ export const SPEC_PAGES: SpecPage[] = [
     "answer": "PAGA systems distribute operational announcements and emergency alarms across noisy, hazardous and distributed industrial environments. SMEC can support project-specific PAGA architecture, field devices, control interfaces, zoning, integration and commissioning subject to the approved system design.",
     "sections": [
       {
+        "heading": "Make Every Critical Message Reach the Right Location",
+        "lines": [
+          "In a drilling or process facility, communication is an operational system. PAGA, talkback, local alarms and control-room communications need clear zoning, audibility, survivability and interfaces with emergency procedures."
+        ]
+      },
+      {
         "heading": "Technical scope / product architecture",
         "lines": [
           "Central control/amplification architecture",
@@ -4290,6 +5455,54 @@ export const SPEC_PAGES: SpecPage[] = [
         ]
       },
       {
+        "heading": "How it works",
+        "lines": [
+          "Emergency announcements — PAGA distributes prioritised paging, tones and general alarms across defined facility zones.",
+          "Talkback — Driller/talkback provides operational two-way communication between rig locations; it is not interchangeable with emergency PAGA.",
+          "Coverage — Speaker layout, noise mapping and intelligibility testing determine audibility in operating areas.",
+          "Resilience — Power backup, network redundancy, hazardous-area stations and F&G interfaces follow the facility emergency plan."
+        ]
+      },
+      {
+        "heading": "Key components",
+        "lines": [
+          "Public address and general alarm. Alarm thresholds, priorities, delays and operator actions must be documented to avoid nuisance alarms and missed critical events.",
+          "Driller/Talkback. The driller/talkback is selected for the equipment, operating duty and site conditions.",
+          "Industrial intercom. The industrial intercom is selected for the equipment, operating duty and site conditions.",
+          "Paging stations. The paging stations is selected for the equipment, operating duty and site conditions.",
+          "Speakers/beacons. Speaker and beacon location, acoustic output and alarm priority are based on noise conditions, coverage zones and emergency communication requirements.",
+          "Alarm tones. Alarm thresholds, priorities, delays and operator actions must be documented to avoid nuisance alarms and missed critical events.",
+          "Zone control. The zone control is selected for the equipment, operating duty and site conditions.",
+          "Equipment racks. The equipment racks is selected for the equipment, operating duty and site conditions.",
+          "PLC/F&G interfaces. The plc/f&g interfaces is selected for the equipment, operating duty and site conditions."
+        ]
+      },
+      {
+        "heading": "Upgrades & retrofits",
+        "lines": [
+          "Expand speaker zones or talkback stations following an acoustic review.",
+          "Replace ageing analogue equipment with a project-approved digital architecture.",
+          "Improve UPS redundancy and F&G/PAGA interface diagnostics.",
+          "Retrofit scope depends on existing OEM interfaces, component condition, available space, shutdown windows and the approval basis of any safety-related functions."
+        ]
+      },
+      {
+        "heading": "Applications",
+        "lines": [
+          "Land rigs",
+          "Offshore rigs",
+          "Refineries",
+          "Terminals",
+          "Industrial plants"
+        ]
+      },
+      {
+        "heading": "Testing & documentation",
+        "lines": [
+          "Relevant IEC, ISO, API, classification-society, hazardous-area or functional-safety requirements must be selected according to the specific system and installation. Where applicable, the project package may include electrical drawings, GA layouts, datasheets, I/O schedules, cause-and-effect, communication lists, inspection records, FAT/SAT procedures, calibration records and as-built documents. No unverified compliance certification is claimed here."
+        ]
+      },
+      {
         "heading": "Conversion CTA",
         "lines": [
           "Send the datasheet/specification, existing make/model (if retrofit), drawings and required delivery/mobilization date.",
@@ -4297,7 +5510,40 @@ export const SPEC_PAGES: SpecPage[] = [
         ]
       }
     ],
-    "specTreatment": [],
+    "specTreatment": [
+      {
+        "parameter": "Acoustic coverage and intelligibility",
+        "treatment": "Selected to match the connected equipment, operating duty and site conditions."
+      },
+      {
+        "parameter": "Ambient noise",
+        "treatment": "Selected to match the connected equipment, operating duty and site conditions."
+      },
+      {
+        "parameter": "Redundancy",
+        "treatment": "Selected to match the connected equipment, operating duty and site conditions."
+      },
+      {
+        "parameter": "Zoning",
+        "treatment": "Selected to match the connected equipment, operating duty and site conditions."
+      },
+      {
+        "parameter": "Hazardous-area devices",
+        "treatment": "Selected to match the connected equipment, operating duty and site conditions."
+      },
+      {
+        "parameter": "Power backup",
+        "treatment": "Electrical supply and distribution require verified voltage, frequency, load, short-circuit level, protection coordination and earthing arrangements."
+      },
+      {
+        "parameter": "Cable routes",
+        "treatment": "Selected to match the connected equipment, operating duty and site conditions."
+      },
+      {
+        "parameter": "Emergency priority logic",
+        "treatment": "Selected to match the connected equipment, operating duty and site conditions."
+      }
+    ],
     "faqs": [
       {
         "q": "Can PAGA Public Address & General Alarm System be supplied for new build, retrofit or replacement?",
@@ -4310,10 +5556,149 @@ export const SPEC_PAGES: SpecPage[] = [
       {
         "q": "What information is required for quotation?",
         "a": "Send the make/model or required specification, datasheets, drawings, ratings, interfaces, fault details where applicable, site location and required date or shutdown/mobilization window."
+      },
+      {
+        "q": "Is driller talkback the same as PAGA?",
+        "a": "No. Talkback supports operational two-way communications; PAGA distributes announcements and alarms."
+      },
+      {
+        "q": "Can PAGA interface with F&G?",
+        "a": "Yes, with a documented cause-and-effect and alarm priority philosophy."
+      },
+      {
+        "q": "What determines speaker quantity?",
+        "a": "Noise conditions, area layout, intelligibility requirements and site standards."
       }
     ],
     "status": "approved",
-    "gates": []
+    "gates": [
+      "Specifications are project-specific and need the approved datasheet."
+    ]
+  },
+  {
+    "url": "/products/pipeline-scada-rtu/",
+    "breadcrumb": [
+      "Home",
+      "Products",
+      "Pipeline SCADA & RTU Systems"
+    ],
+    "seoTitle": "Pipeline SCADA & RTU Systems | SMEC",
+    "metaDescription": "Pipeline SCADA and RTU systems for remote stations, pumps, valves and metering, engineered as one supervisory architecture with local fail-safe control.",
+    "schema": [
+      "Product",
+      "BreadcrumbList",
+      "FAQPage only for visible FAQs"
+    ],
+    "intent": "pipeline SCADA RTU system; remote station automation",
+    "h1": "Pipeline SCADA & RTU Systems",
+    "answer": "Pipeline SCADA connects geographically distributed stations — RTUs, metering, valves and pump or compressor sites — to one supervisory environment of operator displays, alarms, trends and controlled remote commands. SMEC engineers that architecture around command authority, communications availability and alarm priority, with local control retained when a link is lost.",
+    "sections": [
+      {
+        "heading": "Pipeline Visibility from Remote Station to Control Room",
+        "lines": [
+          "Pipeline SCADA must connect dispersed stations without losing clarity about command authority, communications status or alarm priority. SMEC's engineering scope can bring RTUs, metering, valves, pump/compressor stations and supervisory systems into a coherent architecture."
+        ]
+      },
+      {
+        "heading": "How it works",
+        "lines": [
+          "Remote stations — RTUs collect pipeline pressure, flow, metering, valve and equipment data at geographically distributed stations.",
+          "Supervisory layer — SCADA provides operator displays, alarms, historical trends and controlled remote commands.",
+          "Communications — Latency, outages, redundancy, time synchronisation and store-and-forward requirements shape the telemetry design.",
+          "Cyber and safety — Remote-control authority, network segregation and fail-safe local operation are essential; leak detection is a separate engineered function."
+        ]
+      },
+      {
+        "heading": "Key components",
+        "lines": [
+          "RTU/PLC panels. An RTU acquires remote station measurements and status, timestamps events and exchanges authorised commands with SCADA while preserving local control on link loss.",
+          "Remote I/O. The remote i/o is selected for the equipment, operating duty and site conditions.",
+          "Telemetry gateways. The telemetry gateways is selected for the equipment, operating duty and site conditions.",
+          "Pump and compressor interfaces. The pump and compressor interfaces is selected for the equipment, operating duty and site conditions.",
+          "Valve stations. Valve actuation and position feedback must follow the approved process control and fail-safe philosophy, including loss-of-power behaviour.",
+          "Alarm/event logging. Alarm thresholds, priorities, delays and operator actions must be documented to avoid nuisance alarms and missed critical events.",
+          "Historian. The historian is selected for the equipment, operating duty and site conditions.",
+          "SCADA HMI. SCADA consolidates remote station measurements, alarms, trends and supervisory commands; local protective functions remain in field controls.",
+          "Redundant communication options. Protocols, command authority, network availability, loss-of-link response and cybersecurity boundaries must be agreed for every equipment interface."
+        ]
+      },
+      {
+        "heading": "Upgrades & retrofits",
+        "lines": [
+          "Migrate SCADA servers and historian while retaining compatible station RTUs.",
+          "Replace ageing field RTUs in phases and add communication redundancy.",
+          "Extend pump/compressor/valve station monitoring with secure control boundaries.",
+          "Retrofit scope depends on existing OEM interfaces, component condition, available space, shutdown windows and the approval basis of any safety-related functions."
+        ]
+      },
+      {
+        "heading": "Applications",
+        "lines": [
+          "Crude pipelines",
+          "Gas pipelines",
+          "Terminals",
+          "Gathering networks"
+        ]
+      },
+      {
+        "heading": "Testing & documentation",
+        "lines": [
+          "Relevant IEC, ISO, API, classification-society, hazardous-area or functional-safety requirements must be selected according to the specific system and installation. Where applicable, the project package may include electrical drawings, GA layouts, datasheets, I/O schedules, cause-and-effect, communication lists, inspection records, FAT/SAT procedures, calibration records and as-built documents. No unverified compliance certification is claimed here."
+        ]
+      }
+    ],
+    "specTreatment": [
+      {
+        "parameter": "Communications topology and latency",
+        "treatment": "Protocols, command authority, network availability, loss-of-link response and cybersecurity boundaries must be agreed for every equipment interface."
+      },
+      {
+        "parameter": "Store-and-forward",
+        "treatment": "Selected to match the connected equipment, operating duty and site conditions."
+      },
+      {
+        "parameter": "Cybersecurity zoning",
+        "treatment": "Selected to match the connected equipment, operating duty and site conditions."
+      },
+      {
+        "parameter": "Time synchronisation",
+        "treatment": "Selected to match the connected equipment, operating duty and site conditions."
+      },
+      {
+        "parameter": "Fail-safe control",
+        "treatment": "Selected to match the connected equipment, operating duty and site conditions."
+      },
+      {
+        "parameter": "Data quality",
+        "treatment": "Selected to match the connected equipment, operating duty and site conditions."
+      },
+      {
+        "parameter": "Redundancy",
+        "treatment": "Selected to match the connected equipment, operating duty and site conditions."
+      },
+      {
+        "parameter": "Pipeline-specific operational requirements",
+        "treatment": "Selected to match the connected equipment, operating duty and site conditions."
+      }
+    ],
+    "faqs": [
+      {
+        "q": "Is SCADA a leak detection system?",
+        "a": "No. SCADA provides data and controls; leak detection requires a separately defined detection methodology."
+      },
+      {
+        "q": "Can mixed-vendor RTUs be integrated?",
+        "a": "Often, subject to protocols, licensing, data mapping and cybersecurity requirements."
+      },
+      {
+        "q": "What is required for an RFQ?",
+        "a": "Station count, tag lists, telecoms details, existing RTUs, network diagram and control-room scope."
+      }
+    ],
+    "status": "approved",
+    "gates": [
+      "Specifications are project-specific and need the approved datasheet."
+    ]
   },
   {
     "url": "/products/plant-automation-scada/",
@@ -4545,6 +5930,12 @@ export const SPEC_PAGES: SpecPage[] = [
     "answer": "A rig Power House is a transportable, pre-wired power and control package designed around the rig's generation, distribution and drive architecture. SMEC can engineer new units, retrofit existing houses or replace obsolete electrical/control sections, with project-specific PMS, panels, drives, UPS/DC, controls, HVAC and monitoring.",
     "sections": [
       {
+        "heading": "Packaged Power Houses Built Around the Entire Electrical System",
+        "lines": [
+          "Power houses consolidate electrical distribution, conversion and control into a coordinated, maintainable package. SMEC's engineering scope can integrate incoming power, switchgear, transformers, protection, DC systems and auxiliary services based on the project requirement."
+        ]
+      },
+      {
         "heading": "Technical scope / product architecture",
         "lines": [
           "PCR/SCR/VFD architecture as project-defined",
@@ -4570,6 +5961,53 @@ export const SPEC_PAGES: SpecPage[] = [
         ]
       },
       {
+        "heading": "How it works",
+        "lines": [
+          "Power distribution — Incoming feeders, transformer capacity, MV/LV switchgear, PCC/MCC, outgoing loads and protection relays form a coordinated electrical distribution system.",
+          "Protection — Short-circuit withstand, selectivity, earthing, fault clearing and arc-flash considerations are established from system studies.",
+          "Auxiliary systems — UPS/DC power, battery autonomy, lighting, HVAC, metering and fire detection are coordinated with critical load requirements.",
+          "Plant integration — Power management, remote indication, breaker controls and maintenance access are designed around the actual operating philosophy."
+        ]
+      },
+      {
+        "heading": "Key components",
+        "lines": [
+          "Incoming MV/LV distribution. The incoming mv/lv distribution is selected for the equipment, operating duty and site conditions.",
+          "Transformers. Transformer impedance, winding arrangement, cooling, insulation class and protection must suit the upstream fault level and downstream conversion equipment.",
+          "Protection relays. Protection settings, trip contacts and fault discrimination must coordinate with upstream and downstream equipment and be demonstrated during testing.",
+          "MCC/PCC. The mcc/pcc is selected for the equipment, operating duty and site conditions.",
+          "UPS and DC supply. UPS/DC autonomy is selected from critical load demand and required ride-through duration; battery maintenance and alarm contacts must be considered.",
+          "Metering. The metering is selected for the equipment, operating duty and site conditions.",
+          "Earthing. Protective earthing, bonding, power/control cable segregation and shield termination reduce shock risk and electrical interference.",
+          "HVAC. The hvac is selected for the equipment, operating duty and site conditions.",
+          "Fire detection and access control. Fire and gas functions must follow the detector schedule, hazard assessment, cause-and-effect and defined response of alarms and shutdown interfaces."
+        ]
+      },
+      {
+        "heading": "Upgrades & retrofits",
+        "lines": [
+          "Extend feeders or MCC bays following load-flow and short-circuit studies.",
+          "Upgrade protection relays, UPS/DC supply and remote metering.",
+          "Replace ageing switchgear in planned stages to limit site disruption.",
+          "Retrofit scope depends on existing OEM interfaces, component condition, available space, shutdown windows and the approval basis of any safety-related functions."
+        ]
+      },
+      {
+        "heading": "Applications",
+        "lines": [
+          "Oilfields",
+          "Production facilities",
+          "EPC packages",
+          "Offshore installations"
+        ]
+      },
+      {
+        "heading": "Testing & documentation",
+        "lines": [
+          "Relevant IEC, ISO, API, classification-society, hazardous-area or functional-safety requirements must be selected according to the specific system and installation. Where applicable, the project package may include electrical drawings, GA layouts, datasheets, I/O schedules, cause-and-effect, communication lists, inspection records, FAT/SAT procedures, calibration records and as-built documents. No unverified compliance certification is claimed here."
+        ]
+      },
+      {
         "heading": "Conversion CTA",
         "lines": [
           "Send the datasheet/specification, existing make/model (if retrofit), drawings and required delivery/mobilization date.",
@@ -4577,7 +6015,36 @@ export const SPEC_PAGES: SpecPage[] = [
         ]
       }
     ],
-    "specTreatment": [],
+    "specTreatment": [
+      {
+        "parameter": "Power balance and diversity",
+        "treatment": "Electrical supply and distribution require verified voltage, frequency, load, short-circuit level, protection coordination and earthing arrangements."
+      },
+      {
+        "parameter": "Short-circuit withstand",
+        "treatment": "Selected to match the connected equipment, operating duty and site conditions."
+      },
+      {
+        "parameter": "Selectivity",
+        "treatment": "Selected to match the connected equipment, operating duty and site conditions."
+      },
+      {
+        "parameter": "Arc-flash study where applicable",
+        "treatment": "Selected to match the connected equipment, operating duty and site conditions."
+      },
+      {
+        "parameter": "Equipment layout",
+        "treatment": "Selected to match the connected equipment, operating duty and site conditions."
+      },
+      {
+        "parameter": "Heat load",
+        "treatment": "Load measurement requires a verified mechanical load path, correctly sized sensor, signal conditioning and traceable calibration."
+      },
+      {
+        "parameter": "Cable entry and maintainability",
+        "treatment": "Selected to match the connected equipment, operating duty and site conditions."
+      }
+    ],
     "faqs": [
       {
         "q": "Can Power House for Drilling Rigs be supplied for new build, retrofit or replacement?",
@@ -4590,10 +6057,24 @@ export const SPEC_PAGES: SpecPage[] = [
       {
         "q": "What information is required for quotation?",
         "a": "Send the make/model or required specification, datasheets, drawings, ratings, interfaces, fault details where applicable, site location and required date or shutdown/mobilization window."
+      },
+      {
+        "q": "What is included in a power house?",
+        "a": "The package is configured to the load list and can include distribution, conversion, control, auxiliaries and enclosure systems."
+      },
+      {
+        "q": "Can power houses be designed for remote desert sites?",
+        "a": "Yes, with ambient temperature, dust, ventilation and service access considered in design."
+      },
+      {
+        "q": "What is the difference between a power house and an E-House?",
+        "a": "The terms overlap; a power house emphasises power functions, while E-House commonly refers to the modular electrical building/package."
       }
     ],
     "status": "approved",
-    "gates": []
+    "gates": [
+      "Specifications are project-specific and need the approved datasheet."
+    ]
   },
   {
     "url": "/products/rpd-system/",
@@ -4613,6 +6094,12 @@ export const SPEC_PAGES: SpecPage[] = [
     "h1": "RPD System",
     "answer": "RPD monitoring provides information on relative rack/pinion loading behaviour during jacking so operators can identify unequal loading conditions that require attention. SMEC can integrate RPD measurement, displays, alarms and jacking-control interfaces as project-defined.",
     "sections": [
+      {
+        "heading": "See Rack Phase Difference Before It Becomes a Jacking Problem",
+        "lines": [
+          "Rack Phase Difference (RPD) monitoring supports awareness of relative rack positions in jack-up jacking arrangements. Engineering starts with the actual leg, rack and pinion configuration, measurement method and OEM-defined operating limits."
+        ]
+      },
       {
         "heading": "Technical scope / product architecture",
         "lines": [
@@ -4638,6 +6125,50 @@ export const SPEC_PAGES: SpecPage[] = [
         ]
       },
       {
+        "heading": "How it works",
+        "lines": [
+          "Measurement principle — RPD monitors relative rack displacement/phase within jack-up jacking arrangements, using position measurement and rig-specific geometry.",
+          "Display and alarms — Differences can be displayed, trended and alarmed; allowable thresholds are established by the jack-up OEM/design authority.",
+          "Integration — RPD data may interface with the jacking controller, but its protective authority must be explicitly defined.",
+          "Sensor assurance — Sensor mounting, calibration, resolution and signal-loss detection determine the credibility of the displayed difference."
+        ]
+      },
+      {
+        "heading": "Key components",
+        "lines": [
+          "Position measurement interfaces. The position measurement interfaces is selected for the equipment, operating duty and site conditions.",
+          "Rack difference calculation. The rack difference calculation is selected for the equipment, operating duty and site conditions.",
+          "Operator display. The operator display is selected for the equipment, operating duty and site conditions.",
+          "Alarm thresholds. Alarm thresholds, priorities, delays and operator actions must be documented to avoid nuisance alarms and missed critical events.",
+          "Event logging. The event logging is selected for the equipment, operating duty and site conditions.",
+          "Jacking PLC interface. Leg position, drive groups, brake logic and mechanical limits must be evaluated together; the control upgrade cannot substitute for mechanical condition assessment.",
+          "Sensor diagnostics. Sensor technology, range, accuracy, location and calibration interval are selected from the physical variable and operating environment."
+        ]
+      },
+      {
+        "heading": "Upgrades & retrofits",
+        "lines": [
+          "Renew ageing position sensors and calibrate against known references.",
+          "Introduce trend and event history to support jacking investigations.",
+          "Connect RPD alarms to the jacking HMI under a documented interface agreement.",
+          "Retrofit scope depends on existing OEM interfaces, component condition, available space, shutdown windows and the approval basis of any safety-related functions."
+        ]
+      },
+      {
+        "heading": "Applications",
+        "lines": [
+          "Jack-up rigs",
+          "Jacking control upgrades",
+          "Rig reactivation"
+        ]
+      },
+      {
+        "heading": "Testing & documentation",
+        "lines": [
+          "Relevant IEC, ISO, API, classification-society, hazardous-area or functional-safety requirements must be selected according to the specific system and installation. Where applicable, the project package may include electrical drawings, GA layouts, datasheets, I/O schedules, cause-and-effect, communication lists, inspection records, FAT/SAT procedures, calibration records and as-built documents. No unverified compliance certification is claimed here."
+        ]
+      },
+      {
         "heading": "Conversion CTA",
         "lines": [
           "Send the datasheet/specification, existing make/model (if retrofit), drawings and required delivery/mobilization date.",
@@ -4645,7 +6176,36 @@ export const SPEC_PAGES: SpecPage[] = [
         ]
       }
     ],
-    "specTreatment": [],
+    "specTreatment": [
+      {
+        "parameter": "Measurement resolution and calibration",
+        "treatment": "Selected to match the connected equipment, operating duty and site conditions."
+      },
+      {
+        "parameter": "Sensor mounting",
+        "treatment": "Sensor technology, range, accuracy, location and calibration interval are selected from the physical variable and operating environment."
+      },
+      {
+        "parameter": "Leg geometry",
+        "treatment": "Selected to match the connected equipment, operating duty and site conditions."
+      },
+      {
+        "parameter": "Threshold ownership",
+        "treatment": "Selected to match the connected equipment, operating duty and site conditions."
+      },
+      {
+        "parameter": "Communications loss",
+        "treatment": "Protocols, command authority, network availability, loss-of-link response and cybersecurity boundaries must be agreed for every equipment interface."
+      },
+      {
+        "parameter": "Nuisance alarms",
+        "treatment": "Alarm thresholds, priorities, delays and operator actions must be documented to avoid nuisance alarms and missed critical events."
+      },
+      {
+        "parameter": "Integration with existing jacking philosophy",
+        "treatment": "Leg position, drive groups, brake logic and mechanical limits must be evaluated together; the control upgrade cannot substitute for mechanical condition assessment."
+      }
+    ],
     "faqs": [
       {
         "q": "Can Rack Phase Difference RPD System be supplied for new build, retrofit or replacement?",
@@ -4658,10 +6218,24 @@ export const SPEC_PAGES: SpecPage[] = [
       {
         "q": "What information is required for quotation?",
         "a": "Send the make/model or required specification, datasheets, drawings, ratings, interfaces, fault details where applicable, site location and required date or shutdown/mobilization window."
+      },
+      {
+        "q": "Is RPD a standalone jacking controller?",
+        "a": "It is primarily a monitoring/control-interface function and should be engineered with the jacking system."
+      },
+      {
+        "q": "Can existing position sensors be reused?",
+        "a": "Possibly, after checking accuracy, calibration and availability."
+      },
+      {
+        "q": "What drawings are essential?",
+        "a": "Jacking arrangement, sensor layouts, existing PLC architecture and OEM operating limits."
       }
     ],
     "status": "approved",
-    "gates": []
+    "gates": [
+      "Specifications are project-specific and need the approved datasheet."
+    ]
   },
   {
     "url": "/products/scr-houses/",
@@ -4681,6 +6255,12 @@ export const SPEC_PAGES: SpecPage[] = [
     "h1": "SCR Houses for Drilling Rigs",
     "answer": "SCR Houses remain important on many legacy drilling fleets. SMEC supports new-build, repair and modernization scope around SCR drive sections, control electronics, power distribution, cooling, PLC/HMI interfaces and replacement planning where original components are obsolete.",
     "sections": [
+      {
+        "heading": "SCR Houses for Drilling Power That Cannot Afford an Unplanned Stop",
+        "lines": [
+          "An SCR house is more than a shelter for power electronics. It is the interface between rig generation, DC drive loads, protection and the drilling sequence. SMEC engineers SCR power packages around the existing electrical architecture and the practical realities of offshore and onshore rigs."
+        ]
+      },
       {
         "heading": "Technical scope / product architecture",
         "lines": [
@@ -4707,6 +6287,52 @@ export const SPEC_PAGES: SpecPage[] = [
         ]
       },
       {
+        "heading": "How it works",
+        "lines": [
+          "Incoming power and conversion — Incoming AC distribution, transformer secondaries and controlled six-pulse or multi-pulse thyristor bridges must be coordinated with generator fault levels and rig load steps. Bridge topology and any harmonic mitigation follow the electrical study.",
+          "DC output and motors — SCR output can be configured for DC drive applications, including 600–1,200 V DC arrangements. Output voltage, armature current, field supply and braking are matched to the connected motors and drilling duty.",
+          "Controls and protection — Firing-angle control, current limits, bridge cooling, DC contactors, protective interlocks and drive permissives interface with drawworks, mud pumps and other DC drives. Regeneration or dynamic braking depends on the complete drive and power-system topology.",
+          "Enclosure and utilities — MCC feeders, engine/generator controls, ventilation, cable routing, segregation, earthing, maintenance access and transport mounts are specified together."
+        ]
+      },
+      {
+        "heading": "Key components",
+        "lines": [
+          "Generator and transformer interface. The generator connection must accommodate voltage/frequency variation, transient load steps, breaker status and coordinated protection. Interface signals should be identified in the single-line diagram and I/O schedule.",
+          "Rectifier bridges and firing control. Controlled thyristor bridges regulate DC output through firing-angle control; bridge grouping, cooling, semiconductor protection and feedback must match the motor duty.",
+          "DC bus and drive feeders. DC distribution, isolation and feeder protection must be sized for continuous current, peak demand and fault-clearing requirements, with safe maintenance isolation.",
+          "Current and voltage feedback. Current and voltage transducers support closed-loop regulation, overload limitation, fault detection and calibrated operator indication.",
+          "Cooling and ventilation. Ventilation and HVAC must remove the heat produced by power electronics and auxiliaries at the specified site ambient; loss-of-cooling alarms and interlocks should be included.",
+          "Protective interlocks. Permissives and trips prevent unsafe sequencing, such as enabling a drive without cooling, lubrication, breaker readiness or the required machinery state.",
+          "PLC/HMI alarms. PLC/HMI functions present status, operating modes, permissives, faults and event history. Commands and safety-related shutdown functions must remain correctly separated.",
+          "Earthing and cable segregation. Protective earthing, bonding, power/control cable segregation and shield termination reduce shock risk and electrical interference."
+        ]
+      },
+      {
+        "heading": "Upgrades & retrofits",
+        "lines": [
+          "Retain the enclosure and replace obsolete SCR firing cards, bridges or DC contactors after a thermal and insulation survey.",
+          "Modernise generator interfaces, alarm logic and HMI while preserving verified motor protection.",
+          "Assess an SCR-to-VFD conversion only alongside motor replacement, braking duty, harmonics and generator capacity.",
+          "Retrofit scope depends on existing OEM interfaces, component condition, available space, shutdown windows and the approval basis of any safety-related functions."
+        ]
+      },
+      {
+        "heading": "Applications",
+        "lines": [
+          "Land rigs",
+          "Jack-ups",
+          "Offshore drilling rigs",
+          "SCR house refurbishment"
+        ]
+      },
+      {
+        "heading": "Testing & documentation",
+        "lines": [
+          "Relevant IEC, ISO, API, classification-society, hazardous-area or functional-safety requirements must be selected according to the specific system and installation. Where applicable, the project package may include electrical drawings, GA layouts, datasheets, I/O schedules, cause-and-effect, communication lists, inspection records, FAT/SAT procedures, calibration records and as-built documents. No unverified compliance certification is claimed here."
+        ]
+      },
+      {
         "heading": "Conversion CTA",
         "lines": [
           "Send the datasheet/specification, existing make/model (if retrofit), drawings and required delivery/mobilization date.",
@@ -4714,7 +6340,36 @@ export const SPEC_PAGES: SpecPage[] = [
         ]
       }
     ],
-    "specTreatment": [],
+    "specTreatment": [
+      {
+        "parameter": "SCR topology and bridge configuration",
+        "treatment": "Specify the number of controlled rectifier bridges, pulse arrangement, firing controls and DC feeder allocation. Six-pulse and multi-pulse arrangements have different transformer and harmonic implications."
+      },
+      {
+        "parameter": "Input supply and short-circuit level",
+        "treatment": "Record generator or utility voltage/frequency, transformer impedance and maximum/minimum fault levels. These govern semiconductor protection, switchgear withstand and fault-clearing coordination."
+      },
+      {
+        "parameter": "Connected DC motor ratings",
+        "treatment": "List each DC motor armature/field voltage, continuous and peak current, duty cycle, speed range and braking duty; bridge sizing must follow actual drawworks and mud-pump demand."
+      },
+      {
+        "parameter": "Harmonic and power-quality considerations",
+        "treatment": "Assess rectifier current distortion, generator loading and voltage notching; mitigation may require transformer phase shifting, reactors or filters after a power-system study."
+      },
+      {
+        "parameter": "Thermal duty",
+        "treatment": "Calculate losses from SCR bridges, buswork and auxiliaries at maximum duty and ambient temperature; specify ventilation capacity, filtration, alarms and cooling redundancy if needed."
+      },
+      {
+        "parameter": "Hazardous-area boundary",
+        "treatment": "Determine whether the house is in a classified or non-classified location and identify any certified field interfaces, pressurisation requirements or installation restrictions."
+      },
+      {
+        "parameter": "Access and maintainability",
+        "treatment": "Provide working clearance, isolation points, removable modules, lifting access and safe cable-entry routes so technicians can inspect bridges, busbars and cooling equipment."
+      }
+    ],
     "faqs": [
       {
         "q": "Can SCR Houses for Drilling Rigs be supplied for new build, retrofit or replacement?",
@@ -4727,10 +6382,24 @@ export const SPEC_PAGES: SpecPage[] = [
       {
         "q": "What information is required for quotation?",
         "a": "Send the make/model or required specification, datasheets, drawings, ratings, interfaces, fault details where applicable, site location and required date or shutdown/mobilization window."
+      },
+      {
+        "q": "Can an existing SCR house be upgraded without replacing the entire enclosure?",
+        "a": "Often the enclosure and some auxiliaries can be retained after condition, space, cooling and compliance review."
+      },
+      {
+        "q": "What information is needed for an SCR house RFQ?",
+        "a": "Single-line diagram, generator details, motor loads, existing SCR details, drawings, operating voltage and site constraints."
+      },
+      {
+        "q": "Is an SCR house the same as a VFD house?",
+        "a": "No. SCR houses commonly supply controlled DC drive systems; VFD houses typically control AC motors."
       }
     ],
     "status": "approved",
-    "gates": []
+    "gates": [
+      "Specifications are project-specific and need the approved datasheet."
+    ]
   },
   {
     "url": "/products/skidding-current-monitoring/",
@@ -4961,6 +6630,12 @@ export const SPEC_PAGES: SpecPage[] = [
     "answer": "A VFD House packages variable-frequency drives, power/control distribution, cooling/ventilation, protection and control interfaces for drilling and auxiliary motors. SMEC can engineer replacement or new-build VFD packages around motor data, duty cycle, harmonics/project requirements, existing control interfaces and transport constraints.",
     "sections": [
       {
+        "heading": "VFD Houses Engineered Around the Motor, the Load and the Site",
+        "lines": [
+          "A VFD house brings variable-speed power conversion, cooling, protection and control into one engineered package. The right solution begins with the driven equipment, motor insulation, cable length, harmonics and available utility or generator power—not the enclosure dimensions."
+        ]
+      },
+      {
         "heading": "Technical scope / product architecture",
         "lines": [
           "Project-approved VFDs",
@@ -4986,6 +6661,53 @@ export const SPEC_PAGES: SpecPage[] = [
         ]
       },
       {
+        "heading": "How it works",
+        "lines": [
+          "Drive selection — The motor torque-speed curve, overload duration, operating speed range and supply characteristics determine whether LV or MV VFD architecture is appropriate.",
+          "Power quality — Input harmonics, generator interaction, DC-link energy and switching transients are addressed through appropriate transformer, filtering and drive topology.",
+          "Motor interface — Output filters, insulation stress, motor cable length, grounding and common-mode currents are assessed to avoid premature motor or bearing problems.",
+          "Thermal management — Drive losses, ambient temperature, ventilation paths and cooling redundancy determine enclosure/HVAC design."
+        ]
+      },
+      {
+        "heading": "Key components",
+        "lines": [
+          "MV/LV drive selection. The mv/lv drive selection is selected for the equipment, operating duty and site conditions.",
+          "Input transformer and switchgear. Transformer impedance, winding arrangement, cooling, insulation class and protection must suit the upstream fault level and downstream conversion equipment.",
+          "Line reactors and harmonic filters. The line reactors and harmonic filters is selected for the equipment, operating duty and site conditions.",
+          "Braking and regeneration. The braking and regeneration is selected for the equipment, operating duty and site conditions.",
+          "Motor protection. Protection settings, trip contacts and fault discrimination must coordinate with upstream and downstream equipment and be demonstrated during testing.",
+          "HVAC and heat extraction. The hvac and heat extraction is selected for the equipment, operating duty and site conditions.",
+          "PLC/HMI interface. PLC/HMI functions present status, operating modes, permissives, faults and event history. Commands and safety-related shutdown functions must remain correctly separated.",
+          "Bypass and redundancy. The bypass and redundancy is selected for the equipment, operating duty and site conditions."
+        ]
+      },
+      {
+        "heading": "Upgrades & retrofits",
+        "lines": [
+          "Replace obsolete drives while retaining compatible transformers, motors and switchgear after interface verification.",
+          "Add remote drive diagnostics, thermal monitoring and coordinated fault logging.",
+          "Assess active front-end, harmonic mitigation and regeneration options against the power network.",
+          "Retrofit scope depends on existing OEM interfaces, component condition, available space, shutdown windows and the approval basis of any safety-related functions."
+        ]
+      },
+      {
+        "heading": "Applications",
+        "lines": [
+          "Onshore drilling",
+          "Offshore drilling",
+          "Pumps",
+          "Compressors",
+          "Marine machinery"
+        ]
+      },
+      {
+        "heading": "Testing & documentation",
+        "lines": [
+          "Relevant IEC, ISO, API, classification-society, hazardous-area or functional-safety requirements must be selected according to the specific system and installation. Where applicable, the project package may include electrical drawings, GA layouts, datasheets, I/O schedules, cause-and-effect, communication lists, inspection records, FAT/SAT procedures, calibration records and as-built documents. No unverified compliance certification is claimed here."
+        ]
+      },
+      {
         "heading": "Conversion CTA",
         "lines": [
           "Send the datasheet/specification, existing make/model (if retrofit), drawings and required delivery/mobilization date.",
@@ -4993,7 +6715,36 @@ export const SPEC_PAGES: SpecPage[] = [
         ]
       }
     ],
-    "specTreatment": [],
+    "specTreatment": [
+      {
+        "parameter": "Load torque profile and starting duty",
+        "treatment": "Load measurement requires a verified mechanical load path, correctly sized sensor, signal conditioning and traceable calibration."
+      },
+      {
+        "parameter": "Harmonic study where required",
+        "treatment": "Selected to match the connected equipment, operating duty and site conditions."
+      },
+      {
+        "parameter": "Motor cable length and dv/dt",
+        "treatment": "Selected to match the connected equipment, operating duty and site conditions."
+      },
+      {
+        "parameter": "Cooling redundancy",
+        "treatment": "Ventilation and HVAC must remove the heat produced by power electronics and auxiliaries at the specified site ambient; loss-of-cooling alarms and interlocks should be included."
+      },
+      {
+        "parameter": "Ambient temperature",
+        "treatment": "Selected to match the connected equipment, operating duty and site conditions."
+      },
+      {
+        "parameter": "Ingress protection",
+        "treatment": "Protection settings, trip contacts and fault discrimination must coordinate with upstream and downstream equipment and be demonstrated during testing."
+      },
+      {
+        "parameter": "Electrical safety and access",
+        "treatment": "Selected to match the connected equipment, operating duty and site conditions."
+      }
+    ],
     "faqs": [
       {
         "q": "Can VFD Houses for Drilling Rigs be supplied for new build, retrofit or replacement?",
@@ -5006,10 +6757,148 @@ export const SPEC_PAGES: SpecPage[] = [
       {
         "q": "What information is required for quotation?",
         "a": "Send the make/model or required specification, datasheets, drawings, ratings, interfaces, fault details where applicable, site location and required date or shutdown/mobilization window."
+      },
+      {
+        "q": "When should an SCR rig consider a VFD conversion?",
+        "a": "When lifecycle cost, motor replacement, controls, spare parts and power quality justify a system-level upgrade."
+      },
+      {
+        "q": "Can the VFD house be supplied as a packaged unit?",
+        "a": "Yes, subject to transport, site access, cooling and project specification."
+      },
+      {
+        "q": "What determines VFD size?",
+        "a": "Motor data, duty cycle, overload requirement, ambient conditions and driven-machine torque."
       }
     ],
     "status": "approved",
-    "gates": []
+    "gates": [
+      "Specifications are project-specific and need the approved datasheet."
+    ]
+  },
+  {
+    "url": "/products/wellhead-skid-controls/",
+    "breadcrumb": [
+      "Home",
+      "Products",
+      "Onshore Wellhead & Skid Control Systems"
+    ],
+    "seoTitle": "Wellhead & Skid Control Panels | SMEC",
+    "metaDescription": "Wellhead and skid control panels for onshore well pads and packaged equipment: local control sequences, protective interfaces, telemetry and remote visibility.",
+    "schema": [
+      "Product",
+      "BreadcrumbList",
+      "FAQPage only for visible FAQs"
+    ],
+    "intent": "wellhead control panel; skid control panel oil gas",
+    "h1": "Onshore Wellhead & Skid Control Systems",
+    "answer": "Wellhead and skid control panels run the local sequences for a well pad or a packaged skid — pressures, temperatures, valve positions and equipment states — while an RTU or PLC interface carries alarms and operating data to a central SCADA. SMEC engineers the panel, its protective interfaces and its telemetry around remote power, site exposure and field maintainability, so that a loss of communications does not defeat a locally required protective function.",
+    "sections": [
+      {
+        "heading": "Field-Ready Controls for Wellheads and Packaged Equipment",
+        "lines": [
+          "Distributed onshore assets demand controls that are maintainable in the field and visible from the operations centre. SMEC can engineer wellhead and skid controls around local operating logic, protective interfaces, telemetry and the realities of remote power and communications."
+        ]
+      },
+      {
+        "heading": "How it works",
+        "lines": [
+          "Local control — Wellhead/skid panels acquire pressures, temperatures, valve positions and equipment states while executing defined local sequences.",
+          "Remote connectivity — RTU/PLC interfaces can transmit alarms and operational data to a central SCADA system via site-approved telecoms.",
+          "Safety boundaries — Loss of communications must not defeat locally required protective functions.",
+          "Remote deployment — Power availability, solar/DC options, dust/heat exposure and field maintainability influence enclosure and hardware selection."
+        ]
+      },
+      {
+        "heading": "Key components",
+        "lines": [
+          "Wellhead control panels. Panel layout, ingress protection, segregation, component selection and service clearance follow the installation environment, load schedule and maintenance requirements.",
+          "PLC/RTU. An RTU acquires remote station measurements and status, timestamps events and exchanges authorised commands with SCADA while preserving local control on link loss.",
+          "Valve actuation interfaces. Valve actuation and position feedback must follow the approved process control and fail-safe philosophy, including loss-of-power behaviour.",
+          "Pressure/temperature/flow inputs. The pressure/temperature/flow inputs is selected for the equipment, operating duty and site conditions.",
+          "Pump/compressor skids. The pump/compressor skids is selected for the equipment, operating duty and site conditions.",
+          "Local HMI. The local hmi is selected for the equipment, operating duty and site conditions.",
+          "Remote alarms. Alarm thresholds, priorities, delays and operator actions must be documented to avoid nuisance alarms and missed critical events.",
+          "SCADA communications. SCADA consolidates remote station measurements, alarms, trends and supervisory commands; local protective functions remain in field controls."
+        ]
+      },
+      {
+        "heading": "Upgrades & retrofits",
+        "lines": [
+          "Replace legacy RTUs or PLCs without disturbing essential local protection.",
+          "Add telemetry, event logging and remote diagnostics.",
+          "Extend instrumentation and skid integration for additional production equipment.",
+          "Retrofit scope depends on existing OEM interfaces, component condition, available space, shutdown windows and the approval basis of any safety-related functions."
+        ]
+      },
+      {
+        "heading": "Applications",
+        "lines": [
+          "Land well pads",
+          "Production skids",
+          "Gathering stations",
+          "Remote oilfields"
+        ]
+      },
+      {
+        "heading": "Testing & documentation",
+        "lines": [
+          "Relevant IEC, ISO, API, classification-society, hazardous-area or functional-safety requirements must be selected according to the specific system and installation. Where applicable, the project package may include electrical drawings, GA layouts, datasheets, I/O schedules, cause-and-effect, communication lists, inspection records, FAT/SAT procedures, calibration records and as-built documents. No unverified compliance certification is claimed here."
+        ]
+      }
+    ],
+    "specTreatment": [
+      {
+        "parameter": "Site power availability",
+        "treatment": "Electrical supply and distribution require verified voltage, frequency, load, short-circuit level, protection coordination and earthing arrangements."
+      },
+      {
+        "parameter": "Hazardous-area classification",
+        "treatment": "Selected to match the connected equipment, operating duty and site conditions."
+      },
+      {
+        "parameter": "Environmental protection",
+        "treatment": "Protection settings, trip contacts and fault discrimination must coordinate with upstream and downstream equipment and be demonstrated during testing."
+      },
+      {
+        "parameter": "Telecoms coverage",
+        "treatment": "Selected to match the connected equipment, operating duty and site conditions."
+      },
+      {
+        "parameter": "Fail-safe states",
+        "treatment": "Selected to match the connected equipment, operating duty and site conditions."
+      },
+      {
+        "parameter": "Cybersecurity",
+        "treatment": "Selected to match the connected equipment, operating duty and site conditions."
+      },
+      {
+        "parameter": "Maintainability",
+        "treatment": "Selected to match the connected equipment, operating duty and site conditions."
+      },
+      {
+        "parameter": "OEM skid boundaries",
+        "treatment": "Selected to match the connected equipment, operating duty and site conditions."
+      }
+    ],
+    "faqs": [
+      {
+        "q": "Can existing RTUs be reused?",
+        "a": "Possibly, after checking spare capacity, protocol support and lifecycle condition."
+      },
+      {
+        "q": "What happens if telemetry fails?",
+        "a": "Local safe-state behaviour must follow the approved control philosophy."
+      },
+      {
+        "q": "What is needed for a quote?",
+        "a": "P&IDs, I/O list, wellhead/skid equipment details, power and communications requirements."
+      }
+    ],
+    "status": "approved",
+    "gates": [
+      "Specifications are project-specific and need the approved datasheet."
+    ]
   },
   {
     "url": "/resources/",
@@ -5356,6 +7245,13 @@ export const SPEC_PAGES: SpecPage[] = [
     "answer": "SMEC engineers and integrates PLC, HMI, SCADA and package-control systems for new projects and brownfield assets. The scope includes control philosophy, I/O and network architecture, software, panel integration, OEM/package interfaces, FAT, site cutover and commissioning.",
     "sections": [
       {
+        "heading": "Automation That Understands the Machine—and the Operation.",
+        "lines": [
+          "Pumps, compressors, boilers, generators, winches and drilling equipment are often supplied as independent packages. Plant performance depends on the logic, interlocks, operator interfaces and communications that connect them. SMEC engineers automation and control interfaces across process plants, marine machinery and drilling systems.",
+          "Work may include new PLC/HMI/SCADA systems, machinery automation, generator PMS, industrial electronics, troubleshooting, remote monitoring and staged control-system upgrades."
+        ]
+      },
+      {
         "heading": "Technical scope",
         "lines": [
           "PLC and remote I/O architecture",
@@ -5371,6 +7267,81 @@ export const SPEC_PAGES: SpecPage[] = [
         "heading": "Brownfield principle",
         "lines": [
           "Migration is not only a software exercise. Existing I/O, field wiring, panel space, network dependencies, drawings, shutdown windows and fallback strategy determine the real cutover plan."
+        ]
+      },
+      {
+        "heading": "Process & Package Control",
+        "lines": [
+          "Scope can include PLC/DCS/HMI/SCADA, Boiler and burner management, Compressor and pump controls and related interfaces. Equipment selection, engineering responsibilities and testing are defined against the project specification.",
+          "PLC/DCS/HMI/SCADA",
+          "Boiler and burner management",
+          "Compressor and pump controls",
+          "Process skids",
+          "Alarms and interlocks"
+        ]
+      },
+      {
+        "heading": "Machinery & Motion",
+        "lines": [
+          "Scope can include Winches and cranes, Thruster controls, VFD and motor control and related interfaces. Equipment selection, engineering responsibilities and testing are defined against the project specification.",
+          "Winches and cranes",
+          "Thruster controls",
+          "VFD and motor control",
+          "Actuator sequencing",
+          "Position feedback"
+        ]
+      },
+      {
+        "heading": "Power Automation",
+        "lines": [
+          "Scope can include Generator PMS, Synchronisation, Load sharing and shedding and related interfaces. Equipment selection, engineering responsibilities and testing are defined against the project specification.",
+          "Generator PMS",
+          "Synchronisation",
+          "Load sharing and shedding",
+          "Blackout prevention",
+          "Bus transfer",
+          "Protection interfaces"
+        ]
+      },
+      {
+        "heading": "Marine & Drilling",
+        "lines": [
+          "Scope can include Integrated driller consoles, Mud-pump controls, Top-drive interfaces and related interfaces. Equipment selection, engineering responsibilities and testing are defined against the project specification.",
+          "Integrated driller consoles",
+          "Mud-pump controls",
+          "Top-drive interfaces",
+          "Marine IAS",
+          "Ballast controls",
+          "Main-engine remote control",
+          "Ballast control, navigation lights and alarm monitoring",
+          "Fingerboard, pipe-handling and fracturing-equipment control"
+        ]
+      },
+      {
+        "heading": "Electronics & Remote Operations",
+        "lines": [
+          "Scope can include RTUs, Telemetry, Industrial gateways and related interfaces. Equipment selection, engineering responsibilities and testing are defined against the project specification.",
+          "RTUs",
+          "Telemetry",
+          "Industrial gateways",
+          "PCB and control electronics",
+          "NexWave",
+          "Condition-data integration",
+          "Remote operations for geographically dispersed assets"
+        ]
+      },
+      {
+        "heading": "Project Evidence",
+        "lines": [
+          "Industrial Pumping Station — PLC Automation and Generator Control",
+          "A pumping installation required consistent machine sequencing and power-system coordination. The project summary covers PLC/HMI logic, motor controls, generator interfaces, alarms and integrated functional testing."
+        ]
+      },
+      {
+        "heading": "Engineering Approach — From machinery sequence to dependable operation",
+        "lines": [
+          "Automation engineering begins with the actual operating sequence: start permissives, running modes, abnormal conditions, shutdown responses and operator interventions. These functions are translated into an agreed control philosophy, I/O architecture, alarm design and PLC/HMI implementation.",
+          "Multi-package automation requires deliberate interface ownership. Pump or compressor OEM logic, power-system status and supervisory controls must exchange the right information without conflicting commands. Factory simulation, communications testing and site acceptance establish whether the system performs as a complete operating arrangement."
         ]
       },
       {
@@ -5394,6 +7365,18 @@ export const SPEC_PAGES: SpecPage[] = [
       {
         "q": "What information is needed to quote?",
         "a": "Send the asset or project, existing make/model where relevant, drawings or specification, required scope, site, required date and any shutdown or mobilization constraint."
+      },
+      {
+        "q": "Can SMEC integrate controls supplied by different OEMs?",
+        "a": "A technical review can define PLC, communication, hardwired signal, alarm and interlock interfaces between equipment packages."
+      },
+      {
+        "q": "Does the scope include marine and drilling machinery?",
+        "a": "Relevant engineering areas include generator PMS, winches, thrusters, marine IAS and drilling equipment control interfaces."
+      },
+      {
+        "q": "What is needed for an automation proposal?",
+        "a": "Share the functional specification, I/O list, equipment makes/models, process sequence, communication architecture and project schedule."
       }
     ],
     "status": "approved",
@@ -5418,6 +7401,13 @@ export const SPEC_PAGES: SpecPage[] = [
     "answer": "Brownfield engineering begins with what already exists. SMEC assesses installed equipment, drawings, software, field wiring, interfaces, spares, obsolescence and operating constraints before defining what can remain and what must change.",
     "sections": [
       {
+        "heading": "New Infrastructure. Existing Operations. One Practical Engineering Plan.",
+        "lines": [
+          "A greenfield project needs coordinated electrical, control and instrumentation architecture from the outset. A brownfield project introduces a harder question: how will the new equipment work with the plant that is already running? SMEC supports engineering of both new infrastructure and operating-asset modifications.",
+          "Services span surveys, interface registers, electrical distribution, PLC/SCADA, instrumentation, phased cutovers, FAT/SAT and commissioning support."
+        ]
+      },
+      {
         "heading": "Decision framework",
         "lines": [
           "Keep — technically healthy and supportable",
@@ -5439,6 +7429,52 @@ export const SPEC_PAGES: SpecPage[] = [
         ]
       },
       {
+        "heading": "Brownfield Modifications",
+        "lines": [
+          "Scope can include Site surveys, As-built review, Live-plant tie-ins and related interfaces. Equipment selection, engineering responsibilities and testing are defined against the project specification.",
+          "Site surveys",
+          "As-built review",
+          "Live-plant tie-ins",
+          "Interface registers",
+          "Compatibility"
+        ]
+      },
+      {
+        "heading": "Phased Execution",
+        "lines": [
+          "Scope can include Shutdown constraints, Pre-staged FAT, Temporary interfaces and related interfaces. Equipment selection, engineering responsibilities and testing are defined against the project specification.",
+          "Shutdown constraints",
+          "Pre-staged FAT",
+          "Temporary interfaces",
+          "Cutover",
+          "Pre-commissioning"
+        ]
+      },
+      {
+        "heading": "Energy & Monitoring",
+        "lines": [
+          "Scope can include Metering, Electrical monitoring, NexWave and related interfaces. Equipment selection, engineering responsibilities and testing are defined against the project specification.",
+          "Metering",
+          "Electrical monitoring",
+          "NexWave",
+          "Condition-data integration"
+        ]
+      },
+      {
+        "heading": "Project Evidence",
+        "lines": [
+          "Operating Production Facility — Brownfield Control-System Upgrade",
+          "An operating facility required automation changes around existing equipment and live interfaces. The project summary covers site surveys, interface mapping, staged modifications, loop checks and restart verification."
+        ]
+      },
+      {
+        "heading": "Engineering Approach — Designing the new around the operating reality",
+        "lines": [
+          "Greenfield engineering allows the power and control architecture to be established from first principles. Brownfield engineering starts with constraints: existing switchgear, field wiring, installed controls, documentation quality, physical access and equipment that cannot be taken out of service.",
+          "Site surveys, tie-in registers, as-built verification, phased installation plans and pre-tested control interfaces are essential to credible execution. The engineering plan should show how each modification is sequenced, isolated, tested and handed back to operations."
+        ]
+      },
+      {
         "heading": "Conversion CTA",
         "lines": [
           "Send the existing make/model, drawings, software backups and shutdown window.",
@@ -5447,7 +7483,16 @@ export const SPEC_PAGES: SpecPage[] = [
       }
     ],
     "specTreatment": [],
-    "faqs": [],
+    "faqs": [
+      {
+        "q": "Can new systems be tied into an operating plant?",
+        "a": "Yes, subject to a site survey, capacity review, interface register, safety requirements and an agreed execution or shutdown plan."
+      },
+      {
+        "q": "What drawings should be supplied?",
+        "a": "Existing and proposed SLDs, P&IDs, layouts, equipment lists, as-builts and known site restrictions."
+      }
+    ],
     "status": "approved",
     "gates": []
   },
@@ -5471,6 +7516,13 @@ export const SPEC_PAGES: SpecPage[] = [
     "answer": "Control-system migration replaces unsupported hardware or software while preserving the process logic, field interfaces and operating intent that still matter. SMEC treats migration as an engineering and cutover project, not a simple controller swap.",
     "sections": [
       {
+        "heading": "Modernise the Controls. Keep the Process Knowledge.",
+        "lines": [
+          "A legacy PLC may still run a process reliably while its software, spare parts and communication interfaces become increasingly difficult to support. Modernisation must protect operating logic, field wiring, drive interfaces, alarms and safety dependencies—not simply replace a processor.",
+          "SMEC evaluates installed controller platforms, software backups, I/O architecture, SCADA/HMI dependencies and cutover constraints to define practical migration and retrofit scopes."
+        ]
+      },
+      {
         "heading": "Migration scope",
         "lines": [
           "Installed-base audit",
@@ -5482,6 +7534,77 @@ export const SPEC_PAGES: SpecPage[] = [
           "Simulation/FAT",
           "Staged cutover and rollback plan",
           "SAT and operator handover"
+        ]
+      },
+      {
+        "heading": "Schneider Electric",
+        "lines": [
+          "Scope can include Modicon Quantum and Premium, M340 and M580, Control Expert and related interfaces. Equipment selection, engineering responsibilities and testing are defined against the project specification.",
+          "Modicon Quantum and Premium",
+          "M340 and M580",
+          "Control Expert",
+          "I/O and communication migration"
+        ]
+      },
+      {
+        "heading": "Siemens",
+        "lines": [
+          "Scope can include SIMATIC S5, S7-300/400, S7-1200/1500 and related interfaces. Equipment selection, engineering responsibilities and testing are defined against the project specification.",
+          "SIMATIC S5",
+          "S7-300/400",
+          "S7-1200/1500",
+          "WinCC",
+          "PROFIBUS and PROFINET"
+        ]
+      },
+      {
+        "heading": "Allen-Bradley & ABB",
+        "lines": [
+          "Scope can include PLC-5, SLC 500, ControlLogix and CompactLogix and related interfaces. Equipment selection, engineering responsibilities and testing are defined against the project specification.",
+          "PLC-5",
+          "SLC 500",
+          "ControlLogix and CompactLogix",
+          "FactoryTalk",
+          "ABB AC500 and 800xA interfaces"
+        ]
+      },
+      {
+        "heading": "DCS & SCADA Platforms",
+        "lines": [
+          "Scope can include AVEVA/Wonderware, DeltaV interfaces, Honeywell Experion interfaces and related interfaces. Equipment selection, engineering responsibilities and testing are defined against the project specification.",
+          "AVEVA/Wonderware",
+          "DeltaV interfaces",
+          "Honeywell Experion interfaces",
+          "Siemens PCS 7",
+          "Gateways"
+        ]
+      },
+      {
+        "heading": "Migration & Cutover",
+        "lines": [
+          "Scope can include Backups and firmware review, Logic and I/O mapping, ESD/F&G dependencies and related interfaces. Equipment selection, engineering responsibilities and testing are defined against the project specification.",
+          "Backups and firmware review",
+          "Logic and I/O mapping",
+          "ESD/F&G dependencies",
+          "VFD and protection interfaces",
+          "OT network segmentation",
+          "FAT and SAT",
+          "OT network and backup readiness assessment",
+          "Critical-spares and software dependency review"
+        ]
+      },
+      {
+        "heading": "Project Evidence",
+        "lines": [
+          "Legacy PLC and SCADA Migration — Process Control Modernisation",
+          "An ageing process-control installation needed replacement without losing critical operating logic. The project story follows I/O mapping, program conversion, HMI redevelopment, staged cutover and commissioning checks."
+        ]
+      },
+      {
+        "heading": "Engineering Approach — Modernising controls without losing process knowledge",
+        "lines": [
+          "Legacy migration starts by recovering what the plant already knows: installed hardware, controller logic, I/O assignments, operator displays, network dependencies, instrument signals and available software backups. Where documentation is incomplete, site verification and reverse engineering may be needed before selecting replacement equipment.",
+          "The cutover strategy is then designed around operating risk. Logic comparison, I/O mapping, alarm validation, interface simulation, staged FAT and rollback planning can reduce uncertainty. The objective is to modernise the control platform while preserving agreed process behaviour and making future support more practical."
         ]
       },
       {
@@ -5505,6 +7628,18 @@ export const SPEC_PAGES: SpecPage[] = [
       {
         "q": "What should be provided for assessment?",
         "a": "Share the existing control architecture, hardware/software versions, I/O count, drawings, backups where available, known faults, obsolescence concerns and the available shutdown window."
+      },
+      {
+        "q": "Can a PLC be migrated without replacing all field wiring?",
+        "a": "Potentially. It depends on I/O compatibility, wiring condition, safety dependencies and the cutover strategy established after an installed-base review."
+      },
+      {
+        "q": "Which legacy platforms can be assessed?",
+        "a": "The scope can consider legacy Schneider, Siemens, Allen-Bradley, ABB and other installed platforms; exact support is subject to technical evaluation."
+      },
+      {
+        "q": "How is downtime addressed?",
+        "a": "By reviewing backups, interfaces, FAT simulation, staged installation, rollback planning and the available shutdown window."
       }
     ],
     "status": "approved",
@@ -5528,6 +7663,13 @@ export const SPEC_PAGES: SpecPage[] = [
     "h1": "E-Houses and Modular Electrical Rooms for Energy Projects",
     "answer": "An E-House is a prefabricated, factory-integrated electrical room that brings project-specific power distribution, motor control, automation and auxiliary systems into a transportable module before site installation. SMEC positions E-Houses for oil & gas, LNG, petrochemical, pipeline, utility and industrial projects where off-site integration, FAT and reduced site interface work are commercially valuable.",
     "sections": [
+      {
+        "heading": "Electrical Infrastructure Engineered as One Complete Package.",
+        "lines": [
+          "A modular electrical room must bring distribution, drives, protection, critical power, ventilation and monitoring into a defined equipment envelope. Interface decisions made during engineering directly affect installation, access, testing and future maintenance.",
+          "SMEC supports integration scopes for E-Houses, SCR/VFD Houses and modular power packages involving MV/LV systems, MCC/PCC, UPS/DC, PLC/SCADA and auxiliary interfaces."
+        ]
+      },
       {
         "heading": "Typical integrated scope",
         "lines": [
@@ -5570,6 +7712,131 @@ export const SPEC_PAGES: SpecPage[] = [
         ]
       },
       {
+        "heading": "MV/LV Distribution",
+        "lines": [
+          "Scope can include Transformers, Switchgear, Feeders and related interfaces. Equipment selection, engineering responsibilities and testing are defined against the project specification.",
+          "Transformers",
+          "Switchgear",
+          "Feeders",
+          "Protection",
+          "Metering",
+          "Earthing"
+        ]
+      },
+      {
+        "heading": "Motor & Drives",
+        "lines": [
+          "Scope can include MCC/PCC, VFD, Soft starters and related interfaces. Equipment selection, engineering responsibilities and testing are defined against the project specification.",
+          "MCC/PCC",
+          "VFD",
+          "Soft starters",
+          "SCR drilling drives",
+          "Motor protection"
+        ]
+      },
+      {
+        "heading": "Critical Power & Auxiliaries",
+        "lines": [
+          "Scope can include UPS, Battery chargers, DC distribution and related interfaces. Equipment selection, engineering responsibilities and testing are defined against the project specification.",
+          "UPS",
+          "Battery chargers",
+          "DC distribution",
+          "HVAC",
+          "Lighting"
+        ]
+      },
+      {
+        "heading": "Automation & Safety",
+        "lines": [
+          "Scope can include PLC/SCADA, RTU, PMS and related interfaces. Equipment selection, engineering responsibilities and testing are defined against the project specification.",
+          "PLC/SCADA",
+          "RTU",
+          "PMS",
+          "Fire detection",
+          "Electrical alarms"
+        ]
+      },
+      {
+        "heading": "Modular Engineering & FAT",
+        "lines": [
+          "Scope can include Layout, Access, Cable routing and related interfaces. Equipment selection, engineering responsibilities and testing are defined against the project specification.",
+          "Layout",
+          "Access",
+          "Cable routing",
+          "Harmonic assessment",
+          "Integrated FAT"
+        ]
+      },
+      {
+        "heading": "Project Evidence",
+        "lines": [
+          "Modular Electrical Power House — Integrated Distribution and Drives",
+          "A drilling or industrial package required power conversion and distribution within a modular enclosure. The project summary covers drive panels, MCC interfaces, ventilation, protection, cabling and integrated factory tests."
+        ]
+      },
+      {
+        "heading": "Engineering Approach — Engineering the complete modular electrical package",
+        "lines": [
+          "An E-House is defined by the interactions between its equipment and enclosure. Load calculations, switchgear and drive selection, cable routing, ventilation, maintainability, fire detection, earthing and transport limitations need to be considered together.",
+          "Modular execution can bring more interface testing into the workshop, but only if the factory test plan includes realistic control, protection, communications and auxiliary scenarios. Site work still requires careful installation verification and integration with the upstream and downstream plant."
+        ]
+      },
+      {
+        "heading": "E-Houses That Arrive as Integrated Electrical Infrastructure",
+        "lines": [
+          "An E-House should reduce site installation work—not transfer integration problems to site. SMEC approaches modular electrical rooms as complete interfaces between power distribution, automation, HVAC, fire safety, civil foundations and cable routing."
+        ]
+      },
+      {
+        "heading": "How it works",
+        "lines": [
+          "Modular infrastructure — The E-House integrates switchgear, transformers, MCCs, automation and auxiliaries within a prefabricated structure engineered for transportation and installation.",
+          "Structure and logistics — Lifting points, floor loading, transport envelope, cable entry, wind/seismic design and foundation interfaces are developed with the electrical layout.",
+          "Environmental protection — Heat-load calculations, air filtration, cooling redundancy, corrosion exposure and ingress protection shape the building envelope.",
+          "Factory integration — A complete integrated FAT can check electrical, controls, alarms and auxiliaries before shipment, reducing on-site interface risk."
+        ]
+      },
+      {
+        "heading": "Key components",
+        "lines": [
+          "Modular enclosure and structural interfaces. The modular enclosure and structural interfaces is selected for the equipment, operating duty and site conditions.",
+          "MV/LV switchgear. The mv/lv switchgear is selected for the equipment, operating duty and site conditions.",
+          "Transformers. Transformer impedance, winding arrangement, cooling, insulation class and protection must suit the upstream fault level and downstream conversion equipment.",
+          "MCC/PCC. The mcc/pcc is selected for the equipment, operating duty and site conditions.",
+          "UPS/DC. UPS/DC autonomy is selected from critical load demand and required ride-through duration; battery maintenance and alarm contacts must be considered.",
+          "HVAC. The hvac is selected for the equipment, operating duty and site conditions.",
+          "Fire alarm. Alarm thresholds, priorities, delays and operator actions must be documented to avoid nuisance alarms and missed critical events.",
+          "Lighting. The lighting is selected for the equipment, operating duty and site conditions.",
+          "Cable management. The cable management is selected for the equipment, operating duty and site conditions.",
+          "Remote monitoring. The remote monitoring is selected for the equipment, operating duty and site conditions."
+        ]
+      },
+      {
+        "heading": "Upgrades & retrofits",
+        "lines": [
+          "Add monitoring, UPS or automation cabinets where space and cooling margins permit.",
+          "Replace ageing switchgear/drive equipment within the existing module.",
+          "Use a replacement module to minimise live-site construction and installation time.",
+          "Retrofit scope depends on existing OEM interfaces, component condition, available space, shutdown windows and the approval basis of any safety-related functions."
+        ]
+      },
+      {
+        "heading": "Applications",
+        "lines": [
+          "Remote oilfields",
+          "Refineries",
+          "Compressor stations",
+          "EPC infrastructure",
+          "Offshore modules"
+        ]
+      },
+      {
+        "heading": "Testing & documentation",
+        "lines": [
+          "Relevant IEC, ISO, API, classification-society, hazardous-area or functional-safety requirements must be selected according to the specific system and installation. Where applicable, the project package may include electrical drawings, GA layouts, datasheets, I/O schedules, cause-and-effect, communication lists, inspection records, FAT/SAT procedures, calibration records and as-built documents. No unverified compliance certification is claimed here."
+        ]
+      },
+      {
         "heading": "Conversion CTA",
         "lines": [
           "Send the E-House SLD, load list, voltage levels, fault level, protection philosophy, environmental data, hazardous-area requirements, transport envelope and delivery date.",
@@ -5577,7 +7844,40 @@ export const SPEC_PAGES: SpecPage[] = [
         ]
       }
     ],
-    "specTreatment": [],
+    "specTreatment": [
+      {
+        "parameter": "Transport envelope and lifting",
+        "treatment": "Selected to match the connected equipment, operating duty and site conditions."
+      },
+      {
+        "parameter": "Structural loading",
+        "treatment": "Load measurement requires a verified mechanical load path, correctly sized sensor, signal conditioning and traceable calibration."
+      },
+      {
+        "parameter": "Ingress and corrosion protection",
+        "treatment": "Protection settings, trip contacts and fault discrimination must coordinate with upstream and downstream equipment and be demonstrated during testing."
+      },
+      {
+        "parameter": "HVAC heat balance",
+        "treatment": "Selected to match the connected equipment, operating duty and site conditions."
+      },
+      {
+        "parameter": "Fire segregation",
+        "treatment": "Fire and gas functions must follow the detector schedule, hazard assessment, cause-and-effect and defined response of alarms and shutdown interfaces."
+      },
+      {
+        "parameter": "Maintainability",
+        "treatment": "Selected to match the connected equipment, operating duty and site conditions."
+      },
+      {
+        "parameter": "Foundation and cable entry",
+        "treatment": "Selected to match the connected equipment, operating duty and site conditions."
+      },
+      {
+        "parameter": "Testing access",
+        "treatment": "Selected to match the connected equipment, operating duty and site conditions."
+      }
+    ],
     "faqs": [
       {
         "q": "What can be integrated inside an E-House?",
@@ -5590,10 +7890,36 @@ export const SPEC_PAGES: SpecPage[] = [
       {
         "q": "What is needed for quotation?",
         "a": "Send the SLD, load list, equipment schedule, layout or dimensional constraints, environmental data, standards, site, transport limits and required delivery date."
+      },
+      {
+        "q": "What equipment can be integrated inside an E-House?",
+        "a": "Depending on the design: switchgear, transformers, MCC/VFD, UPS/DC, protection, PLC/SCADA, HVAC and fire-alarm interfaces."
+      },
+      {
+        "q": "Can testing be completed before shipment?",
+        "a": "Defined electrical, control and communication functions can be included in an integrated FAT plan, subject to available equipment and interfaces."
+      },
+      {
+        "q": "What is needed for a modular package RFQ?",
+        "a": "SLD, load list, site environmental conditions, equipment schedule, footprint and transport constraints."
+      },
+      {
+        "q": "Is an E-House the same as a container?",
+        "a": "No. An E-House is an engineered electrical facility with defined structural, electrical and environmental requirements."
+      },
+      {
+        "q": "Can an E-House contain both switchgear and automation?",
+        "a": "Yes, provided separation, access, heat load and applicable safety requirements are addressed."
+      },
+      {
+        "q": "What is needed to size an E-House?",
+        "a": "Equipment list, SLD, site conditions, transport restrictions and service-access requirements."
       }
     ],
     "status": "approved",
-    "gates": []
+    "gates": [
+      "Specifications are project-specific and need the approved datasheet."
+    ]
   },
   {
     "url": "/solutions/electrical-engineering/",
@@ -5614,6 +7940,13 @@ export const SPEC_PAGES: SpecPage[] = [
     "answer": "SMEC supports electrical engineering from load and distribution studies through panels, drives, UPS/DC, modular E-Houses, integration, FAT and site commissioning. Scope is engineered to project voltage levels, fault duties, hazardous-area requirements and client standards.",
     "sections": [
       {
+        "heading": "Power and Instrumentation That Work Together—From Field to Control Room.",
+        "lines": [
+          "In an operating energy facility, power distribution, process measurement and protection cannot be engineered in isolation. A feeder modification affects motor control. A field transmitter feeds process decisions. A gas detector must reach the correct alarm and safety interface. SMEC brings these electrical and instrumentation interfaces into a coordinated engineering scope for oil and gas, offshore, marine and industrial installations.",
+          "From new E&I packages and hazardous-area instrumentation to inspection, calibration, refurbishment, retrofit and commissioning, the scope is defined around the asset, site conditions and approved project requirements."
+        ]
+      },
+      {
         "heading": "Technical scope",
         "lines": [
           "Load lists and SLD development",
@@ -5626,6 +7959,58 @@ export const SPEC_PAGES: SpecPage[] = [
         ]
       },
       {
+        "heading": "Power Distribution & Quality",
+        "lines": [
+          "Engineer electrical distribution and power quality as one connected package, from protection coordination to motor loads and plant metering.",
+          "MV/LV switchgear",
+          "Transformers",
+          "MCC/PCC and distribution",
+          "Protection relays and earthing",
+          "Energy metering",
+          "APFC and harmonic filters",
+          "Generator controls and synchronisation",
+          "Electrical power skids and harmonic mitigation"
+        ]
+      },
+      {
+        "heading": "Motors & Critical Power",
+        "lines": [
+          "Coordinate motors, drives, standby generation and critical DC power with operating and protection requirements.",
+          "VFD and soft starters",
+          "Motor protection",
+          "Generator PMS",
+          "Synchronisation and load shedding",
+          "UPS and battery chargers",
+          "DC systems"
+        ]
+      },
+      {
+        "heading": "Safety & Marine E&I",
+        "lines": [
+          "Connect safety-related signals and specialist marine electrical systems with the wider control architecture.",
+          "ESD and F&G interfaces",
+          "Flare ignition",
+          "PAGA",
+          "Boiler and burner controls",
+          "Marine navigation lights",
+          "Alarm monitoring"
+        ]
+      },
+      {
+        "heading": "Project Evidence",
+        "lines": [
+          "Oil & Gas Facility — E&I Distribution and Instrumentation Upgrade",
+          "An operating facility required coordinated electrical distribution and field-instrumentation upgrades. The project story focuses on the integration of MCC feeders, instrument signals, protective devices and field testing into an operationally controlled upgrade."
+        ]
+      },
+      {
+        "heading": "Engineering Approach — Engineering a connected E&I package",
+        "lines": [
+          "The starting point is an interface-led review of load lists, single-line diagrams, instrument indexes, P&IDs and the plant control philosophy. Electrical distribution, field measurements and protection are checked together so equipment ratings, signals, trip functions and operating responsibilities are consistent.",
+          "For a new installation, the deliverables may extend from drawings and panel integration to instrument loops and coordinated factory testing. For an operating asset, the emphasis shifts to survey findings, reusable infrastructure, access restrictions, shutdown windows and staged commissioning. A successful package is defined by its verified interfaces, not simply the quantity of equipment supplied."
+        ]
+      },
+      {
         "heading": "Conversion CTA",
         "lines": [
           "Send the SLD, load list, voltage levels, fault level and project specification.",
@@ -5634,7 +8019,16 @@ export const SPEC_PAGES: SpecPage[] = [
       }
     ],
     "specTreatment": [],
-    "faqs": [],
+    "faqs": [
+      {
+        "q": "Can one project combine power distribution and field instrumentation?",
+        "a": "Yes. An integrated scope can coordinate feeders, MCC/VFD interfaces, instruments, loop drawings, metering and alarms, with responsibility boundaries defined in the project specification."
+      },
+      {
+        "q": "What should accompany an E&I RFQ?",
+        "a": "SLD, load list, P&ID, instrument index, BOQ, hazardous-area classification and applicable site standards where available."
+      }
+    ],
     "status": "approved",
     "gates": []
   },
@@ -5668,6 +8062,28 @@ export const SPEC_PAGES: SpecPage[] = [
         ]
       },
       {
+        "heading": "Greenfield Electrical",
+        "lines": [
+          "Scope can include MV/LV distribution, Transformers, MCC/PCC and related interfaces. Equipment selection, engineering responsibilities and testing are defined against the project specification.",
+          "MV/LV distribution",
+          "Transformers",
+          "MCC/PCC",
+          "UPS",
+          "Earthing and protection"
+        ]
+      },
+      {
+        "heading": "Greenfield Automation",
+        "lines": [
+          "Scope can include PLC/DCS/SCADA, Instrumentation, RTUs and related interfaces. Equipment selection, engineering responsibilities and testing are defined against the project specification.",
+          "PLC/DCS/SCADA",
+          "Instrumentation",
+          "RTUs",
+          "Networks",
+          "Panels"
+        ]
+      },
+      {
         "heading": "Conversion CTA",
         "lines": [
           "Send the FEED/tender package, BOQ and project schedule.",
@@ -5676,7 +8092,12 @@ export const SPEC_PAGES: SpecPage[] = [
       }
     ],
     "specTreatment": [],
-    "faqs": [],
+    "faqs": [
+      {
+        "q": "Can greenfield and brownfield scopes be combined?",
+        "a": "Yes. New distribution and automation equipment can be engineered alongside modifications to existing infrastructure."
+      }
+    ],
     "status": "approved",
     "gates": []
   },
@@ -5699,6 +8120,13 @@ export const SPEC_PAGES: SpecPage[] = [
     "answer": "Hydraulic and pneumatic systems often remain mechanically serviceable long after their original control hardware becomes difficult to support. SMEC can assess control valves, actuators, sensors, solenoids, air/hydraulic circuits and control interfaces, then define repair, retrofit or re-engineering scope.",
     "sections": [
       {
+        "heading": "Fluid Power. Precise Control. Integrated Engineering.",
+        "lines": [
+          "Hydraulic and pneumatic equipment converts control commands into physical motion. Reliable operation depends on the complete chain: power supply, pressure, valves, actuators, feedback, alarms and electrical controls. SMEC supports fluid-power and electro-hydraulic applications in marine, offshore and industrial equipment.",
+          "Scope can cover hydraulic power packs, valve manifolds, marine engine remote control, winch machinery, troubleshooting, repair, refurbishment, retrofit and functional testing."
+        ]
+      },
+      {
         "heading": "Typical scope",
         "lines": [
           "Remote-control systems",
@@ -5710,6 +8138,77 @@ export const SPEC_PAGES: SpecPage[] = [
         ]
       },
       {
+        "heading": "Hydraulic Systems",
+        "lines": [
+          "Scope can include Power packs, Pumps, Reservoirs and related interfaces. Equipment selection, engineering responsibilities and testing are defined against the project specification.",
+          "Power packs",
+          "Pumps",
+          "Reservoirs",
+          "Valves",
+          "Manifolds",
+          "Cylinders",
+          "Pressure/flow"
+        ]
+      },
+      {
+        "heading": "Pneumatic Systems",
+        "lines": [
+          "Scope can include Solenoids, Manifolds, Actuators and related interfaces. Equipment selection, engineering responsibilities and testing are defined against the project specification.",
+          "Solenoids",
+          "Manifolds",
+          "Actuators",
+          "Main-engine remote control",
+          "Air monitoring"
+        ]
+      },
+      {
+        "heading": "Electro-Hydraulic Control",
+        "lines": [
+          "Scope can include PLC/HMI, Proportional valves, Position/pressure feedback and related interfaces. Equipment selection, engineering responsibilities and testing are defined against the project specification.",
+          "PLC/HMI",
+          "Proportional valves",
+          "Position/pressure feedback",
+          "Interlocks"
+        ]
+      },
+      {
+        "heading": "Marine & Offshore",
+        "lines": [
+          "Scope can include Winches, Jacking, Riser tension and related interfaces. Equipment selection, engineering responsibilities and testing are defined against the project specification.",
+          "Winches",
+          "Jacking",
+          "Riser tension",
+          "Thrusters",
+          "Flare boom",
+          "Hose reels"
+        ]
+      },
+      {
+        "heading": "Testing & Lifecycle",
+        "lines": [
+          "Validate installations, maintain calibration traceability and support upgrades through commissioning and operating life.",
+          "Troubleshooting",
+          "Valve testing",
+          "Retrofit",
+          "Recommissioning",
+          "Condition monitoring"
+        ]
+      },
+      {
+        "heading": "Project Evidence",
+        "lines": [
+          "Marine Main-Engine Remote Control — Pneumatic System Refurbishment",
+          "A vessel’s main-engine remote-control system required diagnosis and refurbishment of its pneumatic and electro-pneumatic interfaces. The project summary covers valves, actuators, signal paths, leak checks and functional testing."
+        ]
+      },
+      {
+        "heading": "Engineering Approach — Diagnosing the full fluid-power control chain",
+        "lines": [
+          "Hydraulic and pneumatic faults often arise from the interaction of mechanical condition, pressure supply, valve response, instrumentation and electrical commands. Diagnosis therefore needs to trace the system from power source through manifold and actuator to feedback and interlocks.",
+          "A repair or modernisation package may involve leak checks, valve or actuator refurbishment, control-panel work, PLC interfaces and functional testing under defined operating conditions. For marine and offshore equipment, access, equipment duty and safe machinery behaviour are central to the execution plan."
+        ]
+      },
+      {
         "heading": "Conversion CTA",
         "lines": [
           "Send the circuit diagram, make/model and fault description.",
@@ -5718,7 +8217,20 @@ export const SPEC_PAGES: SpecPage[] = [
       }
     ],
     "specTreatment": [],
-    "faqs": [],
+    "faqs": [
+      {
+        "q": "Can hydraulic equipment be integrated with PLC controls?",
+        "a": "Yes, subject to actuator characteristics, valve interfaces, pressure/position feedback and safety requirements."
+      },
+      {
+        "q": "Does the scope include marine engine remote controls?",
+        "a": "Marine pneumatic and electro-pneumatic remote-control systems are a relevant application, with exact repair or retrofit scope assessed case by case."
+      },
+      {
+        "q": "What details help diagnose a fluid-power fault?",
+        "a": "Hydraulic/pneumatic schematic, equipment model, pressure and flow ratings, fault symptoms and available photographs."
+      }
+    ],
     "status": "approved",
     "gates": []
   },
@@ -5752,6 +8264,31 @@ export const SPEC_PAGES: SpecPage[] = [
         ]
       },
       {
+        "heading": "Instrumentation & Field Systems",
+        "lines": [
+          "Bring field measurements into reliable control, alarm and safety interfaces, including hazardous-area and drilling applications.",
+          "Pressure, flow, temperature and level",
+          "Tank gauging",
+          "Gas detection",
+          "Instrument index and loop diagrams",
+          "Hazardous-area instruments and junction boxes",
+          "Mud-gas detection and drilling instrumentation",
+          "Field signal integration for wellhead and pipeline packages"
+        ]
+      },
+      {
+        "heading": "Testing & Lifecycle",
+        "lines": [
+          "Validate installations, maintain calibration traceability and support upgrades through commissioning and operating life.",
+          "Loop checks",
+          "Calibration interfaces",
+          "Electrical inspections",
+          "FAT/SAT",
+          "Brownfield upgrades",
+          "Commissioning"
+        ]
+      },
+      {
         "heading": "Conversion CTA",
         "lines": [
           "Send the P&IDs, instrument index, I/O list and hazardous-area requirements.",
@@ -5760,7 +8297,12 @@ export const SPEC_PAGES: SpecPage[] = [
       }
     ],
     "specTreatment": [],
-    "faqs": [],
+    "faqs": [
+      {
+        "q": "Can existing instruments and electrical equipment be retained?",
+        "a": "Following a site and documentation review, equipment can be assessed for compatibility, condition, safety requirements and retrofit feasibility."
+      }
+    ],
     "status": "approved",
     "gates": []
   },
@@ -5783,6 +8325,13 @@ export const SPEC_PAGES: SpecPage[] = [
     "answer": "Lifecycle support manages the period between commissioning and replacement. SMEC helps identify obsolete or unsupported hardware, spares exposure, software dependencies and failure risk, then defines a practical keep/repair/retrofit/migrate strategy.",
     "sections": [
       {
+        "heading": "Before Replacing the Asset, Understand What Can Be Saved.",
+        "lines": [
+          "When a control card fails or a drive becomes unsupported, replacing an entire machine is not always the best engineering answer. The challenge is identifying what can be retained, repaired, refurbished or modernised while protecting the original machine functions and operating interfaces.",
+          "SMEC supports legacy PLC, drive, industrial-electronics, marine PMS/IAS and drilling-control lifecycle work—from assessment and troubleshooting to staged retrofit and recommissioning."
+        ]
+      },
+      {
         "heading": "Typical scope",
         "lines": [
           "Installed-base register",
@@ -5795,6 +8344,72 @@ export const SPEC_PAGES: SpecPage[] = [
         ]
       },
       {
+        "heading": "Control Obsolescence",
+        "lines": [
+          "Scope can include Obsolete OEM PLCs, HMI/SCADA, Firmware and backups and related interfaces. Equipment selection, engineering responsibilities and testing are defined against the project specification.",
+          "Obsolete OEM PLCs",
+          "HMI/SCADA",
+          "Firmware and backups",
+          "I/O compatibility"
+        ]
+      },
+      {
+        "heading": "Drives & Electrical",
+        "lines": [
+          "Scope can include VFD repair/replacement, MCC, Switchgear controls and related interfaces. Equipment selection, engineering responsibilities and testing are defined against the project specification.",
+          "VFD repair/replacement",
+          "MCC",
+          "Switchgear controls",
+          "Generator PMS",
+          "Protection"
+        ]
+      },
+      {
+        "heading": "Industrial Electronics",
+        "lines": [
+          "Scope can include PCBs and control cards, RTUs, Instruments and related interfaces. Equipment selection, engineering responsibilities and testing are defined against the project specification.",
+          "PCBs and control cards",
+          "RTUs",
+          "Instruments",
+          "Alarm electronics",
+          "Spares"
+        ]
+      },
+      {
+        "heading": "Marine & Drilling",
+        "lines": [
+          "Scope can include Marine PMS/IAS, Engine remote control, Rig SCR/VFD and related interfaces. Equipment selection, engineering responsibilities and testing are defined against the project specification.",
+          "Marine PMS/IAS",
+          "Engine remote control",
+          "Rig SCR/VFD",
+          "Winch and jacking"
+        ]
+      },
+      {
+        "heading": "Lifecycle & Cutover",
+        "lines": [
+          "Scope can include Installed-base assessment, Repair-versus-replace, Phased migration and related interfaces. Equipment selection, engineering responsibilities and testing are defined against the project specification.",
+          "Installed-base assessment",
+          "Repair-versus-replace",
+          "Phased migration",
+          "FAT/SAT"
+        ]
+      },
+      {
+        "heading": "Project Evidence",
+        "lines": [
+          "Marine Power Management System — Legacy Controls Retrofit",
+          "A vessel’s ageing generator control arrangement required a lifecycle assessment and targeted modernisation. The project summary covers load-sharing interfaces, protection, PLC/HMI replacement and operational testing."
+        ]
+      },
+      {
+        "heading": "Engineering Approach — Repair, replace or modernise: an engineering decision",
+        "lines": [
+          "The most useful first step in an obsolescence project is a condition and supportability assessment. The team should identify failure history, available spares, software access, hardware compatibility, operating risk and the interfaces that would be affected by a replacement.",
+          "The resulting scope may be a targeted electronics repair, a refurbished drive, a PLC/HMI migration or a wider machinery-control retrofit. Testability, documentation and the ability to support the asset after handover should guide the choice—not replacement for its own sake."
+        ]
+      },
+      {
         "heading": "Conversion CTA",
         "lines": [
           "Send the installed equipment list with make, model and firmware/software versions.",
@@ -5803,7 +8418,20 @@ export const SPEC_PAGES: SpecPage[] = [
       }
     ],
     "specTreatment": [],
-    "faqs": [],
+    "faqs": [
+      {
+        "q": "Can obsolete equipment be repaired instead of replaced?",
+        "a": "Repair and refurbishment may be possible after condition, spares and risk assessment. Some systems require replacement or redesign."
+      },
+      {
+        "q": "Can old controls interface with modern SCADA?",
+        "a": "Where data and protocol interfaces are available, gateways or controller upgrades may support integration."
+      },
+      {
+        "q": "What should be shared for a retrofit assessment?",
+        "a": "Nameplates, OEM/model, photographs, drawings, software backups, fault history and available shutdown windows."
+      }
+    ],
     "status": "approved",
     "gates": []
   },
@@ -5826,6 +8454,13 @@ export const SPEC_PAGES: SpecPage[] = [
     "answer": "SMEC engineers and manufactures project-specific control and electrical panels, integrating approved PLCs, protection, drives, starters, power supplies, networking and terminal interfaces. Panels should be sold as engineered systems with drawings, testing and commissioning support — not as sheet-metal assemblies.",
     "sections": [
       {
+        "heading": "Control Panels Built for the Job Beyond the Workshop.",
+        "lines": [
+          "An industrial panel is more than an enclosure filled with components. Its protection, thermal design, wiring, communications and operating logic must suit the equipment it controls and the environment in which it works. SMEC supports engineering, assembly, integration and FAT of electrical, automation and specialised control panels.",
+          "The portfolio spans MCC/PCC, PLC/SCADA, VFD, APFC/AMF, synchronisation, RTU, safety-related, drilling, marine and equipment-control applications."
+        ]
+      },
+      {
         "heading": "Panel types",
         "lines": [
           "PLC/control panels",
@@ -5843,6 +8478,79 @@ export const SPEC_PAGES: SpecPage[] = [
         ]
       },
       {
+        "heading": "Power & Distribution",
+        "lines": [
+          "Scope can include MCC/PCC, APFC, AMF and related interfaces. Equipment selection, engineering responsibilities and testing are defined against the project specification.",
+          "MCC/PCC",
+          "APFC",
+          "AMF",
+          "Synchronisation",
+          "Switchgear controls",
+          "Protection panels"
+        ]
+      },
+      {
+        "heading": "Motors & Equipment",
+        "lines": [
+          "Scope can include VFD and soft starters, Pumps, Compressors and related interfaces. Equipment selection, engineering responsibilities and testing are defined against the project specification.",
+          "VFD and soft starters",
+          "Pumps",
+          "Compressors",
+          "Wellhead controls",
+          "Winches",
+          "Machinery panels"
+        ]
+      },
+      {
+        "heading": "Automation & Telemetry",
+        "lines": [
+          "Scope can include PLC/HMI panels, RTUs, Remote I/O and related interfaces. Equipment selection, engineering responsibilities and testing are defined against the project specification.",
+          "PLC/HMI panels",
+          "RTUs",
+          "Remote I/O",
+          "SCADA operator stations",
+          "Industrial networking"
+        ]
+      },
+      {
+        "heading": "Safety & Special Panels",
+        "lines": [
+          "Scope can include ESD/F&G panels, Gas detection, Flare ignition and related interfaces. Equipment selection, engineering responsibilities and testing are defined against the project specification.",
+          "ESD/F&G panels",
+          "Gas detection",
+          "Flare ignition",
+          "Battery chargers",
+          "Marine and hazardous-area interfaces",
+          "Marine bow-thruster and bridge-control panels",
+          "Wellhead and compressor control panels"
+        ]
+      },
+      {
+        "heading": "Manufacturing & FAT",
+        "lines": [
+          "Scope can include SLDs and schematics, Panel layout, Enclosure and thermal considerations and related interfaces. Equipment selection, engineering responsibilities and testing are defined against the project specification.",
+          "SLDs and schematics",
+          "Panel layout",
+          "Enclosure and thermal considerations",
+          "Wiring inspection",
+          "Functional FAT"
+        ]
+      },
+      {
+        "heading": "Project Evidence",
+        "lines": [
+          "Oil & Gas Control Panel Package — PLC, MCC and VFD Integration",
+          "An industrial project required engineered electrical and automation panels for multiple equipment packages. The project summary covers panel design, fabrication, wiring, interface checks and factory testing."
+        ]
+      },
+      {
+        "heading": "Engineering Approach — From electrical design to a testable manufactured panel",
+        "lines": [
+          "Panel engineering begins with duty, electrical ratings, fault levels, heat dissipation, enclosure conditions and the intended control architecture. These inputs shape the component selection, internal layout, wiring arrangement, terminal allocation and inspection plan.",
+          "Manufacturing is only one stage. Drawing checks, material inspection, wiring verification, insulation and functional tests, interface simulation and documented FAT are what make a panel suitable for integration into an EPC or operating-site package. The acceptance scope must match the actual project specification."
+        ]
+      },
+      {
         "heading": "Conversion CTA",
         "lines": [
           "Send the SLD/schematic, I/O, load list and enclosure/environment specification.",
@@ -5851,7 +8559,20 @@ export const SPEC_PAGES: SpecPage[] = [
       }
     ],
     "specTreatment": [],
-    "faqs": [],
+    "faqs": [
+      {
+        "q": "Can power and automation panels be supplied as one package?",
+        "a": "Yes, where defined in the RFQ. Combined scopes may include MCC/PCC, VFD, PLC, RTU, metering and safety-related interface panels."
+      },
+      {
+        "q": "Can panels be designed for marine or hazardous environments?",
+        "a": "Environmental conditions, enclosure ratings, component suitability and applicable certifications must be defined and verified for each application."
+      },
+      {
+        "q": "What documents are needed for quotation?",
+        "a": "SLD, BOQ, panel quantities, ratings, I/O list, specifications, environmental conditions and inspection requirements."
+      }
+    ],
     "status": "approved",
     "gates": []
   },
@@ -5875,6 +8596,13 @@ export const SPEC_PAGES: SpecPage[] = [
     "answer": "Rig modernization is the structured replacement or re-engineering of ageing electrical, control and safety systems while retaining equipment that remains technically and commercially viable. SMEC can start with one obsolete subsystem or build a wider modernization programme around the rig's next campaign.",
     "sections": [
       {
+        "heading": "Bring the Rig Back—With Its Critical Systems Working Together.",
+        "lines": [
+          "A rig reactivation is a systems-engineering exercise. Drilling power, drives, consoles, machinery, jacking controls and safety-related interfaces must be assessed as connected parts of the operation. SMEC supports electrical restoration, drilling-control integration and equipment modernisation for offshore and onshore drilling assets.",
+          "Scope may include SCR/VFD systems, DMS3000, integrated driller consoles, BOP interfaces, jacking/RPD, Gas Watch, PAGA, repair, retrofit and recommissioning."
+        ]
+      },
+      {
         "heading": "Typical scope",
         "lines": [
           "Installed-base and obsolescence assessment",
@@ -5890,6 +8618,79 @@ export const SPEC_PAGES: SpecPage[] = [
         "heading": "Execution sequence",
         "lines": [
           "Survey/document review → criticality and obsolescence map → keep/repair/replace decision → engineering → procurement/build → software/configuration → FAT → mobilization → installation → SAT/commissioning."
+        ]
+      },
+      {
+        "heading": "Rig Power & Drives",
+        "lines": [
+          "Scope can include SCR/DC drives, VFD/AC drives, Generator PMS and related interfaces. Equipment selection, engineering responsibilities and testing are defined against the project specification.",
+          "SCR/DC drives",
+          "VFD/AC drives",
+          "Generator PMS",
+          "Switchgear",
+          "Harmonic filters",
+          "Distribution skids",
+          "Hybrid SCR modernisation and harmonic mitigation"
+        ]
+      },
+      {
+        "heading": "Drilling Controls",
+        "lines": [
+          "Scope can include DMS3000, Integrated driller consoles, Top drive and related interfaces. Equipment selection, engineering responsibilities and testing are defined against the project specification.",
+          "DMS3000",
+          "Integrated driller consoles",
+          "Top drive",
+          "Mud pumps",
+          "BOP interfaces"
+        ]
+      },
+      {
+        "heading": "Jacking & Handling",
+        "lines": [
+          "Scope can include Jacking and RPD, Gearbox/brake monitoring, Fingerboard and related interfaces. Equipment selection, engineering responsibilities and testing are defined against the project specification.",
+          "Jacking and RPD",
+          "Gearbox/brake monitoring",
+          "Fingerboard",
+          "Pipe handling",
+          "Skidding current",
+          "Fingerboard and pipe-handling equipment"
+        ]
+      },
+      {
+        "heading": "Safety & Monitoring",
+        "lines": [
+          "Scope can include Gas Watch, Mud gas, PAGA and related interfaces. Equipment selection, engineering responsibilities and testing are defined against the project specification.",
+          "Gas Watch",
+          "Mud gas",
+          "PAGA",
+          "Talkback",
+          "ESD/F&G",
+          "Ex CCTV interfaces"
+        ]
+      },
+      {
+        "heading": "Reactivation & Testing",
+        "lines": [
+          "Scope can include Legacy assessment, Drive and control retrofits, FAT and related interfaces. Equipment selection, engineering responsibilities and testing are defined against the project specification.",
+          "Legacy assessment",
+          "Drive and control retrofits",
+          "FAT",
+          "SAT",
+          "Commissioning"
+        ]
+      },
+      {
+        "heading": "Project Evidence",
+        "lines": [
+          "Drilling Rig — SCR/VFD and Driller Console Modernisation",
+          "A drilling asset required coordinated improvements to its power conversion and operator-control systems. The project story examines SCR/VFD interfaces, drilling equipment commands, alarms and recommissioning."
+        ]
+      },
+      {
+        "heading": "Engineering Approach — A rig is an interconnected operating system",
+        "lines": [
+          "Rig reactivation begins with the condition and compatibility of drilling power, drives, consoles, machinery controls, safety interfaces and communications. Repairing one drive or replacing one PLC does not resolve faults caused by missing interlocks, incompatible commands or unreliable power distribution.",
+          "An engineering review can identify what is reusable, what requires refurbishment and which systems need modernisation. Integrated testing then checks drilling-machine commands, alarms, protective responses and equipment interfaces before the rig returns to operation under its approved procedures."
         ]
       },
       {
@@ -5913,6 +8714,18 @@ export const SPEC_PAGES: SpecPage[] = [
       {
         "q": "What should be provided for assessment?",
         "a": "Share the existing control architecture, hardware/software versions, I/O count, drawings, backups where available, known faults, obsolescence concerns and the available shutdown window."
+      },
+      {
+        "q": "Can a rig be modernised in stages?",
+        "a": "Potentially. Drives, control systems, monitoring and other packages can be assessed individually, with interdependencies and operating constraints addressed."
+      },
+      {
+        "q": "Does the scope include SCR/VFD and drilling controls?",
+        "a": "Relevant systems include drilling power and drives, consoles, DMS, BOP interfaces, jacking/RPD, gas monitoring and PAGA."
+      },
+      {
+        "q": "What is needed for an initial rig assessment?",
+        "a": "Rig specification, equipment register, OEM/model list, electrical drawings, control architecture, condition reports and reactivation schedule."
       }
     ],
     "status": "approved",
@@ -5937,6 +8750,13 @@ export const SPEC_PAGES: SpecPage[] = [
     "answer": "Shutdown windows compress engineering, access, manpower and commissioning into a fixed period. SMEC supports defined electrical, instrumentation and automation scopes with pre-shutdown engineering, material readiness, execution planning, loop checks, SAT and handover.",
     "sections": [
       {
+        "heading": "Make the Shutdown Window Count.",
+        "lines": [
+          "A planned outage compresses many interdependent tasks into a fixed period. Electrical modifications, instrumentation checks, PLC changes, protection testing and restart verification need clear work packs and pre-tested interfaces before site execution begins.",
+          "SMEC supports defined electrical, automation and instrumentation scopes through survey, pre-staging, testing, troubleshooting, SAT and handover."
+        ]
+      },
+      {
         "heading": "Typical scope",
         "lines": [
           "Pre-shutdown survey and work packs",
@@ -5949,6 +8769,72 @@ export const SPEC_PAGES: SpecPage[] = [
         ]
       },
       {
+        "heading": "Electrical Works",
+        "lines": [
+          "Scope can include Switchgear/MCC changes, VFD and starter replacement, Inspections and related interfaces. Equipment selection, engineering responsibilities and testing are defined against the project specification.",
+          "Switchgear/MCC changes",
+          "VFD and starter replacement",
+          "Inspections",
+          "Relay tests"
+        ]
+      },
+      {
+        "heading": "Instrumentation",
+        "lines": [
+          "Scope can include Calibration, Loop checks, Junction boxes and related interfaces. Equipment selection, engineering responsibilities and testing are defined against the project specification.",
+          "Calibration",
+          "Loop checks",
+          "Junction boxes",
+          "Gas alarms"
+        ]
+      },
+      {
+        "heading": "Automation Changes",
+        "lines": [
+          "Scope can include PLC/HMI/SCADA, Interlocks, Panel replacement and related interfaces. Equipment selection, engineering responsibilities and testing are defined against the project specification.",
+          "PLC/HMI/SCADA",
+          "Interlocks",
+          "Panel replacement",
+          "Networks"
+        ]
+      },
+      {
+        "heading": "Pre-Shutdown Planning",
+        "lines": [
+          "Scope can include Site surveys, Work packs, Backups and related interfaces. Equipment selection, engineering responsibilities and testing are defined against the project specification.",
+          "Site surveys",
+          "Work packs",
+          "Backups",
+          "Pre-staged FAT",
+          "Materials"
+        ]
+      },
+      {
+        "heading": "Restart Support",
+        "lines": [
+          "Scope can include SAT, Cause-and-effect, Troubleshooting and related interfaces. Equipment selection, engineering responsibilities and testing are defined against the project specification.",
+          "SAT",
+          "Cause-and-effect",
+          "Troubleshooting",
+          "Punch lists",
+          "Handover"
+        ]
+      },
+      {
+        "heading": "Project Evidence",
+        "lines": [
+          "Refinery Turnaround — Electrical and Instrumentation Restart Support",
+          "A scheduled plant shutdown provided a limited window for inspection and corrective work. The project summary covers protection checks, instrument loop testing, control backups and restart readiness."
+        ]
+      },
+      {
+        "heading": "Engineering Approach — The outage is won before it starts",
+        "lines": [
+          "A shutdown scope needs to be converted into executable work packs long before the outage begins. Site surveys, drawings, material availability, controller backups, isolation interfaces, testing responsibilities and contingencies should be resolved as far as practical in advance.",
+          "During the outage, electrical and instrumentation work must align with control changes, permit constraints and the restart sequence. Traceable test results, open-item management and coordinated SAT are as important as completing the physical modifications within the planned window."
+        ]
+      },
+      {
         "heading": "Conversion CTA",
         "lines": [
           "Send the shutdown dates, work list and approved scope.",
@@ -5957,7 +8843,20 @@ export const SPEC_PAGES: SpecPage[] = [
       }
     ],
     "specTreatment": [],
-    "faqs": [],
+    "faqs": [
+      {
+        "q": "How early should a shutdown scope be reviewed?",
+        "a": "Early enough to complete surveys, drawings, backups, materials review and any pre-staged FAT before the outage starts."
+      },
+      {
+        "q": "Can PLC changes and instrument calibration be coordinated?",
+        "a": "Yes, as a defined scope with work packs, test records, interface checks and restart responsibilities."
+      },
+      {
+        "q": "What is needed for an outage quotation?",
+        "a": "Shutdown dates, work packs, equipment lists, drawings, site access conditions and test requirements."
+      }
+    ],
     "status": "approved",
     "gates": []
   },
@@ -5980,6 +8879,13 @@ export const SPEC_PAGES: SpecPage[] = [
     "answer": "System integration is the engineering work between packages: signal ownership, communications, interlocks, time synchronization, alarms, data exchange, power/control interfaces and commissioning responsibility. SMEC defines and tests these interfaces so individual systems operate as one asset architecture.",
     "sections": [
       {
+        "heading": "Different OEMs. One Connected Operation.",
+        "lines": [
+          "A plant can contain several generations of controllers, power equipment, instruments and OEM packages. The challenge is making the systems exchange the right information without losing control, alarm visibility or interface accountability. SMEC addresses these boundaries through industrial communication, control integration, power-system interfaces and operational data connectivity.",
+          "Projects can involve PLC/DCS/SCADA, generator PMS, ESD/F&G interfaces, RTUs, metering, marine IAS and connected asset-monitoring platforms."
+        ]
+      },
+      {
         "heading": "Interface scope",
         "lines": [
           "I/O and signal interface matrix",
@@ -5992,6 +8898,78 @@ export const SPEC_PAGES: SpecPage[] = [
         ]
       },
       {
+        "heading": "Control Systems",
+        "lines": [
+          "Connect controllers, OEM packages and operator stations with defined commands, interlocks and responsibility boundaries.",
+          "PLC-to-PLC",
+          "PLC/SCADA/DCS connectivity",
+          "OEM package integration",
+          "Command, alarm and interlock exchange"
+        ]
+      },
+      {
+        "heading": "Power Systems",
+        "lines": [
+          "Integrate generator PMS, switchgear, MCC/PCC, drives, metering and electrical protection into coordinated operations.",
+          "Generator PMS",
+          "Synchronisation",
+          "Switchgear and MCC",
+          "VFDs",
+          "Protection relays",
+          "Metering and UPS interfaces",
+          "Energy metering and remote power monitoring"
+        ]
+      },
+      {
+        "heading": "Field & Safety",
+        "lines": [
+          "Connect process instruments, package alarms and safety-system interfaces without obscuring independent safety functions.",
+          "ESD and F&G",
+          "Tank gauging",
+          "Gas detection",
+          "RTUs",
+          "Remote I/O",
+          "PAGA"
+        ]
+      },
+      {
+        "heading": "Communications",
+        "lines": [
+          "Design reliable data exchange across industrial protocols, gateways and segregated OT networks.",
+          "Modbus RTU/TCP",
+          "OPC UA",
+          "Serial and Ethernet gateways",
+          "Historians",
+          "OT segmentation considerations"
+        ]
+      },
+      {
+        "heading": "Digital Integration",
+        "lines": [
+          "Convert available plant signals into operational dashboards, historian data and maintenance intelligence.",
+          "NexWave",
+          "ProSet360",
+          "NexVerse",
+          "Energy dashboards",
+          "Edge telemetry",
+          "Marine IAS/PMS"
+        ]
+      },
+      {
+        "heading": "Project Evidence",
+        "lines": [
+          "Multi-OEM Package Integration — Centralised Controls and Alarms",
+          "Equipment supplied by different vendors required a coordinated control and monitoring interface. The project story focuses on PLC communications, package interlocks, alarms, operator displays and integration testing."
+        ]
+      },
+      {
+        "heading": "Engineering Approach — Resolving interfaces before they become site problems",
+        "lines": [
+          "The critical deliverable in a multi-OEM project is an agreed interface definition. SMEC can review which controller owns each command, how status and alarms are transmitted, which signals are hardwired, and how loss of communications should be handled.",
+          "An interface register, signal mapping, network architecture and integrated test procedure bring discipline to that process. Where useful, plant data can also be made available to historians, remote monitoring or maintenance applications without confusing monitoring functions with primary equipment control."
+        ]
+      },
+      {
         "heading": "Conversion CTA",
         "lines": [
           "Send the vendor list, interface matrix and control/network architecture.",
@@ -6000,7 +8978,20 @@ export const SPEC_PAGES: SpecPage[] = [
       }
     ],
     "specTreatment": [],
-    "faqs": [],
+    "faqs": [
+      {
+        "q": "Can existing PLCs, generator controls and metering systems feed one SCADA?",
+        "a": "The feasibility depends on available signals, protocols, OEM interfaces and required control and alarm functions."
+      },
+      {
+        "q": "Does integration require replacing existing OEM systems?",
+        "a": "Not necessarily. The first step is to identify usable interfaces, missing data, protocol gateways and any lifecycle limitations."
+      },
+      {
+        "q": "Can remote monitoring be added?",
+        "a": "Where communications and data access permit, selected signals can be integrated with an edge or remote-monitoring architecture."
+      }
+    ],
     "status": "approved",
     "gates": []
   },
@@ -6023,6 +9014,13 @@ export const SPEC_PAGES: SpecPage[] = [
     "answer": "Testing and commissioning prove that engineering, hardware, software and field interfaces work together before handover. SMEC supports FAT, integrated FAT, pre-commissioning, loop checks, SAT, functional testing, punch-list closure and handover documentation for defined project scope.",
     "sections": [
       {
+        "heading": "Verify the Equipment. Prove the Interfaces. Document the Result.",
+        "lines": [
+          "A panel can pass its own test while the integrated system still fails to exchange a critical alarm or command. Factory and site acceptance must test not only individual devices but the operating sequences, communication paths, interlocks and handover evidence connecting them.",
+          "SMEC supports electrical FAT, PLC/SCADA functional tests, instrument loops, safety-related interface verification, integrated SAT and commissioning documentation."
+        ]
+      },
+      {
         "heading": "Typical sequence",
         "lines": [
           "Test procedure and acceptance criteria",
@@ -6035,6 +9033,71 @@ export const SPEC_PAGES: SpecPage[] = [
         ]
       },
       {
+        "heading": "Electrical FAT",
+        "lines": [
+          "Scope can include Wiring, Power and motor controls, Protection and related interfaces. Equipment selection, engineering responsibilities and testing are defined against the project specification.",
+          "Wiring",
+          "Power and motor controls",
+          "Protection",
+          "Test records"
+        ]
+      },
+      {
+        "heading": "Control FAT",
+        "lines": [
+          "Scope can include PLC/HMI sequences, SCADA alarms, I/O simulation and related interfaces. Equipment selection, engineering responsibilities and testing are defined against the project specification.",
+          "PLC/HMI sequences",
+          "SCADA alarms",
+          "I/O simulation",
+          "Cause-and-effect"
+        ]
+      },
+      {
+        "heading": "Instrumentation & Safety",
+        "lines": [
+          "Scope can include Loop checks, Gas detection, ESD/F&G interfaces and related interfaces. Equipment selection, engineering responsibilities and testing are defined against the project specification.",
+          "Loop checks",
+          "Gas detection",
+          "ESD/F&G interfaces",
+          "RTUs"
+        ]
+      },
+      {
+        "heading": "Integrated SAT",
+        "lines": [
+          "Scope can include Package interfaces, PMS, Networks and related interfaces. Equipment selection, engineering responsibilities and testing are defined against the project specification.",
+          "Package interfaces",
+          "PMS",
+          "Networks",
+          "Punch lists"
+        ]
+      },
+      {
+        "heading": "Commissioning & Records",
+        "lines": [
+          "Scope can include Startup, Troubleshooting, Traceability and related interfaces. Equipment selection, engineering responsibilities and testing are defined against the project specification.",
+          "Startup",
+          "Troubleshooting",
+          "Traceability",
+          "Handover",
+          "Digital test records and traceability"
+        ]
+      },
+      {
+        "heading": "Project Evidence",
+        "lines": [
+          "Integrated Factory Acceptance Test — Power and Automation Package",
+          "A packaged control system required coordinated verification before shipment. The proposed case study follows I/O simulation, interlock testing, alarm checks, communications, punch-list closure and handover documentation."
+        ]
+      },
+      {
+        "heading": "Engineering Approach — Proving the integrated system, not only its components",
+        "lines": [
+          "A meaningful FAT starts with acceptance criteria linked to the functional specification. Individual equipment tests are followed by simulated commands, alarms, interlocks, permissives, loss-of-communication cases and interactions between power and control packages.",
+          "SAT then confirms the installation and actual field interfaces. Witness records, calibrated test equipment where required, punch-list tracking and signed handover documents make the results usable for operators, EPCs and asset owners. Remote witnessing or digital records should be included only where agreed for the project."
+        ]
+      },
+      {
         "heading": "Conversion CTA",
         "lines": [
           "Send the system scope, test philosophy and required witness dates.",
@@ -6043,7 +9106,20 @@ export const SPEC_PAGES: SpecPage[] = [
       }
     ],
     "specTreatment": [],
-    "faqs": [],
+    "faqs": [
+      {
+        "q": "What is the difference between FAT and SAT?",
+        "a": "FAT verifies agreed functions before dispatch or site installation; SAT verifies installation and integrated functions in the site environment."
+      },
+      {
+        "q": "Can multiple OEM packages be tested together?",
+        "a": "An integrated test plan can verify defined signals, commands, alarms, interlocks and communication failures across packages."
+      },
+      {
+        "q": "Are test records included?",
+        "a": "The agreed scope should define checklists, witness requirements, punch lists, test evidence and final handover records."
+      }
+    ],
     "status": "approved",
     "gates": []
   },
@@ -6065,6 +9141,13 @@ export const SPEC_PAGES: SpecPage[] = [
     "h1": "Turnkey Engineering & System Solutions for Critical Energy Assets",
     "answer": "For a defined system or project package, SMEC can provide a single engineering and execution chain from scope definition to operational handover. The model is designed for buyers who do not want to coordinate separate engineering, panel, software, integration and commissioning vendors for the same technical boundary.",
     "sections": [
+      {
+        "heading": "Electrical. Automation. Instrumentation. Hydraulics. Digitalisation. One Integrated Engineering Scope.",
+        "lines": [
+          "Complex industrial projects rarely involve a single system. Electrical power must work with automation. Instrumentation must communicate with control systems. Hydraulic equipment must respond to operating commands. Safety systems must coordinate with machinery, and critical asset information must remain accessible throughout the equipment lifecycle.",
+          "SMEC supports multidisciplinary engineering projects across oil and gas, offshore drilling, marine, power and heavy industry—from design, manufacturing and integration to repair, calibration, refurbishment, retrofit, modernisation, testing and commissioning."
+        ]
+      },
       {
         "heading": "What turnkey means on this website",
         "lines": [
@@ -6111,6 +9194,87 @@ export const SPEC_PAGES: SpecPage[] = [
           "Use the wording “Turnkey system/package delivery behind the EPC boundary.” This is commercially strong without incorrectly claiming whole-facility EPC responsibility."
         ],
         "internal": true
+      },
+      {
+        "heading": "Electrical & Power Engineering",
+        "lines": [
+          "Integrated project packages can combine the following capabilities according to the approved engineering scope.",
+          "MV/LV electrical distribution, switchgear, transformers and protection",
+          "MCC, PCC, VFD, SCR and motor-control systems",
+          "Generator PMS, synchronisation and load sharing",
+          "UPS/DC, battery chargers and critical power",
+          "Power quality, harmonics and energy metering",
+          "Electrical repair, refurbishment, retrofit and upgrades"
+        ]
+      },
+      {
+        "heading": "Automation & Control Systems",
+        "lines": [
+          "PLC, SCADA, DCS and HMI engineering",
+          "Industrial automation and multi-OEM integration",
+          "Drilling, process, marine and machinery controls",
+          "ESD and Fire & Gas interfaces",
+          "RTUs, remote I/O and industrial communications",
+          "Software migration, troubleshooting and recommissioning"
+        ]
+      },
+      {
+        "heading": "Instrumentation & Safety Systems",
+        "lines": [
+          "Pressure, temperature, flow and level instrumentation",
+          "Gas detection, tank gauging and field monitoring",
+          "Installation, calibration and loop integration",
+          "Cause-and-effect, alarm and interlock verification",
+          "Hazardous-area instrumentation interfaces",
+          "Instrument repair, replacement and upgrade"
+        ]
+      },
+      {
+        "heading": "Hydraulics & Pneumatics",
+        "lines": [
+          "Hydraulic power packs, valves, manifolds and actuators",
+          "Electro-hydraulic and pneumatic control systems",
+          "Marine main-engine remote controls",
+          "Winch, deck machinery and offshore equipment controls",
+          "Troubleshooting, repair and refurbishment",
+          "Fluid-power retrofit and functional testing"
+        ]
+      },
+      {
+        "heading": "Digitalisation & Asset Intelligence",
+        "lines": [
+          "IIoT, edge gateways and remote monitoring",
+          "Asset-condition and operations-data integration",
+          "Machinery performance dashboards and alarms",
+          "Maintenance intelligence and condition monitoring",
+          "Historian and industrial-data integration",
+          "Digital-twin and predictive-maintenance interfaces where data supports them"
+        ]
+      },
+      {
+        "heading": "Project Engineering & Lifecycle Execution",
+        "lines": [
+          "Concept review, surveys and detailed engineering",
+          "Equipment procurement, manufacturing and integration",
+          "Interface management and multidisciplinary coordination",
+          "FAT, SAT, installation and commissioning",
+          "Repair, refurbishment, calibration and retrofit",
+          "Modernisation, documentation and lifecycle support"
+        ]
+      },
+      {
+        "heading": "Project Evidence",
+        "lines": [
+          "2,000 HP Drilling Rig — Integrated Electrical and Control Reactivation",
+          "A dismantled drilling rig required electrical and control-system restoration. SMEC’s previously referenced scope included rewiring, VFD House and MCC integration, ABB module servicing, busbar engineering and control-system reprogramming."
+        ]
+      },
+      {
+        "heading": "Engineering Approach — One engineering scope across the asset lifecycle",
+        "lines": [
+          "A multidisciplinary package should be planned as one coordinated project rather than separate electrical, automation, instrumentation, hydraulic and digital work orders. Concept and detailed engineering define boundaries, equipment duties, site interfaces, procurement responsibilities, acceptance criteria and the execution sequence.",
+          "That same approach applies to ageing assets. A scope may combine troubleshooting, repair, calibration, refurbishment, retrofit, control migration and digital monitoring before recommissioning. Retaining serviceable equipment can be considered where compatibility, safety and lifecycle support are demonstrated; replacement is selected where technical risks justify it."
+        ]
       }
     ],
     "specTreatment": [],
@@ -6134,6 +9298,18 @@ export const SPEC_PAGES: SpecPage[] = [
       {
         "q": "What documents are needed?",
         "a": "Typical inputs include BOQ, P&IDs, SLDs, I/O lists, datasheets, control philosophy, vendor list, standards, site conditions and project schedule."
+      },
+      {
+        "q": "Can one project include electrical, automation, instrumentation and hydraulics?",
+        "a": "Yes. Multidisciplinary scopes can be evaluated with defined interfaces, responsibilities, deliverables and specialist requirements."
+      },
+      {
+        "q": "Does turnkey work include repair and modernisation?",
+        "a": "It can include engineering, manufacture, integration, calibration, repair, refurbishment, retrofit, upgrades, FAT/SAT and commissioning, depending on the contract."
+      },
+      {
+        "q": "Can existing assets be retained?",
+        "a": "The engineering review can identify equipment suitable for retention, repair or upgrade rather than automatically recommending full replacement."
       }
     ],
     "status": "approved",
