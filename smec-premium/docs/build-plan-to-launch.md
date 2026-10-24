@@ -97,9 +97,18 @@ Ordered so that nothing waits on anything the client still owes.
       parts), unchanged since the page sitemap's 13 August lastmod, and every
       one is accounted for in the redirect map. No re-crawl needed. What is
       still outstanding from the old site is assets, not URLs.*
-- [ ] **Copy `/wp-content/uploads/`** off the live site — 203 originals, 186 of
+- [x] **Copy `/wp-content/uploads/`** off the live site — 203 originals, 186 of
       them uploaded in 2025–26. *This window closes at cutover and does not
       reopen.* See `legacy-inventory.md`.
+
+      *Done 23 October, and the media API turned out to be a better source
+      than the crawl: the crawl found only images referenced on pages, while
+      `/wp-json/wp/v2/media` lists the whole library — 907 items, not 288, and
+      243 images from 2025–26 rather than 186. 733 files and 139 MB are in
+      `legacy-assets/`, which is gitignored. Twelve downloads failed; the
+      script skips what it already has, so a re-run retries only those. The
+      files are copied but not yet served — nothing proves the old image URLs
+      resolve until they sit under `public/`.*
 - [ ] **Search Console baseline.** DNS is on Cloudflare, so the client can
       verify by TXT record today without touching either site. Export the
       performance history before anything changes.
