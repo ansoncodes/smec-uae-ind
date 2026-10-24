@@ -518,6 +518,44 @@ const PRODUCT_PAGES_ADDED = [
   },
 ];
 
+/**
+ * The one industry page that is built rather than held back.
+ *
+ * Industries is otherwise skipped: 195-724 characters an entry is thinner
+ * than what the Content Master already writes, and the cluster ships behind
+ * noindex until real copy arrives. Marine & Offshore Vessels is the
+ * exception, because it was promised. On 22 October the client was told, and
+ * agreed, that we would "retain the Marine & Offshore Vessels industry page
+ * included in the provided content" — and there was no such page to retain:
+ * all 20 industry URLs are upstream, midstream, downstream or onshore.
+ *
+ * The URL is flat rather than nested because the other four are stages of the
+ * value chain and a vessel is an asset, not a stage. Filing it under one of
+ * them would say something untrue about the business; the client's own
+ * architecture document proposes this same flat form.
+ *
+ * It ships draft like the rest of Industries. 555 characters is not a
+ * publishable page, and the gate says what is actually missing.
+ */
+const INDUSTRY_PAGES_ADDED = [
+  {
+    file: 'industries/marine-offshore-vessels.md',
+    url: '/industries/marine-offshore-vessels/',
+    h1: 'Marine & Offshore Vessels',
+    seoTitle: 'Marine & Offshore Vessel Electrical & Automation | SMEC',
+    metaDescription:
+      'Electrical and automation support across the vessel lifecycle: switchboards, power management, machinery and drive control, retrofit, testing and commissioning.',
+    intent: 'marine electrical automation; offshore support vessel retrofit',
+    breadcrumb: 'Home › Industries › Marine & Offshore Vessels',
+    schema: 'Service + FAQPage + BreadcrumbList',
+    // The client's own two opening lines, and a third drawn from the three
+    // capability blocks below them. Nothing here is a claim the file does
+    // not already make.
+    answer:
+      'Electrical and automation support across the vessel lifecycle, for offshore support vessels, marine assets and vessel modernisation projects. Scope can cover main and emergency switchboards, power management and generator load sharing, UPS and shore-power interfaces, PLC/HMI and alarm monitoring, motor and VFD controls, and fire and gas interfaces. Onboard troubleshooting, retrofit, testing and commissioning are part of the same scope.',
+  },
+];
+
 const HIDDEN_MARKER = /\s*_\(hidden in prototype\)_\s*$/;
 const EMPTY_MARKER = /^_\((empty|not present) in source\)_$/i;
 
@@ -608,7 +646,15 @@ function prototypeLines(raw) {
 
     const bold = /^\*\*(.+)\*\*$/.exec(text);
     if (bold) {
-      label = bold[1].trim();
+      // A bold line is a label for the paragraph under it — "**Safety
+      // functions**" — unless it is a sentence in its own right, which is how
+      // the industry files open: "**Electrical and automation support across
+      // the vessel lifecycle.**"
+      if (!/[.!?]$/.test(bold[1].trim())) {
+        label = bold[1].trim();
+        continue;
+      }
+      lines.push(bold[1].trim());
       continue;
     }
 
@@ -738,6 +784,30 @@ function parseProduct(relative) {
     shared: [],
     faqs: faqNode ? prototypeFaqs(faqNode.raw) : [],
     specTreatment,
+  };
+}
+
+/**
+ * A Tab 4 industry page, which is written to a third shape again: a level-1
+ * title with the lead under it, then one level-3 block per capability, each a
+ * caption and a short list. There is no body beyond that — 555 characters on
+ * the longest of them — which is why Industries is otherwise left alone.
+ */
+function parseIndustry(relative) {
+  const { meta, nodes } = readPrototype(relative);
+  const title = nodes.find((n) => n.level === 1);
+
+  return {
+    meta,
+    lead: title ? prototypeLines(title.raw).lines : [],
+    intro: null,
+    capabilities: nodes
+      .filter((n) => n.level === 3)
+      .map((n) => section(n.heading, n.raw))
+      .filter(Boolean),
+    shared: [],
+    faqs: [],
+    specTreatment: [],
   };
 }
 
@@ -922,15 +992,17 @@ for (const entry of PRODUCT_MERGE) {
   });
 }
 
-for (const entry of PRODUCT_PAGES_ADDED) {
+/** A page the Content Master does not define, built from the prototype. */
+function addPage(entry, parsed) {
   if (byUrl.has(entry.url)) throw new Error(`${entry.url} already exists: merge it, do not add it`);
 
   byUrl.set(entry.url, {
     url: entry.url,
     seoTitle: entry.seoTitle,
     metaDescription: entry.metaDescription,
-    // The field format the Content Master writes, so one parser reads both.
-    schema: 'Product + BreadcrumbList + FAQPage only for visible FAQs',
+    // The field formats the Content Master writes, so one parser reads both.
+    schema: entry.schema ?? 'Product + BreadcrumbList + FAQPage only for visible FAQs',
+    ...(entry.breadcrumb ? { breadcrumb: entry.breadcrumb } : {}),
     intent: entry.intent,
     h1: entry.h1,
     answer: entry.answer,
@@ -939,7 +1011,6 @@ for (const entry of PRODUCT_PAGES_ADDED) {
     faqs: [],
   });
 
-  const parsed = parseProduct(entry.file);
   created.add(entry.url);
   applyPrototype(entry.url, parsed, {
     intro: parsed.intro,
@@ -948,6 +1019,9 @@ for (const entry of PRODUCT_PAGES_ADDED) {
     faqs: parsed.faqs,
   });
 }
+
+for (const entry of PRODUCT_PAGES_ADDED) addPage(entry, parseProduct(entry.file));
+for (const entry of INDUSTRY_PAGES_ADDED) addPage(entry, parseIndustry(entry.file));
 
 /* ------------------------------------------------------------- publishing */
 
@@ -1042,6 +1116,8 @@ const NEEDS_SMEC = {
   '/company/certifications/': 'verified certificates and validity',
   '/company/oem-partners/': 'current OEM authorisation and permission',
   '/company/project-experience/': 'client-approved project references',
+  '/industries/marine-offshore-vessels/':
+    'fuller industry copy — the prototype supplies 555 characters, three captions and their lists',
   '/resources/case-studies/': 'approved case studies',
   '/resources/checklists/': 'the checklists themselves',
   '/resources/calculators/': 'the calculators themselves',

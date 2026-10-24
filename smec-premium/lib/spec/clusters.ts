@@ -96,8 +96,11 @@ const CLUSTERS: string[][] = [
     '/products/explosion-proof-cctv/',
     '/products/driller-talkback-av-alarm/',
   ],
-  // Marine and offshore hulls, likewise.
+  // Marine and offshore hulls, likewise. The industry page is the asset the
+  // other four are fitted to, so it belongs here rather than under a
+  // value-chain stage.
   [
+    '/industries/marine-offshore-vessels/',
     '/products/ballast-control-system/',
     '/products/bilge-alarm-system/',
     '/products/marine-growth-prevention/',

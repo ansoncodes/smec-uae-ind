@@ -71,7 +71,7 @@ Status keys: `[ ]` open · `[x]` done · `[~]` partially done · `[S]` under an 
 
 - [x] **1.1 Re-cut routes to the locked architecture** — done. Eight sections, each
       an optional catch-all prerendering its hub and children from the Content
-      Master; 108 URLs, 93 indexable. The 14 product pages and 15 articles this
+      Master; 109 URLs, 93 indexable. The 14 product pages and 15 articles this
       build already had keep their design and depth at their new addresses
       (`lib/spec/legacy.ts`). The old routes (`app/[slug]`, `about-us`, `careers`,
       `contact-us`, `insights`, `solutions-and-services`) are deleted.
@@ -192,7 +192,7 @@ Status keys: `[ ]` open · `[x]` done · `[~]` partially done · `[S]` under an 
       Original note: `Article` schema needs ISO `datePublished`/`dateModified`; `lib/articles/*`
       carry dates as prose. `[S]`
 - [x] 2.6 Answer blocks: 2–3 factual sentences directly under every H1, able to stand
-      alone in search results. Done on all 108 pages, the homepage included. `[M]`
+      alone in search results. Done on all 109 pages, the homepage included. `[M]`
 - [~] 2.7 FAQs: 48 URLs render approved copy. Drafts for the 37 buyer-facing pages
       without any are in `docs/faq-drafts.md` — 123 questions, of which 16 answers
       need an engineer because the page does not say enough to answer honestly. A
@@ -317,18 +317,23 @@ from visible content · no TODO/FIXME/lorem anywhere.
 
 ---
 
-## 5. Content coverage — 108 built, 93 indexable
+## 5. Content coverage — 109 built, 93 indexable
 
 Every URL in the Content Master is built and prerendered. Each page carries the
 document's H1, answer block, body sections, FAQs where it approves them, and its
 breadcrumb; the 14 products and 15 articles this build already had keep their own
 design and depth on top of that.
 
-Three more pages are not in the Content Master at all. Pipeline SCADA & RTU,
+Four more pages are not in the Content Master at all. Pipeline SCADA & RTU,
 wellhead and skid controls and emergency shutdown are finished pages in the
 client's October prototypes with no URL on our side, so they were given one —
 an addition the redirect map does not feel, since nothing on the live site
-points at them. Their SEO title, meta description, H1 and answer block are
+points at them. `/industries/marine-offshore-vessels/` is the fourth, and the
+one with a promise behind it: the 22 October note told the client we would
+retain a marine industry page that did not exist. It is flat rather than
+nested because the other four industry branches are stages of the value chain
+and a vessel is an asset, and it ships draft, because 555 characters is not a
+publishable page. Their SEO title, meta description, H1 and answer block are
 written in `scripts/build-spec-content.mjs`, which is where anyone revising
 them should look.
 
@@ -345,14 +350,14 @@ reclassifying pages the Content Master settled is a review to run on purpose.
 | --- | --- | --- | --- |
 | Products | 34 | 28 | BOP control, fire & gas, flare ignition, gas watch, ICSS, ESD |
 | Solutions | 16 | 16 | — |
-| Industries | 21 | 21 | — |
+| Industries | 21 | 20 | Marine & Offshore Vessels |
 | Customers | 8 | 8 | — |
 | Digital | 7 | 7 | — |
 | Resources | 8 | 4 | calculators, case studies, checklists, glossary |
 | Company | 11 | 6 | certifications, leadership, MD message, OEM partners, experience |
 | Markets, contact, home | 3 | 3 | — |
 
-The 15 that are not indexable render, carry `noindex, follow` and stay out of the
+The 16 that are not indexable render, carry `noindex, follow` and stay out of the
 sitemap until their gate clears (1.10). Nothing asserts a number, certification or
 client the documents have not approved.
 

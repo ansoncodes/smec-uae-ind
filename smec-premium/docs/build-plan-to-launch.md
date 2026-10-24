@@ -119,6 +119,14 @@ Ordered so that nothing waits on anything the client still owes.
       `/products/emergency-shutdown-systems/`, taking the architecture docx's
       slug in each case. 105 pages becomes 108; nothing on the live site points
       at the new URLs, so the verified redirect map is untouched.*
+- [x] **Build the Marine & Offshore Vessels industry page**, which the 22
+      October note promised to "retain" and which did not exist: all 20
+      industry URLs were upstream, midstream, downstream or onshore.
+      *`/industries/marine-offshore-vessels/`, flat rather than nested,
+      because the other four are stages of the value chain and a vessel is an
+      asset. 108 pages becomes 109. It ships draft behind `noindex` like the
+      rest of Industries — 555 characters is not a publishable page — so what
+      is open is the copy, not the route.*
 - [ ] **Rebuild the 65-item catalogue.** Only 31 rows carry a landing URL and
       they resolve to 19 distinct pages; the rest route to an enquiry action.
 - [ ] **Rebuild Tab 1's internal links.** 34 of its 38 outbound product URLs do
@@ -149,7 +157,8 @@ Ordered so that nothing waits on anything the client still owes.
 ### Days 5–6 — content as it arrives
 
 - [ ] Industries: draft from the prototype summaries for client review, or lift
-      `noindex` if real copy arrives.
+      `noindex` if real copy arrives. Marine & Offshore Vessels is in the same
+      queue, now that it has a route to arrive on.
 - [ ] Resources: same. Nothing publishes until there is article text.
 - [ ] Drop in photography as Greeshma sends it; fall back to the legacy
       originals copied on day 1.

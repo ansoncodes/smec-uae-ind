@@ -3,10 +3,10 @@
  *
  * Sources: docs/source/SMEC_Website_Content_Master_2026_V3_DEEP_CONTENT.md
  *          docs/source/prototypes/ (merged over it on 31 URLs,
- *          and the sole source of 3 more)
+ *          and the sole source of 4 more)
  * Rebuild: node scripts/build-spec-content.mjs
  *
- * 108 pages · 15 draft (noindex until their gate clears)
+ * 109 pages · 16 draft (noindex until their gate clears)
  * · 61 with approved FAQ copy.
  */
 
@@ -1539,6 +1539,59 @@ export const SPEC_PAGES: SpecPage[] = [
     "faqs": [],
     "status": "approved",
     "gates": []
+  },
+  {
+    "url": "/industries/marine-offshore-vessels/",
+    "breadcrumb": [
+      "Home",
+      "Industries",
+      "Marine & Offshore Vessels"
+    ],
+    "seoTitle": "Marine & Offshore Vessel Electrical & Automation | SMEC",
+    "metaDescription": "Electrical and automation support across the vessel lifecycle: switchboards, power management, machinery and drive control, retrofit, testing and commissioning.",
+    "schema": [
+      "Service",
+      "FAQPage",
+      "BreadcrumbList"
+    ],
+    "intent": "marine electrical automation; offshore support vessel retrofit",
+    "h1": "Marine & Offshore Vessels",
+    "answer": "Electrical and automation support across the vessel lifecycle, for offshore support vessels, marine assets and vessel modernisation projects. Scope can cover main and emergency switchboards, power management and generator load sharing, UPS and shore-power interfaces, PLC/HMI and alarm monitoring, motor and VFD controls, and fire and gas interfaces. Onboard troubleshooting, retrofit, testing and commissioning are part of the same scope.",
+    "sections": [
+      {
+        "heading": "Power & Distribution",
+        "lines": [
+          "Electrical reliability onboard",
+          "Main and emergency switchboards",
+          "PMS and generator load sharing",
+          "UPS and shore-power interfaces"
+        ]
+      },
+      {
+        "heading": "Automation & Drives",
+        "lines": [
+          "Machinery control and retrofit",
+          "PLC/HMI and alarm monitoring",
+          "Motor and VFD controls",
+          "Propulsion and auxiliary interfaces"
+        ]
+      },
+      {
+        "heading": "Safety & Support",
+        "lines": [
+          "Shipboard integration and service",
+          "Fire and gas interfaces",
+          "Onboard troubleshooting",
+          "Retrofit, testing and commissioning"
+        ]
+      }
+    ],
+    "specTreatment": [],
+    "faqs": [],
+    "status": "draft",
+    "gates": [
+      "Needs SMEC: fuller industry copy — the prototype supplies 555 characters, three captions and their lists."
+    ]
   },
   {
     "url": "/industries/midstream/",
