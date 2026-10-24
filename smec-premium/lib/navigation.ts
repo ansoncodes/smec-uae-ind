@@ -115,7 +115,15 @@ const megaSolutions: MegaColumn[] = [
   ]),
 ];
 
-/* §31 item 1 keeps industries and markets together under one tab. */
+/**
+ * Industries absorbs the customer pages, because the client's six tabs have no
+ * "By Customer" of their own. The seven buyer-type pages keep their URLs and
+ * their copy; they are reached from here instead of from a tab.
+ *
+ * Markets stays here, as §31 had it. The hub's own H1 is "Industries &
+ * Markets" and its body links both market pages, so listing them under About
+ * SMEC would have the tab disagree with the page it opens.
+ */
 const megaIndustries: MegaColumn[] = [
   column('Segments', [
     ['/industries/upstream/', 'Upstream'],
@@ -127,30 +135,24 @@ const megaIndustries: MegaColumn[] = [
     ['/industries/upstream/offshore-drilling/', 'Offshore Drilling'],
     ['/industries/upstream/onshore-drilling/', 'Onshore Drilling'],
     ['/industries/upstream/production-facilities/', 'Production Facilities'],
+    ['/industries/marine-offshore-vessels/', 'Marine & Offshore Vessels'],
     ['/industries/midstream/pipelines/', 'Pipelines'],
     ['/industries/midstream/lng-terminals/', 'LNG Terminals'],
     ['/industries/downstream/refineries/', 'Refineries'],
     ['/industries/downstream/gas-processing/', 'Gas Processing'],
   ]),
-  column('Markets', [
-    ['/markets/middle-east/', 'Middle East'],
-    ['/markets/global-project-support/', 'Global Project Support'],
-  ]),
-];
-
-const megaCustomers: MegaColumn[] = [
-  column('Operators', [
+  column('By customer type', [
     ['/customers/iocs/', 'IOCs'],
     ['/customers/nocs/', 'NOCs'],
     ['/customers/fleet-operators/', 'Fleet Operators'],
-  ]),
-  column('Contractors', [
     ['/customers/drilling-contractors/', 'Drilling Contractors'],
     ['/customers/epc-contractors/', 'EPC Contractors'],
-  ]),
-  column('Vendors & industry', [
     ['/customers/oem-package-vendors/', 'OEM & Package Vendors'],
     ['/customers/industrial-manufacturers/', 'Industrial Manufacturers'],
+  ]),
+  column('Markets', [
+    ['/markets/middle-east/', 'Middle East'],
+    ['/markets/global-project-support/', 'Global Project Support'],
   ]),
 ];
 
@@ -206,10 +208,57 @@ const hubBlurb = (url: string, fallback: string) => {
   return first && first.length <= 130 ? first : fallback;
 };
 
-/** The eight, in the order §31 locks them. */
+/**
+ * The client's six tabs, in her order, plus the RFQ route.
+ *
+ * This replaces the eight the handover documents specify — the Content Master
+ * ("Top-level navigation: Industries & Markets | By Customer | Solutions |
+ * Products | Digital | Resources | Company | Contact/RFQ"), the Technical SEO
+ * Master and the Developer Brief all carry that list. It is a deliberate
+ * override, not drift: on 22 October SMEC confirmed those documents were
+ * generated rather than written, that only the content in them is hers, and
+ * handed navigation, URL and structure decisions to us; the six tabs are what
+ * she then set and approved on 23 October.
+ *
+ * Only the labels and the grouping move. Every URL underneath is unchanged,
+ * which is what keeps the crawl-verified redirect map valid — so the tabs are
+ * navigation, not a URL scheme. "By Customer" folds into Industries and
+ * Markets into About SMEC; no page is lost in either case.
+ *
+ * The Content Master's one substantive navigation rule still holds: a single
+ * top-level Products tab, with E-Houses, rig and offshore systems beneath it
+ * rather than split across tabs.
+ */
 export const TOP_NAV: TopNavItem[] = [
   {
-    label: 'Industries & Markets',
+    label: 'Engineering Solutions',
+    href: '/solutions/',
+    watch: 'capability',
+    allLabel: 'All solutions',
+    blurb: hubBlurb('/solutions/', 'Engineering, project and lifecycle scopes across the asset.'),
+    mega: megaSolutions,
+  },
+  {
+    label: 'Systems & Products',
+    href: '/products/',
+    watch: 'systems',
+    allLabel: 'All products',
+    blurb: hubBlurb('/products/', 'Engineered systems for power, drilling control and rig safety.'),
+    mega: megaProducts,
+  },
+  {
+    label: 'Digitalisation',
+    href: '/digital/',
+    watch: 'innovation',
+    allLabel: 'All digitalisation',
+    blurb: hubBlurb(
+      '/digital/',
+      'Monitoring, maintenance and engineering data, where the decision case is clear.'
+    ),
+    mega: megaDigital,
+  },
+  {
+    label: 'Industries',
     href: '/industries/',
     watch: 'industries',
     allLabel: 'All industries',
@@ -220,41 +269,7 @@ export const TOP_NAV: TopNavItem[] = [
     mega: megaIndustries,
   },
   {
-    label: 'By Customer',
-    href: '/customers/',
-    allLabel: 'All customer types',
-    blurb: hubBlurb('/customers/', 'Operators, contractors and vendors, each with its own scope.'),
-    mega: megaCustomers,
-  },
-  {
-    label: 'Solutions',
-    href: '/solutions/',
-    watch: 'capability',
-    allLabel: 'All solutions',
-    blurb: hubBlurb('/solutions/', 'Engineering, project and lifecycle scopes across the asset.'),
-    mega: megaSolutions,
-  },
-  {
-    label: 'Products',
-    href: '/products/',
-    watch: 'systems',
-    allLabel: 'All products',
-    blurb: hubBlurb('/products/', 'Engineered systems for power, drilling control and rig safety.'),
-    mega: megaProducts,
-  },
-  {
-    label: 'Digital',
-    href: '/digital/',
-    watch: 'innovation',
-    allLabel: 'All digital',
-    blurb: hubBlurb(
-      '/digital/',
-      'Monitoring, maintenance and engineering data, where the decision case is clear.'
-    ),
-    mega: megaDigital,
-  },
-  {
-    label: 'Resources',
+    label: 'Projects & Resources',
     href: '/resources/',
     watch: 'insights',
     allLabel: 'All resources',
@@ -262,12 +277,12 @@ export const TOP_NAV: TopNavItem[] = [
     mega: megaResources,
   },
   {
-    label: 'Company',
+    label: 'About SMEC',
     href: '/company/',
     watch: 'about',
     allLabel: 'All company pages',
     blurb: hubBlurb('/company/', 'Profile, offices, certifications, experience and careers.'),
     mega: megaCompany,
   },
-  { label: 'Contact / RFQ', href: '/contact/', watch: 'contact' },
+  { label: 'Submit RFQ', href: '/contact/', watch: 'contact' },
 ];
