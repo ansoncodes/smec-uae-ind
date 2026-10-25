@@ -1,6 +1,7 @@
 import Link from 'next/link';
 import Breadcrumb from '@/components/ui/Breadcrumb';
 import { CONTACT } from '@/lib/siteData';
+import { regionForPath, rfqHref } from '@/lib/regions';
 import { breadcrumbTrail, publishableSections, type SpecPage } from '@/lib/spec';
 import type { GlossaryTerm } from '@/lib/glossary';
 import { evidenceFor } from '@/lib/evidence';
@@ -47,6 +48,8 @@ export default function SpecPageView({
   const section = page.breadcrumb[1] ?? 'SMEC Oil & Gas';
   const isDraft = page.status === 'draft';
   const showDraftNote = isDraft && process.env.NEXT_PUBLIC_SITE_ENV !== 'production';
+  // A page about the India company starts its RFQ on the India desk.
+  const rfq = rfqHref(regionForPath(page.url));
 
   return (
     <>
@@ -70,7 +73,7 @@ export default function SpecPageView({
                   Send an RFQ
                 </a>
               ) : (
-                <Link className="btn btn-primary" href="/contact/">
+                <Link className="btn btn-primary" href={rfq}>
                   Send an RFQ
                 </Link>
               )}
@@ -234,7 +237,7 @@ export default function SpecPageView({
           </div>
         </div>
 
-        {form ? null : <SpecClose rfqInputs={rfqInputs} />}
+        {form ? null : <SpecClose rfqInputs={rfqInputs} rfqHref={rfq} />}
       </main>
     </>
   );
