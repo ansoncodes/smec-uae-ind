@@ -117,6 +117,13 @@
   color: var(--steel-300);
 }
 
+/* The India office, under the Middle East one. */
+.addressNext {
+  margin-top: 28px;
+  padding-top: 24px;
+  border-top: 1px solid var(--ink-hair);
+}
+
 .addressIcon {
   flex: none;
   margin-top: 4px;

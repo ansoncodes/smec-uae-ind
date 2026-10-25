@@ -4,8 +4,10 @@ import {
   COPYRIGHT,
   CONTACT,
   FOOTER_ADDRESS,
+  FOOTER_ADDRESS_INDIA,
   FOOTER_COMPANY,
   FOOTER_CONTACT,
+  FOOTER_CONTACT_INDIA,
   FOOTER_SOLUTIONS_A,
   FOOTER_SOLUTIONS_B,
   LEGAL_LINKS,
@@ -113,7 +115,7 @@ export default function SiteFooter() {
             </div>
 
             <div className={styles.col}>
-              <p className={styles.colHead}>Head office</p>
+              <p className={styles.colHead}>Offices</p>
               <address className={styles.address}>
                 <Pin className={styles.addressIcon} />
                 <span>
@@ -146,6 +148,29 @@ export default function SiteFooter() {
                     {CONTACT.phone}
                   </a>
                 </li>
+              </ul>
+
+              <address className={`${styles.address} ${styles.addressNext}`}>
+                <Pin className={styles.addressIcon} />
+                <span>
+                  {FOOTER_ADDRESS_INDIA.map((line, i) => (
+                    <span key={line} className={i === 0 ? styles.addressLabel : undefined}>
+                      {line}
+                      <br />
+                    </span>
+                  ))}
+                </span>
+              </address>
+
+              <ul className={styles.contact}>
+                {FOOTER_CONTACT_INDIA.map((row) => (
+                  <li key={row.label}>
+                    <span className={styles.contactLabel}>{row.label}</span>
+                    <a className="wipeLink" href={row.href}>
+                      {row.value}
+                    </a>
+                  </li>
+                ))}
               </ul>
             </div>
           </nav>

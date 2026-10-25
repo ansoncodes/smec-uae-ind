@@ -47,28 +47,44 @@
   color: var(--steel-300);
 }
 
-.railNote {
+/* One entity a side: the Middle East company left, India right. */
+.railOffice {
+  display: flex;
+  align-items: center;
+  gap: 22px;
+  margin: 0;
   white-space: nowrap;
 }
 
-.railLinks {
-  display: flex;
-  gap: 26px;
+.railRegion,
+.railEntity {
+  color: var(--steel-100);
 }
 
-.railLinks a {
+.railOffice a {
   display: inline-flex;
   align-items: center;
   gap: 8px;
+  min-height: 24px;
   transition: color 0.3s var(--ease);
 }
 
-.railLinks a:hover {
+.railOffice a:hover {
   color: var(--white);
 }
 
-.railLinks svg {
+.railOffice svg {
   opacity: 0.65;
+}
+
+/* Wide screens name the company, narrower ones the region. Whichever is not
+   shown is clipped rather than removed, so a screen reader hears both. */
+.railRegion {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
 }
 
 /* -------------------------------------------------------------------- bar */
@@ -508,6 +524,23 @@
 
 /* ------------------------------------------------------------ responsive */
 
+@media (max-width: 1280px) {
+  .railRegion {
+    position: static;
+    width: auto;
+    height: auto;
+    overflow: visible;
+    clip: auto;
+  }
+  .railEntity {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+  }
+}
+
 @media (max-width: 1180px) {
   .navList {
     gap: 2px;
@@ -516,7 +549,10 @@
     font-size: 13px;
     padding: 10px 4px;
   }
-  .railNote {
+}
+
+@media (max-width: 960px) {
+  .railOffice .railEmail {
     display: none;
   }
 }
@@ -544,12 +580,19 @@
   .railInner {
     height: 34px;
     justify-content: center;
-    font-size: 10px;
-  }
-  .railLinks {
     gap: 16px;
+    font-size: 10px;
+    letter-spacing: 0.08em;
   }
-  .railLinks a span {
-    display: none;
+  /* Phones keep the two numbers; the country code says which office. */
+  .railRegion {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+  }
+  .railOffice a {
+    gap: 6px;
   }
 }

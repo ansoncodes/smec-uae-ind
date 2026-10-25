@@ -62,6 +62,13 @@ export const Pin = ({ className }: P) => (
   </svg>
 );
 
+export const Building = ({ className }: P) => (
+  <svg className={className} width="16" height="16" viewBox="0 0 16 16" {...base}>
+    <path d="M2 14.5h12M3.5 14.5v-12h6v12M9.5 6.5h3v8" />
+    <path d="M5.5 5h2M5.5 7.5h2M5.5 10h2" />
+  </svg>
+);
+
 export const Play = ({ className }: P) => (
   <svg className={className} width="22" height="22" viewBox="0 0 22 22" aria-hidden focusable="false">
     <path d="M7.5 4.8 17 11l-9.5 6.2Z" fill="currentColor" />

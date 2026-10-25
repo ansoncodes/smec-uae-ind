@@ -66,19 +66,32 @@ export const NAV: NavItem[] = [
   { label: 'Contact Us', href: 'https://smecoilandgas.com/contact-us' },
 ];
 
-/** Extra entries that only appear in the mobile off-canvas menu. */
-export const MOBILE_EXTRA_NAV: NavItem[] = [
-  { label: 'Sustainability', href: 'https://smecoilandgas.com/sustainability' },
-  { label: 'Email : sales@smecong.com', href: 'mailto:sales@smecong.com' },
-  { label: 'Call US : +91 85888 70618', href: 'tel:+918588870618' },
-];
-
+/**
+ * The two entities, as the homepage document's top bar lists them: the
+ * Middle East company first, then the India engineering company.
+ */
 export const CONTACT = {
+  region: 'Middle East',
+  entity: 'SMEC Oil & Gas Solutions LLC',
   email: 'info@smecong.com',
   emailHref: 'mailto:info@smecong.com',
   phone: '+971 54 549 6420',
   phoneHref: 'tel:+971545496420',
   whatsapp: 'https://wa.me/971545496420',
+} as const;
+
+/**
+ * Every client source gives this India number — the 15 Sep message, the
+ * homepage document, the RFQ and WhatsApp designs. The number the old live
+ * site published is not hers and appears nowhere in this build.
+ */
+export const CONTACT_INDIA = {
+  region: 'India',
+  entity: 'SMEC Automation Pvt Ltd',
+  email: 'sales@smecong.com',
+  emailHref: 'mailto:sales@smecong.com',
+  phone: '+91 86060 47714',
+  phoneHref: 'tel:+918606047714',
 } as const;
 
 /* ------------------------------------------------------------------ hero */
@@ -290,22 +303,14 @@ export const CERTIFICATES = [
 ];
 
 /**
- * Accreditation and certification marks under the certificates. Each one
- * carries the body it belongs to: a logo with alt="" is a mark a screen
- * reader cannot name, and these are the evidence the page is making.
+ * Standard marks under the certificates — only the ISO standards the
+ * certificates above evidence. The eleven accreditation marks that scrolled
+ * here (NIELIT, ESSCI, CGSC, Make in India, NSDC, IECEx, IISC, FM Approved,
+ * ESDM, MSME, QRO) are in none of the client's documents, and IECEx and FM
+ * Approved read as hazardous-area approvals SMEC has never claimed. Each mark
+ * is named: a logo with alt="" is one a screen reader cannot name.
  */
 export const CERT_LOGOS = [
-  { src: '/images/accreditation-nielit.png', alt: 'NIELIT' },
-  { src: '/images/accreditation-essci.png', alt: 'Electronics Sector Skills Council of India' },
-  { src: '/images/accreditation-cgsc.png', alt: 'Capital Goods Skill Council' },
-  { src: '/images/accreditation-make-in-india.png', alt: 'Make in India' },
-  { src: '/images/accreditation-nsdc.png', alt: 'National Skill Development Corporation' },
-  { src: '/images/accreditation-iecex.png', alt: 'IECEx' },
-  { src: '/images/accreditation-iisc.png', alt: 'India International Skill Centre' },
-  { src: '/images/accreditation-fm-approved.png', alt: 'FM Approved' },
-  { src: '/images/accreditation-esdm.png', alt: 'Electronics System Design & Manufacturing' },
-  { src: '/images/accreditation-msme.png', alt: 'Ministry of MSME, Government of India' },
-  { src: '/images/accreditation-qro.png', alt: 'Quality Research Organization' },
   { src: '/images/iso-9001-2015.png', alt: 'ISO 9001:2015' },
   { src: '/images/iso-14001-2015.png', alt: 'ISO 14001:2015' },
   { src: '/images/iso-45001.png', alt: 'ISO 45001' },
@@ -313,22 +318,92 @@ export const CERT_LOGOS = [
 
 /* --------------------------------------------------------------- clients */
 
-/** Client marks, each named. See the note on CERT_LOGOS. */
-export const CLIENT_LOGOS = [
-  { src: '/images/client-shelf-drilling.png', alt: 'Shelf Drilling' },
-  { src: '/images/client-gail.png', alt: 'GAIL' },
-  { src: '/images/client-kongsberg.png', alt: 'Kongsberg' },
-  { src: '/images/client-jindal-drilling.png', alt: 'Jindal Drilling & Industries' },
-  { src: '/images/client-nov.png', alt: 'NOV' },
-  { src: '/images/client-indianoil.png', alt: 'IndianOil' },
-  { src: '/images/client-reliance-industries.png', alt: 'Reliance Industries' },
-  { src: '/images/client-hpcl.png', alt: 'Hindustan Petroleum (HPCL)' },
-  { src: '/images/client-cochin-shipyard.png', alt: 'Cochin Shipyard (CSL)' },
-  { src: '/images/client-ades.png', alt: 'ADES' },
-  { src: '/images/client-hindustan-shipyard.png', alt: 'Hindustan Shipyard (HSL)' },
-  { src: '/images/client-ongc.png', alt: 'ONGC' },
-  { src: '/images/client-focus-energy.png', alt: 'Focus Energy' },
-  { src: '/images/client-schlumberger.png', alt: 'Schlumberger' },
+export type Logo = { src: string; alt: string; width: number; height: number };
+
+export type EcosystemTab = {
+  id: string;
+  tab: string;
+  title: string;
+  body: string;
+  groups: { label: string; logos: Logo[]; pending?: string }[];
+};
+
+/**
+ * Clients, Registrations & Technology Ecosystem: the client's three tabs
+ * (homepage document, images 8–10), in her words, carrying the marks she
+ * supplied in Creatives/LOGOS on 25 October. That folder is the approved
+ * set — the Developer Handover Brief rules out any client logo or OEM mark
+ * she has not evidenced — so nothing outside it belongs here. Each mark is
+ * named for what the artwork itself says.
+ */
+export const ECOSYSTEM: EcosystemTab[] = [
+  {
+    id: 'middle-east',
+    tab: 'Middle East',
+    title: 'Middle East — Clients & Approved Vendors',
+    body: 'Supporting drilling contractors, energy operators and industrial projects across the Middle East through electrical, instrumentation, automation and system integration expertise.',
+    groups: [
+      {
+        label: 'Selected Drilling Clients',
+        logos: [
+          { src: '/images/client-shelf-drilling.webp', alt: 'Shelf Drilling', width: 480, height: 235 },
+          { src: '/images/client-ades.webp', alt: 'ADES Holding', width: 480, height: 217 },
+        ],
+      },
+      {
+        label: 'Approved Vendor Registrations',
+        logos: [
+          { src: '/images/registration-adnoc.webp', alt: 'ADNOC', width: 259, height: 402 },
+          {
+            src: '/images/registration-snoc.webp',
+            alt: 'Sharjah National Oil Corporation (SNOC)',
+            width: 480,
+            height: 323,
+          },
+          { src: '/images/registration-taqa.webp', alt: 'TAQA', width: 480, height: 145 },
+          {
+            src: '/images/registration-dewa.webp',
+            alt: 'Dubai Electricity & Water Authority (DEWA)',
+            width: 372,
+            height: 336,
+          },
+        ],
+      },
+    ],
+  },
+  {
+    id: 'india',
+    tab: 'India',
+    title: 'India — Clients & Project Experience',
+    body: 'Engineering and system integration experience across oil and gas, marine, industrial automation, infrastructure and heavy industries in India.',
+    groups: [
+      {
+        label: 'Selected Clients',
+        logos: [],
+        // Her design's own empty state. No Indian client mark is approved yet.
+        pending: 'Approved Indian client logos to be added from SMEC’s project reference portfolio.',
+      },
+    ],
+  },
+  {
+    id: 'oem-technology',
+    tab: 'OEM & Technology',
+    title: 'OEM & Technology Ecosystem',
+    body: 'Working with established electrical, automation and industrial technology platforms to support engineering, system integration and modernisation requirements.',
+    groups: [
+      {
+        label: 'OEM & Technology Brands',
+        logos: [
+          { src: '/images/oem-schneider-electric.webp', alt: 'Schneider Electric', width: 480, height: 169 },
+          { src: '/images/oem-siemens.webp', alt: 'Siemens', width: 480, height: 107 },
+          { src: '/images/oem-abb.webp', alt: 'ABB', width: 480, height: 208 },
+          { src: '/images/oem-emerson.webp', alt: 'Emerson', width: 480, height: 223 },
+          { src: '/images/oem-phoenix-contact.webp', alt: 'Phoenix Contact', width: 480, height: 146 },
+          { src: '/images/oem-deif.webp', alt: 'DEIF', width: 428, height: 251 },
+        ],
+      },
+    ],
+  },
 ];
 
 /* ------------------------------------------------------- global presence */
@@ -355,10 +430,10 @@ export const MARQUEE_COUNTRIES = [
   'Qatar',
   'Egypt',
   'Kuwait',
-  'Baharin',
+  'Bahrain',
   'Singapore',
   'China',
-  'Srilanka',
+  'Sri Lanka',
 ];
 
 /* ------------------------------------------------------------- R&D focus */
@@ -535,6 +610,21 @@ export const FOOTER_CONTACT = [
   { label: 'Landline:', value: '+971 2 546 0027', href: 'tel:+97125460027' },
   { label: 'Mobile:', value: '+971 50 249 1903', href: 'tel:+971502491903' },
   { label: 'Email:', value: 'info@smecong.com', href: 'mailto:info@smecong.com' },
+];
+
+/**
+ * The India block of her footer design (image 32). Its street address is
+ * still to come from the client, so the block stops at the city.
+ */
+export const FOOTER_ADDRESS_INDIA = [
+  'INDIA ENGINEERING & MANUFACTURING',
+  CONTACT_INDIA.entity,
+  'Kochi, Kerala, India',
+];
+
+export const FOOTER_CONTACT_INDIA = [
+  { label: 'Phone:', value: CONTACT_INDIA.phone, href: CONTACT_INDIA.phoneHref },
+  { label: 'Email:', value: CONTACT_INDIA.email, href: CONTACT_INDIA.emailHref },
 ];
 
 export const FOOTER_COMPANY: NavItem[] = [

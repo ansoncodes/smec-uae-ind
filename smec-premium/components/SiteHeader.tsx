@@ -3,7 +3,7 @@
 import { useEffect, useRef, useState } from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
-import { CONTACT, MOBILE_EXTRA_NAV, SITE } from '@/lib/siteData';
+import { CONTACT, CONTACT_INDIA, SITE } from '@/lib/siteData';
 import { TOP_NAV, type TopNavItem } from '@/lib/navigation';
 import { localHref } from '@/lib/routes';
 import { ArrowRight, ArrowUpRight, Chevron, Mail, Phone } from './Icons';
@@ -158,18 +158,21 @@ export default function SiteHeader() {
       }`}
       onMouseLeave={release}
     >
-      {/* utility rail — contact details, folded away once the page scrolls */}
+      {/* utility rail — both entities' contacts, folded away once the page scrolls */}
       <div className={styles.rail} inert={condensed}>
         <div className={styles.railInner}>
-          <span className={styles.railNote}>Abu Dhabi · Kochi · Global support</span>
-          <div className={styles.railLinks}>
-            <a href={CONTACT.emailHref}>
-              <Mail /> {CONTACT.email}
-            </a>
-            <a href={CONTACT.phoneHref}>
-              <Phone /> {CONTACT.phone}
-            </a>
-          </div>
+          {[CONTACT, CONTACT_INDIA].map((office) => (
+            <p key={office.region} className={styles.railOffice}>
+              <span className={styles.railRegion}>{office.region}</span>{' '}
+              <span className={styles.railEntity}>{office.entity}</span>
+              <a className={styles.railEmail} href={office.emailHref}>
+                <Mail /> {office.email}
+              </a>
+              <a href={office.phoneHref}>
+                <Phone /> {office.phone}
+              </a>
+            </p>
+          ))}
         </div>
       </div>
 
@@ -358,11 +361,6 @@ export default function SiteHeader() {
           </ul>
 
           <div className={styles.drawerFoot}>
-            {MOBILE_EXTRA_NAV.map((item) => (
-              <a key={item.label} href={localHref(item.href)} onClick={() => setDrawer(false)}>
-                {item.label}
-              </a>
-            ))}
             <a className={styles.drawerCta} href={localHref(`${SITE.url}/contact-us`)}>
               <span>Let&rsquo;s Talk</span>
               <ArrowRight />

@@ -6,12 +6,9 @@ import styles from './Certifications.module.css';
 
 /**
  * 06 / Assurance — the four ISO certificates SMEC holds, each card showing the
- * certificate itself, and the accreditation marks scrolling underneath.
+ * certificate itself, and the standards' marks underneath.
  */
 export default function Certifications() {
-  // The strip is duplicated so the marquee can loop on a -50% translate.
-  const marks = [...CERT_LOGOS, ...CERT_LOGOS];
-
   return (
     <section className="section" id="assurance" data-tone="light" aria-labelledby="assurance-title">
       <div className="container">
@@ -59,29 +56,23 @@ export default function Certifications() {
         </ul>
       </div>
 
-      {/* ------------------------------------------- accreditation marks */}
-      <div className={styles.marks} aria-label="Accreditation and certification bodies">
-        <div className={styles.marksTrack}>
-          {marks.map((mark, i) => (
-            <span
-              key={`${mark.src}-${i}`}
-              className={styles.mark}
-              aria-hidden={i >= CERT_LOGOS.length}
-            >
-              <Image
-                src={mark.src}
-                // The strip is duplicated to loop; only the first pass is read.
-                alt={i >= CERT_LOGOS.length ? '' : mark.alt}
-                width={160}
-                height={80}
-                sizes="140px"
-                className={styles.markImg}
-                loading="lazy"
-              />
-            </span>
-          ))}
-        </div>
-      </div>
+      {/* ------------------------------------------------ standards marks */}
+      {/* Three marks hold still: a marquee this short would loop with a gap. */}
+      <ul className={styles.marks} aria-label="Certified management standards">
+        {CERT_LOGOS.map((mark) => (
+          <li key={mark.src} className={styles.mark}>
+            <Image
+              src={mark.src}
+              alt={mark.alt}
+              width={160}
+              height={80}
+              sizes="140px"
+              className={styles.markImg}
+              loading="lazy"
+            />
+          </li>
+        ))}
+      </ul>
     </section>
   );
 }
