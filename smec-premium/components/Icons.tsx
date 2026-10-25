@@ -36,6 +36,12 @@ export const Chevron = ({ className }: P) => (
   </svg>
 );
 
+export const Close = ({ className }: P) => (
+  <svg className={className} width="16" height="16" viewBox="0 0 16 16" {...base}>
+    <path d="M4 4l8 8M12 4l-8 8" />
+  </svg>
+);
+
 export const Plus = ({ className }: P) => (
   <svg className={className} width="16" height="16" viewBox="0 0 16 16" {...base}>
     <path d="M8 3v10M3 8h10" />

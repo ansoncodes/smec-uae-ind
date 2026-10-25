@@ -3,6 +3,7 @@
 import { useEffect } from 'react';
 import { usePathname } from 'next/navigation';
 import { pageTypeOf, track } from '@/lib/analytics';
+import { CONTACT, CONTACT_INDIA } from '@/lib/siteData';
 
 /**
  * The conversion events that are not the RFQ form's, all in one place.
@@ -58,7 +59,15 @@ export default function ConversionEvents() {
 
       if (href.startsWith('tel:')) track('click_phone', { location, page_type });
       else if (href.startsWith('mailto:')) track('click_email', { location, page_type });
-      else if (/wa\.me|whatsapp/i.test(href)) track('click_whatsapp', { location, page_type });
+      else if (/wa\.me|whatsapp/i.test(href)) {
+        // Which regional team, read from the number the link dials.
+        const region = href.startsWith(CONTACT_INDIA.whatsapp)
+          ? 'india'
+          : href.startsWith(CONTACT.whatsapp)
+            ? 'uae'
+            : undefined;
+        track('click_whatsapp', { location, page_type, region });
+      }
 
       if (TALK_TO_ENGINEER.test(label)) {
         track('cta_talk_engineer', { location, page_type, item: currentItem() });

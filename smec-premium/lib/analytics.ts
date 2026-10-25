@@ -40,6 +40,8 @@ export type EventParams = {
   file_count?: number;
   /** Which field group failed, for form_error. */
   field?: string;
+  /** Which regional team: 'uae' (Middle East & International) or 'india'. */
+  region?: 'uae' | 'india';
 };
 
 declare global {

@@ -1,8 +1,8 @@
 'use client';
 
-import { useEffect, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import Link from 'next/link';
-import { consentState, onConsentChange, setConsent } from '@/lib/consent';
+import { consentState, onConsentChange, setBannerClearance, setConsent } from '@/lib/consent';
 import { loadTags } from '@/lib/tags';
 import styles from './ConsentBanner.module.css';
 
@@ -25,6 +25,7 @@ import styles from './ConsentBanner.module.css';
  */
 export default function ConsentBanner() {
   const [visible, setVisible] = useState(false);
+  const bar = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     const state = consentState();
@@ -38,6 +39,23 @@ export default function ConsentBanner() {
     });
   }, []);
 
+  // While open, tell the floating controls how much of the corner it takes.
+  useEffect(() => {
+    const node = bar.current;
+    if (!visible || !node) return;
+
+    const measure = () => setBannerClearance(window.innerHeight - node.getBoundingClientRect().top);
+    measure();
+    const observer = new ResizeObserver(measure);
+    observer.observe(node);
+    window.addEventListener('resize', measure);
+    return () => {
+      observer.disconnect();
+      window.removeEventListener('resize', measure);
+      setBannerClearance(0);
+    };
+  }, [visible]);
+
   if (!visible) return null;
 
   const choose = (state: 'granted' | 'denied') => {
@@ -46,7 +64,13 @@ export default function ConsentBanner() {
   };
 
   return (
-    <div className={styles.bar} role="region" aria-label="Analytics consent">
+    <div
+      ref={bar}
+      className={styles.bar}
+      role="region"
+      aria-label="Analytics consent"
+      data-consent-banner=""
+    >
       <p className={styles.copy}>
         We would like to measure how this site is used — pages viewed and enquiries sent — so
         we can improve it. No personal details from an enquiry are ever sent to analytics.{' '}

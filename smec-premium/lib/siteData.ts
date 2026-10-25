@@ -92,7 +92,21 @@ export const CONTACT_INDIA = {
   emailHref: 'mailto:sales@smecong.com',
   phone: '+91 86060 47714',
   phoneHref: 'tel:+918606047714',
+  whatsapp: 'https://wa.me/918606047714',
 } as const;
+
+/**
+ * The message both WhatsApp conversations open with, from the homepage
+ * document. Its last three labels share one line there; each has its own here,
+ * so a visitor fills in a field rather than editing a sentence.
+ */
+export const WHATSAPP_MESSAGE = [
+  'Hello SMEC Engineering Team,',
+  'I would like to discuss a technical requirement.',
+  'Project location:',
+  'Engineering requirement:',
+  'Company:',
+].join('\n');
 
 /* ------------------------------------------------------------------ hero */
 

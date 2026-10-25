@@ -45,3 +45,26 @@ export function onConsentChange(listener: (state: ConsentState) => void) {
     listeners.delete(listener);
   };
 }
+
+/**
+ * How far up from the bottom of the viewport the banner reaches while it is
+ * open, and 0 once it closes. The floating controls share that corner and
+ * stand above it rather than over it: the homepage document rules that they
+ * must not cover the privacy notice.
+ */
+let clearance = 0;
+const clearanceListeners = new Set<(px: number) => void>();
+
+export function setBannerClearance(px: number) {
+  if (px === clearance) return;
+  clearance = px;
+  for (const listener of clearanceListeners) listener(px);
+}
+
+export function onBannerClearance(listener: (px: number) => void) {
+  clearanceListeners.add(listener);
+  listener(clearance);
+  return () => {
+    clearanceListeners.delete(listener);
+  };
+}
