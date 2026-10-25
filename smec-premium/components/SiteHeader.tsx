@@ -256,6 +256,18 @@ export default function SiteHeader() {
                 <span>{item.allLabel ?? item.label}</span>
                 <ArrowRight />
               </a>
+              {item.outbound ? (
+                <a
+                  className={styles.megaOutbound}
+                  href={item.outbound.href}
+                  target="_blank"
+                  rel="noopener"
+                  onClick={() => setOpenMega(null)}
+                >
+                  <span>{item.outbound.label}</span>
+                  <ArrowUpRight />
+                </a>
+              ) : null}
             </div>
 
             <div className={styles.megaCols}>
@@ -343,6 +355,19 @@ export default function SiteHeader() {
                             ))}
                           </div>
                         ))}
+                        {item.outbound ? (
+                          <div className={styles.drawerSubGroup}>
+                            <a
+                              className={styles.drawerOutbound}
+                              href={item.outbound.href}
+                              target="_blank"
+                              rel="noopener"
+                            >
+                              {item.outbound.label}
+                              <ArrowUpRight />
+                            </a>
+                          </div>
+                        ) : null}
                       </div>
                     </div>
                   </>

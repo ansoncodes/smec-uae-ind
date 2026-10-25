@@ -151,6 +151,51 @@
   color: var(--steel-500);
 }
 
+/* A link off the site, so it is set apart from the numbered blocks. Semantic
+   colours, because it sits on paper here and on ink under a product page. */
+.outbound {
+  display: grid;
+  justify-items: start;
+  gap: 10px;
+  padding: clamp(22px, 2.6vw, 32px);
+  background: var(--surface);
+  border: 1px solid var(--hair);
+  border-left: 3px solid var(--accent);
+  border-radius: var(--radius-lg);
+  color: var(--fg);
+}
+
+.outboundTitle {
+  margin: 0;
+  font-size: clamp(19px, 1.7vw, 26px);
+}
+
+.outboundNote {
+  margin: 0;
+  max-width: 60ch;
+  line-height: 1.7;
+  color: var(--fg-muted);
+}
+
+/* The label wraps on a phone rather than pushing the button past the card. */
+.outboundLink {
+  margin-top: 8px;
+  max-width: 100%;
+  white-space: normal;
+  line-height: 1.35;
+}
+
+.outboundLink svg {
+  flex: none;
+}
+
+.outboundHost {
+  font-family: var(--font-mono);
+  font-size: 12px;
+  letter-spacing: 0.04em;
+  color: var(--fg-dim);
+}
+
 .faq {
   border-top: 1px solid var(--paper-hair-soft);
 }

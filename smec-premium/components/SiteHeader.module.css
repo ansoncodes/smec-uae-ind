@@ -337,6 +337,22 @@
   transform: translateX(5px);
 }
 
+/* The section's landing page on smec.in, under its own index link. */
+.megaOutbound {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  width: fit-content;
+  margin-top: 18px;
+  font-size: var(--fs-sm);
+  color: var(--accent-on-dark);
+  transition: color 0.3s var(--ease);
+}
+
+.megaOutbound:hover {
+  color: var(--white);
+}
+
 /* Products carries four categories, the rest two or three, so the grid
    takes its column count from the panel rather than assuming three. */
 .megaCols {
@@ -499,6 +515,13 @@
   padding: 9px 0;
   font-size: 15px;
   color: var(--steel-100);
+}
+
+.drawerSub .drawerOutbound {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  color: var(--accent-on-dark);
 }
 
 .drawerFoot {

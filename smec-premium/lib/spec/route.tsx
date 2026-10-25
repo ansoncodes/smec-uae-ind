@@ -8,6 +8,7 @@ import {
   isRfqInputsHeading,
   SpecClose,
   SpecFaqs,
+  SpecLandingPage,
   SpecSections,
 } from '@/components/spec/SpecBlocks';
 import Breadcrumb from '@/components/ui/Breadcrumb';
@@ -293,6 +294,7 @@ export const makePage =
               detail={body.length ? <SpecSections sections={body} /> : undefined}
             />
             <div className="container">
+              <SpecLandingPage url={page.url} />
               <SpecFaqs page={page} index={1} />
             </div>
             <SpecClose />

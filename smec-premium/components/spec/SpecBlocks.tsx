@@ -1,5 +1,7 @@
 import Link from 'next/link';
+import { ArrowUpRight } from '@/components/Icons';
 import { CONTACT } from '@/lib/siteData';
+import { hostOf, landingPageFor } from '@/lib/landingPages';
 import type { SpecPage, SpecSection } from '@/lib/spec';
 import styles from './SpecPageView.module.css';
 
@@ -90,6 +92,36 @@ export function SpecFaqs({ page, index }: { page: SpecPage; index: number }) {
           <p>{faq.a}</p>
         </details>
       ))}
+    </section>
+  );
+}
+
+/**
+ * The smec.in landing page a page links out to, where SMEC asked for one
+ * (lib/landingPages.ts). Unnumbered, because it leaves the site: the host is
+ * shown so nobody follows it thinking it is another page here. The referrer is
+ * kept, so the landing page can see the visit came from this site.
+ */
+export function SpecLandingPage({ url }: { url: string }) {
+  const site = landingPageFor(url);
+  if (!site) return null;
+
+  return (
+    <section className={styles.block}>
+      <div className={styles.outbound}>
+        <h2 className={styles.outboundTitle}>{site.title}</h2>
+        {site.note ? <p className={styles.outboundNote}>{site.note}</p> : null}
+        <a
+          className={`btn btnAccent ${styles.outboundLink}`}
+          href={site.href}
+          target="_blank"
+          rel="noopener"
+        >
+          <span>{site.label}</span>
+          <ArrowUpRight />
+        </a>
+        <span className={styles.outboundHost}>{hostOf(site)}</span>
+      </div>
     </section>
   );
 }

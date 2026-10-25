@@ -1,4 +1,5 @@
 import { SPEC_PAGES, specPage } from '@/lib/spec';
+import { ASSET_DIGITAL_INTELLIGENCE, type LandingPage } from '@/lib/landingPages';
 
 /**
  * The global navigation, and it is not a design decision.
@@ -28,6 +29,8 @@ export type TopNavItem = {
   /** Label for the "everything in this section" link. */
   allLabel?: string;
   mega?: MegaColumn[];
+  /** A smec.in landing page the section links out to (lib/landingPages.ts). */
+  outbound?: LandingPage;
 };
 
 const KNOWN = new Set(SPEC_PAGES.map((page) => page.url));
@@ -256,6 +259,9 @@ export const TOP_NAV: TopNavItem[] = [
       'Monitoring, maintenance and engineering data, where the decision case is clear.'
     ),
     mega: megaDigital,
+    // Beside the columns rather than in one: her menu design (homepage
+    // document, image 3) has no entry for it.
+    outbound: ASSET_DIGITAL_INTELLIGENCE,
   },
   {
     label: 'Industries',

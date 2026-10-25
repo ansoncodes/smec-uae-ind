@@ -4,7 +4,13 @@ import { CONTACT } from '@/lib/siteData';
 import { breadcrumbTrail, publishableSections, type SpecPage } from '@/lib/spec';
 import type { GlossaryTerm } from '@/lib/glossary';
 import { evidenceFor } from '@/lib/evidence';
-import { isRfqInputsHeading, SpecClose, SpecFaqs, SpecSections } from './SpecBlocks';
+import {
+  isRfqInputsHeading,
+  SpecClose,
+  SpecFaqs,
+  SpecLandingPage,
+  SpecSections,
+} from './SpecBlocks';
 import styles from './SpecPageView.module.css';
 
 /**
@@ -93,6 +99,8 @@ export default function SpecPageView({
             ) : null}
 
             <SpecSections sections={sections} />
+
+            <SpecLandingPage url={page.url} />
 
             {children.length ? (
               <section className={styles.block}>
