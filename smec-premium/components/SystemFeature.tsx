@@ -1,27 +1,52 @@
 'use client';
 
-import { useRef, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import Image from 'next/image';
-import { FEATURED_SYSTEMS } from '@/lib/experience';
-import { localHref } from '@/lib/routes';
+import { SYSTEMS_COPY } from '@/lib/homepage';
 import { ArrowRight } from './Icons';
 import styles from './SystemFeature.module.css';
 
 /**
- * Five systems in one frame, stepped through by the reader.
+ * Engineered Systems & Products — her eight featured systems in one frame,
+ * stepped through by the reader (images 13–14, and "products in a sliding
+ * format", 10 Sep).
  *
  * This is a normal-height section: the page scrolls past it at the usual
  * rate and the controls — a named rail of tabs plus previous/next — are the
- * only thing that changes the system on show. Every panel is rendered into
- * the markup, so all five are in the HTML whether or not the reader steps
- * through them.
+ * only thing that changes the system on show. Nothing rotates by itself.
+ * Every panel is rendered into the markup, so all eight names, descriptions
+ * and links are in the HTML whether or not the reader steps through them.
  */
 export default function SystemFeature() {
+  const { label, title, groups, intro, slides, viewAll, prompt } = SYSTEMS_COPY;
   const [active, setActive] = useState(0);
   const tabsRef = useRef<HTMLDivElement>(null);
-  const count = FEATURED_SYSTEMS.length;
+  const count = slides.length;
 
   const go = (next: number) => setActive((next + count) % count);
+
+  /* On a phone the rail scrolls sideways; keep the selected name in view
+     when previous/next moves the selection off the visible part. Not on the
+     first render: the first name is already in view, and the page should not
+     scroll anything before the visitor does. */
+  const moved = useRef(false);
+  useEffect(() => {
+    if (!moved.current) {
+      moved.current = true;
+      return;
+    }
+    const rail = tabsRef.current;
+    if (!rail || rail.scrollWidth <= rail.clientWidth) return;
+    const tab = rail.querySelectorAll('button')[active];
+    if (!tab) return;
+    const railBox = rail.getBoundingClientRect();
+    const tabBox = tab.getBoundingClientRect();
+    const reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    rail.scrollBy({
+      left: tabBox.left - railBox.left - (railBox.width - tabBox.width) / 2,
+      behavior: reduced ? 'auto' : 'smooth',
+    });
+  }, [active]);
 
   /* Left/right walk the rail and move focus with the selection, per the
      tabs pattern; Home and End jump to the ends. */
@@ -40,35 +65,54 @@ export default function SystemFeature() {
     tabsRef.current?.querySelectorAll('button')[index]?.focus();
   };
 
+  const pad = (n: number) => String(n).padStart(2, '0');
+
   return (
     <section
       className={`section ${styles.section} grain`}
-      id="capability"
+      id="systems"
       data-tone="dark"
-      aria-labelledby="feature-title"
+      aria-labelledby="systems-title"
     >
       <div className="container">
         <p className="sectionLabel" data-reveal="fade">
-          <span className="num">03</span>
-          <span>System in focus</span>
+          <span>{label}</span>
           <span className="rule" />
         </p>
+
+        <div className={`sectionHead ${styles.head}`}>
+          <h2 id="systems-title" className="sectionTitle" data-reveal="up">
+            {title}
+          </h2>
+          <div className={styles.headSide} data-reveal="up" data-reveal-delay="90">
+            <ul className={`inlineList ${styles.groups}`}>
+              {groups.map((group) => (
+                <li key={group}>{group}</li>
+              ))}
+            </ul>
+            {intro.map((paragraph) => (
+              <p key={paragraph.slice(0, 24)} className={styles.intro}>
+                {paragraph}
+              </p>
+            ))}
+          </div>
+        </div>
 
         <div className={styles.inner}>
           {/* --------------------------------------------------- media */}
           <div className={styles.stage} data-reveal="fade">
-            {FEATURED_SYSTEMS.map((system, i) => (
+            {slides.map((slide, i) => (
               <figure
-                key={system.slug}
+                key={slide.title}
                 className={styles.frame}
                 data-on={i === active ? 'true' : undefined}
                 aria-hidden={i !== active}
               >
                 <Image
-                  src={system.image!}
-                  alt={system.title}
-                  width={system.width}
-                  height={system.height}
+                  src={slide.image.src}
+                  alt={slide.image.alt}
+                  width={slide.image.width}
+                  height={slide.image.height}
                   sizes="(max-width: 900px) 92vw, 46vw"
                   className={styles.img}
                   loading="lazy"
@@ -88,10 +132,10 @@ export default function SystemFeature() {
                 <ArrowRight className={styles.stepperBack} />
               </button>
               <span className={styles.stageCount} aria-hidden="true">
-                {String(active + 1).padStart(2, '0')}
+                {pad(active + 1)}
                 <span className={styles.stageCountDim}>
                   {' / '}
-                  {String(count).padStart(2, '0')}
+                  {pad(count)}
                 </span>
               </span>
               <button
@@ -107,16 +151,10 @@ export default function SystemFeature() {
 
           {/* ---------------------------------------------------- copy */}
           <div className={styles.copyCol}>
-            <h2 id="feature-title" className={styles.h2} data-reveal="up">
-              Precision systems,
-              <br />
-              <span className={styles.h2Dim}>proven on the rig.</span>
-            </h2>
-
             <div className={styles.slides}>
-              {FEATURED_SYSTEMS.map((system, i) => (
+              {slides.map((slide, i) => (
                 <article
-                  key={system.slug}
+                  key={slide.title}
                   className={styles.slide}
                   id={`system-panel-${i}`}
                   role="tabpanel"
@@ -125,23 +163,24 @@ export default function SystemFeature() {
                   hidden={i !== active}
                 >
                   <p className={styles.slideKicker}>
-                    {String(i + 1).padStart(2, '0')} / {String(count).padStart(2, '0')}
+                    <span className={styles.slideCount}>
+                      {pad(i + 1)} / {pad(count)}
+                    </span>
                     <span className={styles.slideKickerRule} />
-                    Product system
+                    <span className={styles.slideKickerLabel}>{label}</span>
                   </p>
-                  <h3 className={styles.slideTitle}>{system.title}</h3>
-                  <p className={styles.slideBody}>{system.body}</p>
+                  <h3 className={styles.slideTitle}>{slide.title}</h3>
+                  <p className={styles.slideLead}>{slide.tagline}</p>
+                  <p className={styles.slideBody}>{slide.body}</p>
 
-                  {system.highlights.length > 0 ? (
-                    <ul className={styles.specs}>
-                      {system.highlights.map((item) => (
-                        <li key={item}>{item}</li>
-                      ))}
-                    </ul>
-                  ) : null}
+                  <ul className={styles.specs} aria-label="Covers">
+                    {slide.tags.map((tag) => (
+                      <li key={tag}>{tag}</li>
+                    ))}
+                  </ul>
 
-                  <a className={`arrowLink ${styles.slideCta}`} href={localHref(system.href)}>
-                    Explore System
+                  <a className={`arrowLink ${styles.slideCta}`} href={slide.cta.href}>
+                    {slide.cta.label}
                     <ArrowRight className="arrow" />
                   </a>
                 </article>
@@ -150,17 +189,19 @@ export default function SystemFeature() {
 
             {/* ------------------------------------------------ controls */}
             <div className={styles.controls}>
-              <p className={styles.controlsHint}>Switch system</p>
+              <p className={styles.controlsHint} id="systems-rail-label">
+                Switch system
+              </p>
               <div
                 ref={tabsRef}
                 className={styles.rail}
                 role="tablist"
-                aria-label="Featured systems"
+                aria-labelledby="systems-rail-label"
                 onKeyDown={onKeyDown}
               >
-                {FEATURED_SYSTEMS.map((system, i) => (
+                {slides.map((slide, i) => (
                   <button
-                    key={system.slug}
+                    key={slide.title}
                     type="button"
                     role="tab"
                     id={`system-tab-${i}`}
@@ -172,11 +213,30 @@ export default function SystemFeature() {
                     onClick={() => setActive(i)}
                   >
                     <span className={styles.railBar} />
-                    <span className={styles.railName}>{system.title}</span>
+                    <span className={styles.railName}>{slide.title}</span>
                   </button>
                 ))}
               </div>
             </div>
+          </div>
+        </div>
+
+        {/* ---------------------------------------------------- foot */}
+        <div className={styles.foot}>
+          <a className={`arrowLink ${styles.viewAll}`} href={viewAll.href}>
+            {viewAll.label}
+            <ArrowRight className="arrow" />
+          </a>
+
+          <div className={styles.prompt}>
+            <div>
+              <p className={styles.promptTitle}>{prompt.title}</p>
+              <p className={styles.promptBody}>{prompt.body}</p>
+            </div>
+            <a className="btn btnAccent" href={prompt.cta.href}>
+              {prompt.cta.label}
+              <ArrowRight className="arrow" />
+            </a>
           </div>
         </div>
       </div>

@@ -1,0 +1,210 @@
+/* The dark library panel of images 22–27. */
+.explorer {
+  padding: clamp(18px, 2.4vw, 34px);
+  border: 1px solid var(--ink-hair);
+  border-radius: 12px;
+  background: #0d1218;
+}
+
+.head {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 6px 24px;
+  margin-bottom: clamp(18px, 2vw, 26px);
+}
+
+.label {
+  margin: 0;
+  font-family: var(--font-mono);
+  font-size: 12px;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--accent-on-dark);
+}
+
+.intro {
+  margin: 0;
+  font-size: var(--fs-sm);
+  color: var(--steel-300);
+}
+
+.layout {
+  display: grid;
+  grid-template-columns: minmax(0, 0.9fr) minmax(0, 1.1fr);
+  gap: clamp(16px, 2.4vw, 34px);
+  align-items: start;
+}
+
+/* ------------------------------------------------------------------ list */
+
+.list {
+  display: grid;
+  gap: 8px;
+}
+
+.entry {
+  display: grid;
+  grid-template-columns: auto minmax(0, 1fr) auto;
+  align-items: center;
+  gap: 14px;
+  min-height: 58px;
+  padding: 14px 18px;
+  border: 1px solid transparent;
+  border-radius: 8px;
+  background: #121922;
+  color: var(--steel-100);
+  transition: background 0.3s var(--ease), border-color 0.3s var(--ease), color 0.3s var(--ease);
+}
+
+.entry:hover,
+.entry[data-on='true'] {
+  background: #1a2638;
+  border-color: rgba(126, 163, 255, 0.28);
+  color: var(--white);
+}
+
+.entryNum {
+  font-family: var(--font-mono);
+  font-size: 12px;
+  letter-spacing: 0.12em;
+  color: var(--steel-500);
+}
+
+.entry[data-on='true'] .entryNum {
+  color: var(--accent-on-dark);
+}
+
+.entryName {
+  font-size: var(--fs-sm);
+  font-weight: 500;
+}
+
+.entryArrow {
+  color: var(--accent-on-dark);
+  opacity: 0;
+  transform: translate(-4px, 4px);
+  transition: opacity 0.3s var(--ease), transform 0.3s var(--ease);
+}
+
+.entry:hover .entryArrow,
+.entry[data-on='true'] .entryArrow {
+  opacity: 1;
+  transform: none;
+}
+
+/* -------------------------------------------------------------- previews */
+
+/* Every preview shares one grid cell, so the panel keeps the height of the
+   tallest and only the one on show is visible (and reachable). */
+.previews {
+  display: grid;
+}
+
+.preview {
+  grid-area: 1 / 1;
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 0.45s var(--ease), visibility 0s linear 0.45s;
+}
+
+.preview[data-on='true'] {
+  opacity: 1;
+  visibility: visible;
+  transition: opacity 0.45s var(--ease);
+}
+
+.media {
+  aspect-ratio: 16 / 10;
+  overflow: hidden;
+  border-radius: 10px;
+  background: #18202b;
+}
+
+.img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.kicker {
+  margin: 18px 0 0;
+  font-family: var(--font-mono);
+  font-size: 12px;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--accent-on-dark);
+}
+
+.title {
+  margin-top: 8px;
+  font-size: var(--fs-h4);
+  font-weight: 500;
+  letter-spacing: -0.015em;
+  color: var(--white);
+}
+
+.body {
+  margin: 8px 0 0;
+  font-size: var(--fs-sm);
+  line-height: 1.6;
+  color: var(--steel-300);
+}
+
+.cta {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  min-height: 48px;
+  margin-top: 18px;
+  padding: 12px 18px;
+  border: 1px solid rgba(255, 255, 255, 0.22);
+  border-radius: 999px;
+  font-size: var(--fs-sm);
+  font-weight: 500;
+  color: var(--white);
+  transition: background 0.3s var(--ease), border-color 0.3s var(--ease);
+}
+
+.cta:hover {
+  background: var(--accent);
+  border-color: var(--accent);
+}
+
+.cta :global(.arrow) {
+  transition: transform 0.35s var(--ease);
+}
+
+.cta:hover :global(.arrow) {
+  transform: translateX(4px);
+}
+
+/* ------------------------------------------------------------ responsive */
+
+/* No hover to lean on: the list steps aside and all six previews show. */
+@media (max-width: 900px) {
+  .layout {
+    grid-template-columns: 1fr;
+  }
+  .list {
+    display: none;
+  }
+  .previews {
+    gap: 28px;
+  }
+  .preview {
+    grid-area: auto;
+    opacity: 1;
+    visibility: visible;
+    transition: none;
+  }
+  .preview + .preview {
+    padding-top: 26px;
+    border-top: 1px solid var(--ink-hair);
+  }
+}

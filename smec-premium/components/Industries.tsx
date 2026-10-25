@@ -1,81 +1,102 @@
 import Image from 'next/image';
-import { INDUSTRIES } from '@/lib/experience';
-import { localHref } from '@/lib/routes';
+import { INDUSTRIES_COPY } from '@/lib/homepage';
 import { ArrowRight } from './Icons';
 import styles from './Industries.module.css';
 
 /**
- * 04 / Industries — six photographic panels laid side by side. On a pointer
- * device the panel under the cursor expands and shows its description, its
- * related systems and a link; on touch and narrow screens the same panels
- * stack and show everything at once.
- *
- * The expansion is one flex-grow transition, so no layout is scripted.
+ * Industries & Markets — her six-card industry grid (image 16), each card a
+ * link to its own industry page rather than a jump within this one, then the
+ * value-chain block and the two calls to action from her text.
  */
 export default function Industries() {
+  const { label, title, subtitle, intro, cards, valueChain, viewAll, rfq } = INDUSTRIES_COPY;
+
   return (
-    <section className="section" id="industries" data-tone="light" aria-labelledby="industries-title">
+    <section className={styles.section} data-tone="light" id="industries" aria-labelledby="industries-title">
       <div className="container">
         <p className="sectionLabel" data-reveal="fade">
-          <span className="num">04</span>
-          <span>Applications</span>
+          <span>{label}</span>
           <span className="rule" />
         </p>
 
         <div className="sectionHead">
-          <h2 id="industries-title" className="sectionTitle" data-reveal="up">
-            Built for the most demanding environments
-          </h2>
-          <p className="sectionIntro" data-reveal="up" data-reveal-delay="90">
-            From land rigs to subsea, every system is specified, built and commissioned for the
-            conditions it will actually meet.
-          </p>
+          <div>
+            <h2 id="industries-title" className="sectionTitle" data-reveal="up">
+              {title}
+            </h2>
+            <p className={styles.subtitle} data-reveal="up" data-reveal-delay="60">
+              {subtitle}
+            </p>
+          </div>
+          <div className={styles.headSide} data-reveal="up" data-reveal-delay="90">
+            {intro.map((paragraph, i) => (
+              <p key={paragraph.slice(0, 24)} className={i === 0 ? 'sectionIntro' : styles.more}>
+                {paragraph}
+              </p>
+            ))}
+          </div>
         </div>
-      </div>
 
-      <div className={styles.rail} data-reveal="fade">
-        <ul className={styles.panels}>
-          {INDUSTRIES.map((industry, i) => (
-            <li key={industry.key} className={styles.panel}>
-              <a className={styles.link} href={localHref(industry.href)}>
-                <Image
-                  src={industry.image}
-                  alt=""
-                  fill
-                  sizes="(max-width: 900px) 92vw, 34vw"
-                  className={styles.img}
-                  loading="lazy"
-                />
-                <span className={styles.veil} aria-hidden="true" />
-
-                <span className={styles.content}>
-                  <span className={styles.num}>{String(i + 1).padStart(2, '0')}</span>
-
-                  <span className={styles.nameWrap}>
-                    <span className={styles.name}>{industry.name}</span>
+        <ul className={styles.grid}>
+          {cards.map((card, i) => (
+            <li key={card.num} data-reveal="up" data-reveal-delay={(i % 3) * 80}>
+              <article className={styles.card}>
+                <div className={styles.media}>
+                  <Image
+                    src={card.image.src}
+                    alt={card.image.alt}
+                    width={card.image.width}
+                    height={card.image.height}
+                    sizes="(max-width: 640px) 92vw, (max-width: 1000px) 46vw, 30vw"
+                    className={styles.img}
+                    loading="lazy"
+                  />
+                  <span className={styles.num} aria-hidden="true">
+                    {card.num}
                   </span>
-
-                  <span className={styles.detail}>
-                    <span className={styles.detailInner}>
-                      <span className={styles.blurb}>{industry.blurb}</span>
-                      <span className={styles.systems}>
-                        {industry.systems.map((system) => (
-                          <span key={system} className={styles.chip}>
-                            {system}
-                          </span>
-                        ))}
-                      </span>
-                      <span className={styles.cta}>
-                        Explore
-                        <ArrowRight className={styles.ctaArrow} />
-                      </span>
-                    </span>
-                  </span>
-                </span>
-              </a>
+                </div>
+                <div className={styles.body}>
+                  <h3 className={styles.name}>{card.title}</h3>
+                  <p className={styles.focus}>{card.focus}</p>
+                  <p className={styles.text}>{card.body}</p>
+                  <a className={`arrowLink ${styles.cta}`} href={card.cta.href}>
+                    {card.cta.label}
+                    <ArrowRight className="arrow" />
+                  </a>
+                </div>
+              </article>
             </li>
           ))}
         </ul>
+
+        {/* ------------------------------------------------ value chain */}
+        <div className={styles.chain} data-reveal="up">
+          <div className={styles.chainHead}>
+            <h3 className={styles.chainTitle}>{valueChain.title}</h3>
+            <p className={styles.chainBody}>{valueChain.body}</p>
+          </div>
+          <ul className={styles.audiences}>
+            {valueChain.audiences.map((audience) => (
+              <li key={audience.label}>
+                <a className={styles.audience} href={audience.href}>
+                  {audience.label}
+                  <ArrowRight className={styles.audienceArrow} />
+                </a>
+              </li>
+            ))}
+          </ul>
+        </div>
+
+        <div className={styles.ctas} data-reveal="up">
+          <a className="btn btnOutline" href={viewAll.href}>
+            {viewAll.label}
+            <ArrowRight className="arrow" />
+          </a>
+          <a className="btn btnAccent" href={rfq.href}>
+            {rfq.label}
+            <ArrowRight className="arrow" />
+          </a>
+        </div>
       </div>
     </section>
   );

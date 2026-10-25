@@ -141,6 +141,7 @@
 }
 
 .subtitle {
+  margin: 0;
   font-family: var(--font-sans);
   font-size: clamp(18px, 1.5vw, 23px);
   font-weight: 500;
@@ -150,11 +151,37 @@
   text-wrap: balance;
 }
 
+/* "Electrical & Instrumentation • Rig Modernisation • …" — an .inlineList,
+   so a wrapped line never starts with a bullet. */
+.capabilities {
+  --sep: '•';
+  --sep-space: 22px;
+  --sep-color: var(--accent-on-dark);
+  row-gap: 4px;
+  font-size: var(--fs-sm);
+  line-height: 1.5;
+  color: var(--steel-100);
+}
+
 .ctas {
   display: flex;
   flex-wrap: wrap;
   gap: 12px;
-  margin-top: 18px;
+  margin-top: 10px;
+}
+
+.regions {
+  --sep: '|';
+  --sep-space: 28px;
+  --sep-color: var(--steel-500);
+  row-gap: 6px;
+  margin-top: 4px;
+  font-family: var(--font-mono);
+  font-size: 12px;
+  letter-spacing: 0.12em;
+  line-height: 1.5;
+  text-transform: uppercase;
+  color: var(--steel-300);
 }
 
 .cta {

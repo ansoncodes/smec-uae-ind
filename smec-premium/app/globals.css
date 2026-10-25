@@ -394,10 +394,12 @@ button {
    Links — arrow slide + underline wipe
    ========================================================================== */
 
+/* At least 24px tall: a standalone link is a target (WCAG 2.2, 2.5.8). */
 .arrowLink {
   display: inline-flex;
   align-items: center;
   gap: 10px;
+  min-height: 24px;
   font-family: var(--font-sans);
   font-size: var(--fs-sm);
   font-weight: 500;
@@ -616,6 +618,29 @@ button {
   font-size: var(--fs-label);
   letter-spacing: 0.18em;
   text-transform: uppercase;
+}
+
+/* A run of items with a separator between them — "A • B • C". Each
+   separator hangs in the space before its item, and the list clips its own
+   left edge, so a wrapped line never opens with a separator. Set --sep (a
+   quoted string), --sep-space and --sep-color per list. */
+.inlineList {
+  display: flex;
+  flex-wrap: wrap;
+  overflow: hidden;
+}
+
+.inlineList > li {
+  margin-right: var(--sep-space, 20px);
+}
+
+.inlineList > li::before {
+  content: var(--sep, '•');
+  display: inline-block;
+  width: var(--sep-space, 20px);
+  margin-left: calc(-1 * var(--sep-space, 20px));
+  text-align: center;
+  color: var(--sep-color, currentColor);
 }
 
 /* ==========================================================================

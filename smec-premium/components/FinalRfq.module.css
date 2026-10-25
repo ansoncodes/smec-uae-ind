@@ -1,0 +1,174 @@
+.section {
+  position: relative;
+  overflow: hidden;
+  background: var(--ink);
+  color: var(--white);
+  padding-block: var(--section-y);
+  border-top: 1px solid var(--ink-hair);
+}
+
+.layout {
+  position: relative;
+  z-index: 3;
+  display: grid;
+  grid-template-columns: minmax(0, 1.05fr) minmax(0, 0.95fr);
+  gap: clamp(32px, 6vw, 110px);
+  align-items: center;
+}
+
+.kicker {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin: 0 0 22px;
+  font-family: var(--font-mono);
+  font-size: var(--fs-label);
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--steel-100);
+}
+
+.kickerDot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: var(--accent);
+  box-shadow: 0 0 0 4px rgba(18, 87, 253, 0.22);
+}
+
+.title {
+  font-size: var(--fs-h2);
+  letter-spacing: -0.03em;
+}
+
+.lead {
+  margin: 22px 0 0;
+  font-size: var(--fs-lead);
+  font-weight: 500;
+  line-height: 1.5;
+  color: var(--white);
+}
+
+.body {
+  margin: 12px 0 0;
+  max-width: 58ch;
+  font-size: var(--fs-body);
+  line-height: 1.7;
+  color: var(--steel-300);
+}
+
+/* ---------------------------------------------------------------- chooser */
+
+/* The light card of images 30–31. */
+.card {
+  display: grid;
+  gap: 18px;
+  padding: clamp(20px, 2.4vw, 32px);
+  border-radius: 12px;
+  background: var(--paper-raised);
+  color: var(--ink);
+}
+
+.choices {
+  display: grid;
+  gap: 4px;
+  margin: 0;
+  padding: 0;
+  border: 0;
+}
+
+.legend {
+  margin-bottom: 10px;
+  padding: 0;
+  font-size: var(--fs-body);
+  font-weight: 600;
+}
+
+.choice {
+  display: grid;
+  grid-template-columns: auto minmax(0, 1fr);
+  align-items: center;
+  gap: 12px;
+  min-height: 44px;
+  padding: 6px 4px;
+  font-size: var(--fs-sm);
+  line-height: 1.4;
+  cursor: pointer;
+}
+
+.choice input {
+  width: 20px;
+  height: 20px;
+  margin: 0;
+  accent-color: var(--ink);
+}
+
+.desk {
+  padding: 16px 18px;
+  border: 1px solid var(--paper-hair);
+  border-radius: 8px;
+  background: var(--paper);
+}
+
+.deskTitle {
+  margin: 0 0 10px;
+  font-weight: 600;
+}
+
+.deskLines {
+  display: grid;
+  gap: 6px;
+  font-size: var(--fs-sm);
+}
+
+.deskLines li {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.deskLines a {
+  text-decoration: underline;
+  text-decoration-color: var(--paper-hair);
+  text-underline-offset: 3px;
+}
+
+.deskLines a:hover {
+  color: var(--accent);
+  text-decoration-color: currentColor;
+}
+
+.deskIcon {
+  flex: none;
+  color: var(--steel-500);
+}
+
+.mail {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  min-height: 48px;
+  margin-top: 14px;
+  padding: 12px 18px;
+  border-radius: 999px;
+  background: var(--ink);
+  color: var(--white);
+  font-size: var(--fs-sm);
+  font-weight: 500;
+  transition: background 0.3s var(--ease);
+}
+
+.mail:hover {
+  background: var(--accent);
+}
+
+.submit {
+  justify-content: space-between;
+}
+
+@media (max-width: 900px) {
+  .layout {
+    grid-template-columns: 1fr;
+  }
+}
