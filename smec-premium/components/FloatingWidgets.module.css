@@ -1,64 +1,61 @@
-/* Vertical tab, flush to the right edge. */
-.enquiry {
-  position: fixed;
-  z-index: 150;
-  top: 50%;
-  right: 0;
-  transform: translateY(-50%);
-  padding: 18px 11px;
-  background: var(--accent);
-  color: var(--white);
-  border-radius: var(--radius) 0 0 var(--radius);
-  font-family: var(--font-mono);
-  font-size: 10.5px;
-  letter-spacing: 0.2em;
-  text-transform: uppercase;
-  writing-mode: vertical-rl;
-  transition: padding-right 0.4s var(--ease), background 0.4s var(--ease),
-    opacity 0.3s var(--ease), visibility 0s;
-}
-
-.enquiry:hover {
-  padding-right: 18px;
-  background: var(--accent-lift);
-}
-
-/* Giving way to the stack, the chooser or the consent banner. It keeps its
-   box, so the next check still measures where it would be. */
-.enquiryAside {
-  opacity: 0;
-  visibility: hidden;
-  pointer-events: none;
-  transition: padding-right 0.4s var(--ease), background 0.4s var(--ease),
-    opacity 0.3s var(--ease), visibility 0s linear 0.3s;
-}
-
 /* ---------------------------------------------------------------- stack */
 
+/* One column, right-aligned, as the homepage document draws it (image 33):
+   the RFQ pill, the WhatsApp button under it, back-to-top at the foot. */
 .stack {
   --stack-bottom: clamp(14px, 2vw, 26px);
+  /* The WhatsApp button's diameter, which the pill's height matches. */
+  --dial: 46px;
   position: fixed;
   z-index: 150;
   right: clamp(14px, 2vw, 26px);
   bottom: var(--stack-bottom);
   display: grid;
   gap: 10px;
-  justify-items: center;
+  justify-items: end;
 }
 
 /* Standing on the consent banner (--stack-bottom is set to clear it), the
-   stack is the WhatsApp button alone: back-to-top waits for the banner to
-   close, which keeps the stack low enough to miss the header on a phone
-   turned sideways. */
+   stack is the pill and the WhatsApp button: back-to-top waits for the
+   banner to close, which keeps the stack lower and leaves the chooser more
+   room above it. */
 .lifted .top {
   display: none;
+}
+
+/* The RFQ pill from image 33, in the site's action blue rather than the
+   drawing's navy, which would all but vanish on the dark pages. */
+.rfq {
+  display: inline-flex;
+  align-items: center;
+  gap: 9px;
+  height: var(--dial);
+  padding: 0 20px 0 17px;
+  border-radius: 999px;
+  background: var(--accent);
+  color: var(--white);
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.28);
+  font-size: var(--fs-sm);
+  font-weight: 600;
+  letter-spacing: 0.01em;
+  white-space: nowrap;
+  transition: background 0.4s var(--ease), transform 0.4s var(--ease);
+}
+
+.rfq:hover {
+  background: var(--accent-lift);
+  transform: translateY(-2px);
+}
+
+.rfqIcon {
+  flex: none;
 }
 
 .whatsapp {
   display: grid;
   place-items: center;
-  width: 46px;
-  height: 46px;
+  width: var(--dial);
+  height: var(--dial);
   border-radius: 50%;
   background: var(--whatsapp);
   color: var(--white);
@@ -76,6 +73,8 @@
   place-items: center;
   width: 44px;
   height: 44px;
+  /* Centred under the WhatsApp button, which is a touch wider or narrower. */
+  margin-right: calc((var(--dial) - 44px) / 2);
   border-radius: 50%;
   background: rgba(10, 12, 15, 0.86);
   backdrop-filter: blur(8px);
@@ -122,8 +121,9 @@
 
 /* ------------------------------------------------------------- chooser */
 
-/* Opens upward from the button. Never taller than the room between the stack
-   and the header (its rail and bar), so it cannot run under either. */
+/* Opens upward from the top of the stack, above the pill rather than over it.
+   Never taller than the room between the stack and the header (its rail and
+   bar), so it cannot run under either. */
 .panel {
   position: absolute;
   right: 0;
@@ -277,20 +277,17 @@
 }
 
 @media (max-width: 700px) {
-  .enquiry {
-    padding: 14px 9px;
-    font-size: 9.5px;
-  }
-  .whatsapp {
-    width: 42px;
-    height: 42px;
+  .stack {
+    --dial: 42px;
   }
 }
 
-/* On a phone the tab would sit on top of the content it interrupts; the
-   header's Contact link and the WhatsApp button cover the same intent. */
-@media (max-width: 560px) {
-  .enquiry {
-    display: none;
+/* A phone turned sideways has no height for a column: standing on the
+   consent banner it would reach the header, and the chooser above it would
+   have almost no room. The controls stand in a row instead. */
+@media (max-height: 480px) {
+  .stack {
+    grid-auto-flow: column;
+    align-items: center;
   }
 }

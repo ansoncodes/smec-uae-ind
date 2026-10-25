@@ -75,6 +75,13 @@ export const Building = ({ className }: P) => (
   </svg>
 );
 
+export const Document = ({ className }: P) => (
+  <svg className={className} width="16" height="16" viewBox="0 0 16 16" {...base}>
+    <path d="M9.5 1.75h-5a1.25 1.25 0 0 0-1.25 1.25v10a1.25 1.25 0 0 0 1.25 1.25h7a1.25 1.25 0 0 0 1.25-1.25V5Z" />
+    <path d="M9.5 1.75V5h3.25M5.75 8.5h4.5M5.75 11h4.5" />
+  </svg>
+);
+
 export const Play = ({ className }: P) => (
   <svg className={className} width="22" height="22" viewBox="0 0 22 22" aria-hidden focusable="false">
     <path d="M7.5 4.8 17 11l-9.5 6.2Z" fill="currentColor" />
