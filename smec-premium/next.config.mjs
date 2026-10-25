@@ -54,6 +54,12 @@ const nextConfig = {
   outputFileTracingRoot: __dirname,
   // The locked URL format: lowercase, descriptive, trailing slash, self-canonical.
   trailingSlash: true,
+  // Next's own trailing-slash redirect runs before the legacy map and turned
+  // every slashless legacy URL into two hops. It is replaced by the same rule
+  // at the end of nextRedirects(), after the map. Internal links are written
+  // with their slash (lib/routes.ts canonicalPath), so nothing relies on the
+  // client adding it.
+  skipTrailingSlashRedirect: true,
   images: {
     formats: ['image/avif', 'image/webp'],
     // Next 16 only serves qualities declared here; the build uses 75 and 82.

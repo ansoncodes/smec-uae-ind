@@ -140,18 +140,49 @@ export const UNRESOLVED = [
 ];
 
 /**
+ * The trailing-slash redirect, moved behind the map.
+ *
+ * With `trailingSlash: true`, Next puts a redirect of its own — `/about-us` →
+ * `/about-us/` — in front of every rule in this file. The live site publishes
+ * its pages without the slash, so in that form every moved page took two
+ * hops: 308 to the slash, then 301 to its new home. `next.config.mjs` turns
+ * the built-in rule off (`skipTrailingSlashRedirect`) and these two take its
+ * place after the map, so a legacy path reaches its destination in one hop in
+ * either form, and every other path still gains its slash in one.
+ *
+ * The patterns are Next's own, with one addition. Next lets every custom
+ * source match with a trailing slash as well, so the page rule declines a
+ * path that already ends in one rather than redirecting it to itself.
+ */
+const TRAILING_SLASH = [
+  {
+    // `/brochure.pdf/` → `/brochure.pdf`: a file never takes the slash.
+    source: '/:file((?!\\.well-known(?:/.*)?)(?:[^/]+/)*[^/]+\\.\\w+)/',
+    destination: '/:file',
+    permanent: true,
+    missing: [{ type: 'header', key: 'x-nextjs-data' }],
+  },
+  {
+    source: '/:notfile((?!.*/$)(?!\\.well-known(?:/.*)?)(?:[^/]+/)*[^/\\.]+)',
+    destination: '/:notfile/',
+    permanent: true,
+  },
+];
+
+/**
  * Shape `next.config.mjs` expects.
 
  * Page moves first, then everything the XML sitemap never listed: the fifteen
  * product datasheets, the images the redesign still uses, the category and
  * author archives, and the RSS feeds. All of it found by crawling the live
  * site, because the sitemap is not the same thing as what is indexed (§9).
+ * The trailing-slash rules come last, so none of these waits behind them.
  *
  * 301, spelled out, rather than `permanent: true` — that flag emits a 308,
  * and the Technical SEO Master asks for 301s by number.
  */
-export const nextRedirects = () =>
-  [
+export const nextRedirects = () => [
+  ...[
     ...REDIRECTS,
     ...DATASHEET_REDIRECTS,
     ...IMAGE_REDIRECTS,
@@ -162,4 +193,6 @@ export const nextRedirects = () =>
     // slash would redirect the path to itself, and a browser following that
     // gives up after twenty hops.
     .filter(({ from, to }) => `${from}/` !== to)
-    .map(({ from, to }) => ({ source: from, destination: to, statusCode: 301 }));
+    .map(({ from, to }) => ({ source: from, destination: to, statusCode: 301 })),
+  ...TRAILING_SLASH,
+];
