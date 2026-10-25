@@ -27,7 +27,12 @@ export type AnalyticsEvent =
   | 'case_study_view'
   | 'product_to_rfq'
   | 'solution_to_rfq'
-  | 'form_error';
+  | 'form_error'
+  // The homepage document's two engagement events, added under the recorded
+  // ANA-05 default (the eleven above keep their names): the corporate film
+  // started, and a newsletter sign-up Mailchimp accepted.
+  | 'video_start'
+  | 'newsletter_signup';
 
 export type EventParams = {
   /** Where the control was: 'header', 'hero', 'rfq_form', 'footer'… */
@@ -40,8 +45,8 @@ export type EventParams = {
   file_count?: number;
   /** Which field group failed, for form_error. */
   field?: string;
-  /** Which regional team: 'uae' (Middle East & International) or 'india'. */
-  region?: 'uae' | 'india';
+  /** Which regional team: 'uae' (Middle East & International) or 'india' (lib/regions.ts). */
+  region?: string;
 };
 
 declare global {

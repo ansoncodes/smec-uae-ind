@@ -13,6 +13,8 @@
  * drift, the visitor is told after the upload instead of before it.
  */
 
+import { isRegionId } from '@/lib/regions';
+
 export const MAX_FILES = 5;
 export const MAX_FILE_BYTES = 10 * 1024 * 1024;
 
@@ -73,11 +75,16 @@ export const FIELDS = [
   'form_location',
 ] as const;
 
-export type FieldName = (typeof FIELDS)[number] | 'consent' | 'rfq_files';
+/**
+ * The region is not in FIELDS: it chooses the campaign key on the server and
+ * travels to the lead as its readable label (lib/regions.ts), not as posted.
+ */
+export type FieldName = (typeof FIELDS)[number] | 'region' | 'consent' | 'rfq_files';
 
 export type Errors = Partial<Record<FieldName | 'form', string>>;
 
 export const LABELS: Record<string, string> = {
+  region: 'Project region',
   full_name: 'Name',
   email: 'Work email',
   company: 'Company',
@@ -137,6 +144,10 @@ type Values = Record<string, string>;
 export function validate(values: Values, files: { name: string; size: number }[]): Errors {
   const errors: Errors = {};
   const value = (key: string) => (values[key] ?? '').trim();
+
+  if (!isRegionId(value('region'))) {
+    errors.region = 'Choose the region whose engineering team should receive this RFQ.';
+  }
 
   if (!value('full_name')) errors.full_name = 'Please give us a name to reply to.';
 

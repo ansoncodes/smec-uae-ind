@@ -1,8 +1,8 @@
 'use client';
 
-import { useId, useRef, useState } from 'react';
-import { CONTACT } from '@/lib/siteData';
+import { useEffect, useId, useRef, useState } from 'react';
 import { pageTypeOf, track } from '@/lib/analytics';
+import { DEFAULT_REGION, REGIONS, parseRegion, regionById, type RegionId } from '@/lib/regions';
 import {
   ALLOWED_EXTENSIONS,
   FIELDS,
@@ -37,6 +37,12 @@ import styles from './RfqForm.module.css';
  * therefore open and inviting rather than required, and the file picker is
  * never hidden behind a toggle: an attached drawing is worth more to an
  * estimator than any field on the form.
+ *
+ * It opens with the client's required region choice (homepage document,
+ * image 35): Middle East & International or India, which decides the team
+ * and campaign the RFQ goes to. A page that knows its region links here with
+ * `?region=`; the form starts there and the visitor can still change it,
+ * because the project may not be where they are.
  */
 
 const ENDPOINT = process.env.NEXT_PUBLIC_RFQ_ENDPOINT || '/api/rfq/';
@@ -56,6 +62,17 @@ export default function RfqForm({ item, location = 'contact_page' }: Props) {
   const [files, setFiles] = useState<File[]>([]);
   const [errors, setErrors] = useState<Errors>({});
   const [state, setState] = useState<'idle' | 'sending' | 'sent'>('idle');
+  const [region, setRegion] = useState<RegionId>(DEFAULT_REGION);
+  const [reference, setReference] = useState<string>();
+  const desk = regionById(region);
+
+  /* The page is prerendered once for every visitor, so the parameter is read
+     after it loads rather than at render; the two regions' blocks are the
+     same size, so nothing on the page moves when it switches. */
+  useEffect(() => {
+    const fromLink = parseRegion(new URLSearchParams(window.location.search).get('region'));
+    if (fromLink) setRegion(fromLink);
+  }, []);
 
   const fieldId = (name: string) => `${formId}-${name}`;
   const errorId = (name: string) => `${formId}-${name}-error`;
@@ -95,7 +112,10 @@ export default function RfqForm({ item, location = 'contact_page' }: Props) {
 
     const form = event.currentTarget;
     const data = new FormData(form);
-    const values: Record<string, string> = { consent: data.get('consent') ? 'true' : '' };
+    const values: Record<string, string> = {
+      consent: data.get('consent') ? 'true' : '',
+      region: String(data.get('region') ?? ''),
+    };
     for (const field of FIELDS) values[field] = String(data.get(field) ?? '');
 
     const found = validate(values, files);
@@ -140,8 +160,10 @@ export default function RfqForm({ item, location = 'contact_page' }: Props) {
         location,
         item,
         page_type: pageTypeOf(typeof window === 'undefined' ? '/' : window.location.pathname),
+        region: values.region,
       });
 
+      setReference(typeof body.reference === 'string' ? body.reference : undefined);
       setState('sent');
       setFiles([]);
       form.reset();
@@ -153,15 +175,17 @@ export default function RfqForm({ item, location = 'contact_page' }: Props) {
     }
   };
 
+  /* The client's confirmation, word for word (homepage document). The
+     reference line appears only when the lead system has issued one. */
   if (state === 'sent') {
     return (
       <div className={styles.done} role="status">
-        <p className={styles.doneTitle}>Your enquiry is with our engineers.</p>
+        <p className={styles.doneTitle}>Thank you. Your technical enquiry has been received.</p>
         <p className={styles.doneBody}>
-          An engineer reviews the scope and replies — usually within one working day
-          across the UAE and India. If it is urgent, call{' '}
-          <a href={CONTACT.phoneHref}>{CONTACT.phone}</a>.
+          The relevant SMEC engineering team will review the submitted scope and contact you
+          regarding the next steps.
         </p>
+        {reference ? <p className={styles.doneRef}>Reference: {reference}</p> : null}
         <button type="button" className="btn btnOutline" onClick={() => setState('idle')}>
           Send another enquiry
         </button>
@@ -201,6 +225,49 @@ export default function RfqForm({ item, location = 'contact_page' }: Props) {
           </>
         ) : null}
       </div>
+
+      <fieldset
+        className={`${styles.group} ${styles.regionGroup}`}
+        aria-describedby={errors.region ? errorId('region') : undefined}
+      >
+        <legend className={styles.legend}>
+          Select your project region <span className={styles.req}>required</span>
+        </legend>
+
+        <div className={styles.regions}>
+          {REGIONS.map((option, i) => (
+            <label key={option.id} className={styles.regionChoice}>
+              <input
+                // The first radio carries the id the error summary links to.
+                id={i === 0 ? fieldId('region') : undefined}
+                type="radio"
+                name="region"
+                value={option.id}
+                checked={region === option.id}
+                onChange={() => setRegion(option.id)}
+                aria-invalid={errors.region ? true : undefined}
+              />
+              <span className={styles.regionCode} aria-hidden="true">
+                {option.code}
+              </span>
+              <span>{option.label}</span>
+            </label>
+          ))}
+        </div>
+        <Message name="region" />
+
+        <div className={styles.deskCard}>
+          <p className={styles.deskEntity}>{desk.entity}</p>
+          <p className={styles.deskPlace}>
+            {desk.place} — {desk.desk}
+          </p>
+          <p className={styles.deskLines}>
+            <a href={desk.emailHref}>{desk.email}</a>
+            <span aria-hidden="true"> · </span>
+            <a href={desk.phoneHref}>{desk.phone}</a>
+          </p>
+        </div>
+      </fieldset>
 
       <fieldset className={styles.group}>
         <legend className={styles.legend}>Who to reply to</legend>
@@ -434,18 +501,14 @@ export default function RfqForm({ item, location = 'contact_page' }: Props) {
 
       <div className={styles.foot}>
         <button type="submit" className={`btn btnAccent ${styles.submit}`} disabled={state === 'sending'}>
-          {state === 'sending' ? 'Sending…' : 'Send the RFQ'}
+          {state === 'sending' ? 'Sending…' : `Submit RFQ to ${desk.team}`}
           <ArrowRight className="arrow" />
         </button>
+        {/* Email and phone clicks are counted once, site-wide, by
+            ConversionEvents; a handler here as well counted each twice. */}
         <p className={styles.note}>
-          Or email{' '}
-          <a href={CONTACT.emailHref} onClick={() => track('click_email', { location })}>
-            {CONTACT.email}
-          </a>{' '}
-          ·{' '}
-          <a href={CONTACT.phoneHref} onClick={() => track('click_phone', { location })}>
-            {CONTACT.phone}
-          </a>
+          Or email <a href={desk.emailHref}>{desk.email}</a> ·{' '}
+          <a href={desk.phoneHref}>{desk.phone}</a>
         </p>
       </div>
     </form>

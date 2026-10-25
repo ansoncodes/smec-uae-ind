@@ -1,0 +1,234 @@
+.section {
+  background: var(--paper-raised);
+}
+
+.head {
+  display: grid;
+  gap: 18px;
+  margin-bottom: clamp(30px, 3.6vw, 52px);
+}
+
+.head :global(.sectionTitle) {
+  max-width: 22ch;
+}
+
+.topics {
+  --sep-space: 24px;
+  --sep-color: var(--fg-dim);
+  row-gap: 6px;
+  font-family: var(--font-mono);
+  font-size: 12px;
+  letter-spacing: 0.12em;
+  line-height: 1.5;
+  text-transform: uppercase;
+  color: var(--accent);
+}
+
+/* ---------------------------------------------------------- dark panel */
+
+/* Image 28's dark card, set on the light band. */
+.panel {
+  padding: clamp(18px, 2.4vw, 34px);
+  border-radius: 12px;
+  background: #0d1426;
+  color: var(--white);
+}
+
+.kicker {
+  margin: 0 0 clamp(16px, 1.8vw, 24px);
+  font-family: var(--font-mono);
+  font-size: 12px;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--accent-on-dark);
+}
+
+.layout {
+  display: grid;
+  grid-template-columns: minmax(0, 0.9fr) minmax(0, 1.1fr);
+  gap: clamp(20px, 3vw, 48px);
+  align-items: center;
+}
+
+.cover {
+  display: flex;
+  flex-direction: column;
+  min-height: clamp(220px, 22vw, 300px);
+  padding: clamp(18px, 2vw, 28px);
+  border: 1px solid rgba(126, 163, 255, 0.18);
+  border-radius: 8px;
+  background: #172748;
+}
+
+.publisher {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--steel-300);
+}
+
+.name {
+  margin-top: auto;
+  font-family: var(--font-display);
+  font-size: clamp(30px, 3.6vw, 46px);
+  font-weight: 600;
+  letter-spacing: -0.02em;
+  line-height: 1;
+}
+
+.strap {
+  margin-top: 10px;
+  font-family: var(--font-mono);
+  font-size: 11px;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--accent-on-dark);
+}
+
+.sectors {
+  margin-top: auto;
+  padding-top: 26px;
+  font-size: 13px;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--steel-100);
+}
+
+.signup {
+  min-width: 0;
+}
+
+.heading {
+  font-size: var(--fs-h3);
+  letter-spacing: -0.02em;
+  color: var(--white);
+}
+
+.body {
+  margin: 10px 0 20px;
+  font-size: var(--fs-sm);
+  line-height: 1.6;
+  color: var(--steel-300);
+}
+
+/* ------------------------------------------------------------------ form */
+
+.form {
+  display: grid;
+  gap: 12px;
+}
+
+.row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+.input {
+  flex: 1 1 240px;
+  min-width: 0;
+  min-height: 52px;
+  padding: 0 18px;
+  border: 1px solid rgba(255, 255, 255, 0.22);
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.04);
+  color: var(--white);
+  font: inherit;
+  font-size: var(--fs-sm);
+}
+
+.input::placeholder {
+  color: var(--steel-500);
+}
+
+.input:focus-visible {
+  outline: 2px solid var(--accent-on-dark);
+  outline-offset: 2px;
+  border-color: transparent;
+}
+
+.input[aria-invalid='true'] {
+  border-color: #ff8a8a;
+}
+
+.submit {
+  flex: none;
+  min-height: 52px;
+  border-radius: 999px;
+}
+
+.consent {
+  display: grid;
+  grid-template-columns: auto minmax(0, 1fr);
+  gap: 10px;
+  align-items: start;
+  font-size: 13px;
+  line-height: 1.5;
+  color: var(--steel-300);
+  cursor: pointer;
+}
+
+.consent input {
+  width: 18px;
+  height: 18px;
+  margin: 1px 0 0;
+  accent-color: var(--accent);
+}
+
+.consent a {
+  color: var(--white);
+  text-decoration: underline;
+  text-underline-offset: 2px;
+}
+
+.error {
+  margin: 0;
+  font-size: 13px;
+  color: #ffb1b1;
+}
+
+.done {
+  padding: 18px 20px;
+  border: 1px solid rgba(126, 163, 255, 0.3);
+  border-radius: 8px;
+  background: rgba(18, 87, 253, 0.12);
+}
+
+.done:focus {
+  outline: none;
+}
+
+.doneTitle {
+  margin: 0;
+  font-weight: 500;
+  color: var(--white);
+}
+
+.doneBody {
+  margin: 6px 0 0;
+  font-size: var(--fs-sm);
+  color: var(--steel-100);
+}
+
+/* The bot field: off-screen, out of the tab order. */
+.trap {
+  position: absolute;
+  left: -10000px;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+}
+
+@media (max-width: 760px) {
+  .layout {
+    grid-template-columns: 1fr;
+  }
+  .cover {
+    min-height: 200px;
+  }
+  .submit {
+    flex: 1 1 100%;
+    justify-content: space-between;
+  }
+}

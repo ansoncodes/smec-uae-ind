@@ -1,59 +1,124 @@
+'use client';
+
+import { useRef, useState } from 'react';
 import Image from 'next/image';
 import { CERT_LOGOS } from '@/lib/siteData';
-import { CERT_CARDS } from '@/lib/experience';
-import { Shield } from './Icons';
+import { QUALITY_COPY, type CertIcon } from '@/lib/homepage';
+import { Award, Bolt, Leaf, ShieldCheck } from './HomeIcons';
+import { ArrowRight } from './Icons';
 import styles from './Certifications.module.css';
 
+const ICONS: Record<CertIcon, (p: { className?: string }) => React.JSX.Element> = {
+  award: Award,
+  leaf: Leaf,
+  shield: ShieldCheck,
+  bolt: Bolt,
+};
+
 /**
- * 06 / Assurance — the four ISO certificates SMEC holds, each card showing the
- * certificate itself, and the standards' marks underneath.
+ * Quality & Certifications — one tab per legal entity, as images 17–18 lay
+ * them out: the UAE company's four ISO management systems and the India
+ * company's three. Both panels are in the markup; the tabs only choose which
+ * one shows. The standards' marks under them are unchanged.
  */
 export default function Certifications() {
+  const { label, title, intro, tabs, footnote, cta } = QUALITY_COPY;
+  const [active, setActive] = useState(0);
+  const tabsRef = useRef<HTMLDivElement>(null);
+  const count = tabs.length;
+
+  const onKeyDown = (event: React.KeyboardEvent) => {
+    const map: Record<string, number> = {
+      ArrowLeft: active - 1,
+      ArrowRight: active + 1,
+      Home: 0,
+      End: count - 1,
+    };
+    const next = map[event.key];
+    if (next === undefined) return;
+    event.preventDefault();
+    const index = (next + count) % count;
+    setActive(index);
+    tabsRef.current?.querySelectorAll('button')[index]?.focus();
+  };
+
   return (
-    <section className="section" id="assurance" data-tone="light" aria-labelledby="assurance-title">
+    <section className={`section ${styles.section}`} id="assurance" data-tone="light" aria-labelledby="assurance-title">
       <div className="container">
         <p className="sectionLabel" data-reveal="fade">
-          <span className="num">06</span>
-          <span>Assurance</span>
+          <span>{label}</span>
           <span className="rule" />
         </p>
 
         <div className="sectionHead">
           <h2 id="assurance-title" className="sectionTitle" data-reveal="up">
-            Built on quality. Verified by standards.
+            {title}
           </h2>
           <p className="sectionIntro" data-reveal="up" data-reveal-delay="90">
-            SMEC Oil &amp; Gas Solutions L.L.C S.P is certified against four international
-            management standards, audited and current.
+            {intro}
           </p>
         </div>
 
-        <ul className={styles.grid}>
-          {CERT_CARDS.map((cert, i) => (
-            <li key={cert.src} data-reveal="up" data-reveal-delay={i * 80}>
-              <article className={styles.card}>
-                <div className={styles.head}>
-                  <Shield className={styles.icon} />
-                  <span className={styles.standard}>{cert.standard}</span>
-                </div>
+        <div className={styles.box} data-reveal="up">
+          <div
+            ref={tabsRef}
+            className={styles.tabs}
+            role="tablist"
+            aria-labelledby="assurance-title"
+            onKeyDown={onKeyDown}
+          >
+            {tabs.map((tab, i) => (
+              <button
+                key={tab.id}
+                type="button"
+                role="tab"
+                id={`quality-tab-${tab.id}`}
+                aria-selected={i === active}
+                aria-controls={`quality-panel-${tab.id}`}
+                tabIndex={i === active ? 0 : -1}
+                className={styles.tab}
+                onClick={() => setActive(i)}
+              >
+                {tab.tab}
+              </button>
+            ))}
+          </div>
 
-                <h3 className={styles.title}>{cert.title}</h3>
+          {tabs.map((tab, i) => (
+            <div
+              key={tab.id}
+              id={`quality-panel-${tab.id}`}
+              role="tabpanel"
+              aria-labelledby={`quality-tab-${tab.id}`}
+              className={styles.panel}
+              hidden={i !== active}
+            >
+              <h3 className={styles.entity}>{tab.entity}</h3>
+              <p className={styles.body}>{tab.body}</p>
 
-                <div className={styles.scan}>
-                  <Image
-                    src={cert.src}
-                    alt={cert.alt}
-                    width={cert.width}
-                    height={cert.height}
-                    sizes="(max-width: 700px) 44vw, 22vw"
-                    className={styles.scanImg}
-                    loading="lazy"
-                  />
-                </div>
-              </article>
-            </li>
+              <ul className={styles.certs}>
+                {tab.certs.map((cert) => {
+                  const Icon = ICONS[cert.icon];
+                  return (
+                    <li key={cert.standard} className={styles.cert}>
+                      <Icon className={styles.icon} />
+                      <span className={styles.standard}>{cert.standard}</span>
+                      <span className={styles.name}>{cert.name}</span>
+                    </li>
+                  );
+                })}
+              </ul>
+
+              <div className={styles.foot}>
+                <p className={styles.footnote}>{footnote}</p>
+                <a className="arrowLink" href={cta.href}>
+                  {cta.label}
+                  <ArrowRight className="arrow" />
+                </a>
+              </div>
+            </div>
           ))}
-        </ul>
+        </div>
       </div>
 
       {/* ------------------------------------------------ standards marks */}

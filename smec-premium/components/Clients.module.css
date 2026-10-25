@@ -1,10 +1,10 @@
-/* Follows the Assurance band on the same paper ground, so it keeps the
-   tighter padding of a continuation rather than a full section's. */
+/* Her fourth block, straight after "Who we are?": paper against that band's
+   white, with a full section's padding. */
 .section {
   position: relative;
   background: var(--bg);
   color: var(--fg);
-  padding-block: clamp(56px, 7vw, 104px) clamp(72px, 8vw, 128px);
+  padding-block: clamp(72px, 8.5vw, 136px);
 }
 
 .ecosystem {

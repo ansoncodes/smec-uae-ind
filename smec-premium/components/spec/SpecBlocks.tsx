@@ -126,7 +126,14 @@ export function SpecLandingPage({ url }: { url: string }) {
   );
 }
 
-export function SpecClose({ rfqInputs = [] }: { rfqInputs?: string[] }) {
+export function SpecClose({
+  rfqInputs = [],
+  rfqHref = '/contact/',
+}: {
+  rfqInputs?: string[];
+  /** The RFQ link, with `?region=` on a page that knows its region. */
+  rfqHref?: string;
+}) {
   return (
     <section className={styles.close}>
       <div className="container">
@@ -137,7 +144,7 @@ export function SpecClose({ rfqInputs = [] }: { rfqInputs?: string[] }) {
             : 'Send the available drawings, specification, make and model, site and required date. An engineer reviews the scope and replies.'}
         </p>
         <div className={styles.actions} style={{ justifyContent: 'center' }}>
-          <Link className="btn btn-primary" href="/contact/">
+          <Link className="btn btn-primary" href={rfqHref}>
             Send an RFQ
           </Link>
           <a className="btn btn-ghost" href={CONTACT.emailHref}>

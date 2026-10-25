@@ -1,5 +1,6 @@
 import { NextResponse } from 'next/server';
 import { FIELDS, validate, hasErrors, type Errors } from '@/lib/rfq';
+import { regionById, type RegionId } from '@/lib/regions';
 
 /**
  * The RFQ endpoint the form posts to.
@@ -12,10 +13,19 @@ import { FIELDS, validate, hasErrors, type Errors } from '@/lib/rfq';
  * then forwarded to the lead API with the key attached.
  *
  * Configuration:
- *   LEAD_API_URL  — default https://api.smec.in
- *   LEAD_API_KEY  — the campaign key. Server-only: no NEXT_PUBLIC_ prefix, so
- *                   it is never bundled. Without it the endpoint refuses and
- *                   says so, rather than silently dropping an enquiry.
+ *   LEAD_API_URL        — default https://api.smec.in
+ *   LEAD_API_KEY_UAE    — the Middle East & International campaign key
+ *   LEAD_API_KEY_INDIA  — the India campaign key
+ *   LEAD_API_KEY        — the key either region falls back to
+ *   All server-only: no NEXT_PUBLIC_ prefix, so none is ever bundled. With
+ *   no key for the chosen region the endpoint refuses and says so, rather
+ *   than silently dropping an enquiry.
+ *
+ * Routing (RFQ-03): the visitor picks a region and the region picks the key,
+ * so each team's enquiries land in its own campaign. Until a second campaign
+ * exists both regions use LEAD_API_KEY, and the region still reaches the lead
+ * as `region` — the backend files any field it has no column for under the
+ * lead's extra_data, which the sales team sees with the enquiry.
  *
  * If SMEC chooses static hosting with no Node runtime (docs/spec-alignment.md
  * 0.3), the form can post to the lead API directly instead by setting
@@ -73,13 +83,28 @@ const clientIp = (request: Request) =>
 const fail = (errors: Errors, status = 400) =>
   NextResponse.json({ success: false, errors }, { status });
 
+/** The campaign key for a region: its own, else the shared one. */
+const leadKey = (region: RegionId) =>
+  (region === 'india' ? process.env.LEAD_API_KEY_INDIA : process.env.LEAD_API_KEY_UAE) ||
+  process.env.LEAD_API_KEY;
+
+const NOT_CONNECTED: Errors = {
+  form: 'The enquiry form is not connected yet. Please email or call us instead.',
+};
+
+/**
+ * The reference the lead system issues (RFQ-04), passed on only when it
+ * sends one and only in a plain form — nothing here invents a number.
+ */
+const referenceFrom = (body: unknown): string | undefined => {
+  const value = (body as { reference?: unknown } | null)?.reference;
+  return typeof value === 'string' && /^[A-Za-z0-9-]{1,40}$/.test(value) ? value : undefined;
+};
+
 export async function POST(request: Request) {
-  if (!process.env.LEAD_API_KEY) {
-    console.error('RFQ: LEAD_API_KEY is not set — the enquiry was not forwarded.');
-    return fail(
-      { form: 'The enquiry form is not connected yet. Please email or call us instead.' },
-      503
-    );
+  if (!leadKey('uae') && !leadKey('india')) {
+    console.error('RFQ: no LEAD_API_KEY is set — the enquiry was not forwarded.');
+    return fail(NOT_CONNECTED, 503);
   }
 
   let submitted: FormData;
@@ -103,6 +128,7 @@ export async function POST(request: Request) {
 
   const values: Record<string, string> = {};
   for (const field of FIELDS) values[field] = String(submitted.get(field) ?? '');
+  values.region = String(submitted.get('region') ?? '').trim().toLowerCase();
   values.consent = String(submitted.get('consent') ?? '');
 
   const files = submitted.getAll('rfq_files').filter((f): f is File => f instanceof File && f.size > 0);
@@ -118,12 +144,24 @@ export async function POST(request: Request) {
     );
   }
 
+  // validate() has already refused anything that is not one of the two.
+  const region = regionById(values.region as RegionId);
+  const apiKey = leadKey(region.id);
+  if (!apiKey) {
+    console.error(
+      `RFQ: neither LEAD_API_KEY_${region.id.toUpperCase()} nor LEAD_API_KEY is set — the enquiry was not forwarded.`
+    );
+    return fail(NOT_CONNECTED, 503);
+  }
+
   const outgoing = new FormData();
-  outgoing.set('api_key', process.env.LEAD_API_KEY);
+  outgoing.set('api_key', apiKey);
   for (const [key, value] of Object.entries(values)) {
-    if (key === 'consent' || !value.trim()) continue;
+    if (key === 'consent' || key === 'region' || !value.trim()) continue;
     outgoing.set(key, value.trim());
   }
+  // The readable name, so the lead says "India", not "india".
+  outgoing.set('region', region.label);
   outgoing.set('consent', 'true');
   for (const file of files) outgoing.append('rfq_files', file, file.name);
 
@@ -155,5 +193,6 @@ export async function POST(request: Request) {
     return fail({ form: 'Something went wrong at our end. Please try again, or email us.' }, 502);
   }
 
-  return NextResponse.json({ success: true });
+  const reference = referenceFrom(body);
+  return NextResponse.json(reference ? { success: true, reference } : { success: true });
 }

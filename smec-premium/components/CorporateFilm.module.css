@@ -36,7 +36,6 @@
   margin: 0 0 18px;
   font-size: clamp(27px, 3.4vw, 46px);
   letter-spacing: -0.035em;
-  text-transform: capitalize;
 }
 
 .body {
@@ -48,6 +47,10 @@
 }
 
 /* ---------------------------------------------------------------- stage */
+
+.player {
+  min-width: 0;
+}
 
 .stage {
   position: relative;
@@ -84,15 +87,17 @@
   transform: scale(1.045);
 }
 
+/* Dark enough that the poster's own lettering recedes behind the film's
+   title and the "click to watch" line set over it (image 20). */
 .veil {
   position: absolute;
   inset: 0;
-  background: rgba(6, 8, 10, 0.42);
+  background: rgba(6, 8, 10, 0.66);
   transition: background 0.5s var(--ease);
 }
 
 .poster:hover .veil {
-  background: rgba(6, 8, 10, 0.28);
+  background: rgba(6, 8, 10, 0.5);
 }
 
 .play {
@@ -118,16 +123,52 @@
   transform: scale(1.06);
 }
 
+/* "SMEC Corporate Film" and "Click to watch · Video loads on demand" under
+   the play button, as image 20 sets them. */
+.playTitle,
 .playLabel {
   position: absolute;
   left: 50%;
-  top: calc(50% + clamp(42px, 4.2vw, 58px));
+  width: max-content;
+  max-width: 90%;
   transform: translateX(-50%);
+  text-align: center;
+  color: var(--white);
+}
+
+.playTitle {
+  top: calc(50% + clamp(42px, 4.2vw, 58px));
+  font-family: var(--font-display);
+  font-size: clamp(16px, 1.5vw, 20px);
+  font-weight: 500;
+  letter-spacing: -0.01em;
+}
+
+.playLabel {
+  top: calc(50% + clamp(72px, 6.6vw, 92px));
   font-family: var(--font-mono);
-  font-size: var(--fs-label);
-  letter-spacing: 0.2em;
+  font-size: 12px;
+  letter-spacing: 0.14em;
   text-transform: uppercase;
   color: rgba(255, 255, 255, 0.8);
+}
+
+/* "Engineering · Manufacturing · System Integration · Testing · Site Execution" */
+.topics {
+  --sep: '·';
+  --sep-space: 22px;
+  --sep-color: var(--steel-500);
+  row-gap: 4px;
+  margin-top: 16px;
+  font-size: 13px;
+  color: var(--steel-300);
+}
+
+@media (max-width: 560px) {
+  /* On a phone the poster is too short for three lines under the button. */
+  .playLabel {
+    display: none;
+  }
 }
 
 @media (max-width: 900px) {
