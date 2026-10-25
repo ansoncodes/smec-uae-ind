@@ -38,7 +38,10 @@ export function setConsent(state: Exclude<ConsentState, 'unknown'>) {
   for (const listener of listeners) listener(state);
 }
 
+/** Returns the unsubscribe, shaped to be an effect's cleanup. */
 export function onConsentChange(listener: (state: ConsentState) => void) {
   listeners.add(listener);
-  return () => listeners.delete(listener);
+  return () => {
+    listeners.delete(listener);
+  };
 }

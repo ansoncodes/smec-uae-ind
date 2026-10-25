@@ -2,6 +2,7 @@ import type { Metadata } from 'next';
 import { IBM_Plex_Mono, Inter, Inter_Tight } from 'next/font/google';
 import { CONTACT, FOOTER_ADDRESS, FOOTER_CONTACT, SITE, SOCIALS } from '@/lib/siteData';
 import { ogImageFor } from '@/lib/og';
+import { GTM_NOSCRIPT } from '@/lib/tags';
 import dynamic from 'next/dynamic';
 
 /* Neither renders anything: one attaches the reveal observers, the other a
@@ -68,6 +69,9 @@ export const metadata: Metadata = {
     description: SITE.description,
     images: ogImageFor('/', SITE.title),
   },
+  // Search Console ownership of smecoilandgas.com, sent by SMEC on 25 Sep.
+  // Permanent: Google re-checks it, and removing it unverifies the property.
+  verification: { google: 'vc7P6FX9A-gKwXf32RhcVwocEVTiBdU2GSApGP2dKP0' },
 };
 
 export const viewport = {
@@ -151,6 +155,21 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
       className={`${display.variable} ${sans.variable} ${mono.variable}`}
     >
       <body>
+        {/* Tag Manager's no-JavaScript fallback, where its snippet puts it. It
+            cannot wait for consent — without JavaScript there is no banner to
+            answer — so it fires only what the container sets up for no-script
+            visitors: nothing GA4 does, since GA4 needs JavaScript. */}
+        {GTM_NOSCRIPT ? (
+          <noscript>
+            <iframe
+              src={GTM_NOSCRIPT}
+              title="Google Tag Manager"
+              height="0"
+              width="0"
+              style={{ display: 'none', visibility: 'hidden' }}
+            />
+          </noscript>
+        ) : null}
         <a className={'skipLink'} href="#main">
           Skip to content
         </a>

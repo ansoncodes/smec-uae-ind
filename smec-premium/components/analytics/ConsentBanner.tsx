@@ -2,7 +2,8 @@
 
 import { useEffect, useState } from 'react';
 import Link from 'next/link';
-import { consentState, setConsent } from '@/lib/consent';
+import { consentState, onConsentChange, setConsent } from '@/lib/consent';
+import { loadTags } from '@/lib/tags';
 import styles from './ConsentBanner.module.css';
 
 /**
@@ -17,12 +18,24 @@ import styles from './ConsentBanner.module.css';
  * it cannot move the page — the build measures 0.000 CLS and this must not
  * change that. Refusing is one button, the same size as accepting: a consent
  * request where "no" is harder than "yes" is not a choice.
+ *
+ * It is also the gate the tags load through (lib/tags.ts): at once on a
+ * return visit with consent on record, on Accept on a first visit, and never
+ * after Decline.
  */
 export default function ConsentBanner() {
   const [visible, setVisible] = useState(false);
 
   useEffect(() => {
-    if (consentState() === 'unknown') setVisible(true);
+    const state = consentState();
+    if (state === 'granted') {
+      loadTags();
+      return;
+    }
+    if (state === 'unknown') setVisible(true);
+    return onConsentChange((next) => {
+      if (next === 'granted') loadTags();
+    });
   }, []);
 
   if (!visible) return null;

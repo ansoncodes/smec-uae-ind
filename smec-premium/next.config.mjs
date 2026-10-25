@@ -23,19 +23,34 @@ const __dirname = path.dirname(fileURLToPath(import.meta.url));
  * 'unsafe-inline' for styles is Next's inlined critical CSS; for scripts it
  * is the framework's own bootstrap. Both are removable with a nonce, which
  * needs a server rendering every request — a hosting decision, not a code one.
+ *
+ * The analytics hosts are Google's published list for GA4 through Tag Manager,
+ * plus Clarity's. Whatever else SMEC adds to the container will show up in the
+ * reports first, which is the point of watching before enforcing.
  */
+const ANALYTICS = {
+  // Tag Manager and GA4 (lib/tags.ts), and Clarity, which the container loads.
+  script: 'https://www.googletagmanager.com https://*.clarity.ms',
+  connect:
+    'https://*.google-analytics.com https://*.analytics.google.com https://*.googletagmanager.com https://*.clarity.ms https://c.bing.com',
+  img: 'https://*.google-analytics.com https://*.googletagmanager.com https://*.clarity.ms https://c.bing.com',
+  // The container's no-JavaScript fallback.
+  frame: 'https://www.googletagmanager.com',
+};
+
 const contentSecurityPolicy = [
   "default-src 'self'",
   "base-uri 'self'",
   "form-action 'self'",
   "frame-ancestors 'self'",
   "object-src 'none'",
-  "script-src 'self' 'unsafe-inline'",
+  `script-src 'self' 'unsafe-inline' ${ANALYTICS.script}`,
   "style-src 'self' 'unsafe-inline'",
-  "img-src 'self' data: blob:",
+  `img-src 'self' data: blob: ${ANALYTICS.img}`,
   "font-src 'self' data:",
   // The lead API the RFQ form posts to, when it is called directly.
-  "connect-src 'self' https://api.smec.in",
+  `connect-src 'self' https://api.smec.in ${ANALYTICS.connect}`,
+  `frame-src 'self' ${ANALYTICS.frame}`,
   "upgrade-insecure-requests",
 ].join('; ');
 
