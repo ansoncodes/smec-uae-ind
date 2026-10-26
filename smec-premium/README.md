@@ -1,36 +1,39 @@
 # smec-premium
 
-A ground-up redesign of the SMEC Oil & Gas site. Same company, same
-information, a completely new visual system and page composition.
-
-`smec-inspired/` is untouched — this build was seeded from a copy of its
-`lib/` and `public/` and everything in `app/` and `components/` was written
-fresh.
+The SMEC Oil & Gas website: Next.js 16, React 19 and TypeScript. It replaces
+the WordPress site on smecoilandgas.com on the same domain, so every old URL
+either keeps working or redirects in one hop.
 
 ```bash
 npm install
 npm run dev      # http://localhost:3000
-npm run build    # 42 static pages
+npm run build    # 127 prerendered pages
+npm run start    # serve the build
 ```
 
 ## Where the content comes from
 
-Nothing here is invented copy. The source of truth is unchanged from the
-previous build:
+Nothing here is invented copy. The client's documents are the source of truth
+for wording; a page that reads badly is a question for SMEC, not something to
+fix in code.
 
 | File | Holds |
 | --- | --- |
-| `lib/siteData.ts` | Every string lifted from smecoilandgas.com — nav, hero, products, stats, certificates, clients, map pins, R&D, sustainability, articles, footer |
-| `lib/productDetails.ts` | Body content for the eight product pages the homepage links |
-| `lib/systemPages.ts` | Body content for the six systems the homepage never carried |
-| `lib/companyPages.ts` | Body content for About, Solutions, R&D, Careers, Sustainability and the privacy policy |
-| `lib/articles/` | Body content for the seventeen articles |
-| `lib/scaffold.ts` | The stock photographs standing in until client assets arrive |
+| `docs/source/SMEC_Website_Content_Master_2026_V3_DEEP_CONTENT.md`, `docs/source/prototypes/` | The client's copy for every solution, product, digital, industry, resource and company page |
+| `lib/spec/pages.generated.ts` | That copy as typed page data, written by `node scripts/build-spec-content.mjs`. **Generated — never hand-edit it**; change the sources and re-run the script |
+| `lib/homepage.ts` | The homepage copy, from the client's 18 October homepage document |
+| `lib/navigation.ts` | The header's six tabs and their mega menus |
+| `lib/regions.ts`, `lib/siteData.ts` | The two regional teams (Middle East & International, India) and their contact details |
+| `lib/landingPages.ts` | The two smec.in landing pages the client asked the site to link |
+| `lib/redirects.mjs`, `lib/legacy-assets.mjs` | Every legacy URL from the old site |
 
-`lib/experience.ts` adds no facts — it regroups the existing ones for the new
-information architecture: the system catalogue, the discipline-grouped mega
-menu, the industry panels, the EPC process, the ISO cards and the article
-categories.
+**Publication gate.** Every generated page is `approved` or `draft`. A draft
+still renders (200), but with `noindex, follow`, and is left out of the
+sitemap. A page is a draft while its content waits on SMEC or on engineering
+sign-off, or while it makes a safety-critical claim (SIL, ATEX, IECEx, Ex
+ratings, explosion-proof, intrinsically safe, functional safety) that an
+engineer has not approved. The homepage has no gate, so its copy must not
+make those claims.
 
 ## Design system
 
@@ -49,48 +52,36 @@ Everything lives in `app/globals.css`.
   technical plates, a single inline-SVG grain layer (`.grain`) reused by every
   dark band.
 
-## Page composition
+## Homepage
 
-```
-hero · credentials          dark
-01 about + EPC process      paper
-02 systems · 03 in focus    dark
-04 industries               paper
-05 global presence          dark
-06 assurance · clients      paper
-corporate film · 07 R&D     dark
-08 sustainability           paper
-09 insights                 paper
-10 careers · contact        dark
-```
+The sections of the client's homepage document, in her order, with her
+section titles as the H2s: hero and credentials, who we are, clients and
+registrations, engineering solutions, systems and products, digitalisation,
+industries, quality and certifications, about, the corporate film, training,
+the engineering knowledge library, the SMEC EDGE newsletter, FAQs, and the
+final RFQ with its region chooser. The newsletter stays off the page until
+Mailchimp is configured.
 
 ## Routes
 
-42 static pages. Every link in the navigation, footer and body resolves
-locally — nothing bounces the reader out to smecoilandgas.com. The only
-outbound anchor left is "Read the original" at the foot of each article,
-which is a citation, and each page's `rel="canonical"`, which correctly
-points at the production domain.
+127 prerendered pages, all with a trailing slash.
 
-| Route | Content source |
+| Route | Pages |
 | --- | --- |
-| `/` | homepage |
-| `/insights` | index of all seventeen articles |
-| `/<article-slug>` × 17 | `lib/articles/` |
-| `/<system-slug>` × 14 | `lib/productDetails.ts` (8) + `lib/systemPages.ts` (6) |
-| `/about-us`, `/solutions-and-services`, `/research-and-developement`, `/careers`, `/sustainability`, `/privacy-policy` | `lib/companyPages.ts` |
-| `/contact-us` | composed from `lib/siteData.ts` |
+| `/` | the homepage |
+| `/solutions/…` | 16 |
+| `/products/…` | 34 |
+| `/digital/…` | 7 |
+| `/industries/…`, `/customers/…`, `/markets/…` | 21, 8 and 2 |
+| `/resources/…` | 23 |
+| `/company/…` | 11 |
+| `/contact/` | the RFQ form |
+| `/privacy-policy/`, `/research-and-developement/`, `/sustainability/` | old pages kept at their old paths; SMEC has still to decide on the last two |
 
-`lib/systemPages.ts` and `lib/companyPages.ts` were added by transcribing the
-matching pages on smecoilandgas.com — the same rule the rest of the content
-follows. Straplines are set in sentence case and lines the source splits
-across two rows for layout are rejoined; nothing else is changed, and no
-specification is invented.
-
-`lib/systems.ts` normalises both system sources into one shape, so
-`components/ProductDetail.tsx` renders all fourteen. Six of them have no
-photograph on the live site; those pages put their specification on the plate
-where the picture would go, and their catalogue cards use a monogram.
+**Legacy URLs.** Every page the old site published either keeps its path or
+redirects to its new home in one hop, with or without the trailing slash. Its uploads are served
+unchanged from `public/wp-content/uploads/`, except those whose URLs redirect,
+because Next checks redirects before public files.
 
 ## Motion
 
@@ -119,25 +110,43 @@ Everything animates transform/opacity only. `prefers-reduced-motion: reduce`
 short-circuits the whole layer — no observer is created, Lenis is not loaded,
 and the CSS shows every element in its resting state.
 
+## Deploying
+
+- **Variables.** `.env.example` lists every variable and what it does.
+  Production needs `NEXT_PUBLIC_SITE_URL=https://smecoilandgas.com`,
+  `NEXT_PUBLIC_SITE_ENV=production`, the lead API URL and key, and the
+  analytics IDs. `NEXT_PUBLIC_*` values are fixed at build time, so change
+  them and redeploy.
+- **Environments.** Today the Vercel project `smec-premium` deploys `main` to
+  `smec-premium.vercel.app` and builds a preview of every other branch behind
+  Vercel sign-in. Any `*.vercel.app` host is sent `X-Robots-Tag: noindex`
+  (`next.config.mjs`), so none of them competes with the real domain. Where
+  production is hosted is still for SMEC to confirm (Developer Brief §7).
+- **Cutover.** The domain's DNS is on Cloudflare, so going live is pointing
+  smecoilandgas.com at the production deployment, and rolling back is
+  pointing it back. Mail runs on smecong.com, so cutover cannot affect it.
+  Afterwards, submit the sitemap in Search Console and run `npm run indexnow`
+  with `INDEXNOW_KEY` set.
+- **Rollback.** Vercel keeps every deployment; promote the previous one.
+- **Backups.** The site has no database: the repository holds all its code
+  and content. Enquiries live in the Django lead system behind
+  `LEAD_API_URL`. That repository's `PRODUCTION.md` sets out nightly database
+  backups kept for 14 days; confirm they are switched on before launch.
+
 ## Notes for whoever picks this up
 
-- **Scaffold photography.** `grep -rn SCAFFOLD app components lib` finds every
-  placeholder; `document.querySelectorAll('[data-scaffold]')` finds them in
-  the browser. The crew photograph is used twice — a portrait crop in About
-  and a wide crop in Careers — because it is the only people picture
-  available. Replace via `lib/scaffold.ts`.
-- **Product plates.** The system photographs are studio cut-outs on white, so
-  the catalogue sits them on flat white plates with `object-fit: contain`
-  rather than cropping them into dark tiles. Card spans and plate ratios are
-  paired in `components/Systems.tsx` so every row comes out level; change one
-  and change the other.
-- **The map.** Pin coordinates in `lib/siteData.ts` are the live site's own
-  percentages and are calibrated to `public/images/map-blue-smecoilandgas.png`.
-  Swapping the map image will move every pin.
+- **The RFQ form** (`components/rfq/RfqForm.tsx`) posts to
+  `app/api/rfq/route.ts`, which validates, rate-limits and forwards the
+  enquiry to the lead API with a server-only key, choosing the key by region.
+  The success message shows the lead system's `SMEC-RFQ-…` reference whenever
+  the API returns one.
+- **Analytics** load only after a visitor accepts the consent banner
+  (`lib/consent.ts`, `lib/tags.ts`). `lib/analytics.ts` holds the event names
+  and never sends form contents.
+- **Sections no longer on the homepage.** Asset Brief, Innovation,
+  Sustainability, Careers, Global Reach and Systems are not rendered, because
+  the client's homepage document leaves them out. Their files are kept so each
+  can return in one line if she asks. Careers still holds the last stock
+  photograph (`lib/scaffold.ts`).
 - **The YouTube embed** is only inserted after the poster is clicked, so the
   page never pays for it up front.
-- **The enquiry form has no backend.** `components/page/EnquiryForm.tsx`
-  composes the submission into a pre-filled `mailto:` and hands it to the
-  visitor's mail client. That works everywhere and loses nothing, but it is a
-  stand-in — point its `onSubmit` at a real endpoint before launch and delete
-  the mailto branch.
