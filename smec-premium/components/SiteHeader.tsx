@@ -14,8 +14,11 @@ import styles from './SiteHeader.module.css';
  * blurred near-black bar once the page scrolls — shorter, hairlined, with the
  * utility rail folded away.
  *
- * Products and Solutions open a mega menu: three columns of grouped systems
- * with a one-line description each, rather than a list of links.
+ * Each of the six tabs opens a mega menu with the columns of the client's own
+ * design (lib/navigation.ts). They are disclosures, not ARIA menus: a button
+ * that says whether its panel is expanded, and a panel of ordinary links that
+ * follows it in the document, inside the Primary navigation, so Tab walks
+ * straight into an open panel and a screen reader finds its links there.
  */
 /** Everything the keyboard can land on inside a container. */
 const FOCUSABLE =
@@ -23,6 +26,10 @@ const FOCUSABLE =
 
 /** Panels are addressed by id so a trigger can declare what it controls. */
 const megaId = (label: string) => `mega-${label.toLowerCase().replace(/\W+/g, '-')}`;
+
+/** The tabs, and the one item drawn as the bar's call to action. */
+const TABS = TOP_NAV.filter((item) => !item.cta);
+const CTA = TOP_NAV.find((item) => item.cta);
 
 export default function SiteHeader() {
   const [condensed, setCondensed] = useState(false);
@@ -71,11 +78,14 @@ export default function SiteHeader() {
   useEffect(() => {
     if (!drawer) return;
 
+    // A collapsed group is inert, so its links are left out of the chain.
     const chain = () =>
       [
         burgerRef.current,
         ...Array.from(drawerRef.current?.querySelectorAll<HTMLElement>(FOCUSABLE) ?? []),
-      ].filter((el): el is HTMLElement => !!el && el.offsetParent !== null);
+      ].filter(
+        (el): el is HTMLElement => !!el && el.offsetParent !== null && !el.closest('[inert]')
+      );
 
     drawerRef.current?.querySelector<HTMLElement>(FOCUSABLE)?.focus();
 
@@ -130,12 +140,10 @@ export default function SiteHeader() {
         }}
         className={`${styles.navLink} ${isOpen ? styles.navLinkOpen : ''}`}
         aria-expanded={isOpen}
-        aria-haspopup="true"
         aria-controls={megaId(item.label)}
         onClick={() => setOpenMega(isOpen ? null : item.label)}
-        // Down opens the panel and steps into it, which is how a menu button
-        // is expected to behave; the panel is not next in the document, so
-        // Tab alone would never reach it.
+        // Down opens the panel and steps into its first link, a shortcut for
+        // what Enter and then Tab already do.
         onKeyDown={(event) => {
           if (event.key !== 'ArrowDown') return;
           event.preventDefault();
@@ -150,6 +158,70 @@ export default function SiteHeader() {
       </button>
     );
   };
+
+  // Positioned against the header, not its list item, so it spans the bar.
+  const renderPanel = (item: TopNavItem) => (
+    <div
+      id={megaId(item.label)}
+      ref={(node) => {
+        panels.current.set(item.label, node);
+      }}
+      className={`${styles.mega} ${openMega === item.label ? styles.megaVisible : ''}`}
+      onMouseEnter={() => hold(item.label)}
+      onMouseLeave={release}
+      hidden={openMega !== item.label}
+    >
+      <div className={styles.megaInner}>
+        <div className={styles.megaAside}>
+          <p className={styles.megaKicker}>{item.label}</p>
+          <p className={styles.megaBlurb}>{item.blurb}</p>
+          <a className={styles.megaAll} href={localHref(item.href)}>
+            <span>{item.allLabel ?? item.label}</span>
+            <ArrowRight />
+          </a>
+          {item.outbound ? (
+            <a
+              className={styles.megaOutbound}
+              href={item.outbound.href}
+              target="_blank"
+              rel="noopener"
+              onClick={() => setOpenMega(null)}
+            >
+              <span>{item.outbound.label}</span>
+              <ArrowUpRight />
+            </a>
+          ) : null}
+        </div>
+
+        <div className={styles.megaCols}>
+          {item.mega!.map((col) => (
+            <div key={col.heading} className={styles.megaCol}>
+              <p className={styles.megaHeading}>{col.heading}</p>
+              <ul>
+                {col.entries.map((entry) => (
+                  <li key={entry.label}>
+                    <a
+                      className={styles.megaLink}
+                      href={localHref(entry.href)}
+                      onClick={() => setOpenMega(null)}
+                    >
+                      <span className={styles.megaLabel}>
+                        {entry.label}
+                        <ArrowUpRight className={styles.megaArrow} />
+                      </span>
+                      {entry.blurb ? (
+                        <span className={styles.megaDesc}>{entry.blurb}</span>
+                      ) : null}
+                    </a>
+                  </li>
+                ))}
+              </ul>
+            </div>
+          ))}
+        </div>
+      </div>
+    </div>
+  );
 
   return (
     <header
@@ -193,23 +265,34 @@ export default function SiteHeader() {
 
           <nav className={styles.nav} aria-label="Primary">
             <ul className={styles.navList}>
-              {TOP_NAV.map((item) => (
+              {TABS.map((item) => (
                 <li
                   key={item.label}
                   className={styles.navItem}
                   onMouseEnter={() => (item.mega ? hold(item.label) : release())}
+                  // Focus leaving the tab — its button and its panel — closes
+                  // the panel, so a visitor tabbing on through the page is not
+                  // left with a menu open over it.
+                  onBlur={(event) => {
+                    const next = event.relatedTarget as Node | null;
+                    if (!item.mega || event.currentTarget.contains(next)) return;
+                    setOpenMega((open) => (open === item.label ? null : open));
+                  }}
                 >
                   {renderTrigger(item)}
+                  {item.mega ? renderPanel(item) : null}
                 </li>
               ))}
             </ul>
           </nav>
 
           <div className={styles.actions}>
-            <a className={styles.talk} href={localHref(`${SITE.url}/contact-us`)}>
-              <span>Let&rsquo;s Talk</span>
-              <ArrowRight className={styles.talkArrow} />
-            </a>
+            {CTA ? (
+              <a className={styles.cta} href={localHref(CTA.href)}>
+                <span>{CTA.label}</span>
+                <ArrowRight className={styles.ctaArrow} />
+              </a>
+            ) : null}
             <button
               type="button"
               ref={burgerRef}
@@ -228,78 +311,6 @@ export default function SiteHeader() {
         </div>
       </div>
 
-      {/* ---------------------------------------------------------- mega */}
-      {TOP_NAV.filter((i) => i.mega).map((item) => (
-        <div
-          key={item.label}
-          id={megaId(item.label)}
-          ref={(node) => {
-            panels.current.set(item.label, node);
-          }}
-          className={`${styles.mega} ${openMega === item.label ? styles.megaVisible : ''}`}
-          onMouseEnter={() => hold(item.label)}
-          onMouseLeave={release}
-          // Leaving the panel by keyboard closes it, so a visitor tabbing on
-          // through the page is not dragged back into a menu they passed.
-          onBlur={(event) => {
-            if (!event.currentTarget.contains(event.relatedTarget as Node | null)) {
-              setOpenMega((open) => (open === item.label ? null : open));
-            }
-          }}
-          hidden={openMega !== item.label}
-        >
-          <div className={styles.megaInner}>
-            <div className={styles.megaAside}>
-              <p className={styles.megaKicker}>{item.label}</p>
-              <p className={styles.megaBlurb}>{item.blurb}</p>
-              <a className={styles.megaAll} href={localHref(item.href)}>
-                <span>{item.allLabel ?? item.label}</span>
-                <ArrowRight />
-              </a>
-              {item.outbound ? (
-                <a
-                  className={styles.megaOutbound}
-                  href={item.outbound.href}
-                  target="_blank"
-                  rel="noopener"
-                  onClick={() => setOpenMega(null)}
-                >
-                  <span>{item.outbound.label}</span>
-                  <ArrowUpRight />
-                </a>
-              ) : null}
-            </div>
-
-            <div className={styles.megaCols}>
-              {item.mega!.map((col) => (
-                <div key={col.heading} className={styles.megaCol}>
-                  <p className={styles.megaHeading}>{col.heading}</p>
-                  <ul>
-                    {col.entries.map((entry) => (
-                      <li key={entry.label}>
-                        <a
-                          className={styles.megaLink}
-                          href={localHref(entry.href)}
-                          onClick={() => setOpenMega(null)}
-                        >
-                          <span className={styles.megaLabel}>
-                            {entry.label}
-                            <ArrowUpRight className={styles.megaArrow} />
-                          </span>
-                          {entry.blurb ? (
-                            <span className={styles.megaDesc}>{entry.blurb}</span>
-                          ) : null}
-                        </a>
-                      </li>
-                    ))}
-                  </ul>
-                </div>
-              ))}
-            </div>
-          </div>
-        </div>
-      ))}
-
       {/* -------------------------------------------------------- drawer */}
       <div
         id="site-menu"
@@ -312,7 +323,7 @@ export default function SiteHeader() {
       >
         <div className={styles.drawerScroll}>
           <ul className={styles.drawerList}>
-            {TOP_NAV.map((item, i) => (
+            {TABS.map((item, i) => (
               <li key={item.label} style={{ ['--i' as string]: i }}>
                 {item.mega ? (
                   <>
@@ -333,12 +344,16 @@ export default function SiteHeader() {
                       />
                     </button>
                     {/* One clip element only: the 0fr → 1fr row trick sizes a
-                        single grid child, so every group lives inside it. */}
+                        single grid child, so every group lives inside it.
+                        Collapsed, it is only clipped, so it is made inert as
+                        well: its links leave the tab order and the
+                        accessibility tree until the group is opened. */}
                     <div
                       id={`drawer-${megaId(item.label)}`}
                       className={`${styles.drawerSub} ${
                         drawerGroup === item.label ? styles.drawerSubOpen : ''
                       }`}
+                      inert={drawerGroup !== item.label}
                     >
                       <div className={styles.drawerSubClip}>
                         {item.mega.map((col) => (
@@ -385,12 +400,18 @@ export default function SiteHeader() {
             ))}
           </ul>
 
-          <div className={styles.drawerFoot}>
-            <a className={styles.drawerCta} href={localHref(`${SITE.url}/contact-us`)}>
-              <span>Let&rsquo;s Talk</span>
-              <ArrowRight />
-            </a>
-          </div>
+          {CTA ? (
+            <div className={styles.drawerFoot}>
+              <a
+                className={styles.drawerCta}
+                href={localHref(CTA.href)}
+                onClick={() => setDrawer(false)}
+              >
+                <span>{CTA.label}</span>
+                <ArrowRight />
+              </a>
+            </div>
+          ) : null}
         </div>
       </div>
     </header>

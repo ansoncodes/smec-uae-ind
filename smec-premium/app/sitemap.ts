@@ -1,4 +1,5 @@
 import type { MetadataRoute } from 'next';
+import { GALLERY_URL } from '@/lib/gallery';
 import { SITE } from '@/lib/siteData';
 import { SPEC_PAGES, isPublished } from '@/lib/spec';
 import { ARTICLE_ROUTES } from '@/lib/spec/legacy';
@@ -22,6 +23,8 @@ export default function sitemap(): MetadataRoute.Sitemap {
         page.url === '/' ? 1 : Math.max(0.4, 1 - page.url.split('/').filter(Boolean).length * 0.2),
     })),
     ...ARTICLE_ROUTES.map((route) => ({ url: `${SITE.url}${route.url}`, priority: 0.4 })),
+    // A main tab of its own (lib/gallery.ts).
+    { url: `${SITE.url}${GALLERY_URL}`, priority: 0.6 },
     // Kept from the old site by name, and linked from the footer.
     { url: `${SITE.url}/privacy-policy/`, priority: 0.3 },
   ];

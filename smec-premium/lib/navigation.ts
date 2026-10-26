@@ -1,19 +1,21 @@
 import { SPEC_PAGES, specPage } from '@/lib/spec';
 import { ASSET_DIGITAL_INTELLIGENCE, type LandingPage } from '@/lib/landingPages';
+import { GALLERY_URL } from '@/lib/gallery';
 
 /**
- * The global navigation, and it is not a design decision.
+ * The global navigation: the header's tabs and mega menus, and the footer's
+ * link columns, kept in one place so the two cannot drift apart again.
  *
- * §31 of the Technical Master is a lock that supersedes every other
- * navigation table in the handover: eight top-level items, in this order,
- * with Industries & Markets and By Customer as separate entries. The product
- * groupings below are the document's four categories and its own assignment
- * of entities to them, not a grouping invented here.
+ * The menus are the client's own design — the six mega-menu images at the top
+ * of her 18 October homepage document (images 1–6) — column for column and in
+ * her words. Each item links to the page this build already has for it. Where
+ * she names something no page covers yet (SMEC Group, SMEC EDGE, three of the
+ * Digitalisation applications), the item waits for its page rather than
+ * pointing somewhere it does not belong.
  *
- * Every destination is checked against the generated page set at module load,
- * so an entry pointing at a page the document does not define is dropped
- * rather than shipped. Labels are written short for a menu; the pages keep
- * the document's own H1.
+ * Every destination is checked against the page set at module load, so an
+ * entry pointing at a page the build does not have is dropped rather than
+ * shipped.
  */
 
 export type MegaEntry = { label: string; href: string; blurb?: string };
@@ -31,177 +33,158 @@ export type TopNavItem = {
   mega?: MegaColumn[];
   /** A smec.in landing page the section links out to (lib/landingPages.ts). */
   outbound?: LandingPage;
+  /** Drawn as the bar's call to action, after the tabs, rather than as a tab. */
+  cta?: boolean;
 };
 
-const KNOWN = new Set(SPEC_PAGES.map((page) => page.url));
+const KNOWN = new Set([...SPEC_PAGES.map((page) => page.url), GALLERY_URL]);
 
-/** `[url, label]` pairs, minus any URL the document does not define. */
+/**
+ * `[url, label]` pairs, minus any URL the build has no page for. A link to a
+ * section of a page (`/#training`) is checked by its page.
+ */
 const entries = (pairs: [string, string][]): MegaEntry[] =>
-  pairs.filter(([href]) => KNOWN.has(href)).map(([href, label]) => ({ href, label }));
+  pairs
+    .filter(([href]) => KNOWN.has(href.replace(/#.*$/, '')))
+    .map(([href, label]) => ({ href, label }));
 
 const column = (heading: string, pairs: [string, string][]): MegaColumn => ({
   heading,
   entries: entries(pairs),
 });
 
-/* §31, "Products consolidation": one Products tab, four categories beneath
-   it, and these are the entities the document files under each. All of them
-   are listed, so every product page is reachable from the navigation — the
-   three pages built from the client's prototype included, filed under the
-   same four categories. */
-const megaProducts: MegaColumn[] = [
-  column('Electrical & modular packages', [
+/* Image 1. Her thirteen items are the thirteen pages of her Tab 1 document.
+   Two of those were merged onto two URLs each — E&I onto Electrical
+   Engineering and Instrumentation, Greenfield & Brownfield onto both project
+   pages — and each links the one the homepage capability cards use; the other
+   is one click away on /solutions/. */
+const megaSolutions: MegaColumn[] = [
+  column('Electrical & Automation', [
+    ['/solutions/electrical-engineering/', 'Electrical & Instrumentation Engineering'],
+    ['/solutions/automation-control-systems/', 'Industrial Automation & Control'],
+    ['/solutions/control-system-migration/', 'PLC, SCADA & DCS Migration'],
+    ['/solutions/panel-engineering-manufacturing/', 'Panel Engineering & Manufacturing'],
+    ['/solutions/system-integration/', 'System Integration'],
+  ]),
+  column('Project Engineering', [
+    ['/solutions/turnkey-engineering-system-solutions/', 'Turnkey Engineering Packages'],
+    ['/solutions/brownfield-engineering/', 'Greenfield & Brownfield Engineering'],
+    ['/solutions/rig-modernization/', 'Rig Modernisation & Reactivation'],
     ['/solutions/e-houses-modular-electrical-rooms/', 'E-Houses & Modular Electrical Rooms'],
-    ['/products/mcc-pcc-power-distribution/', 'MCC, PCC & Distribution'],
+  ]),
+  column('Lifecycle & Execution', [
+    ['/solutions/lifecycle-obsolescence/', 'Obsolescence & Retrofit'],
+    ['/solutions/shutdown-turnaround/', 'Shutdown & Turnaround Support'],
+    ['/solutions/testing-commissioning/', 'FAT, SAT & Commissioning'],
+    ['/solutions/hydraulics-pneumatics/', 'Hydraulics & Pneumatics'],
+  ]),
+];
+
+/* Image 2: her seventeen systems in her three groups. Where one of her items
+   spans two pages — Jacking Control & RPD, SCR & VFD Power Houses — it links
+   the page that covers both. The products she leaves out of the menu are all
+   still listed on /products/. */
+const megaProducts: MegaColumn[] = [
+  column('Drilling & Offshore', [
+    ['/products/dms3000-drill-monitoring-system/', 'Drilling Monitoring — DMS3000'],
+    ['/products/integrated-drilling-control-system/', 'Integrated Drilling Control'],
+    ['/products/jacking-control-system/', 'Jacking Control & RPD'],
+    ['/products/bop-control-system/', 'BOP Control Systems'],
+    ['/products/top-drive-control-system/', 'Top Drive Control'],
+    ['/products/generator-control-pms/', 'Generator Control & PMS'],
+  ]),
+  column('Electrical & Power', [
+    ['/products/power-houses/', 'SCR & VFD Power Houses'],
+    ['/solutions/e-houses-modular-electrical-rooms/', 'E-Houses'],
+    ['/products/mcc-pcc-power-distribution/', 'MCC, PCC & Distribution Panels'],
     ['/products/plc-hmi-drive-panels/', 'PLC, HMI & Drive Panels'],
     ['/products/battery-charger/', 'Battery Chargers'],
   ]),
-  column('Rig & offshore systems', [
-    ['/products/power-houses/', 'Power Houses'],
-    ['/products/vfd-houses/', 'VFD Houses'],
-    ['/products/scr-houses/', 'SCR Houses'],
-    ['/products/dms3000-drill-monitoring-system/', 'DMS3000'],
-    ['/products/integrated-drilling-control-system/', 'Integrated Drilling Control'],
-    ['/products/top-drive-control-system/', 'Top Drive Control'],
-    ['/products/jacking-control-system/', 'Jacking Control'],
-    ['/products/rpd-system/', 'RPD'],
-    ['/products/load-monitoring-system/', 'Load Monitoring'],
-    ['/products/bop-control-system/', 'BOP Control'],
-    ['/products/generator-control-pms/', 'Generator Control & PMS'],
-    ['/products/skidding-current-monitoring/', 'Skidding Current Monitoring'],
-  ]),
-  column('Safety, communication & marine', [
-    ['/products/emergency-shutdown-systems/', 'Emergency Shutdown (ESD)'],
-    ['/products/gas-watch-panel/', 'Gas Watch'],
-    ['/products/fire-gas-detection/', 'Fire & Gas'],
-    ['/products/paga-system/', 'PAGA'],
-    ['/products/explosion-proof-cctv/', 'Explosion-Proof CCTV'],
-    ['/products/flare-ignition-system/', 'Flare Ignition'],
-    ['/products/ballast-control-system/', 'Ballast Control'],
-    ['/products/marine-growth-prevention/', 'Marine Growth Prevention'],
-    ['/products/bilge-alarm-system/', 'Bilge Alarm'],
-    ['/products/driller-talkback-av-alarm/', 'Driller Talkback & AV Alarm'],
-    ['/products/automatic-fire-fighting-control/', 'Automatic Fire Fighting'],
-    ['/products/illumination-hut/', 'Illumination Hut'],
-  ]),
-  column('Plant & control systems', [
-    ['/products/integrated-control-safety-system/', 'ICSS'],
-    ['/products/boiler-burner-management/', 'Boiler & Burner Management'],
-    ['/products/plant-automation-scada/', 'Plant Automation & SCADA'],
-    ['/products/pipeline-scada-rtu/', 'Pipeline SCADA & RTU'],
-    ['/products/wellhead-skid-controls/', 'Wellhead & Skid Controls'],
-    ['/products/dam-level-monitoring/', 'Dam Level Monitoring'],
+  column('Safety & Industrial', [
+    ['/products/gas-watch-panel/', 'Gas Watch & Gas Detection'],
+    ['/products/fire-gas-detection/', 'Fire & Gas Systems'],
+    ['/products/flare-ignition-system/', 'Flare Ignition Systems'],
+    ['/products/paga-system/', 'PAGA & Communication'],
+    ['/products/integrated-control-safety-system/', 'Integrated Control & Safety Systems'],
+    ['/products/ballast-control-system/', 'Marine & Ballast Control'],
   ]),
 ];
 
-const megaSolutions: MegaColumn[] = [
-  column('Engineering', [
-    ['/solutions/electrical-engineering/', 'Electrical Engineering'],
-    ['/solutions/instrumentation/', 'Instrumentation'],
-    ['/solutions/automation-control-systems/', 'Automation & Control'],
-    ['/solutions/panel-engineering-manufacturing/', 'Panel Engineering'],
-    ['/solutions/hydraulics-pneumatics/', 'Hydraulics & Pneumatics'],
-  ]),
-  column('Projects', [
-    ['/solutions/turnkey-engineering-system-solutions/', 'Turnkey Engineering'],
-    ['/solutions/greenfield-projects/', 'Greenfield Projects'],
-    ['/solutions/brownfield-engineering/', 'Brownfield Engineering'],
-    ['/solutions/e-houses-modular-electrical-rooms/', 'E-Houses'],
-    ['/solutions/system-integration/', 'System Integration'],
-  ]),
-  column('Lifecycle', [
-    ['/solutions/rig-modernization/', 'Rig Modernization'],
-    ['/solutions/control-system-migration/', 'PLC, SCADA & DCS Migration'],
-    ['/solutions/lifecycle-obsolescence/', 'Lifecycle & Obsolescence'],
-    ['/solutions/shutdown-turnaround/', 'Shutdown & Turnaround'],
-    ['/solutions/testing-commissioning/', 'Testing & Commissioning'],
-  ]),
-];
-
-/**
- * Industries absorbs the customer pages, because the client's six tabs have no
- * "By Customer" of their own. The seven buyer-type pages keep their URLs and
- * their copy; they are reached from here instead of from a tab.
- *
- * Markets stays here, as §31 had it. The hub's own H1 is "Industries &
- * Markets" and its body links both market pages, so listing them under About
- * SMEC would have the tab disagree with the page it opens.
- */
-const megaIndustries: MegaColumn[] = [
-  column('Segments', [
-    ['/industries/upstream/', 'Upstream'],
-    ['/industries/midstream/', 'Midstream'],
-    ['/industries/downstream/', 'Downstream'],
-    ['/industries/onshore/', 'Onshore'],
-  ]),
-  column('Assets & facilities', [
-    ['/industries/upstream/offshore-drilling/', 'Offshore Drilling'],
-    ['/industries/upstream/onshore-drilling/', 'Onshore Drilling'],
-    ['/industries/upstream/production-facilities/', 'Production Facilities'],
-    ['/industries/marine-offshore-vessels/', 'Marine & Offshore Vessels'],
-    ['/industries/midstream/pipelines/', 'Pipelines'],
-    ['/industries/midstream/lng-terminals/', 'LNG Terminals'],
-    ['/industries/downstream/refineries/', 'Refineries'],
-    ['/industries/downstream/gas-processing/', 'Gas Processing'],
-  ]),
-  column('By customer type', [
-    ['/customers/iocs/', 'IOCs'],
-    ['/customers/nocs/', 'NOCs'],
-    ['/customers/fleet-operators/', 'Fleet Operators'],
-    ['/customers/drilling-contractors/', 'Drilling Contractors'],
-    ['/customers/epc-contractors/', 'EPC Contractors'],
-    ['/customers/oem-package-vendors/', 'OEM & Package Vendors'],
-    ['/customers/industrial-manufacturers/', 'Industrial Manufacturers'],
-  ]),
-  column('Markets', [
-    ['/markets/middle-east/', 'Middle East'],
-    ['/markets/global-project-support/', 'Global Project Support'],
-  ]),
-];
-
+/* Image 3. Her Applications column also lists Industrial IoT & Connected
+   Assets, Condition Monitoring and Remote Operations, which have no page yet.
+   Fuel Monitoring stays here, as she confirmed on 20 October, under the name
+   her design gives it. */
 const megaDigital: MegaColumn[] = [
-  column('Platforms', [
+  column('Digital Platforms', [
     ['/digital/remote-monitoring-nexwave/', 'NexWave — Remote Monitoring'],
-    ['/digital/cmms-proset360/', 'ProSet360 — CMMS'],
+    ['/digital/cmms-proset360/', 'ProSet360 — Predictive Maintenance & CMMS'],
     ['/digital/digital-twin-nexverse/', 'NexVerse — Digital Twin'],
+    ['/digital/industrial-ai-video-nexview/', 'NexView — AI Video Analytics'],
   ]),
   column('Applications', [
-    ['/digital/industrial-ai-video-nexview/', 'NexView — AI Video'],
-    ['/digital/fuel-monitoring/', 'Fuel Monitoring'],
+    ['/digital/fuel-monitoring/', 'Fuel & Energy Monitoring'],
     ['/digital/digital-engineering/', 'Digital Engineering'],
   ]),
 ];
 
+/* Image 4. The pages her menu does not list — the segment hubs, the other
+   customer types, the two market pages — keep their URLs and are linked from
+   their hubs and related pages. */
+const megaIndustries: MegaColumn[] = [
+  column('Drilling & Offshore', [
+    ['/industries/upstream/offshore-drilling/', 'Offshore Drilling & Jack-Up Rigs'],
+    ['/industries/upstream/onshore-drilling/', 'Onshore Drilling'],
+    // No industry page of its own: her Tab 4 entry was folded into the rig
+    // solution page, which carries her "Rig Modernisation & Reactivation" copy.
+    ['/solutions/rig-modernization/', 'Rig Reactivation'],
+    ['/industries/marine-offshore-vessels/', 'Marine & Offshore Vessels'],
+  ]),
+  column('Oil & Gas Facilities', [
+    ['/industries/upstream/production-facilities/', 'Oil & Gas Production'],
+    ['/industries/downstream/refineries/', 'Refineries & Petrochemicals'],
+    ['/industries/downstream/gas-processing/', 'Gas Processing & LNG'],
+    ['/industries/midstream/pipelines/', 'Pipelines & Terminals'],
+  ]),
+  column('Who We Support', [
+    // The customer-type hub, as on the homepage: IOCs and NOCs are both here.
+    ['/customers/', 'Oil & Gas Operators'],
+    ['/customers/drilling-contractors/', 'Drilling Contractors'],
+    ['/customers/epc-contractors/', 'EPC Contractors'],
+    ['/customers/oem-package-vendors/', 'OEMs & Package Vendors'],
+  ]),
+];
+
+/* Image 5. Her list ends with SMEC EDGE — Newsletter, which has no page yet:
+   the sign-up waits on a Mailchimp audience (HP-17). */
 const megaResources: MegaColumn[] = [
-  column('Reading', [
+  column('Technical Knowledge', [
     ['/resources/whitepapers/', 'Technical Guides & Whitepapers'],
     ['/resources/asset-archaeology/', 'Asset Archaeology'],
     ['/resources/case-studies/', 'Case Studies'],
   ]),
-  column('Reference', [
+  column('Engineering Reference', [
     ['/resources/faqs/', 'Engineering FAQs'],
     ['/resources/glossary/', 'Glossary'],
     ['/resources/checklists/', 'Checklists'],
-    ['/resources/calculators/', 'Calculators'],
   ]),
 ];
 
+/* Image 6. SMEC Group, third in her Company list, has no page yet (CNT-07).
+   The India hub page is both the India company and the India facility — its
+   H1 names both — so her two India items lead to it. */
 const megaCompany: MegaColumn[] = [
-  column('The company', [
-    ['/company/about/', 'About SMEC'],
-    ['/company/vision-mission/', 'Vision, Mission & Values'],
-    ['/company/md-message/', 'Managing Director’s Message'],
+  column('Company', [
+    ['/company/about/', 'SMEC Oil & Gas Solutions LLC — UAE'],
+    ['/company/india-engineering-hub/', 'SMEC Automation Pvt Ltd — India'],
     ['/company/leadership/', 'Leadership'],
     ['/company/careers/', 'Careers'],
   ]),
-  column('Where we work', [
-    ['/company/abu-dhabi-office/', 'Abu Dhabi Office'],
-    ['/company/india-engineering-hub/', 'India Engineering Hub'],
-  ]),
-  column('Evidence', [
-    ['/company/certifications/', 'Certifications'],
-    ['/company/oem-partners/', 'OEM Partners'],
+  column('Credentials & Locations', [
+    ['/company/certifications/', 'Certifications & Quality'],
+    ['/company/oem-partners/', 'OEM Relationships'],
     ['/company/project-experience/', 'Clients & Project Experience'],
+    ['/company/abu-dhabi-office/', 'Abu Dhabi Office'],
+    ['/company/india-engineering-hub/', 'India Engineering & Manufacturing'],
   ]),
 ];
 
@@ -212,7 +195,7 @@ const hubBlurb = (url: string, fallback: string) => {
 };
 
 /**
- * The client's six tabs, in her order, plus the RFQ route.
+ * The client's six tabs, in her order, then Gallery and the RFQ route.
  *
  * This replaces the eight the handover documents specify — the Content Master
  * ("Top-level navigation: Industries & Markets | By Customer | Solutions |
@@ -221,16 +204,21 @@ const hubBlurb = (url: string, fallback: string) => {
  * override, not drift: on 22 October SMEC confirmed those documents were
  * generated rather than written, that only the content in them is hers, and
  * handed navigation, URL and structure decisions to us; the six tabs are what
- * she then set and approved on 23 October.
+ * she then set and approved on 23 October. She added Gallery as a main tab the
+ * same day, and her homepage document's navigation line puts it after About
+ * SMEC.
  *
  * Only the labels and the grouping move. Every URL underneath is unchanged,
  * which is what keeps the crawl-verified redirect map valid — so the tabs are
- * navigation, not a URL scheme. "By Customer" folds into Industries and
- * Markets into About SMEC; no page is lost in either case.
+ * navigation, not a URL scheme.
  *
  * The Content Master's one substantive navigation rule still holds: a single
  * top-level Products tab, with E-Houses, rig and offshore systems beneath it
  * rather than split across tabs.
+ *
+ * Her navigation line ends with Submit RFQ, so that is the bar's one call to
+ * action; the "Let's Talk" button that sat beside it, to the same page, is
+ * gone.
  */
 export const TOP_NAV: TopNavItem[] = [
   {
@@ -290,5 +278,49 @@ export const TOP_NAV: TopNavItem[] = [
     blurb: hubBlurb('/company/', 'Profile, offices, certifications, experience and careers.'),
     mega: megaCompany,
   },
-  { label: 'Submit RFQ', href: '/contact/', watch: 'contact' },
+  { label: 'Gallery', href: GALLERY_URL },
+  { label: 'Submit RFQ', href: '/contact/', watch: 'contact', cta: true },
+];
+
+/**
+ * The footer's four link columns, from her footer design (homepage document,
+ * image 32), in her order and her words, with three changes of ours:
+ *
+ * - Her Systems column opens with three groups — Drilling & Offshore, Power &
+ *   Control, Industrial Safety — that have no page each; a single link to the
+ *   Systems & Products hub, which lists all of them, stands in for the three.
+ * - SMEC EDGE Newsletter waits for its page, as in the Resources menu.
+ * - Gallery joins Explore SMEC, because it is now a main tab.
+ *
+ * SMEC Group, her fourth column, links out to other sites and lives with the
+ * group's details in lib/siteData.ts.
+ */
+export const FOOTER_COLUMNS: MegaColumn[] = [
+  column('Engineering Solutions', [
+    ['/solutions/electrical-engineering/', 'Electrical & Instrumentation Engineering'],
+    ['/solutions/automation-control-systems/', 'Industrial Automation & Control'],
+    ['/solutions/rig-modernization/', 'Drilling Rig Modernisation'],
+    ['/solutions/control-system-migration/', 'PLC, SCADA & DCS Migration'],
+    ['/solutions/brownfield-engineering/', 'Brownfield Upgrades & Retrofit'],
+    ['/solutions/testing-commissioning/', 'FAT, SAT & Commissioning'],
+    // No training page exists; the homepage section is where it is described.
+    ['/#training', 'Technical Training & Upskilling'],
+  ]),
+  column('Systems & Digitalisation', [
+    ['/products/', 'Systems & Products'],
+    ['/digital/remote-monitoring-nexwave/', 'NexWave — Remote Monitoring'],
+    ['/digital/cmms-proset360/', 'ProSet360 — Predictive Maintenance'],
+    ['/digital/digital-twin-nexverse/', 'NexVerse — Digital Twin'],
+    ['/digital/industrial-ai-video-nexview/', 'NexView — AI Video Analytics'],
+  ]),
+  column('Explore SMEC', [
+    ['/company/about/', 'About SMEC'],
+    ['/industries/', 'Industries & Applications'],
+    ['/resources/case-studies/', 'Projects & Case Studies'],
+    [GALLERY_URL, 'Gallery'],
+    ['/company/certifications/', 'Certifications & Quality'],
+    ['/resources/', 'Engineering Resources'],
+    ['/company/careers/', 'Careers'],
+    ['/contact/', 'Contact Us'],
+  ]),
 ];
