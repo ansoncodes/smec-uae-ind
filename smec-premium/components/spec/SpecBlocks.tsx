@@ -70,6 +70,19 @@ export function SpecSections({
                 ))}
               </div>
             )}
+
+            {/* A solution's systems, each a page of its own (CNT-04). */}
+            {block.links?.length ? (
+              <ul className={styles.cards}>
+                {block.links.map((link) => (
+                  <li key={link.url}>
+                    <Link className={styles.card} href={link.url}>
+                      <span className={styles.cardTitle}>{link.label}</span>
+                    </Link>
+                  </li>
+                ))}
+              </ul>
+            ) : null}
           </section>
         );
       })}

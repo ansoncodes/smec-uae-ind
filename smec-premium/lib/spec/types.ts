@@ -4,11 +4,19 @@
  * scripts/build-spec-content.mjs.
  */
 
+/** A link to another page of this site, labelled with that page's H1. */
+export type SpecLink = { label: string; url: string };
+
 export type SpecSection = {
   heading: string;
   lines: string[];
   /** Instructions to whoever builds the page, not copy: never rendered. */
   internal?: boolean;
+  /**
+   * Pages the section links to: a solution's "Applications & Systems",
+   * resolved by the generator to built URLs only.
+   */
+  links?: SpecLink[];
 };
 
 export type SpecFaq = { q: string; a: string };
@@ -37,4 +45,21 @@ export type SpecPage = {
   status: SpecStatus;
   /** Why a page is draft, in plain words, for the team and for UAT. */
   gates: string[];
+};
+
+/**
+ * One row of the client's 65-item Systems & Products catalogue (Tab 2),
+ * built into catalogue.generated.ts by the same script as the pages.
+ */
+export type CatalogueItem = {
+  /** Her name, slugged as her prototype slugs it; the RFQ's `?item=`. */
+  slug: string;
+  name: string;
+  category: string;
+  summary: string;
+  applications: string[];
+  /** Search terms only: the row's text and these are what a search matches. */
+  tags: string[];
+  /** The page that covers the row, or null: it goes to the RFQ, named. */
+  url: string | null;
 };

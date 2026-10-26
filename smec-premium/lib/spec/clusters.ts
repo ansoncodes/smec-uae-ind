@@ -177,7 +177,12 @@ function ringNeighbours(page: SpecPage, count: number): SpecPage[] {
 const RING = 2;
 
 export function relatedFor(page: SpecPage, limit = 6): SpecPage[] {
+  // A page the body already links — a solution's systems — is not repeated.
+  const linked = new Set(
+    page.sections.flatMap((section) => section.links ?? []).map((link) => link.url)
+  );
   const named = [...(RELATED.get(page.url) ?? [])]
+    .filter((url) => !linked.has(url))
     .map((url) => specPage(url))
     .filter((p): p is SpecPage => !!p);
 

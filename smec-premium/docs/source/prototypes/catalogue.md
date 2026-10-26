@@ -1,5 +1,6 @@
 ---
 source: "TAB 2 _ SMEC_Complete_Systems_Products_Responsive_Interactive.html (const catalogue)"
+source_secondary: "SMEC_Systems_Products_Interactive_FINAL_No_Digital.html (page copy, application filter, quickNames)"
 tab: "Tab 2 - Systems & Products"
 title: "65-item product catalogue"
 items: 65
@@ -76,3 +77,36 @@ Catalogue rows only: each is a name, a one-line summary, applications and tags. 
 | 63 | Fire & Gas Detector Calibration | Testing, Repair & Lifecycle | Calibration and verification of gas and fire detection devices. | _none_ | Plants; Rigs | Calibration |
 | 64 | Transmitter Installation & Commissioning | Testing, Repair & Lifecycle | Field instrument installation, loop checks and commissioning. | _none_ | Process plants | Transmitters; Commissioning |
 | 65 | PLC & SCADA Upgrade Integration | Testing, Repair & Lifecycle | Legacy controls migration and interface upgrades. | _none_ | Onshore; Offshore; Industrial | PLC; SCADA |
+
+Checked on 26 October 2026 against both Tab 2 files: all 65 rows, in this order, have the same name, category, summary, applications and tags in the Complete file's `catalogue` and the FINAL file's `products`, and the landing pages are the Complete file's.
+
+## Catalogue page copy
+
+The FINAL file's introduction to the catalogue (the Complete file's hero, "Engineered for Demanding Operations.", introduces its product pages and portfolio download instead). Verbatim; its headline breaks after the first sentence, and its lead sets the list of markets in bold.
+
+| Field | Copy |
+|---|---|
+| Headline | Find the right system. Engineer the right outcome. |
+| Lead | Explore SMEC's engineered packages and equipment for onshore and offshore drilling, pipelines, refineries, power, marine operations and equipment lifecycle support. Select a system to see its application and prepare a technical enquiry. |
+| Search placeholder | Search SCR, onshore, BOP, RTU, PLC, marine, gas detection… |
+
+## Application filter
+
+The FINAL file's application filter (`<select id="application">`, after "All applications"), in its order. It matches an option against a row's category, name, applications and tags.
+
+Onshore; Offshore; Drilling; Marine; Industrial; Power; Pipeline; Refinery
+
+## Quick access
+
+The FINAL file's `quickNames`, under "Quick access / Frequently requested systems", in its order. Each is a row of the catalogue above.
+
+1. Driller / Talkback Communication System
+2. Illumination Huts
+3. Gas Watch Panel & Mud Gas Detection
+4. Drill Monitoring System — DMS3000
+5. Load Monitoring Systems
+6. CCTV Surveillance & Perimeter Security (Ex-Proof)
+7. Integrated Drilling Control Systems
+8. Power Distribution Skids
+9. Starter Panels
+10. Switchboards & Enclosures

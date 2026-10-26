@@ -27,13 +27,17 @@ import styles from './SpecPageView.module.css';
 export default function SpecPageView({
   page,
   children = [],
+  childrenTitle = 'In this section',
   related = [],
   articles = [],
   glossary = [],
   form,
+  catalogue,
 }: {
   page: SpecPage;
   children?: SpecPage[];
+  /** What the child pages are called, where "In this section" would mislead. */
+  childrenTitle?: string;
   related?: SpecPage[];
   /** Articles filed under a resource collection. */
   articles?: { url: string; article: { title: string; subtitle?: string } }[];
@@ -41,6 +45,8 @@ export default function SpecPageView({
   glossary?: GlossaryTerm[];
   /** A page that does something as well as say something — the RFQ form. */
   form?: React.ReactNode;
+  /** A hub's own index, numbered with the blocks: the product catalogue. */
+  catalogue?: { title: string; content: React.ReactNode };
 }) {
   const all = publishableSections(page);
   // "Conversion CTA" and "RFQ inputs" describe what a buyer should send. The
@@ -50,6 +56,8 @@ export default function SpecPageView({
   const rfqInputs = all
     .filter((section) => isRfqInputsHeading(section.heading))
     .flatMap((section) => section.lines);
+  // The blocks after the body are numbered on from it, and from the catalogue.
+  const base = sections.length + (catalogue ? 1 : 0);
   const evidence = evidenceFor(page.url);
   const section = page.breadcrumb[1] ?? 'SMEC Oil & Gas';
   const isDraft = page.status === 'draft';
@@ -105,13 +113,25 @@ export default function SpecPageView({
 
             <SpecLandingPage url={page.url} />
 
-            {children.length ? (
-              <section className={styles.block}>
+            {catalogue ? (
+              <section className={styles.block} id="catalogue">
                 <div className={styles.blockHead}>
                   <span className={styles.blockNum}>
                     {String(sections.length + 1).padStart(2, '0')}
                   </span>
-                  <h2 className={styles.blockTitle}>In this section</h2>
+                  <h2 className={styles.blockTitle}>{catalogue.title}</h2>
+                </div>
+                {catalogue.content}
+              </section>
+            ) : null}
+
+            {children.length ? (
+              <section className={styles.block}>
+                <div className={styles.blockHead}>
+                  <span className={styles.blockNum}>
+                    {String(base + 1).padStart(2, '0')}
+                  </span>
+                  <h2 className={styles.blockTitle}>{childrenTitle}</h2>
                 </div>
                 <ul className={styles.cards}>
                   {children.map((child) => (
@@ -130,7 +150,7 @@ export default function SpecPageView({
               <section className={styles.block}>
                 <div className={styles.blockHead}>
                   <span className={styles.blockNum}>
-                    {String(sections.length + (children.length ? 2 : 1)).padStart(2, '0')}
+                    {String(base + (children.length ? 2 : 1)).padStart(2, '0')}
                   </span>
                   <h2 className={styles.blockTitle}>In this collection</h2>
                 </div>
@@ -153,7 +173,7 @@ export default function SpecPageView({
               <section className={styles.block}>
                 <div className={styles.blockHead}>
                   <span className={styles.blockNum}>
-                    {String(sections.length + 1).padStart(2, '0')}
+                    {String(base + 1).padStart(2, '0')}
                   </span>
                   <h2 className={styles.blockTitle}>Evidence</h2>
                 </div>
@@ -202,7 +222,7 @@ export default function SpecPageView({
               <section className={styles.block}>
                 <div className={styles.blockHead}>
                   <span className={styles.blockNum}>
-                    {String(sections.length + 1).padStart(2, '0')}
+                    {String(base + 1).padStart(2, '0')}
                   </span>
                   <h2 className={styles.blockTitle}>Terms</h2>
                 </div>
@@ -219,14 +239,14 @@ export default function SpecPageView({
               </section>
             ) : null}
 
-            <SpecFaqs page={page} index={sections.length + (children.length ? 2 : 1)} />
+            <SpecFaqs page={page} index={base + (children.length ? 2 : 1)} />
 
             {related.length ? (
               <section className={styles.block}>
                 <div className={styles.blockHead}>
                   <span className={styles.blockNum}>
                     {String(
-                      sections.length + 1 + (children.length ? 1 : 0) + (page.faqs.length ? 1 : 0)
+                      base + 1 + (children.length ? 1 : 0) + (page.faqs.length ? 1 : 0)
                     ).padStart(2, '0')}
                   </span>
                   <h2 className={styles.blockTitle}>Related pages</h2>

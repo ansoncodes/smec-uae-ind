@@ -136,11 +136,20 @@ Ordered so that nothing waits on anything the client still owes.
       asset. 108 pages becomes 109. It ships draft behind `noindex` like the
       rest of Industries — 555 characters is not a publishable page — so what
       is open is the copy, not the route.*
-- [ ] **Rebuild the 65-item catalogue.** Only 31 rows carry a landing URL and
+- [x] **Rebuild the 65-item catalogue.** Only 31 rows carry a landing URL and
       they resolve to 19 distinct pages; the rest route to an enquiry action.
-- [ ] **Rebuild Tab 1's internal links.** 34 of its 38 outbound product URLs do
+      *On `/products/`, generated from `docs/source/prototypes/catalogue.md`:
+      all 65 rows under her eight categories, each a plain link in the HTML —
+      39 to the 29 pages that cover them, 26 to the RFQ form with the row
+      named (`/contact/?item=`). Her search, application filter, category
+      buttons and quick access only hide rows.*
+- [x] **Rebuild Tab 1's internal links.** 34 of its 38 outbound product URLs do
       not exist under any agreed map — they must be re-pointed at the built
       URLs, not carried across.
+      *Her 67 links name 37 distinct URLs. 26 now resolve to built pages
+      (`SOLUTION_SYSTEM_LINKS` in the generator) and 11 have no page and are
+      left out, so all 15 solution pages carry an "Applications & Systems"
+      block of 1–8 links, 55 in all.*
 - [ ] **Rebuild the e-House page** here, keeping the existing 301 from
       `/e-house-solutions-india`. Mine the live page for source content.
 

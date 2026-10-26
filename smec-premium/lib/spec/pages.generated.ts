@@ -7384,6 +7384,30 @@ export const SPEC_PAGES: SpecPage[] = [
         ]
       },
       {
+        "heading": "Applications & Systems",
+        "lines": [
+          "Select a related system to open its dedicated product or system page."
+        ],
+        "links": [
+          {
+            "label": "Generator Control & Power Management Systems",
+            "url": "/products/generator-control-pms/"
+          },
+          {
+            "label": "Integrated Drilling Control System",
+            "url": "/products/integrated-drilling-control-system/"
+          },
+          {
+            "label": "Pipeline SCADA & RTU Systems",
+            "url": "/products/pipeline-scada-rtu/"
+          },
+          {
+            "label": "NexWave Remote Asset Monitoring",
+            "url": "/digital/remote-monitoring-nexwave/"
+          }
+        ]
+      },
+      {
         "heading": "Project Evidence",
         "lines": [
           "Industrial Pumping Station — PLC Automation and Generator Control",
@@ -7511,6 +7535,18 @@ export const SPEC_PAGES: SpecPage[] = [
           "Electrical monitoring",
           "NexWave",
           "Condition-data integration"
+        ]
+      },
+      {
+        "heading": "Applications & Systems",
+        "lines": [
+          "Select a related system to open its dedicated product or system page."
+        ],
+        "links": [
+          {
+            "label": "NexWave Remote Asset Monitoring",
+            "url": "/digital/remote-monitoring-nexwave/"
+          }
         ]
       },
       {
@@ -7644,6 +7680,18 @@ export const SPEC_PAGES: SpecPage[] = [
           "FAT and SAT",
           "OT network and backup readiness assessment",
           "Critical-spares and software dependency review"
+        ]
+      },
+      {
+        "heading": "Applications & Systems",
+        "lines": [
+          "Select a related system to open its dedicated product or system page."
+        ],
+        "links": [
+          {
+            "label": "Plant Automation & SCADA Systems",
+            "url": "/products/plant-automation-scada/"
+          }
         ]
       },
       {
@@ -7818,6 +7866,26 @@ export const SPEC_PAGES: SpecPage[] = [
           "Cable routing",
           "Harmonic assessment",
           "Integrated FAT"
+        ]
+      },
+      {
+        "heading": "Applications & Systems",
+        "lines": [
+          "Select a related system to open its dedicated product or system page."
+        ],
+        "links": [
+          {
+            "label": "SCR Houses for Drilling Rigs",
+            "url": "/products/scr-houses/"
+          },
+          {
+            "label": "VFD Houses for Drilling Rigs",
+            "url": "/products/vfd-houses/"
+          },
+          {
+            "label": "MCC, PCC & Power Distribution Panels",
+            "url": "/products/mcc-pcc-power-distribution/"
+          }
         ]
       },
       {
@@ -8050,6 +8118,30 @@ export const SPEC_PAGES: SpecPage[] = [
         ]
       },
       {
+        "heading": "Applications & Systems",
+        "lines": [
+          "Select a related system to open its dedicated product or system page."
+        ],
+        "links": [
+          {
+            "label": "MCC, PCC & Power Distribution Panels",
+            "url": "/products/mcc-pcc-power-distribution/"
+          },
+          {
+            "label": "Generator Control & Power Management Systems",
+            "url": "/products/generator-control-pms/"
+          },
+          {
+            "label": "Flare Boom Pilot Ignition System",
+            "url": "/products/flare-ignition-system/"
+          },
+          {
+            "label": "Industrial Battery Chargers & DC Systems",
+            "url": "/products/battery-charger/"
+          }
+        ]
+      },
+      {
         "heading": "Project Evidence",
         "lines": [
           "Oil & Gas Facility — E&I Distribution and Instrumentation Upgrade",
@@ -8134,6 +8226,22 @@ export const SPEC_PAGES: SpecPage[] = [
           "RTUs",
           "Networks",
           "Panels"
+        ]
+      },
+      {
+        "heading": "Applications & Systems",
+        "lines": [
+          "Select a related system to open its dedicated product or system page."
+        ],
+        "links": [
+          {
+            "label": "MCC, PCC & Power Distribution Panels",
+            "url": "/products/mcc-pcc-power-distribution/"
+          },
+          {
+            "label": "Pipeline SCADA & RTU Systems",
+            "url": "/products/pipeline-scada-rtu/"
+          }
         ]
       },
       {
@@ -8248,6 +8356,22 @@ export const SPEC_PAGES: SpecPage[] = [
         ]
       },
       {
+        "heading": "Applications & Systems",
+        "lines": [
+          "Select a related system to open its dedicated product or system page."
+        ],
+        "links": [
+          {
+            "label": "Jacking Control System",
+            "url": "/products/jacking-control-system/"
+          },
+          {
+            "label": "RPD System",
+            "url": "/products/rpd-system/"
+          }
+        ]
+      },
+      {
         "heading": "Project Evidence",
         "lines": [
           "Marine Main-Engine Remote Control — Pneumatic System Refurbishment",
@@ -8339,6 +8463,18 @@ export const SPEC_PAGES: SpecPage[] = [
           "FAT/SAT",
           "Brownfield upgrades",
           "Commissioning"
+        ]
+      },
+      {
+        "heading": "Applications & Systems",
+        "lines": [
+          "Select a related system to open its dedicated product or system page."
+        ],
+        "links": [
+          {
+            "label": "Gas Watch Drilling Mud Gas Detection System",
+            "url": "/products/gas-watch-panel/"
+          }
         ]
       },
       {
@@ -8446,6 +8582,30 @@ export const SPEC_PAGES: SpecPage[] = [
           "Repair-versus-replace",
           "Phased migration",
           "FAT/SAT"
+        ]
+      },
+      {
+        "heading": "Applications & Systems",
+        "lines": [
+          "Select a related system to open its dedicated product or system page."
+        ],
+        "links": [
+          {
+            "label": "Plant Automation & SCADA Systems",
+            "url": "/products/plant-automation-scada/"
+          },
+          {
+            "label": "VFD Houses for Drilling Rigs",
+            "url": "/products/vfd-houses/"
+          },
+          {
+            "label": "Generator Control & Power Management Systems",
+            "url": "/products/generator-control-pms/"
+          },
+          {
+            "label": "Pipeline SCADA & RTU Systems",
+            "url": "/products/pipeline-scada-rtu/"
+          }
         ]
       },
       {
@@ -8587,6 +8747,30 @@ export const SPEC_PAGES: SpecPage[] = [
           "Enclosure and thermal considerations",
           "Wiring inspection",
           "Functional FAT"
+        ]
+      },
+      {
+        "heading": "Applications & Systems",
+        "lines": [
+          "Select a related system to open its dedicated product or system page."
+        ],
+        "links": [
+          {
+            "label": "MCC, PCC & Power Distribution Panels",
+            "url": "/products/mcc-pcc-power-distribution/"
+          },
+          {
+            "label": "PLC, HMI & Drive Control Panels",
+            "url": "/products/plc-hmi-drive-panels/"
+          },
+          {
+            "label": "Pipeline SCADA & RTU Systems",
+            "url": "/products/pipeline-scada-rtu/"
+          },
+          {
+            "label": "Industrial Battery Chargers & DC Systems",
+            "url": "/products/battery-charger/"
+          }
         ]
       },
       {
@@ -8733,6 +8917,46 @@ export const SPEC_PAGES: SpecPage[] = [
         ]
       },
       {
+        "heading": "Applications & Systems",
+        "lines": [
+          "Select a related system to open its dedicated product or system page."
+        ],
+        "links": [
+          {
+            "label": "SCR Houses for Drilling Rigs",
+            "url": "/products/scr-houses/"
+          },
+          {
+            "label": "VFD Houses for Drilling Rigs",
+            "url": "/products/vfd-houses/"
+          },
+          {
+            "label": "DMS3000 Drilling Monitoring System",
+            "url": "/products/dms3000-drill-monitoring-system/"
+          },
+          {
+            "label": "BOP Control System",
+            "url": "/products/bop-control-system/"
+          },
+          {
+            "label": "Jacking Control System",
+            "url": "/products/jacking-control-system/"
+          },
+          {
+            "label": "RPD System",
+            "url": "/products/rpd-system/"
+          },
+          {
+            "label": "Gas Watch Drilling Mud Gas Detection System",
+            "url": "/products/gas-watch-panel/"
+          },
+          {
+            "label": "PAGA System",
+            "url": "/products/paga-system/"
+          }
+        ]
+      },
+      {
         "heading": "Project Evidence",
         "lines": [
           "Drilling Rig — SCR/VFD and Driller Console Modernisation",
@@ -8874,6 +9098,26 @@ export const SPEC_PAGES: SpecPage[] = [
         ]
       },
       {
+        "heading": "Applications & Systems",
+        "lines": [
+          "Select a related system to open its dedicated product or system page."
+        ],
+        "links": [
+          {
+            "label": "MCC, PCC & Power Distribution Panels",
+            "url": "/products/mcc-pcc-power-distribution/"
+          },
+          {
+            "label": "VFD Houses for Drilling Rigs",
+            "url": "/products/vfd-houses/"
+          },
+          {
+            "label": "PLC, HMI & Drive Control Panels",
+            "url": "/products/plc-hmi-drive-panels/"
+          }
+        ]
+      },
+      {
         "heading": "Project Evidence",
         "lines": [
           "Refinery Turnaround — Electrical and Instrumentation Restart Support",
@@ -9009,6 +9253,34 @@ export const SPEC_PAGES: SpecPage[] = [
         ]
       },
       {
+        "heading": "Applications & Systems",
+        "lines": [
+          "Select a related system to open its dedicated product or system page."
+        ],
+        "links": [
+          {
+            "label": "Generator Control & Power Management Systems",
+            "url": "/products/generator-control-pms/"
+          },
+          {
+            "label": "Pipeline SCADA & RTU Systems",
+            "url": "/products/pipeline-scada-rtu/"
+          },
+          {
+            "label": "NexWave Remote Asset Monitoring",
+            "url": "/digital/remote-monitoring-nexwave/"
+          },
+          {
+            "label": "ProSet360 CMMS & Asset Intelligence",
+            "url": "/digital/cmms-proset360/"
+          },
+          {
+            "label": "NexVerse Digital Twin Intelligence",
+            "url": "/digital/digital-twin-nexverse/"
+          }
+        ]
+      },
+      {
         "heading": "Project Evidence",
         "lines": [
           "Multi-OEM Package Integration — Centralised Controls and Alarms",
@@ -9134,6 +9406,34 @@ export const SPEC_PAGES: SpecPage[] = [
           "Traceability",
           "Handover",
           "Digital test records and traceability"
+        ]
+      },
+      {
+        "heading": "Applications & Systems",
+        "lines": [
+          "Select a related system to open its dedicated product or system page."
+        ],
+        "links": [
+          {
+            "label": "MCC, PCC & Power Distribution Panels",
+            "url": "/products/mcc-pcc-power-distribution/"
+          },
+          {
+            "label": "Plant Automation & SCADA Systems",
+            "url": "/products/plant-automation-scada/"
+          },
+          {
+            "label": "Generator Control & Power Management Systems",
+            "url": "/products/generator-control-pms/"
+          },
+          {
+            "label": "Gas Watch Drilling Mud Gas Detection System",
+            "url": "/products/gas-watch-panel/"
+          },
+          {
+            "label": "Emergency Shutdown Systems",
+            "url": "/products/emergency-shutdown-systems/"
+          }
         ]
       },
       {
@@ -9313,6 +9613,46 @@ export const SPEC_PAGES: SpecPage[] = [
           "FAT, SAT, installation and commissioning",
           "Repair, refurbishment, calibration and retrofit",
           "Modernisation, documentation and lifecycle support"
+        ]
+      },
+      {
+        "heading": "Applications & Systems",
+        "lines": [
+          "Select a related system to open its dedicated product or system page."
+        ],
+        "links": [
+          {
+            "label": "SCR Houses for Drilling Rigs",
+            "url": "/products/scr-houses/"
+          },
+          {
+            "label": "VFD Houses for Drilling Rigs",
+            "url": "/products/vfd-houses/"
+          },
+          {
+            "label": "E-Houses and Modular Electrical Rooms for Energy Projects",
+            "url": "/solutions/e-houses-modular-electrical-rooms/"
+          },
+          {
+            "label": "Emergency Shutdown Systems",
+            "url": "/products/emergency-shutdown-systems/"
+          },
+          {
+            "label": "NexWave Remote Asset Monitoring",
+            "url": "/digital/remote-monitoring-nexwave/"
+          },
+          {
+            "label": "ProSet360 CMMS & Asset Intelligence",
+            "url": "/digital/cmms-proset360/"
+          },
+          {
+            "label": "NexVerse Digital Twin Intelligence",
+            "url": "/digital/digital-twin-nexverse/"
+          },
+          {
+            "label": "Plant Automation & SCADA Systems",
+            "url": "/products/plant-automation-scada/"
+          }
         ]
       },
       {
