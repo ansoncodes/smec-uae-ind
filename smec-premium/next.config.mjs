@@ -38,6 +38,10 @@ const ANALYTICS = {
   frame: 'https://www.googletagmanager.com',
 };
 
+// The corporate film's privacy-enhanced player (components/CorporateFilm.tsx),
+// inserted only when a visitor presses play.
+const FILM_FRAME = 'https://www.youtube-nocookie.com';
+
 const contentSecurityPolicy = [
   "default-src 'self'",
   "base-uri 'self'",
@@ -50,7 +54,7 @@ const contentSecurityPolicy = [
   "font-src 'self' data:",
   // The lead API the RFQ form posts to, when it is called directly.
   `connect-src 'self' https://api.smec.in ${ANALYTICS.connect}`,
-  `frame-src 'self' ${ANALYTICS.frame}`,
+  `frame-src 'self' ${ANALYTICS.frame} ${FILM_FRAME}`,
   "upgrade-insecure-requests",
 ].join('; ');
 
@@ -81,7 +85,16 @@ const nextConfig = {
     qualities: [75, 82],
   },
   async headers() {
-    return [{ source: '/:path*', headers: securityHeaders }];
+    return [
+      { source: '/:path*', headers: securityHeaders },
+      // Vercel's own hostnames serve the same build as the real domain, so
+      // they stay out of search whatever NEXT_PUBLIC_SITE_ENV says (SEO-08).
+      {
+        source: '/:path*',
+        has: [{ type: 'host', value: '.*\\.vercel\\.app' }],
+        headers: [{ key: 'X-Robots-Tag', value: 'noindex, nofollow' }],
+      },
+    ];
   },
   // The WordPress map, plus this build's own retired paths. One hop each,
   // permanent, and nothing lands on the homepage.
