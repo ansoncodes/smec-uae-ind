@@ -72,6 +72,8 @@ export const FIELDS = [
   'required_date',
   'window',
   'site_execution',
+  // The catalogue row an enquiry starts from (`?item=`, lib/catalogue.ts).
+  'system_of_interest',
   'form_location',
 ] as const;
 
@@ -99,6 +101,7 @@ export const LABELS: Record<string, string> = {
   required_date: 'Required date',
   window: 'Shutdown or mobilization window',
   site_execution: 'Site execution required',
+  system_of_interest: 'System of interest',
   consent: 'Consent',
   rfq_files: 'Attachments',
 };

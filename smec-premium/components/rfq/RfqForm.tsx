@@ -2,6 +2,7 @@
 
 import { useEffect, useId, useRef, useState } from 'react';
 import { pageTypeOf, track } from '@/lib/analytics';
+import { catalogueItem } from '@/lib/catalogue';
 import { DEFAULT_REGION, REGIONS, parseRegion, regionById, type RegionId } from '@/lib/regions';
 import {
   ALLOWED_EXTENSIONS,
@@ -43,6 +44,11 @@ import styles from './RfqForm.module.css';
  * and campaign the RFQ goes to. A page that knows its region links here with
  * `?region=`; the form starts there and the visitor can still change it,
  * because the project may not be where they are.
+ *
+ * A catalogue row with no page of its own links here with `?item=` (lib/
+ * catalogue.ts), and the form then opens with the row's name as the system
+ * of interest — the field her prototype's enquiry form prefills — which the
+ * visitor can edit. Without one the field is not there.
  */
 
 const ENDPOINT = process.env.NEXT_PUBLIC_RFQ_ENDPOINT || '/api/rfq/';
@@ -64,14 +70,18 @@ export default function RfqForm({ item, location = 'contact_page' }: Props) {
   const [state, setState] = useState<'idle' | 'sending' | 'sent'>('idle');
   const [region, setRegion] = useState<RegionId>(DEFAULT_REGION);
   const [reference, setReference] = useState<string>();
+  // The catalogue row the link named, as the catalogue names it.
+  const [named, setNamed] = useState<string>();
   const desk = regionById(region);
 
-  /* The page is prerendered once for every visitor, so the parameter is read
-     after it loads rather than at render; the two regions' blocks are the
-     same size, so nothing on the page moves when it switches. */
+  /* The page is prerendered once for every visitor, so the parameters are
+     read after it loads rather than at render; the two regions' blocks are
+     the same size, so nothing on the page moves when it switches. */
   useEffect(() => {
-    const fromLink = parseRegion(new URLSearchParams(window.location.search).get('region'));
+    const params = new URLSearchParams(window.location.search);
+    const fromLink = parseRegion(params.get('region'));
     if (fromLink) setRegion(fromLink);
+    setNamed(catalogueItem(params.get('item'))?.name);
   }, []);
 
   const fieldId = (name: string) => `${formId}-${name}`;
@@ -158,7 +168,8 @@ export default function RfqForm({ item, location = 'contact_page' }: Props) {
       if (files.length) track('rfq_file_upload', { location, file_count: files.length });
       track('rfq_submit', {
         location,
-        item,
+        // The catalogue's name for the row, never what was typed in the box.
+        item: named ?? item,
         page_type: pageTypeOf(typeof window === 'undefined' ? '/' : window.location.pathname),
         region: values.region,
       });
@@ -348,6 +359,18 @@ export default function RfqForm({ item, location = 'contact_page' }: Props) {
             </select>
           </div>
         </div>
+
+        {named ? (
+          <div className={styles.field}>
+            <label htmlFor={fieldId('system_of_interest')}>{LABELS.system_of_interest}</label>
+            <input
+              id={fieldId('system_of_interest')}
+              name="system_of_interest"
+              type="text"
+              defaultValue={named}
+            />
+          </div>
+        ) : null}
 
         <div className={styles.field}>
           <label htmlFor={fieldId('message')}>

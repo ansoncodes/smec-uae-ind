@@ -17,7 +17,9 @@ import ArticleDetail from '@/components/ArticleDetail';
 import RfqForm from '@/components/rfq/RfqForm';
 import Calculators from '@/components/tools/Calculators';
 import Checklists from '@/components/tools/Checklists';
+import ProductCatalogue from '@/components/spec/ProductCatalogue';
 import { articleBody } from '@/lib/articles';
+import { catalogueUrls } from '@/lib/catalogue';
 import { evidenceFor, evidenceSchema } from '@/lib/evidence';
 import { GLOSSARY, glossarySchema } from '@/lib/glossary';
 import {
@@ -41,6 +43,7 @@ import {
   SPEC_ROUTES,
 } from './index';
 import { relatedFor } from './clusters';
+import { CATALOGUE_COPY } from './catalogue.generated';
 import type { SpecPage } from './types';
 
 /**
@@ -303,11 +306,22 @@ export const makePage =
       );
     }
 
+    // The Systems & Products overview lists the client's catalogue (CNT-03);
+    // its own product pages follow only where no catalogue row links them.
+    const isCatalogue = page.url === '/products/';
+    const children = childrenOf(page.url).filter(
+      (child) => !isCatalogue || !catalogueUrls.has(child.url)
+    );
+
     return (
       <Chrome ld={jsonLd(page)}>
         <SpecPageView
           page={page}
-          children={[...childrenOf(page.url)]}
+          children={children}
+          childrenTitle={isCatalogue ? 'Other systems' : undefined}
+          catalogue={
+            isCatalogue ? { title: CATALOGUE_COPY.heading, content: <ProductCatalogue /> } : undefined
+          }
           related={relatedFor(page)}
           articles={prefix === 'resources' ? articlesIn(page.url) : []}
           glossary={page.url === '/resources/glossary/' ? GLOSSARY : []}

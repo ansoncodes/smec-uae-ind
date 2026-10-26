@@ -14,7 +14,7 @@ The client's October 2026 handover delivers its website copy as **JavaScript arr
 | [images/index.md](images/index.md) | The 18 photographs decoded from the full-site preview, what each depicts, and why they are not usable as supplied. |
 | [solutions/](solutions/) | 13 engineering solution pages (Tab 1). |
 | [products/](products/) | 20 product pages (Tab 2). |
-| [catalogue.md](catalogue.md) | The 65-item product catalogue (Tab 2) — the only place it exists. |
+| [catalogue.md](catalogue.md) | The 65-item product catalogue (Tab 2) — the only place it exists. The generator builds the `/products/` catalogue from it. |
 | [industries/](industries/) | 12 industry entries (Tab 4), 7 dedicated + 5 aliases. |
 | [resources/](resources/) | 7 resource hubs (Tab 5). |
 | [digitalisation.md](digitalisation.md) | Tab 3. |

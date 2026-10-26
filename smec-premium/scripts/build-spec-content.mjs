@@ -1482,6 +1482,178 @@ export const SPEC_PAGES: SpecPage[] = `;
 fs.mkdirSync(path.dirname(OUT), { recursive: true });
 fs.writeFileSync(OUT, `${banner}${JSON.stringify(pages, null, 2)};\n`, 'utf8');
 
+/* ----------------------------------------- the 65-item catalogue (Tab 2) */
+
+/**
+ * "Preserve the searchable 65-item catalogue. Twenty priority products have
+ * proposed dedicated technical pages; remaining catalogue entries should
+ * route to an RFQ/technical information action" (Six-Tab architecture §2),
+ * and "the catalogue itself remains the discovery hub" (its linking rules).
+ * So the Systems & Products overview lists every row as she wrote it — name,
+ * category, summary, applications — and each row leads somewhere.
+ *
+ * Where, is decided here in two steps, so it can be reviewed in one place:
+ *
+ *   1. Her own landing page. Thirty-one rows name one of her twenty product
+ *      pages; each of those files was merged onto a built URL above, and the
+ *      row follows its file.
+ *   2. CATALOGUE_PAGES: rows this build has a page named for. She gave them
+ *      no landing because she wrote no page (or, for ESD, wrote one and never
+ *      linked it), or her landing is a broader page than one built here.
+ *
+ * Every other row goes to the RFQ form, named. None is sent to a page that
+ * only touches on it: a buyer after fire alarm control should not land on
+ * suppression release control.
+ */
+const CATALOGUE_SOURCE = path.join(PROTOTYPES, 'catalogue.md');
+const CATALOGUE_OUT = path.join(root, 'lib/spec/catalogue.generated.ts');
+
+const CATALOGUE_PAGES = {
+  'Top Drive Control Systems': '/products/top-drive-control-system/',
+  'Emergency Shutdown (ESD) Systems': '/products/emergency-shutdown-systems/',
+  'Integrated Control & Safety Systems': '/products/integrated-control-safety-system/',
+  'Illumination Huts': '/products/illumination-hut/',
+  'Battery Chargers & DC Backup Systems': '/products/battery-charger/',
+  'Ballast Control Systems': '/products/ballast-control-system/',
+  'Bilge Alarm Systems': '/products/bilge-alarm-system/',
+  'Marine Growth Prevention Systems': '/products/marine-growth-prevention/',
+  // Her landing for these is the PAGA page or her one panel page, the
+  // nearest she had. Talkback is not PAGA (the PAGA page says so), and this
+  // build has a page for each.
+  'Driller / Talkback Communication System': '/products/driller-talkback-av-alarm/',
+  'PLC-Based Audio-Visual Alarm Systems': '/products/driller-talkback-av-alarm/',
+  'PLC, HMI & Drive Panels': '/products/plc-hmi-drive-panels/',
+};
+
+/** A name as her prototype slugs it for its `#catalogue-…` links. */
+const slugOf = (name) =>
+  name.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, '');
+
+/** catalogue.md: the rows, then the FINAL prototype's copy, filter and quick access. */
+function readCatalogue() {
+  const rows = [];
+  const copy = {};
+  const quick = [];
+  let applications = [];
+  let part = '';
+
+  // "DMS3000" is a tag twice on one row; a list says each thing once.
+  const list = (cell) => [...new Set(cell.split(';').map((v) => v.trim()).filter(Boolean))];
+
+  for (const line of fs.readFileSync(CATALOGUE_SOURCE, 'utf8').split(/\r?\n/)) {
+    const heading = /^##\s+(.+)$/.exec(line);
+    if (heading) {
+      part = heading[1].trim();
+      continue;
+    }
+
+    const text = line.trim();
+    if (!part) {
+      const row = /^\|\s*\d+\s*\|(.+)\|$/.exec(text);
+      if (!row) continue;
+      const [name, category, summary, landing, apps, tags] = row[1].split('|').map((c) => c.trim());
+      rows.push({
+        name,
+        category,
+        summary,
+        landing: landing === '_none_' ? null : landing.replace(/`/g, ''),
+        applications: list(apps),
+        tags: list(tags),
+      });
+    } else if (part === 'Catalogue page copy') {
+      const row = tableRow(text);
+      if (row && !/^(Field|-+)$/.test(row[0])) copy[row[0]] = row[1];
+    } else if (part === 'Application filter' && text.includes(';')) {
+      applications = list(text);
+    } else if (part === 'Quick access') {
+      const entry = /^\d+\.\s+(.+)$/.exec(text);
+      if (entry) quick.push(entry[1].trim());
+    }
+  }
+
+  return { rows, copy, applications, quick };
+}
+
+const supplied = readCatalogue();
+const pageAt = new Map(pages.map((page) => [page.url, page]));
+
+for (const name of Object.keys(CATALOGUE_PAGES)) {
+  if (!supplied.rows.some((row) => row.name === name)) {
+    throw new Error(`catalogue: CATALOGUE_PAGES names "${name}", which is no row`);
+  }
+}
+
+const catalogue = supplied.rows.map((row) => {
+  if (row.landing && !BUILT_URL_FOR.has(row.landing)) {
+    throw new Error(`catalogue: "${row.name}" lands on ${row.landing}, none of her page files`);
+  }
+  const url = CATALOGUE_PAGES[row.name] ?? (row.landing ? BUILT_URL_FOR.get(row.landing) : null);
+  if (url && !pageAt.has(url)) throw new Error(`catalogue: "${row.name}" → ${url}, which is not a page`);
+
+  return {
+    slug: slugOf(row.name),
+    name: row.name,
+    category: row.category,
+    summary: row.summary,
+    applications: row.applications,
+    tags: row.tags,
+    url,
+  };
+});
+
+const catalogueCopy = {
+  heading: supplied.copy.Headline,
+  lead: supplied.copy.Lead,
+  placeholder: supplied.copy['Search placeholder'],
+};
+const catalogueCategories = [...new Set(catalogue.map((item) => item.category))];
+const catalogueQuick = supplied.quick.map((name) => {
+  const item = catalogue.find((row) => row.name === name);
+  if (!item) throw new Error(`catalogue: quick access names "${name}", which is no row`);
+  return item.slug;
+});
+
+if (catalogue.length !== 65) throw new Error(`catalogue: ${catalogue.length} rows, not 65`);
+if (new Set(catalogue.map((item) => item.slug)).size !== catalogue.length) {
+  throw new Error('catalogue: two rows share a slug');
+}
+if (Object.values(catalogueCopy).some((value) => !value) || !supplied.applications.length) {
+  throw new Error('catalogue: the page copy or the application filter is missing from catalogue.md');
+}
+
+const linkedRows = catalogue.filter((item) => item.url);
+
+fs.writeFileSync(
+  CATALOGUE_OUT,
+  `/**
+ * GENERATED — do not edit.
+ *
+ * Source: docs/source/prototypes/catalogue.md — the client's 65-item Tab 2
+ *         catalogue, with her FINAL prototype's copy, application filter and
+ *         quick access
+ * Rebuild: node scripts/build-spec-content.mjs
+ *
+ * ${catalogue.length} entries in ${catalogueCategories.length} categories · ${linkedRows.length} link to a page · ${catalogue.length - linkedRows.length} go to the RFQ
+ */
+
+import type { CatalogueItem } from './types';
+
+export const CATALOGUE_COPY = ${JSON.stringify(catalogueCopy, null, 2)};
+
+/** Her eight categories, in her order. */
+export const CATALOGUE_CATEGORIES: string[] = ${JSON.stringify(catalogueCategories, null, 2)};
+
+/** The application filter's options, after "All applications". */
+export const CATALOGUE_APPLICATIONS: string[] = ${JSON.stringify(supplied.applications, null, 2)};
+
+/** Quick access — her frequently requested systems, as slugs. */
+export const CATALOGUE_QUICK: string[] = ${JSON.stringify(catalogueQuick, null, 2)};
+
+export const CATALOGUE: CatalogueItem[] = ${JSON.stringify(catalogue, null, 2)};
+`,
+  'utf8'
+);
+
 const counts = pages.reduce((acc, page) => {
   const group = page.url === '/' ? '/' : `/${page.url.split('/')[1]}/`;
   acc[group] = (acc[group] ?? 0) + 1;
@@ -1549,4 +1721,20 @@ for (const page of pages) {
 if (droppedLinks.length) {
   console.log(`  ${droppedLinks.length} of her links have no page here and are left out:`);
   for (const link of droppedLinks) console.log(`    ${link.page.padEnd(50)} ${link.label} (${link.href})`);
+}
+
+console.log(
+  `\ncatalogue: ${catalogue.length} rows in ${catalogueCategories.length} categories — ${linkedRows.length} link to ${
+    new Set(linkedRows.map((item) => item.url)).size
+  } pages, ${catalogue.length - linkedRows.length} go to the RFQ`
+);
+for (const row of supplied.rows) {
+  const chosen = CATALOGUE_PAGES[row.name];
+  if (row.landing && chosen) console.log(`  "${row.name}": her ${row.landing} → ${chosen}`);
+}
+const toDrafts = linkedRows.filter((item) => pageAt.get(item.url).status === 'draft');
+console.log(`  ${toDrafts.length} rows lead to draft pages (200, noindex): ${toDrafts.map((i) => i.url).join(', ')}`);
+for (const item of catalogue) {
+  const terms = SAFETY_CLAIM.map((re) => re.exec(`${item.name}. ${item.summary}`)?.[0]).filter(Boolean);
+  if (terms.length) console.log(`  "${item.name}" names ${terms.join(', ')} — published as she wrote it`);
 }
