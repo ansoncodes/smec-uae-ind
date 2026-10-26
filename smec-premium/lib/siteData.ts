@@ -613,6 +613,16 @@ export const ARTICLES: Article[] = [
 
 /* ---------------------------------------------------------------- footer */
 
+/*
+ * The footer follows her design in the homepage document (image 32), with
+ * the social links grouped as her image 36 recommends. Its link columns are
+ * in lib/navigation.ts, beside the header they mirror.
+ */
+
+/** Her footer's description, word for word. */
+export const FOOTER_DESCRIPTION =
+  'Electrical, instrumentation, industrial automation, drilling control and digital engineering solutions for onshore and offshore energy assets. UAE-based project coordination supported by engineering, system integration and manufacturing capabilities in India.';
+
 export const FOOTER_ADDRESS = [
   'MIDDLE EAST & GLOBAL SUPPORT',
   'SMEC Oil & Gas Solutions LLC SPC',
@@ -626,60 +636,112 @@ export const FOOTER_CONTACT = [
   { label: 'Email:', value: 'info@smecong.com', href: 'mailto:info@smecong.com' },
 ];
 
+export type FooterLocation = {
+  region: string;
+  entity: string;
+  /** What the office does, where her design says. */
+  note?: string;
+  address: string[];
+  rows: { label: string; value: string; href: string; external?: boolean }[];
+};
+
 /**
- * The India block of her footer design (image 32). Its street address is
- * still to come from the client, so the block stops at the city.
+ * "Our Engineering Locations", the two blocks at the foot of her design.
+ *
+ * The UAE block keeps the legal name and the Mussafah address her design
+ * gives. The live site's "LLC, Hamdan Street" is the open CON-01 question;
+ * the audit records her design as the reading to use until SMEC answers.
+ *
+ * Her India block reads "Official address, phone and email to be added". The
+ * phone and email are the ones her top bar and RFQ table give for SMEC
+ * Automation; the street address is still to come, so the block stops at the
+ * city, and the placeholder line is not published.
  */
-export const FOOTER_ADDRESS_INDIA = [
-  'INDIA ENGINEERING & MANUFACTURING',
-  CONTACT_INDIA.entity,
-  'Kochi, Kerala, India',
-];
-
-export const FOOTER_CONTACT_INDIA = [
-  { label: 'Phone:', value: CONTACT_INDIA.phone, href: CONTACT_INDIA.phoneHref },
-  { label: 'Email:', value: CONTACT_INDIA.email, href: CONTACT_INDIA.emailHref },
-];
-
-export const FOOTER_COMPANY: NavItem[] = [
-  { label: 'Marine', href: 'https://smecmarine.com/' },
-  { label: 'R & D', href: 'https://smecrtd.com/' },
-  { label: 'Automation', href: 'https://smecautomation.com/' },
-  { label: 'Industry', href: 'https://smec4industry.com/' },
-  { label: 'Software Solutions', href: 'https://smectechnologies.com/' },
-  { label: 'Offshore', href: 'https://smecoffshore.com/' },
-  { label: 'Training & Development', href: 'https://smeclabs.com/' },
-];
-
-export const FOOTER_SOLUTIONS_A: NavItem[] = [
-  { label: 'Power Houses', href: 'https://smecoilandgas.com/power-house' },
-  { label: 'Drill Monitor System', href: 'https://smecoilandgas.com/drill-monitor' },
-  { label: 'BOP Control System', href: 'https://smecoilandgas.com/bop-control-system' },
-  { label: 'Gas Detection System', href: 'https://smecoilandgas.com/gas-detection-system' },
-  { label: 'Jacking Control System', href: 'https://smecoilandgas.com/jacking-control-system' },
-  { label: 'RPD System', href: 'https://smecoilandgas.com/rpd-system' },
-];
-
-export const FOOTER_SOLUTIONS_B: NavItem[] = [
-  { label: 'Load Monitoring System', href: 'https://smecoilandgas.com/load-monitoring-system' },
-  { label: 'PAGA System', href: 'https://smecoilandgas.com/paga-system' },
-  { label: 'Battery Charger', href: 'https://smecoilandgas.com/battery-charger' },
+export const FOOTER_LOCATIONS: FooterLocation[] = [
   {
-    label: 'Advanced Perimeter Security System',
-    href: 'https://smecoilandgas.com/advanced-perimeter-security-systems',
+    region: 'UAE — Abu Dhabi',
+    entity: FOOTER_ADDRESS[1],
+    address: [`${FOOTER_ADDRESS[2]}, ${FOOTER_ADDRESS[3]}`],
+    rows: [
+      ...FOOTER_CONTACT,
+      { label: 'WhatsApp:', value: CONTACT.phone, href: CONTACT.whatsapp, external: true },
+    ],
   },
   {
-    label: 'Flare Boom Ignition System',
-    href: 'https://smecoilandgas.com/flare-boom-ignition-system',
+    region: 'India — Kochi',
+    entity: CONTACT_INDIA.entity,
+    note: 'Engineering, industrial automation, system integration, panel manufacturing and technical support',
+    address: ['Kochi, Kerala, India'],
+    rows: [
+      { label: 'Phone:', value: CONTACT_INDIA.phone, href: CONTACT_INDIA.phoneHref },
+      { label: 'Email:', value: CONTACT_INDIA.email, href: CONTACT_INDIA.emailHref },
+    ],
   },
 ];
 
+/**
+ * SMEC Group as her footer lists it: six businesses, each with her note.
+ *
+ * The links are the group sites the old footer already carried. SMEC
+ * Institute of Management had none there, so it is named without a link
+ * until SMEC supplies one. "R & D" (smecrtd.com) and "Industry"
+ * (smec4industry.com), which the old footer added, are not in her list. Group
+ * links stay at all because that is the recorded default for CON-08 — keep
+ * them, drop anything pointing at the old website — until SMEC says whether
+ * "nothing linked to the old websites" reaches this far.
+ */
+export const SMEC_GROUP: { name: string; note: string; href?: string }[] = [
+  {
+    name: 'SMEC Automation',
+    note: 'Engineering & Automation — India',
+    href: 'https://smecautomation.com/',
+  },
+  { name: 'SMEC Marine Solutions', note: 'Marine Engineering — UAE', href: 'https://smecmarine.com/' },
+  { name: 'SMEC Offshore', note: 'Offshore Engineering', href: 'https://smecoffshore.com/' },
+  {
+    name: 'SMEC Technologies',
+    note: 'Emerging Technologies & Training',
+    href: 'https://smectechnologies.com/',
+  },
+  { name: 'SMEC Institute of Management', note: 'Management & Professional Education' },
+  {
+    name: 'SMECLabs',
+    note: 'Technical Education & Skill Development',
+    href: 'https://smeclabs.com/',
+  },
+];
+
+/** `label` keys the icon (components/Icons.tsx); `name` is what a visitor reads. */
 export const SOCIALS = [
-  { label: 'Linkedin', href: 'https://www.linkedin.com/company/smecin/' },
-  { label: 'Facebook', href: 'https://www.facebook.com/profile.php?id=100094543997911' },
-  { label: 'Instagram', href: 'https://www.instagram.com/smec_automation/' },
-  { label: 'Youtube', href: 'https://www.youtube.com/@SMECDeepFix/videos' },
+  { label: 'Linkedin', name: 'LinkedIn', href: 'https://www.linkedin.com/company/smecin/' },
+  {
+    label: 'Facebook',
+    name: 'Facebook',
+    href: 'https://www.facebook.com/profile.php?id=100094543997911',
+  },
+  { label: 'Instagram', name: 'Instagram', href: 'https://www.instagram.com/smec_automation/' },
+  { label: 'Youtube', name: 'YouTube', href: 'https://www.youtube.com/@SMECDeepFix/videos' },
 ] as const;
+
+export type SocialGroup = {
+  /** The two-letter mark her design sets before each group's name. */
+  code: string;
+  region: string;
+  entity: string;
+  links: readonly { label: string; name: string; href: string }[];
+};
+
+/**
+ * "Connect With SMEC": two labelled groups rather than one unlabelled row,
+ * as her image 36 recommends. The four accounts above are SMEC Automation's,
+ * so they are the India & SMEC Group set. The Middle East group is SMEC Oil &
+ * Gas's own LinkedIn, whose address has not been supplied (CON-06); the group
+ * appears once it is added here.
+ */
+export const SOCIAL_GROUPS: SocialGroup[] = [
+  { code: 'AE', region: 'Middle East', entity: CONTACT.entity, links: [] },
+  { code: 'IN', region: 'India & SMEC Group', entity: CONTACT_INDIA.entity, links: SOCIALS },
+];
 
 export const COPYRIGHT =
   '“SMEC” is a registered trademark of SMEC Automation Pvt. Ltd. © 2026 SMEC All rights reserved';

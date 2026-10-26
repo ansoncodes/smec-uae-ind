@@ -1,0 +1,48 @@
+/* The masthead is the company pages' (components/page/PageShell), without
+   the picture plate: the photographs are the page. */
+
+.masthead {
+  padding-block: clamp(28px, 3.6vw, 52px) clamp(48px, 6vw, 88px);
+  background: var(--ink);
+  color: var(--white);
+  border-bottom: 1px solid var(--ink-hair);
+}
+
+.kicker {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin: 0 0 20px;
+  font-family: var(--font-mono);
+  font-size: 12px;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: var(--accent-on-dark);
+}
+
+.kickerRule {
+  width: 28px;
+  height: 1px;
+  background: currentColor;
+  opacity: 0.6;
+}
+
+.title {
+  margin: 0 0 18px;
+  font-size: var(--fs-h1);
+  letter-spacing: -0.042em;
+}
+
+.lead {
+  margin: 0;
+  max-width: 56ch;
+  font-size: var(--fs-lead);
+  line-height: 1.6;
+  color: var(--steel-300);
+}
+
+.band {
+  padding-block: clamp(44px, 6vw, 96px);
+  background: var(--bg);
+  color: var(--fg);
+}

@@ -1,4 +1,5 @@
 import { ImageResponse } from 'next/og';
+import { GALLERY_INTRO, GALLERY_URL } from '@/lib/gallery';
 import { articleRoute } from '@/lib/spec/legacy';
 import { canonicalPath } from '@/lib/routes';
 import { SITE } from '@/lib/siteData';
@@ -134,6 +135,10 @@ export function cardFor(url: string) {
       title: specPage('/')?.h1 ?? 'Engineering Critical Energy Assets',
       answer: specPage('/')?.answer,
     };
+  }
+
+  if (path === GALLERY_URL) {
+    return { eyebrow: 'SMEC Oil & Gas', title: 'Gallery', answer: GALLERY_INTRO };
   }
 
   const article = articleRoute(path.split('/').filter(Boolean).slice(1));

@@ -101,7 +101,7 @@
 .barInner {
   display: flex;
   align-items: center;
-  gap: clamp(16px, 3vw, 48px);
+  gap: clamp(16px, 2vw, 32px);
   height: 100%;
   max-width: var(--container);
   margin-inline: auto;
@@ -130,22 +130,27 @@
   min-width: 0;
 }
 
+/* Seven long labels and a logo share the bar, so the spacing is measured
+   rather than generous: below 1280 px they do not fit at a readable size, and
+   the drawer takes over. */
 .navList {
   display: flex;
   align-items: center;
   justify-content: center;
-  gap: clamp(4px, 1.4vw, 22px);
+  gap: clamp(2px, 0.7vw, 12px);
 }
 
+/* Not a positioned box: the mega panel inside it is placed against the
+   header, so that it spans the full width under the bar. */
 .navItem {
-  position: relative;
+  position: static;
 }
 
 .navLink {
   display: inline-flex;
   align-items: center;
   gap: 6px;
-  /* The locked labels are long ("Industries & Markets", "Contact / RFQ");
+  /* The labels are long ("Engineering Solutions", "Projects & Resources");
      letting them wrap doubles the height of the bar. */
   white-space: nowrap;
   padding: 10px 6px;
@@ -201,7 +206,7 @@
   gap: 12px;
 }
 
-.talk {
+.cta {
   display: inline-flex;
   align-items: center;
   gap: 10px;
@@ -217,7 +222,7 @@
   transition: border-color 0.4s var(--ease), color 0.4s var(--ease);
 }
 
-.talk::before {
+.cta::before {
   content: '';
   position: absolute;
   inset: 0;
@@ -227,19 +232,19 @@
   transition: transform 0.45s var(--ease);
 }
 
-.talk:hover {
+.cta:hover {
   border-color: var(--accent);
 }
 
-.talk:hover::before {
+.cta:hover::before {
   transform: translateY(0);
 }
 
-.talkArrow {
+.ctaArrow {
   transition: transform 0.4s var(--ease);
 }
 
-.talk:hover .talkArrow {
+.cta:hover .ctaArrow {
   transform: translateX(4px);
 }
 
@@ -504,7 +509,7 @@
 .drawerSubHead {
   margin: 10px 0 8px;
   font-family: var(--font-mono);
-  font-size: 10.5px;
+  font-size: 12px;
   letter-spacing: 0.2em;
   text-transform: uppercase;
   color: var(--steel-500);
@@ -564,13 +569,20 @@
   }
 }
 
-@media (max-width: 1180px) {
-  .navList {
-    gap: 2px;
+@media (max-width: 1439px) {
+  .navLink {
+    gap: 5px;
+    padding: 10px 5px;
+    font-size: 13.5px;
   }
+  .cta {
+    padding-inline: 16px;
+  }
+}
+
+@media (max-width: 1365px) {
   .navLink {
     font-size: 13px;
-    padding: 10px 4px;
   }
 }
 
@@ -580,7 +592,7 @@
   }
 }
 
-@media (max-width: 1024px) {
+@media (max-width: 1279px) {
   .nav,
   .mega {
     display: none;
@@ -594,7 +606,7 @@
 }
 
 @media (max-width: 560px) {
-  .talk {
+  .cta {
     display: none;
   }
   .rail {
