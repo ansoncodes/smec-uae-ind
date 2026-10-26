@@ -55,7 +55,9 @@ const contentSecurityPolicy = [
   // The lead API the RFQ form posts to, when it is called directly.
   `connect-src 'self' https://api.smec.in ${ANALYTICS.connect}`,
   `frame-src 'self' ${ANALYTICS.frame} ${FILM_FRAME}`,
-  "upgrade-insecure-requests",
+  // No upgrade-insecure-requests: browsers ignore it in a report-only policy
+  // and log an error on every page. It belongs in the enforced policy at the
+  // edge, with HSTS, once the host is live (audit SEC-01).
 ].join('; ');
 
 const securityHeaders = [
