@@ -22,7 +22,7 @@
   padding: 0 0 12px;
   border-bottom: 1px solid var(--hair-soft);
   font-family: var(--font-mono);
-  font-size: 10.5px;
+  font-size: 12px;
   letter-spacing: 0.2em;
   text-transform: uppercase;
   color: var(--fg-dim);
@@ -143,7 +143,7 @@
 
 .field > label:not(.consent) {
   font-family: var(--font-mono);
-  font-size: 10.5px;
+  font-size: 12px;
   letter-spacing: 0.2em;
   text-transform: uppercase;
   color: var(--fg-dim);
@@ -243,7 +243,7 @@
 .summaryTitle {
   margin: 0 0 8px;
   font-family: var(--font-mono);
-  font-size: 10.5px;
+  font-size: 12px;
   letter-spacing: 0.2em;
   text-transform: uppercase;
   color: #b4231f;
@@ -334,7 +334,7 @@
 .fileSize {
   flex: none;
   font-family: var(--font-mono);
-  font-size: 11.5px;
+  font-size: 12px;
   letter-spacing: 0.08em;
   color: var(--fg-dim);
 }
@@ -345,7 +345,7 @@
   border: 0;
   background: none;
   font-family: var(--font-mono);
-  font-size: 10.5px;
+  font-size: 12px;
   letter-spacing: 0.18em;
   text-transform: uppercase;
   color: var(--fg-dim);
@@ -379,7 +379,7 @@
 
 .consent .req {
   font-family: var(--font-mono);
-  font-size: 10.5px;
+  font-size: 12px;
   letter-spacing: 0.14em;
   text-transform: uppercase;
 }

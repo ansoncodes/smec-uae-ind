@@ -62,7 +62,7 @@
 
 .publisher {
   font-family: var(--font-mono);
-  font-size: 11px;
+  font-size: 12px;
   letter-spacing: 0.16em;
   text-transform: uppercase;
   color: var(--steel-300);
@@ -80,7 +80,7 @@
 .strap {
   margin-top: 10px;
   font-family: var(--font-mono);
-  font-size: 11px;
+  font-size: 12px;
   letter-spacing: 0.16em;
   text-transform: uppercase;
   color: var(--accent-on-dark);

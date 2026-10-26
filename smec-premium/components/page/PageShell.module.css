@@ -95,7 +95,7 @@
 .blockNum {
   flex: none;
   font-family: var(--font-mono);
-  font-size: 10.5px;
+  font-size: 12px;
   letter-spacing: 0.2em;
   color: var(--accent);
 }
@@ -186,7 +186,7 @@
   display: block;
   margin-bottom: 24px;
   font-family: var(--font-mono);
-  font-size: 10px;
+  font-size: 12px;
   letter-spacing: 0.2em;
   color: var(--accent);
 }

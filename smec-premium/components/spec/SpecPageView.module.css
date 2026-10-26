@@ -310,7 +310,7 @@
 .evidenceAsset {
   margin: 0 0 8px;
   font-family: var(--font-mono);
-  font-size: 10.5px;
+  font-size: 12px;
   letter-spacing: 0.2em;
   text-transform: uppercase;
   color: var(--steel-500);
@@ -338,7 +338,7 @@
 
 .evidenceRows dt {
   font-family: var(--font-mono);
-  font-size: 10.5px;
+  font-size: 12px;
   letter-spacing: 0.18em;
   text-transform: uppercase;
   color: var(--steel-500);

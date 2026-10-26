@@ -52,7 +52,7 @@
 .meta {
   margin: 0;
   font-family: var(--font-mono);
-  font-size: 11px;
+  font-size: 12px;
   letter-spacing: 0.14em;
   text-transform: uppercase;
   color: var(--steel-500);
@@ -165,7 +165,7 @@
   left: 0;
   top: 2px;
   font-family: var(--font-mono);
-  font-size: 11px;
+  font-size: 12px;
   letter-spacing: 0.1em;
   color: var(--accent);
 }
@@ -219,7 +219,7 @@
 
 .cardCategory {
   font-family: var(--font-mono);
-  font-size: 10px;
+  font-size: 12px;
   letter-spacing: 0.2em;
   text-transform: uppercase;
   color: var(--accent-on-dark);
