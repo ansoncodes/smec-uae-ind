@@ -42,6 +42,9 @@ export const DATASHEET_REDIRECTS = [
   // ADAM-Edge belongs to the R&D page, which has no home in the locked
   // architecture yet (0.11). Digital engineering is the nearest true parent.
   ['2024/10/Adam-Edge.pdf', '/digital/digital-engineering/'],
+  // So does smec.in's embedded-engineering brochure, which also still prints
+  // the India number the site has since corrected — redirected, not served.
+  ['2024/10/Embedded.pdf', '/digital/digital-engineering/'],
 ].map(([file, to]) => ({ from: `/wp-content/uploads/${file}`, to }));
 
 /**
@@ -51,7 +54,11 @@ export const DATASHEET_REDIRECTS = [
  * and a filename, and neither is guessable. Twenty-five of the 288 on the old
  * site; the rest are WordPress thumbnails, favicons and
  * artwork the new design does not use, and are listed in
- * docs/legacy-inventory.md for SMEC to decide on.
+ * docs/legacy-inventory.md.
+ *
+ * Every other upload is served unchanged from public/wp-content/uploads/, so
+ * its old URL keeps working (audit AST-04). A redirect in this file wins over
+ * a copy there, which is why the redirected files are not copied.
  *
  * @type {{ from: string, to: string }[]}
  */
