@@ -1,6 +1,6 @@
 import type { Metadata } from 'next';
 import { IBM_Plex_Mono, Inter, Inter_Tight } from 'next/font/google';
-import { CONTACT, FOOTER_ADDRESS, FOOTER_CONTACT, SITE, SOCIALS } from '@/lib/siteData';
+import { CONTACT, FOOTER_ADDRESS, FOOTER_CONTACT, SITE, SOCIAL_GROUPS } from '@/lib/siteData';
 import { ogImageFor } from '@/lib/og';
 import { GTM_NOSCRIPT } from '@/lib/tags';
 import dynamic from 'next/dynamic';
@@ -96,6 +96,18 @@ export const viewport = {
  * founding date is asserted, because none of that is verified yet
  * (docs/spec-alignment.md 0.7).
  */
+/**
+ * sameAs says "these profiles are this organization", so it lists only SMEC
+ * Oil & Gas's own accounts (Technical Master §7: "only verified official
+ * profiles"). The four the old site linked are SMEC Automation's — the India
+ * & SMEC Group set in the footer — and claiming them here would merge the two
+ * companies for search engines. The Middle East group fills in once SMEC
+ * sends its LinkedIn address (CON-06).
+ */
+const OWN_PROFILES = SOCIAL_GROUPS.filter((group) => group.code === 'AE').flatMap((group) =>
+  group.links.map((link) => link.href)
+);
+
 const LOGO = {
   '@type': 'ImageObject',
   '@id': `${SITE.url}/#logo`,
@@ -135,7 +147,7 @@ const jsonLd = {
           availableLanguage: 'en',
         },
       ],
-      sameAs: SOCIALS.map((social) => social.href),
+      ...(OWN_PROFILES.length ? { sameAs: OWN_PROFILES } : {}),
     },
     {
       '@type': 'WebSite',

@@ -10,6 +10,7 @@ import {
   SpecClose,
   SpecFaqs,
   SpecLandingPage,
+  SpecRelated,
   SpecSections,
 } from './SpecBlocks';
 import styles from './SpecPageView.module.css';
@@ -241,27 +242,10 @@ export default function SpecPageView({
 
             <SpecFaqs page={page} index={base + (children.length ? 2 : 1)} />
 
-            {related.length ? (
-              <section className={styles.block}>
-                <div className={styles.blockHead}>
-                  <span className={styles.blockNum}>
-                    {String(
-                      base + 1 + (children.length ? 1 : 0) + (page.faqs.length ? 1 : 0)
-                    ).padStart(2, '0')}
-                  </span>
-                  <h2 className={styles.blockTitle}>Related pages</h2>
-                </div>
-                <ul className={styles.cards}>
-                  {related.map((sibling) => (
-                    <li key={sibling.url}>
-                      <Link className={styles.card} href={sibling.url}>
-                        <span className={styles.cardTitle}>{sibling.h1}</span>
-                      </Link>
-                    </li>
-                  ))}
-                </ul>
-              </section>
-            ) : null}
+            <SpecRelated
+              pages={related}
+              index={base + 1 + (children.length ? 1 : 0) + (page.faqs.length ? 1 : 0)}
+            />
           </div>
         </div>
 

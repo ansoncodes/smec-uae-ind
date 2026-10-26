@@ -2,7 +2,7 @@ import Image from 'next/image';
 import Link from 'next/link';
 import { localHref } from '@/lib/routes';
 import { type Article } from '@/lib/siteData';
-import { articleBody, type Block } from '@/lib/articles';
+import { articleBody, isByline, type Block } from '@/lib/articles';
 import { INSIGHTS } from '@/lib/experience';
 import { ArrowRight } from './Icons';
 import styles from './ArticleDetail.module.css';
@@ -63,7 +63,7 @@ export default function ArticleDetail({ article, slug }: { article: Article; slu
 
             {content?.standfirst ? (
               <p className={styles.standfirst}>{content.standfirst}</p>
-            ) : article.subtitle ? (
+            ) : article.subtitle && !isByline(article.subtitle) ? (
               <p className={styles.standfirst}>{article.subtitle}</p>
             ) : null}
 

@@ -9,6 +9,7 @@ import {
   SpecClose,
   SpecFaqs,
   SpecLandingPage,
+  SpecRelated,
   SpecSections,
 } from '@/components/spec/SpecBlocks';
 import Breadcrumb from '@/components/ui/Breadcrumb';
@@ -18,7 +19,7 @@ import RfqForm from '@/components/rfq/RfqForm';
 import Calculators from '@/components/tools/Calculators';
 import Checklists from '@/components/tools/Checklists';
 import ProductCatalogue from '@/components/spec/ProductCatalogue';
-import { articleBody } from '@/lib/articles';
+import { articleBody, articleHeadline, articleSummary } from '@/lib/articles';
 import { catalogueUrls } from '@/lib/catalogue';
 import { evidenceFor, evidenceSchema } from '@/lib/evidence';
 import { GLOSSARY, glossarySchema } from '@/lib/glossary';
@@ -174,17 +175,18 @@ export const makeMetadata =
     if (prefix === 'resources') {
       const route = articleRoute(path ?? []);
       if (route) {
-        const description = route.article.subtitle || route.article.title;
+        const description = articleSummary(route.slug, route.article.subtitle, route.article.title);
+        const headline = articleHeadline(route.article.title, route.article.subtitle);
         return {
-          title: `${route.article.title} — SMEC Oil & Gas`,
+          title: `${headline} — SMEC Oil & Gas`,
           description,
           alternates: { canonical: route.url },
           openGraph: {
             type: 'article',
             url: absolute(route.url),
-            title: route.article.title,
+            title: headline,
             description,
-            images: ogImageFor(route.url, route.article.title),
+            images: ogImageFor(route.url, headline),
           },
         };
       }
@@ -253,8 +255,8 @@ export const makePage =
                 breadcrumbList(trail),
                 {
                   '@type': 'Article',
-                  headline: route.article.title,
-                  description: route.article.subtitle,
+                  headline: articleHeadline(route.article.title, route.article.subtitle),
+                  description: articleSummary(route.slug, route.article.subtitle, route.article.title),
                   url: absolute(route.url),
                   publisher: { '@id': `${SITE.url}/#organization` },
                   ...(published ? { datePublished: published } : {}),
@@ -299,6 +301,7 @@ export const makePage =
             <div className="container">
               <SpecLandingPage url={page.url} />
               <SpecFaqs page={page} index={1} />
+              <SpecRelated pages={relatedFor(page)} index={page.faqs.length ? 2 : 1} />
             </div>
             <SpecClose />
           </main>

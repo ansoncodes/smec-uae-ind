@@ -110,6 +110,33 @@ export function SpecFaqs({ page, index }: { page: SpecPage; index: number }) {
 }
 
 /**
+ * The 3–6 contextual links of the component standard (§12): the page's own
+ * §10 cluster, chain neighbours first (lib/spec/clusters.ts). Shared so the
+ * product pages kept from the earlier design carry them too.
+ */
+export function SpecRelated({ pages, index }: { pages: SpecPage[]; index: number }) {
+  if (!pages.length) return null;
+
+  return (
+    <section className={styles.block}>
+      <div className={styles.blockHead}>
+        <span className={styles.blockNum}>{String(index).padStart(2, '0')}</span>
+        <h2 className={styles.blockTitle}>Related pages</h2>
+      </div>
+      <ul className={styles.cards}>
+        {pages.map((sibling) => (
+          <li key={sibling.url}>
+            <Link className={styles.card} href={sibling.url}>
+              <span className={styles.cardTitle}>{sibling.h1}</span>
+            </Link>
+          </li>
+        ))}
+      </ul>
+    </section>
+  );
+}
+
+/**
  * The smec.in landing page a page links out to, where SMEC asked for one
  * (lib/landingPages.ts). Unnumbered, because it leaves the site: the host is
  * shown so nobody follows it thinking it is another page here. The referrer is

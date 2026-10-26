@@ -139,6 +139,93 @@ const CLUSTERS: string[][] = [
   ],
 ];
 
+/**
+ * The chains §10 actually draws — Turnkey ↔ E&I ↔ Automation ↔ … — as groups
+ * of pages, in the document's order. A page links at least one page from the
+ * group on either side of it, ahead of the rest of its cluster: the six slots
+ * fill up quickly in the larger clusters, and these are the links the
+ * document names.
+ */
+const S = (slug: string) => `/solutions/${slug}/`;
+const P = (slug: string) => `/products/${slug}/`;
+const D = (slug: string) => `/digital/${slug}/`;
+const CHAINS: string[][][] = [
+  // Turnkey ↔ E&I ↔ Automation ↔ System Integration ↔ Panel Manufacturing ↔
+  // Testing & Commissioning ↔ EPC Contractors
+  [
+    [S('turnkey-engineering-system-solutions')],
+    [S('electrical-engineering'), S('instrumentation')],
+    [S('automation-control-systems')],
+    [S('system-integration')],
+    [S('panel-engineering-manufacturing')],
+    [S('testing-commissioning')],
+    ['/customers/epc-contractors/'],
+  ],
+  // E-House ↔ Electrical Engineering ↔ MCC/PCC ↔ VFD/UPS/DC ↔ System
+  // Integration ↔ LNG/Refinery/Pipeline/Utilities
+  [
+    [S('e-houses-modular-electrical-rooms')],
+    [S('electrical-engineering')],
+    [P('mcc-pcc-power-distribution')],
+    [P('vfd-houses'), P('battery-charger')],
+    [S('system-integration')],
+    [
+      '/industries/midstream/lng-terminals/',
+      '/industries/downstream/refineries/',
+      '/industries/midstream/pipelines/',
+      '/industries/downstream/utilities/',
+    ],
+  ],
+  // Offshore/Onshore Drilling ↔ Rig Modernization ↔ Power/VFD/SCR Houses ↔
+  // DMS3000 ↔ Jacking/RPD/Load ↔ BOP/PAGA/Gas Watch
+  [
+    ['/industries/upstream/offshore-drilling/', '/industries/upstream/onshore-drilling/'],
+    [S('rig-modernization')],
+    [P('power-houses'), P('vfd-houses'), P('scr-houses')],
+    [P('dms3000-drill-monitoring-system')],
+    [P('jacking-control-system'), P('rpd-system'), P('load-monitoring-system')],
+    [P('bop-control-system'), P('paga-system'), P('gas-watch-panel')],
+  ],
+  // Brownfield ↔ Lifecycle/Obsolescence ↔ PLC/SCADA/DCS Migration ↔ Shutdown ↔
+  // Panel Modification ↔ Commissioning
+  [
+    [S('brownfield-engineering')],
+    [S('lifecycle-obsolescence')],
+    [S('control-system-migration')],
+    [S('shutdown-turnaround')],
+    [S('panel-engineering-manufacturing')],
+    [S('testing-commissioning')],
+  ],
+  // Digital Engineering ↔ NexWave ↔ ProSet360 ↔ NexVerse ↔ NexView ↔ Fuel
+  // Monitoring ↔ industry use cases
+  [
+    [D('digital-engineering')],
+    [D('remote-monitoring-nexwave')],
+    [D('cmms-proset360')],
+    [D('digital-twin-nexverse')],
+    [D('industrial-ai-video-nexview')],
+    [D('fuel-monitoring')],
+    [
+      '/industries/upstream/production-facilities/',
+      '/industries/upstream/well-services/',
+      '/industries/midstream/tank-farms/',
+      '/industries/midstream/pumping-stations/',
+    ],
+  ],
+];
+
+/** The groups either side of a page in every chain it belongs to. */
+function neighbourGroups(url: string): string[][] {
+  const groups: string[][] = [];
+  for (const chain of CHAINS) {
+    chain.forEach((group, i) => {
+      if (!group.includes(url)) return;
+      for (const side of [chain[i - 1], chain[i + 1]]) if (side) groups.push(side);
+    });
+  }
+  return groups;
+}
+
 /** url → every other page named in a cluster with it. */
 const RELATED = new Map<string, Set<string>>();
 for (const cluster of CLUSTERS) {
@@ -181,8 +268,15 @@ export function relatedFor(page: SpecPage, limit = 6): SpecPage[] {
   const linked = new Set(
     page.sections.flatMap((section) => section.links ?? []).map((link) => link.url)
   );
-  const named = [...(RELATED.get(page.url) ?? [])]
-    .filter((url) => !linked.has(url))
+  // One page from each chain neighbour the body does not already reach.
+  const neighbours: string[] = [];
+  for (const group of neighbourGroups(page.url)) {
+    if (group.some((url) => linked.has(url) || neighbours.includes(url))) continue;
+    const pick = group.find((url) => url !== page.url && specPage(url));
+    if (pick) neighbours.push(pick);
+  }
+  const named = [...neighbours, ...(RELATED.get(page.url) ?? [])]
+    .filter((url, i, all) => all.indexOf(url) === i && !linked.has(url))
     .map((url) => specPage(url))
     .filter((p): p is SpecPage => !!p);
 

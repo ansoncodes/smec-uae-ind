@@ -9,6 +9,7 @@ import PageShell from '@/components/page/PageShell';
 import { companyPage } from '@/lib/companyPages';
 import { SITE } from '@/lib/siteData';
 import { canonicalPath } from '@/lib/routes';
+import { ogImageFor } from '@/lib/og';
 
 /** Metadata for a company page, from its own record. */
 /**
@@ -32,7 +33,8 @@ export function companyMetadata(slug: string): Metadata {
       url: `${SITE.url}${canonicalPath(slug)}`,
       title: page.metaTitle,
       description: page.metaDescription,
-      ...(page.image ? { images: [{ url: page.image }] } : {}),
+      // The page's own card when it has no picture of its own (§21).
+      images: page.image ? [{ url: page.image }] : ogImageFor(canonicalPath(slug), page.metaTitle),
     },
   };
 }
@@ -46,9 +48,16 @@ export default function CompanyRoute({ slug }: { slug: string }) {
   if (!page) notFound();
 
   const faq = page.sections.find((section) => section.t === 'faq');
-  const jsonLd = faq
+  // The visible trail, as every other non-home page carries it (§5).
+  const breadcrumbs = {
+    '@type': 'BreadcrumbList',
+    itemListElement: [
+      { '@type': 'ListItem', position: 1, name: 'Home', item: `${SITE.url}/` },
+      { '@type': 'ListItem', position: 2, name: page.kicker },
+    ],
+  };
+  const pageLd = faq
     ? {
-        '@context': 'https://schema.org',
         '@type': 'FAQPage',
         mainEntity: faq.items.map((item) => ({
           '@type': 'Question',
@@ -60,13 +69,13 @@ export default function CompanyRoute({ slug }: { slug: string }) {
         })),
       }
     : {
-        '@context': 'https://schema.org',
         '@type': 'WebPage',
         name: page.metaTitle,
         description: page.metaDescription,
         url: `${SITE.url}${canonicalPath(slug)}`,
         isPartOf: { '@type': 'WebSite', name: SITE.name, url: SITE.url },
       };
+  const jsonLd = { '@context': 'https://schema.org', '@graph': [breadcrumbs, pageLd] };
 
   return (
     <>

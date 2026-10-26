@@ -1339,6 +1339,24 @@ const ANSWER_IS_INSTRUCTION = [
 const answerIsInstruction = (answer) =>
   !!answer && ANSWER_IS_INSTRUCTION.some((re) => re.test(answer.trim()));
 
+/**
+ * A sentence addressed to whoever builds the page, sitting among sentences
+ * for the reader: "Product pages must explain function, architecture,
+ * interfaces, lifecycle options and RFQ inputs" closes the products hub's
+ * answer, and "This page should publish only current certificates…" is the
+ * whole of the certifications answer. §34 keeps both off the page; the
+ * sentences around them stay as written.
+ */
+const EDITORIAL_SENTENCE =
+  /^(this|each|every|all|the)?\s*(product|solution|industry|company|resource|hub)?\s*pages?\s+(must|should)\b/i;
+
+const dropEditorialSentences = (text) =>
+  (text ?? '')
+    .split(/(?<=[.!?])\s+/)
+    .filter((sentence) => !EDITORIAL_SENTENCE.test(sentence.trim()))
+    .join(' ')
+    .trim();
+
 const isInternalSection = (heading) => INTERNAL_SECTION.some((re) => re.test(heading));
 const isInternalLine = (line) => INTERNAL_LINE.some((re) => re.test(line.trim()));
 
@@ -1420,7 +1438,9 @@ const pages = [...byUrl.values()]
         ...section,
         lines: section.lines
           .filter((line) => !isInternalLine(line))
-          .map(trimInstruction),
+          .map(trimInstruction)
+          .map(dropEditorialSentences)
+          .filter(Boolean),
         ...(isInternalSection(section.heading) ? { internal: true } : {}),
         ...(section.links ? { links: resolveLinks(page.url, section.links) } : {}),
       }))
@@ -1430,9 +1450,9 @@ const pages = [...byUrl.values()]
         section.internal || (section.links ? section.links.length : section.lines.length)
       );
 
-    const answer = answerIsInstruction(page.answer)
-      ? page.metaDescription || ''
-      : page.answer ?? '';
+    const readerAnswer = dropEditorialSentences(page.answer);
+    const answer =
+      !readerAnswer || answerIsInstruction(readerAnswer) ? page.metaDescription || '' : readerAnswer;
 
     // Gated on what the page publishes, which is why this runs after the
     // internal sections and developer notes have been taken out of it.

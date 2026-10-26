@@ -269,7 +269,7 @@ export const SPEC_PAGES: SpecPage[] = [
     ],
     "intent": "SMEC ISO certifications",
     "h1": "Certifications",
-    "answer": "This page should publish only current certificates belonging to the relevant SMEC legal entity, with certificate number, standard, issuing body, validity period and downloadable proof where approved.",
+    "answer": "Verified quality, safety, environmental and project certifications held by the relevant SMEC legal entity.",
     "sections": [
       {
         "heading": "Developer rule",
@@ -2402,7 +2402,7 @@ export const SPEC_PAGES: SpecPage[] = [
     "schema": [],
     "intent": "",
     "h1": "Engineered Products & Systems",
-    "answer": "SMEC engineered products and systems cover electrical distribution, control panels, drilling and offshore systems, safety and communication packages, monitoring and selected digital products. Product pages must explain function, architecture, interfaces, lifecycle options and RFQ inputs.",
+    "answer": "SMEC engineered products and systems cover electrical distribution, control panels, drilling and offshore systems, safety and communication packages, monitoring and selected digital products.",
     "sections": [],
     "specTreatment": [],
     "faqs": [],
@@ -2653,7 +2653,7 @@ export const SPEC_PAGES: SpecPage[] = [
       {
         "heading": "New build, retrofit or replacement",
         "lines": [
-          "The page should explicitly support all three buying situations: a new package, a retrofit of an operating system, or replacement of obsolete/failed equipment. Final ratings, materials, certification and environmental design must come from the approved project datasheet."
+          "Final ratings, materials, certification and environmental design must come from the approved project datasheet."
         ],
         "internal": true
       },
@@ -2939,7 +2939,7 @@ export const SPEC_PAGES: SpecPage[] = [
       {
         "heading": "New build, retrofit or replacement",
         "lines": [
-          "The page should explicitly support all three buying situations: a new package, a retrofit of an operating system, or replacement of obsolete/failed equipment. Final ratings, materials, certification and environmental design must come from the approved project datasheet."
+          "Final ratings, materials, certification and environmental design must come from the approved project datasheet."
         ],
         "internal": true
       },
@@ -3200,7 +3200,7 @@ export const SPEC_PAGES: SpecPage[] = [
       {
         "heading": "New build, retrofit or replacement",
         "lines": [
-          "The page should explicitly support all three buying situations: a new package, a retrofit of an operating system, or replacement of obsolete/failed equipment. Final ratings, materials, certification and environmental design must come from the approved project datasheet."
+          "Final ratings, materials, certification and environmental design must come from the approved project datasheet."
         ],
         "internal": true
       },
@@ -3591,7 +3591,7 @@ export const SPEC_PAGES: SpecPage[] = [
       {
         "heading": "New build, retrofit or replacement",
         "lines": [
-          "The page should explicitly support all three buying situations: a new package, a retrofit of an operating system, or replacement of obsolete/failed equipment. Final ratings, materials, certification and environmental design must come from the approved project datasheet."
+          "Final ratings, materials, certification and environmental design must come from the approved project datasheet."
         ],
         "internal": true
       },
@@ -3960,7 +3960,7 @@ export const SPEC_PAGES: SpecPage[] = [
       {
         "heading": "New build, retrofit or replacement",
         "lines": [
-          "The page should explicitly support all three buying situations: a new package, a retrofit of an operating system, or replacement of obsolete/failed equipment. Final ratings, materials, certification and environmental design must come from the approved project datasheet."
+          "Final ratings, materials, certification and environmental design must come from the approved project datasheet."
         ],
         "internal": true
       },
@@ -4129,7 +4129,7 @@ export const SPEC_PAGES: SpecPage[] = [
       {
         "heading": "New build, retrofit or replacement",
         "lines": [
-          "The page should explicitly support all three buying situations: a new package, a retrofit of an operating system, or replacement of obsolete/failed equipment. Final ratings, materials, certification and environmental design must come from the approved project datasheet."
+          "Final ratings, materials, certification and environmental design must come from the approved project datasheet."
         ],
         "internal": true
       },
@@ -4700,7 +4700,7 @@ export const SPEC_PAGES: SpecPage[] = [
       {
         "heading": "New build, retrofit or replacement",
         "lines": [
-          "The page should explicitly support all three buying situations: a new package, a retrofit of an operating system, or replacement of obsolete/failed equipment. Final ratings, materials, certification and environmental design must come from the approved project datasheet."
+          "Final ratings, materials, certification and environmental design must come from the approved project datasheet."
         ],
         "internal": true
       },
@@ -4861,7 +4861,7 @@ export const SPEC_PAGES: SpecPage[] = [
       {
         "heading": "New build, retrofit or replacement",
         "lines": [
-          "The page should explicitly support all three buying situations: a new package, a retrofit of an operating system, or replacement of obsolete/failed equipment. Final ratings, materials, certification and environmental design must come from the approved project datasheet."
+          "Final ratings, materials, certification and environmental design must come from the approved project datasheet."
         ],
         "internal": true
       },
@@ -5027,7 +5027,7 @@ export const SPEC_PAGES: SpecPage[] = [
       {
         "heading": "New build, retrofit or replacement",
         "lines": [
-          "The page should explicitly support all three buying situations: a new package, a retrofit of an operating system, or replacement of obsolete/failed equipment. Final ratings, materials, certification and environmental design must come from the approved project datasheet."
+          "Final ratings, materials, certification and environmental design must come from the approved project datasheet."
         ],
         "internal": true
       },
@@ -5497,7 +5497,7 @@ export const SPEC_PAGES: SpecPage[] = [
       {
         "heading": "New build, retrofit or replacement",
         "lines": [
-          "The page should explicitly support all three buying situations: a new package, a retrofit of an operating system, or replacement of obsolete/failed equipment. Final ratings, materials, certification and environmental design must come from the approved project datasheet."
+          "Final ratings, materials, certification and environmental design must come from the approved project datasheet."
         ],
         "internal": true
       },
@@ -6003,7 +6003,7 @@ export const SPEC_PAGES: SpecPage[] = [
       {
         "heading": "New build, retrofit or replacement",
         "lines": [
-          "The page should explicitly support all three buying situations: a new package, a retrofit of an operating system, or replacement of obsolete/failed equipment. Final ratings, materials, certification and environmental design must come from the approved project datasheet."
+          "Final ratings, materials, certification and environmental design must come from the approved project datasheet."
         ],
         "internal": true
       },
@@ -6167,7 +6167,7 @@ export const SPEC_PAGES: SpecPage[] = [
       {
         "heading": "New build, retrofit or replacement",
         "lines": [
-          "The page should explicitly support all three buying situations: a new package, a retrofit of an operating system, or replacement of obsolete/failed equipment. Final ratings, materials, certification and environmental design must come from the approved project datasheet."
+          "Final ratings, materials, certification and environmental design must come from the approved project datasheet."
         ],
         "internal": true
       },
@@ -6329,7 +6329,7 @@ export const SPEC_PAGES: SpecPage[] = [
       {
         "heading": "New build, retrofit or replacement",
         "lines": [
-          "The page should explicitly support all three buying situations: a new package, a retrofit of an operating system, or replacement of obsolete/failed equipment. Final ratings, materials, certification and environmental design must come from the approved project datasheet."
+          "Final ratings, materials, certification and environmental design must come from the approved project datasheet."
         ],
         "internal": true
       },
@@ -6703,7 +6703,7 @@ export const SPEC_PAGES: SpecPage[] = [
       {
         "heading": "New build, retrofit or replacement",
         "lines": [
-          "The page should explicitly support all three buying situations: a new package, a retrofit of an operating system, or replacement of obsolete/failed equipment. Final ratings, materials, certification and environmental design must come from the approved project datasheet."
+          "Final ratings, materials, certification and environmental design must come from the approved project datasheet."
         ],
         "internal": true
       },
