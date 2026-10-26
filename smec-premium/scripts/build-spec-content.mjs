@@ -372,7 +372,8 @@ const SOLUTION_MERGE = [
   {
     // Power distribution, motors and the marine/safety electrical packages
     // are electrical scope; field measurement and its calibration and loop
-    // validation are instrumentation scope.
+    // validation are instrumentation scope. Each linked system goes with the
+    // tab that names it: gas detection is a field-systems item.
     file: 'solutions/electrical-instrumentation-engineering.md',
     split: [
       {
@@ -383,18 +384,21 @@ const SOLUTION_MERGE = [
           'Can one project combine power distribution and field instrumentation?',
           'What should accompany an E&I RFQ?',
         ],
+        systems: ['MCC/PCC', 'Generator PMS', 'Flare Ignition', 'UPS and Battery Chargers'],
       },
       {
         url: '/solutions/instrumentation/',
         capabilities: ['Instrumentation & Field Systems', 'Testing & Lifecycle'],
         faqs: ['Can existing instruments and electrical equipment be retained?'],
+        systems: ['Gas Watch'],
       },
     ],
   },
   {
     // The new-build tabs to greenfield; the operating-plant tabs, including
     // retrofitted metering and condition monitoring, to brownfield, which is
-    // also where the prototype's own case study and approach sit.
+    // also where the prototype's own case study and approach sit. Switchgear,
+    // MCC and RTUs are named by the greenfield tabs, NexWave by monitoring.
     file: 'solutions/greenfield-brownfield-engineering.md',
     split: [
       {
@@ -405,15 +409,80 @@ const SOLUTION_MERGE = [
           'Can new systems be tied into an operating plant?',
           'What drawings should be supplied?',
         ],
+        systems: ['NexWave'],
       },
       {
         url: '/solutions/greenfield-projects/',
         capabilities: ['Greenfield Electrical', 'Greenfield Automation'],
         faqs: ['Can greenfield and brownfield scopes be combined?'],
+        systems: ['Switchgear', 'MCC', 'RTU'],
       },
     ],
   },
 ];
+
+/**
+ * Where each solution's "Applications & Systems" links go (CNT-04).
+ *
+ * The client's linking rule is "solution pages → related product and
+ * industry pages" (Six-Tab architecture, internal linking rules), and her
+ * Tab 1 copy names the systems for each solution as links. Those links were
+ * flattened to text by the first merge because they pointed at product URLs
+ * of her own that exist in neither URL map: 37 distinct targets across the
+ * thirteen pages, of which only three are her Tab 2 page slugs.
+ *
+ * Those three resolve through the files they came from, like the catalogue
+ * below. The rest are pointed here at the built page that is that system,
+ * and at nothing where there is none — a link only ever goes to a page that
+ * exists, and one to a page that merely mentions the system would mislead.
+ * An empty list is a link dropped; the run prints every one.
+ */
+const SOLUTION_SYSTEM_LINKS = {
+  '/products/scr-power-house': ['/products/scr-houses/'],
+  '/products/vfd-power-house': ['/products/vfd-houses/'],
+  '/products/dms3000': ['/products/dms3000-drill-monitoring-system/'],
+  '/products/integrated-drilling-controls': ['/products/integrated-drilling-control-system/'],
+  // Her one jacking and RPD page is two pages here.
+  '/products/jacking-rpd-control': ['/products/jacking-control-system/', '/products/rpd-system/'],
+  '/products/gas-watch': ['/products/gas-watch-panel/'],
+  '/products/flare-ignition-systems': ['/products/flare-ignition-system/'],
+  '/products/paga': ['/products/paga-system/'],
+  '/products/mcc-pcc-panels': ['/products/mcc-pcc-power-distribution/'],
+  '/products/generator-power-management': ['/products/generator-control-pms/'],
+  // Her catalogue files Marine Generator PMS under the same page.
+  '/products/marine-pms': ['/products/generator-control-pms/'],
+  // The charger half of the link; there is no UPS page.
+  '/products/ups-and-battery-chargers': ['/products/battery-charger/'],
+  '/products/industrial-battery-chargers': ['/products/battery-charger/'],
+  // Her catalogue puts Remote Terminal Units on the pipeline SCADA & RTU page.
+  '/products/remote-terminal-units': ['/products/pipeline-scada-rtu/'],
+  '/products/rtu-panels': ['/products/pipeline-scada-rtu/'],
+  // PLC/SCADA as a system is the plant automation & SCADA page; a PLC or a
+  // drive as a panel is the PLC, HMI & drive panel page, which her catalogue
+  // tags "PLC panel" and "VFD panel". Her VFD Houses row covers VFD packages
+  // for rigs and plants.
+  '/products/plc-scada-systems': ['/products/plant-automation-scada/'],
+  '/products/scada-hmi': ['/products/plant-automation-scada/'],
+  '/products/plc': ['/products/plc-hmi-drive-panels/'],
+  '/products/vfd-panels': ['/products/plc-hmi-drive-panels/'],
+  '/products/vfd-systems': ['/products/vfd-houses/'],
+  // The platforms are Digitalisation pages here.
+  '/products/nexwave': ['/digital/remote-monitoring-nexwave/'],
+  '/products/proset360': ['/digital/cmms-proset360/'],
+  '/products/nexverse': ['/digital/digital-twin-nexverse/'],
+  // No page for these systems.
+  '/products/ups-systems': [],
+  '/products/mv-lv-switchgear': [],
+  '/products/hydraulic-power-packs': [],
+  '/products/hydraulic-valve-manifolds': [],
+  '/products/winch-control-systems': [],
+  '/products/marine-main-engine-remote-control': [],
+  '/products/industrial-electronics': [],
+  '/products/remote-io': [],
+  '/products/industrial-gateways': [],
+  '/products/process-instrumentation': [],
+  '/products/protection-and-metering': [],
+};
 
 /**
  * Seventeen of the twenty prototype product pages onto built product URLs.
@@ -702,6 +771,25 @@ const section = (heading, raw) => {
   return lines.length ? { heading, lines } : null;
 };
 
+/**
+ * "Applications & Systems": a line of copy, then the systems it links, as
+ * `- [Label](/products/slug)`. Here the links are the content, so they are
+ * kept rather than flattened to text; SOLUTION_SYSTEM_LINKS decides where
+ * each one goes.
+ */
+function systemsSection(heading, raw) {
+  const links = [];
+  const copy = [];
+
+  for (const line of raw) {
+    const link = /^[-*]\s+\[([^\]]+)\]\(([^)\s]+)\)$/.exec(line.trim());
+    if (link) links.push({ label: link[1].trim(), href: link[2] });
+    else copy.push(line);
+  }
+
+  return links.length ? { heading, lines: prototypeLines(copy).lines, links } : null;
+}
+
 /** A Tab 1 solution page: headline and intro, capability tabs, approach. */
 function parseSolution(relative) {
   const { meta, nodes } = readPrototype(relative);
@@ -718,6 +806,7 @@ function parseSolution(relative) {
     .map((n) => section(n.heading, n.raw))
     .filter(Boolean);
 
+  const systems = nodes.find((n) => n.level === 3 && /^Applications & Systems$/i.test(n.heading));
   const evidence = nodes.find((n) => n.level === 3 && /^Project Evidence$/i.test(n.heading));
   const approach = nodes.find((n) => n.level === 2 && /^Engineering Approach/i.test(n.heading));
 
@@ -730,6 +819,7 @@ function parseSolution(relative) {
     meta,
     intro: intro ? section(intro.heading, intro.raw) : null,
     capabilities,
+    systems: systems ? systemsSection(systems.heading, systems.raw) : null,
     shared: [evidence, approach]
       .filter(Boolean)
       .map((n) => section(n.heading, n.raw))
@@ -873,7 +963,8 @@ function withoutRepeats(blocks, seen) {
       return true;
     });
 
-    if (!lines.length || lines.every((line) => line.endsWith(':'))) continue;
+    // A block of links is kept for its links, whatever its copy.
+    if ((!lines.length || lines.every((line) => line.endsWith(':'))) && !block.links) continue;
     kept.push({ ...block, lines });
   }
 
@@ -884,7 +975,7 @@ const merged = new Set();
 const created = new Set();
 const mergeReport = [];
 
-function applyPrototype(url, parsed, { capabilities, faqs, intro, shared }) {
+function applyPrototype(url, parsed, { capabilities, faqs, intro, shared, systems }) {
   const page = byUrl.get(url);
   if (!page) throw new Error(`prototype merge: no built page at ${url}`);
 
@@ -897,7 +988,12 @@ function applyPrototype(url, parsed, { capabilities, faqs, intro, shared }) {
     }
   }
 
-  const incoming = withoutRepeats([...(intro ? [intro] : []), ...capabilities, ...shared], seen);
+  // The systems sit where the prototype puts them: after the capability
+  // tabs, before the project evidence.
+  const incoming = withoutRepeats(
+    [...(intro ? [intro] : []), ...capabilities, ...(systems ? [systems] : []), ...shared],
+    seen
+  );
 
   // The headline block opens the page the first time a prototype lands on
   // this URL; a second prototype on the same URL continues underneath.
@@ -944,6 +1040,7 @@ for (const entry of SOLUTION_MERGE) {
     applyPrototype(entry.url, parsed, {
       intro: parsed.intro,
       capabilities: parsed.capabilities,
+      systems: parsed.systems,
       shared: parsed.shared,
       faqs: parsed.faqs,
     });
@@ -951,6 +1048,7 @@ for (const entry of SOLUTION_MERGE) {
   }
 
   const assigned = new Set();
+  const placed = new Set();
 
   for (const target of entry.split) {
     const capabilities = target.capabilities.map((name) => {
@@ -966,9 +1064,17 @@ for (const entry of SOLUTION_MERGE) {
       return faq;
     });
 
+    const links = (target.systems ?? []).map((label) => {
+      const link = parsed.systems?.links.find((l) => l.label === label);
+      if (!link) throw new Error(`${entry.file}: no linked system "${label}"`);
+      placed.add(label);
+      return link;
+    });
+
     applyPrototype(target.url, parsed, {
       intro: target.primary ? parsed.intro : null,
       capabilities,
+      systems: links.length ? { ...parsed.systems, links } : null,
       shared: target.primary ? parsed.shared : [],
       faqs,
     });
@@ -978,6 +1084,13 @@ for (const entry of SOLUTION_MERGE) {
   if (orphaned.length) {
     throw new Error(
       `${entry.file}: capability tabs assigned to neither page: ${orphaned.map((c) => c.heading).join(', ')}`
+    );
+  }
+
+  const unplaced = (parsed.systems?.links ?? []).filter((link) => !placed.has(link.label));
+  if (unplaced.length) {
+    throw new Error(
+      `${entry.file}: linked systems assigned to neither page: ${unplaced.map((l) => l.label).join(', ')}`
     );
   }
 }
@@ -1189,6 +1302,10 @@ const INTERNAL_LINE = [
   /must be (checked|approved|verified) (by|before)/i,
   /^do not publish\b/i,
   /sign-?off (is )?required/i,
+  // Two "Applications & Systems" blocks open with a note on which smec.in
+  // landing page to link ("Existing SMEC control-panel landing page: … use
+  // this live page for panel enquiries"); that link is lib/landingPages.ts.
+  /^existing [^:]*landing pages?:/i,
 ];
 
 /**
@@ -1249,6 +1366,48 @@ function derivedBreadcrumb(url, h1) {
   ];
 }
 
+/* ------------------------------------------- links to the built pages */
+
+/**
+ * Her Tab 2 page slugs, from each file's front matter, to the built URL the
+ * file became. Read here rather than with the merge tables because reading a
+ * prototype needs the parsing rules above.
+ */
+const BUILT_URL_FOR = new Map(
+  [...PRODUCT_MERGE, ...PRODUCT_PAGES_ADDED].map((entry) => [
+    readPrototype(entry.file).meta.slug,
+    entry.url,
+  ])
+);
+
+const droppedLinks = [];
+
+/**
+ * A section's prototype links as pages of this build, each labelled with its
+ * H1 — one of her links can be two pages here. No link to the page itself,
+ * none twice, none to a page that does not exist.
+ */
+function resolveLinks(pageUrl, links) {
+  const out = [];
+
+  for (const { label, href } of links) {
+    const urls = BUILT_URL_FOR.has(href) ? [BUILT_URL_FOR.get(href)] : SOLUTION_SYSTEM_LINKS[href];
+    if (!urls) {
+      throw new Error(`${pageUrl}: no decision for "${label}" (${href}) — add it to SOLUTION_SYSTEM_LINKS`);
+    }
+    if (!urls.length) droppedLinks.push({ page: pageUrl, label, href });
+
+    for (const url of urls) {
+      const target = byUrl.get(url);
+      if (!target) throw new Error(`${pageUrl}: "${label}" resolves to ${url}, which is not a page`);
+      if (url === pageUrl || out.some((link) => link.url === url)) continue;
+      out.push({ label: target.h1, url });
+    }
+  }
+
+  return out;
+}
+
 const pages = [...byUrl.values()]
   .map((page) => {
     const breadcrumb = (page.breadcrumb ?? '')
@@ -1263,9 +1422,13 @@ const pages = [...byUrl.values()]
           .filter((line) => !isInternalLine(line))
           .map(trimInstruction),
         ...(isInternalSection(section.heading) ? { internal: true } : {}),
+        ...(section.links ? { links: resolveLinks(page.url, section.links) } : {}),
       }))
-      // A block that was nothing but instructions is not a block.
-      .filter((section) => section.internal || section.lines.length);
+      // A block that was nothing but instructions is not a block, and nor is
+      // a list of systems none of which has a page here.
+      .filter((section) =>
+        section.internal || (section.links ? section.links.length : section.lines.length)
+      );
 
     const answer = answerIsInstruction(page.answer)
       ? page.metaDescription || ''
@@ -1374,4 +1537,16 @@ if (alsoClaiming.length) {
     const page = pages.find((p) => p.url === url);
     console.log(`  ${url.padEnd(52)} ${page.status} · ${claims.join(', ')} — not changed here`);
   }
+}
+
+console.log('\nsolution pages → their systems ("Applications & Systems"):');
+for (const page of pages) {
+  const links = page.sections.flatMap((s) => s.links ?? []);
+  if (!links.length) continue;
+  const names = links.map((link) => link.url.split('/').filter(Boolean).pop());
+  console.log(`  ${page.url.padEnd(52)} ${links.length} · ${names.join(', ')}`);
+}
+if (droppedLinks.length) {
+  console.log(`  ${droppedLinks.length} of her links have no page here and are left out:`);
+  for (const link of droppedLinks) console.log(`    ${link.page.padEnd(50)} ${link.label} (${link.href})`);
 }

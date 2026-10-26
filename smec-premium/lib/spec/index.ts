@@ -2,7 +2,7 @@ import { canonicalPath } from '@/lib/routes';
 import { SPEC_PAGES } from './pages.generated';
 import type { SpecPage } from './types';
 
-export type { SpecFaq, SpecPage, SpecSection, SpecStatus } from './types';
+export type { SpecFaq, SpecLink, SpecPage, SpecSection, SpecStatus } from './types';
 export { SPEC_PAGES };
 
 /** Every page except the homepage, which has its own composition. */

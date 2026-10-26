@@ -4,11 +4,19 @@
  * scripts/build-spec-content.mjs.
  */
 
+/** A link to another page of this site, labelled with that page's H1. */
+export type SpecLink = { label: string; url: string };
+
 export type SpecSection = {
   heading: string;
   lines: string[];
   /** Instructions to whoever builds the page, not copy: never rendered. */
   internal?: boolean;
+  /**
+   * Pages the section links to: a solution's "Applications & Systems",
+   * resolved by the generator to built URLs only.
+   */
+  links?: SpecLink[];
 };
 
 export type SpecFaq = { q: string; a: string };
