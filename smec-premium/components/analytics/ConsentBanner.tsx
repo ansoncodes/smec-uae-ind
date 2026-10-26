@@ -26,6 +26,8 @@ import styles from './ConsentBanner.module.css';
 export default function ConsentBanner() {
   const [visible, setVisible] = useState(false);
   const bar = useRef<HTMLDivElement>(null);
+  // Where keyboard focus was before it entered the banner, to send it back.
+  const cameFrom = useRef<HTMLElement | null>(null);
 
   useEffect(() => {
     const state = consentState();
@@ -59,8 +61,22 @@ export default function ConsentBanner() {
   if (!visible) return null;
 
   const choose = (state: 'granted' | 'denied') => {
+    // The banner leaves with the focused button. Without this, focus falls
+    // to the body and a keyboard user starts again from the top of the page.
+    const hadFocus = !!bar.current?.contains(document.activeElement);
     setConsent(state);
     setVisible(false);
+    if (!hadFocus) return;
+    requestAnimationFrame(() => {
+      const back = cameFrom.current;
+      if (back?.isConnected) {
+        back.focus({ preventScroll: true });
+        return;
+      }
+      const main = document.getElementById('main');
+      main?.setAttribute('tabindex', '-1');
+      main?.focus({ preventScroll: true });
+    });
   };
 
   return (
@@ -70,6 +86,10 @@ export default function ConsentBanner() {
       role="region"
       aria-label="Analytics consent"
       data-consent-banner=""
+      onFocus={(event) => {
+        const from = event.relatedTarget as HTMLElement | null;
+        if (!bar.current?.contains(from)) cameFrom.current = from;
+      }}
     >
       <p className={styles.copy}>
         We would like to measure how this site is used — pages viewed and enquiries sent — so

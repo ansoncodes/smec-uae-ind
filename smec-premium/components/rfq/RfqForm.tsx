@@ -64,6 +64,7 @@ export default function RfqForm({ item, location = 'contact_page' }: Props) {
   const formId = useId();
   const formRef = useRef<HTMLFormElement>(null);
   const summaryRef = useRef<HTMLDivElement>(null);
+  const doneRef = useRef<HTMLDivElement>(null);
 
   const [files, setFiles] = useState<File[]>([]);
   const [errors, setErrors] = useState<Errors>({});
@@ -83,6 +84,13 @@ export default function RfqForm({ item, location = 'contact_page' }: Props) {
     if (fromLink) setRegion(fromLink);
     setNamed(catalogueItem(params.get('item'))?.name);
   }, []);
+
+  /* Sending replaces the form, and the focused button goes with it. Focus
+     moves to the confirmation so a keyboard or screen-reader user lands on
+     the answer instead of the top of the page. */
+  useEffect(() => {
+    if (state === 'sent') doneRef.current?.focus();
+  }, [state]);
 
   const fieldId = (name: string) => `${formId}-${name}`;
   const errorId = (name: string) => `${formId}-${name}-error`;
@@ -190,7 +198,7 @@ export default function RfqForm({ item, location = 'contact_page' }: Props) {
      reference line appears only when the lead system has issued one. */
   if (state === 'sent') {
     return (
-      <div className={styles.done} role="status">
+      <div ref={doneRef} className={styles.done} role="status" tabIndex={-1}>
         <p className={styles.doneTitle}>Thank you. Your technical enquiry has been received.</p>
         <p className={styles.doneBody}>
           The relevant SMEC engineering team will review the submitted scope and contact you
