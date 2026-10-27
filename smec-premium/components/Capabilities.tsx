@@ -43,14 +43,14 @@ export default function Capabilities() {
           {cards.map((card, i) => (
             <li key={card.num} data-reveal="up" data-reveal-delay={(i % 2) * 90}>
               <article className={styles.card}>
-                <div className={styles.media}>
+                <div className={styles.media} data-parallax>
                   <Image
                     src={card.image.src}
                     alt={card.image.alt}
                     width={card.image.width}
                     height={card.image.height}
                     sizes="(max-width: 560px) 34vw, (max-width: 1100px) 22vw, 15vw"
-                    className={styles.img}
+                    className={`${styles.img} drift`}
                     loading="lazy"
                   />
                 </div>

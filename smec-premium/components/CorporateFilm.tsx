@@ -56,7 +56,7 @@ export default function CorporateFilm() {
           </div>
 
           <div className={styles.player} data-reveal="fade" data-reveal-delay="120">
-            <div className={styles.stage}>
+            <div className={styles.stage} data-parallax>
               {playing ? (
                 <iframe
                   ref={frameRef}
@@ -79,7 +79,7 @@ export default function CorporateFilm() {
                     width={1280}
                     height={720}
                     sizes="(max-width: 900px) 92vw, 58vw"
-                    className={styles.posterImg}
+                    className={`${styles.posterImg} drift`}
                     loading="lazy"
                   />
                   <span className={styles.veil} aria-hidden="true" />

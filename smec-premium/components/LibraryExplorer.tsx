@@ -56,14 +56,14 @@ export default function LibraryExplorer({ label, intro, categories }: Props) {
               className={styles.preview}
               data-on={i === active ? 'true' : undefined}
             >
-              <div className={styles.media}>
+              <div className={styles.media} data-parallax>
                 <Image
                   src={category.image.src}
                   alt={category.image.alt}
                   width={category.image.width}
                   height={category.image.height}
                   sizes="(max-width: 900px) 92vw, 46vw"
-                  className={styles.img}
+                  className={`${styles.img} drift`}
                   loading="lazy"
                 />
               </div>

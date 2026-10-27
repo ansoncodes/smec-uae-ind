@@ -537,6 +537,20 @@ button {
   transform: scaleX(1);
 }
 
+/* Photo parallax. A photo's frame opts in with data-parallax, and MotionRoot
+   sets --p on it: -1 as it comes up from below the fold, 1 once it has passed
+   above. The picture inside, marked .drift, is drawn 10% larger than its
+   frame and lags the scroll by up to 4% of it, so its edge never shows. A
+   card's hover zoom multiplies in through --zoom. Nothing moves under
+   reduced motion. */
+@media (prefers-reduced-motion: no-preference) {
+  .drift {
+    translate: 0 calc(clamp(-1, var(--p, 0), 1) * 4%);
+    scale: calc(var(--zoom, 1) * 1.1);
+    transition: scale 0.9s var(--ease);
+  }
+}
+
 /* Word-by-word headline reveal. */
 .revealLine {
   display: block;

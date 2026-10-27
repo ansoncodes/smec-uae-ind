@@ -33,7 +33,8 @@
   border: 1px solid var(--hair);
   border-radius: var(--radius-lg);
   background: var(--paper);
-  transition: border-color 0.4s var(--ease), box-shadow 0.4s var(--ease);
+  transition: border-color 0.4s var(--ease), box-shadow 0.4s var(--ease),
+    transform 0.4s var(--ease);
 }
 
 .card:hover,
@@ -54,11 +55,6 @@
   width: 100%;
   height: 100%;
   object-fit: cover;
-  transition: transform 0.9s var(--ease);
-}
-
-.card:hover .img {
-  transform: scale(1.04);
 }
 
 .body {
@@ -185,8 +181,55 @@
   }
 }
 
-@media (prefers-reduced-motion: reduce) {
+/* ----------------------------------------------------------------- hover */
+
+/* The card rises, an accent rule draws along its top, and the photo leans in
+   as a band of light crosses it. Hover-capable pointers only, so a tap never
+   leaves a card stuck mid-hover; keyboard focus draws the rule too. Under
+   reduced motion nothing moves and the border still turns. */
+.card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 1;
+  height: 2px;
+  background: var(--accent);
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform 0.6s var(--ease-out);
+  pointer-events: none;
+}
+
+.card:has(.cta:focus-visible)::before {
+  transform: scaleX(1);
+}
+
+.media::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(105deg, transparent 30%, rgba(255, 255, 255, 0.28) 50%, transparent 70%);
+  translate: -100% 0;
+  pointer-events: none;
+}
+
+@media (hover: hover) {
+  .card:hover::before {
+    transform: scaleX(1);
+  }
+}
+
+@media (hover: hover) and (prefers-reduced-motion: no-preference) {
+  .card:hover {
+    transform: translateY(-6px);
+  }
   .card:hover .img {
-    transform: none;
+    --zoom: 1.05;
+  }
+  .card:hover .media::after {
+    translate: 100% 0;
+    transition: translate 1.1s var(--ease-out);
   }
 }

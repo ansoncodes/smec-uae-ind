@@ -11,7 +11,7 @@ import { usePathname } from 'next/navigation';
  *
  *   data-reveal="up|fade|mask|line|scale"  — enters when scrolled into view
  *   data-reveal-delay="120"                 — stagger, in ms
- *   data-parallax="0.12"                    — sets --p (-1…1) while on screen
+ *   data-parallax                           — sets --p (-1…1) while on screen
  *
  * One IntersectionObserver and one rAF-throttled scroll pass drive the lot,
  * so adding motion to a section costs no extra listener and no extra bundle.
@@ -92,13 +92,17 @@ export default function MotionRoot() {
     const measure = () => {
       frame = 0;
       const vh = window.innerHeight;
-      for (const el of nodes) {
+      // Every read before any write: a write between two reads would make
+      // the second one wait for a fresh style pass, once per photo.
+      const progress = nodes.map((el) => {
         const rect = el.getBoundingClientRect();
-        if (rect.bottom < -200 || rect.top > vh + 200) continue;
+        if (rect.bottom < -200 || rect.top > vh + 200) return null;
         // -1 when the element sits below the fold, 1 when it has passed above.
-        const progress = (vh / 2 - (rect.top + rect.height / 2)) / (vh / 2 + rect.height / 2);
-        el.style.setProperty('--p', progress.toFixed(4));
-      }
+        return (vh / 2 - (rect.top + rect.height / 2)) / (vh / 2 + rect.height / 2);
+      });
+      progress.forEach((value, i) => {
+        if (value !== null) nodes[i].style.setProperty('--p', value.toFixed(4));
+      });
     };
 
     const onScroll = () => {

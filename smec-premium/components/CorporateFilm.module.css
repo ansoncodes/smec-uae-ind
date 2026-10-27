@@ -75,16 +75,16 @@
   cursor: pointer;
 }
 
+/* The poster drifts with the scroll (.drift in globals.css) and leans in on
+   hover; neither moves under reduced motion. */
 .posterImg {
   width: 100%;
   height: 100%;
   object-fit: cover;
-  transform: scale(1.001);
-  transition: transform 1.2s var(--ease);
 }
 
 .poster:hover .posterImg {
-  transform: scale(1.045);
+  --zoom: 1.045;
 }
 
 /* Dark enough that the poster's own lettering recedes behind the film's

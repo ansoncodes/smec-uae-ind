@@ -88,6 +88,12 @@ export const Play = ({ className }: P) => (
   </svg>
 );
 
+export const Pause = ({ className }: P) => (
+  <svg className={className} width="16" height="16" viewBox="0 0 16 16" {...base}>
+    <path d="M5.5 3.5v9M10.5 3.5v9" />
+  </svg>
+);
+
 export const Shield = ({ className }: P) => (
   <svg className={className} width="20" height="20" viewBox="0 0 20 20" {...base}>
     <path d="M10 2.5 16 5v5c0 3.4-2.4 6.3-6 7.5-3.6-1.2-6-4.1-6-7.5V5Z" />

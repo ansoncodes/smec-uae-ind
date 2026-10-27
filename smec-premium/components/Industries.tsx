@@ -41,14 +41,14 @@ export default function Industries() {
           {cards.map((card, i) => (
             <li key={card.num} data-reveal="up" data-reveal-delay={(i % 3) * 80}>
               <article className={styles.card}>
-                <div className={styles.media}>
+                <div className={styles.media} data-parallax>
                   <Image
                     src={card.image.src}
                     alt={card.image.alt}
                     width={card.image.width}
                     height={card.image.height}
                     sizes="(max-width: 640px) 92vw, (max-width: 1000px) 46vw, 30vw"
-                    className={styles.img}
+                    className={`${styles.img} drift`}
                     loading="lazy"
                   />
                   <span className={styles.num} aria-hidden="true">

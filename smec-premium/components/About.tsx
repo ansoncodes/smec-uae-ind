@@ -57,14 +57,14 @@ export default function About() {
           {bases.map((base, i) => (
             <li key={base.num} data-reveal="up" data-reveal-delay={i * 90}>
               <article className={styles.base}>
-                <div className={styles.media}>
+                <div className={styles.media} data-parallax>
                   <Image
                     src={base.image.src}
                     alt={base.image.alt}
                     width={base.image.width}
                     height={base.image.height}
                     sizes="(max-width: 900px) 92vw, 44vw"
-                    className={styles.img}
+                    className={`${styles.img} drift`}
                     loading="lazy"
                   />
                 </div>
