@@ -291,3 +291,189 @@
     transform: none;
   }
 }
+
+/* ---------------------------------------------------------------- panels */
+
+/* On a wide screen with a mouse the six cards become photographic panels
+   side by side, as on the premium build. The panel under the pointer, or
+   holding keyboard focus, opens to about two and a half shares of the row
+   and shows her focus line, text and link; the others close up and recede.
+   IndustryPanels sets --k (the open panel) and --o (1 while one is open);
+   each panel carries its own index as --i.
+
+   Nothing here changes layout. Every panel keeps the same box, a full open
+   panel wide, and the opening is drawn with translate and clip-path, which
+   move pixels without moving boxes. The premium build widened its panels
+   with flex-grow instead, which shifted the page by 0.05 to 0.11 per hover,
+   and a hover is not input, so every bit of that counted towards CLS. */
+@media (min-width: 1080px) and (hover: hover) and (prefers-reduced-motion: no-preference) {
+  .grid {
+    --g: 6px;
+    --pad: clamp(18px, 1.6vw, 26px);
+    /* The row less its gaps; a closed panel's share, an open one's, and
+       what each of the other five keeps while one is open. */
+    --row: calc(100cqw - 5 * var(--g));
+    --w0: calc(var(--row) / 6);
+    --e: calc(var(--row) * 0.388);
+    --s: calc((var(--row) - var(--e)) / 5);
+    position: relative;
+    display: block;
+    height: clamp(470px, 38vw, 560px);
+    container-type: inline-size;
+  }
+
+  .grid > li {
+    /* 1 on the open panel, and 1 on every panel after it. */
+    --mine: calc(var(--o) * (1 - clamp(0, var(--i) - var(--k), 1) - clamp(0, var(--k) - var(--i), 1)));
+    --after: clamp(0, var(--i) - var(--k), 1);
+    /* How wide it shows, where that starts, and how much of the full-width
+       box is trimmed off each side to show it. */
+    --w: calc(var(--w0) + var(--o) * (var(--s) - var(--w0)) + var(--mine) * (var(--e) - var(--s)));
+    --left: calc(var(--i) * (var(--w0) + var(--g)) + var(--o) * (var(--i) * (var(--s) - var(--w0)) + var(--after) * (var(--e) - var(--s))));
+    --trim: calc((var(--e) - var(--w)) / 2);
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    width: var(--e);
+    /* Only the visible part of a panel takes the pointer. */
+    pointer-events: none;
+  }
+
+  .grid .card {
+    position: absolute;
+    inset: 0;
+    justify-content: flex-end;
+    height: auto;
+    border: 0;
+    border-radius: 0;
+    background: var(--ink);
+    color: var(--white);
+    pointer-events: auto;
+    translate: calc(var(--left) - var(--trim)) 0;
+    clip-path: inset(0 var(--trim) round var(--radius));
+    transition: translate 0.75s var(--ease), clip-path 0.75s var(--ease);
+  }
+
+  .grid .card:hover,
+  .grid .card:focus-within {
+    transform: none;
+    box-shadow: none;
+  }
+
+  /* The photograph fills the whole box behind the text, in grey until its
+     panel opens; the panel's own stacking context keeps it underneath. */
+  .grid .media {
+    position: absolute;
+    inset: 0;
+    z-index: -1;
+    aspect-ratio: auto;
+    background: var(--ink);
+  }
+
+  .grid .card .img {
+    --zoom: calc(1.06 - 0.06 * var(--mine));
+    filter: grayscale(calc(0.55 - 0.55 * var(--mine))) contrast(calc(1.05 - 0.05 * var(--mine)));
+    transition: scale 1.4s var(--ease), filter 0.8s var(--ease);
+  }
+
+  .grid .card .media::after,
+  .grid .card:hover .media::after {
+    translate: none;
+    background: linear-gradient(
+      to top,
+      rgba(5, 7, 9, 0.93) 0%,
+      rgba(5, 7, 9, 0.6) 42%,
+      rgba(5, 7, 9, 0.28) 100%
+    );
+    opacity: calc(1 - 0.14 * var(--mine));
+    transition: opacity 0.7s var(--ease);
+  }
+
+  .grid .card .num,
+  .grid .card:hover .num {
+    top: var(--pad);
+    left: var(--pad);
+    z-index: 1;
+    padding: 0;
+    background: none;
+    letter-spacing: 0.22em;
+    color: rgba(255, 255, 255, 0.55);
+    translate: var(--trim) 0;
+    transition: translate 0.75s var(--ease), color 0.5s var(--ease);
+  }
+
+  .grid .card:hover .num,
+  .grid .card:focus-within .num {
+    color: var(--accent-on-dark);
+  }
+
+  /* The closed panel's caption: her title from data-label, sized for a closed
+     panel and shrunk a little while another is open. The empty alternative
+     keeps a screen reader from hearing the title twice. */
+  .grid .card::after {
+    content: attr(data-label) / '';
+    position: absolute;
+    left: var(--pad);
+    bottom: var(--pad);
+    width: calc(var(--w0) - 2 * var(--pad));
+    font-family: var(--font-display);
+    font-size: clamp(16px, 1.25vw, 19px);
+    font-weight: 500;
+    line-height: 1.18;
+    letter-spacing: -0.02em;
+    text-wrap: balance;
+    color: var(--white);
+    translate: var(--trim) 0;
+    scale: calc(1 - 0.3 * (var(--o) - var(--mine)));
+    transform-origin: left bottom;
+    opacity: calc(1 - var(--mine));
+    pointer-events: none;
+    transition: translate 0.75s var(--ease), scale 0.75s var(--ease), opacity 0.3s var(--ease);
+  }
+
+  /* The open panel's text: laid out once at the open width, so opening and
+     closing only fades it and lifts it into place. The link is not moved:
+     a transformed link would hold its own stretched target to its own box. */
+  .grid .body {
+    flex: none;
+    padding: var(--pad);
+    opacity: var(--mine);
+    transition: opacity 0.45s var(--ease) calc(0.15s * var(--mine));
+  }
+
+  .grid .name,
+  .grid .focus,
+  .grid .text {
+    translate: 0 calc(14px - 14px * var(--mine));
+    transition: translate 0.6s var(--ease) calc(0.1s * var(--mine));
+  }
+
+  .grid .name {
+    max-width: 22ch;
+    font-family: var(--font-display);
+    font-size: clamp(21px, 1.8vw, 27px);
+    line-height: 1.15;
+    letter-spacing: -0.02em;
+    color: var(--white);
+  }
+
+  .grid .focus {
+    max-width: 44ch;
+    color: var(--accent-on-dark);
+  }
+
+  .grid .text {
+    max-width: 46ch;
+    color: var(--steel-100);
+  }
+
+  .grid .cta {
+    color: var(--white);
+  }
+
+  .grid .cta:focus-visible {
+    outline: 2px solid var(--accent-on-dark);
+    outline-offset: 4px;
+  }
+}

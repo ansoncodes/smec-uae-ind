@@ -282,43 +282,62 @@ export default function SystemFeature() {
                 </article>
               ))}
             </div>
+          </div>
 
-            {/* ------------------------------------------------ controls */}
-            <div className={styles.controls}>
-              <p className={styles.controlsHint} id="systems-rail-label">
-                Switch system
-              </p>
-              {/* Swiping the rail on a phone is reading it, so the slideshow
-                  stops rather than scroll it back from under the finger. */}
-              <div
-                ref={tabsRef}
-                className={styles.rail}
-                role="tablist"
-                aria-labelledby="systems-rail-label"
-                onKeyDown={onKeyDown}
-                onAnimationEnd={onFillEnd}
-                onPointerDown={(event) => {
-                  if (event.pointerType === 'touch') setPlaying(false);
-                }}
-              >
-                {slides.map((slide, i) => (
-                  <button
-                    key={slide.title}
-                    type="button"
-                    role="tab"
-                    id={`system-tab-${i}`}
-                    aria-selected={i === active}
-                    aria-controls={`system-panel-${i}`}
-                    tabIndex={i === active ? 0 : -1}
-                    className={styles.railItem}
-                    data-on={i === active ? 'true' : undefined}
-                    onClick={() => choose(i)}
-                  >
-                    <span className={styles.railBar} />
-                    <span className={styles.railName}>{slide.title}</span>
-                  </button>
-                ))}
-              </div>
+          {/* ------------------------------------------------ controls */}
+          {/* Her eight systems as a strip of photographs on white plates, the
+              way the premium build's product grid shows them: the slide
+              indicators, and the way to pick one. */}
+          <div className={styles.controls}>
+            <p className={styles.controlsHint} id="systems-rail-label">
+              Switch system
+            </p>
+            {/* Swiping the rail on a phone is reading it, so the slideshow
+                stops rather than scroll it back from under the finger. */}
+            <div
+              ref={tabsRef}
+              className={styles.rail}
+              role="tablist"
+              aria-labelledby="systems-rail-label"
+              onKeyDown={onKeyDown}
+              onAnimationEnd={onFillEnd}
+              onPointerDown={(event) => {
+                if (event.pointerType === 'touch') setPlaying(false);
+              }}
+            >
+              {slides.map((slide, i) => (
+                <button
+                  key={slide.title}
+                  type="button"
+                  role="tab"
+                  id={`system-tab-${i}`}
+                  aria-selected={i === active}
+                  aria-controls={`system-panel-${i}`}
+                  tabIndex={i === active ? 0 : -1}
+                  className={styles.railItem}
+                  data-on={i === active ? 'true' : undefined}
+                  onClick={() => choose(i)}
+                >
+                  {/* The name below labels the tab; the photograph is the
+                      same one the stage shows, so it stays silent. */}
+                  <span className={styles.railPlate}>
+                    <Image
+                      src={slide.image.src}
+                      alt=""
+                      width={slide.image.width}
+                      height={slide.image.height}
+                      sizes="(max-width: 1099px) 140px, 11vw"
+                      className={styles.railImg}
+                      loading="lazy"
+                    />
+                    <span className={styles.railNum} aria-hidden="true">
+                      {pad(i + 1)}
+                    </span>
+                  </span>
+                  <span className={styles.railBar} />
+                  <span className={styles.railName}>{slide.title}</span>
+                </button>
+              ))}
             </div>
           </div>
         </div>

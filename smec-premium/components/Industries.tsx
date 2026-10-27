@@ -1,12 +1,19 @@
 import Image from 'next/image';
 import { INDUSTRIES_COPY } from '@/lib/homepage';
 import { ArrowRight } from './Icons';
+import IndustryPanels from './IndustryPanels';
 import styles from './Industries.module.css';
 
 /**
- * Industries & Markets — her six-card industry grid (image 16), each card a
- * link to its own industry page rather than a jump within this one, then the
- * value-chain block and the two calls to action from her text.
+ * Industries & Markets — her six industries, each a link to its own industry
+ * page rather than a jump within this one, then the value-chain block and
+ * the two calls to action from her text.
+ *
+ * On a wide screen with a mouse the six are photographic panels side by
+ * side, and the one under the pointer or holding keyboard focus opens to
+ * show her focus line, text and link (see the stylesheet). On touch, narrow
+ * screens and under reduced motion they are image 16's cards, with every
+ * word on show. Either way all of it is in the HTML.
  */
 export default function Industries() {
   const { label, title, subtitle, intro, cards, valueChain, viewAll, rfq } = INDUSTRIES_COPY;
@@ -37,17 +44,24 @@ export default function Industries() {
           </div>
         </div>
 
-        <ul className={styles.grid}>
+        <IndustryPanels className={styles.grid}>
           {cards.map((card, i) => (
-            <li key={card.num} data-reveal="up" data-reveal-delay={(i % 3) * 80}>
-              <article className={styles.card}>
+            <li
+              key={card.num}
+              style={{ '--i': i } as React.CSSProperties}
+              data-reveal="up"
+              data-reveal-delay={(i % 3) * 80}
+            >
+              {/* data-label is the closed panel's caption, drawn by CSS so
+                  the title is not in the page twice. */}
+              <article className={styles.card} data-label={card.title}>
                 <div className={styles.media} data-parallax>
                   <Image
                     src={card.image.src}
                     alt={card.image.alt}
                     width={card.image.width}
                     height={card.image.height}
-                    sizes="(max-width: 640px) 92vw, (max-width: 1000px) 46vw, 30vw"
+                    sizes="(max-width: 640px) 92vw, (max-width: 1000px) 46vw, 36vw"
                     className={`${styles.img} drift`}
                     loading="lazy"
                   />
@@ -67,7 +81,7 @@ export default function Industries() {
               </article>
             </li>
           ))}
-        </ul>
+        </IndustryPanels>
 
         {/* ------------------------------------------------ value chain */}
         <div className={styles.chain} data-reveal="up">

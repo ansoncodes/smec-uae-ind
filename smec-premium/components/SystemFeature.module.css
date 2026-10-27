@@ -51,7 +51,7 @@
 .inner {
   display: grid;
   grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
-  gap: clamp(30px, 5vw, 84px);
+  gap: clamp(24px, 3vw, 40px) clamp(30px, 5vw, 84px);
   align-items: start;
 }
 
@@ -282,11 +282,12 @@
 
 /* ------------------------------------------------------------- controls */
 
+/* Under the stage and the copy, across both. */
 .controls {
+  grid-column: 1 / -1;
   display: grid;
   gap: 12px;
   min-width: 0;
-  margin-top: clamp(24px, 3vw, 38px);
   padding-top: 20px;
   border-top: 1px solid var(--ink-hair);
 }
@@ -302,25 +303,85 @@
 
 /* --------------------------------------------------------------- rail */
 
-/* Eight systems: two rows of four, each a bar and a name up to two lines. */
+/* Eight systems in one row, each a white plate with its photograph, the
+   slideshow's bar and a name up to two lines — the premium build's product
+   grid, at the size of a strip. */
 .rail {
   display: grid;
-  grid-template-columns: repeat(4, minmax(0, 1fr));
-  gap: 14px 12px;
+  grid-template-columns: repeat(8, minmax(0, 1fr));
+  gap: 12px;
   min-width: 0;
 }
 
+/* A column from the top: a button centres its content, which dropped the
+   plate of any system whose name fits on one line. */
 .railItem {
+  display: flex;
+  flex-direction: column;
   min-width: 0;
   min-height: 44px;
   text-align: left;
   padding: 0;
 }
 
+/* The cut-outs are shot on white, so they sit on a flat white plate. The
+   ones not on show stand back until pointed at. */
+.railPlate {
+  position: relative;
+  display: block;
+  overflow: hidden;
+  aspect-ratio: 4 / 3;
+  border: 1px solid var(--ink-hair);
+  border-radius: var(--radius);
+  background: #ffffff;
+  opacity: 0.62;
+  transition: border-color 0.4s var(--ease), opacity 0.4s var(--ease), translate 0.5s var(--ease);
+}
+
+.railItem[data-on='true'] .railPlate {
+  border-color: var(--accent);
+  opacity: 1;
+}
+
+.railImg {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  padding: 10px 10px 8px;
+  transition: scale 1.1s var(--ease);
+}
+
+.railNum {
+  position: absolute;
+  top: 6px;
+  left: 8px;
+  font-family: var(--font-mono);
+  font-size: 12px;
+  letter-spacing: 0.16em;
+  color: rgba(10, 12, 15, 0.45);
+}
+
+@media (hover: hover) {
+  .railItem:hover .railPlate {
+    border-color: var(--accent);
+    opacity: 1;
+  }
+}
+
+@media (hover: hover) and (prefers-reduced-motion: no-preference) {
+  .railItem:hover .railPlate {
+    translate: 0 -4px;
+  }
+  .railItem:hover .railImg {
+    scale: 1.06;
+  }
+}
+
 .railBar {
   position: relative;
   display: block;
   height: 2px;
+  margin-top: 10px;
   overflow: hidden;
   background: rgba(255, 255, 255, 0.16);
   transition: background 0.4s var(--ease);
@@ -443,17 +504,18 @@
   }
 }
 
-@media (max-width: 620px) {
-  /* The rail scrolls sideways rather than squeezing eight names into
-     something unreadable. min-width:0 keeps that scroll inside the column
-     instead of widening the page. */
+@media (max-width: 1099px) {
+  /* The strip scrolls sideways rather than squeezing eight plates into
+     something too small to read. min-width:0 keeps that scroll inside the
+     column instead of widening the page; the top padding leaves room for a
+     pointed-at plate to rise. */
   .rail {
     display: flex;
     gap: 12px;
     width: 100%;
     min-width: 0;
     overflow-x: auto;
-    padding-bottom: 4px;
+    padding: 6px 0 4px;
     scrollbar-width: none;
     -webkit-overflow-scrolling: touch;
   }
@@ -463,6 +525,9 @@
   .railItem {
     flex: 0 0 140px;
   }
+}
+
+@media (max-width: 620px) {
   /* The section label is already above; on a phone the count stands alone. */
   .slideKickerRule,
   .slideKickerLabel {
