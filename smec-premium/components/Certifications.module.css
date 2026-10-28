@@ -5,8 +5,10 @@
 
 /* --------------------------------------------------------- tabbed panel */
 
+/* Centred, like the row of marks beneath it. */
 .box {
   max-width: 980px;
+  margin-inline: auto;
   padding: clamp(10px, 1.2vw, 16px);
   border: 1px solid var(--hair);
   border-radius: 12px;
