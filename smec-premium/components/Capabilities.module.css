@@ -11,125 +11,161 @@
   justify-items: start;
 }
 
-/* --------------------------------------------------------------- layout */
+/* -------------------------------------------------------------- showcase */
 
-/* The frame of photographs on the left, the numbered list on the right.
-   ActiveIndex sets --a, the row the reader is on; each row and each
-   photograph carries its own index as --i. */
-.layout {
+/* The six names on the left, the chosen one on the right. */
+.showcase {
   display: grid;
-  grid-template-columns: minmax(0, 0.8fr) minmax(0, 1.2fr);
-  gap: clamp(32px, 5vw, 80px);
-  align-items: start;
+  grid-template-columns: minmax(0, 0.82fr) minmax(0, 1.18fr);
+  gap: clamp(20px, 2.6vw, 40px);
+  align-items: stretch;
 }
 
-/* ---------------------------------------------------------------- frame */
+/* ------------------------------------------------------------------ tabs */
 
-/* It stays in view while the list scrolls past it. */
-.stage {
-  position: sticky;
-  top: calc(var(--header-h-shrunk) + 28px);
+/* Six equal rows down the full height of the panel beside them. */
+.tabs {
+  display: grid;
+  grid-auto-rows: 1fr;
+  gap: 8px;
 }
 
-.frame {
-  position: relative;
-  aspect-ratio: 4 / 5;
-  overflow: hidden;
+/* Each tab reads as something to press: a bordered row that answers the
+   pointer, and the chosen one filled. */
+.tab {
+  display: grid;
+  grid-template-columns: auto minmax(0, 1fr) auto;
+  align-items: center;
+  gap: 16px;
+  min-height: 56px;
+  padding: 14px clamp(16px, 1.6vw, 22px);
+  border: 1px solid var(--hair);
   border-radius: var(--radius-lg);
+  background: var(--paper-raised);
+  text-align: left;
+  color: var(--fg);
+  cursor: pointer;
+  transition: background 0.35s var(--ease), border-color 0.35s var(--ease), color 0.35s var(--ease);
+}
+
+.tabNum {
+  font-family: var(--font-mono);
+  font-size: 13px;
+  letter-spacing: 0.16em;
+  color: var(--accent);
+  transition: color 0.35s var(--ease);
+}
+
+.tabName {
+  font-family: var(--font-display);
+  font-size: clamp(16px, 1.25vw, 19px);
+  font-weight: 500;
+  line-height: 1.25;
+  letter-spacing: -0.015em;
+}
+
+.tabArrow {
+  flex: none;
+  color: var(--fg-dim);
+  transition: transform 0.35s var(--ease), color 0.35s var(--ease);
+}
+
+.tab[data-on='true'] {
+  border-color: var(--ink);
+  background: var(--ink);
+  color: var(--white);
+}
+
+.tab[data-on='true'] .tabNum {
+  color: var(--accent-on-dark);
+}
+
+.tab[data-on='true'] .tabArrow {
+  color: var(--white);
+  transform: translateX(4px);
+}
+
+@media (hover: hover) {
+  .tab:not([data-on='true']):hover {
+    border-color: var(--accent);
+    background: var(--paper);
+  }
+  .tab:not([data-on='true']):hover .tabArrow {
+    color: var(--accent);
+    transform: translateX(4px);
+  }
+}
+
+/* ---------------------------------------------------------------- panels */
+
+/* Every panel in one grid cell, the hidden ones kept in place but invisible,
+   so the area is always as tall as the longest and changing tab moves
+   nothing around it. */
+.panels {
+  display: grid;
+}
+
+.panel {
+  grid-area: 1 / 1;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  border: 1px solid var(--hair);
+  border-radius: var(--radius-lg);
+  background: var(--paper);
+}
+
+.panel[hidden] {
+  display: flex;
+  visibility: hidden;
+}
+
+.media {
+  position: relative;
+  overflow: hidden;
+  aspect-ratio: 2 / 1;
   background: var(--paper-sunk);
 }
 
-/* Every photograph is in the frame; the one for the reader's row shows. */
-.shot {
-  --mine: calc(1 - clamp(0, var(--i) - var(--a), 1) - clamp(0, var(--a) - var(--i), 1));
-  position: absolute;
-  inset: 0;
-  opacity: var(--mine);
-  transition: opacity 0.6s var(--ease);
-}
-
-.shotImg {
+.img {
   width: 100%;
   height: 100%;
   object-fit: cover;
 }
 
-/* The row's number, large, over a fade at the foot of its photograph. */
-.shot::after {
+/* The tab's number over a fade at the foot of the photograph. */
+.media::after {
   content: '';
   position: absolute;
-  inset: 55% 0 0;
-  background: linear-gradient(to top, rgba(5, 7, 9, 0.72), rgba(5, 7, 9, 0));
+  inset: 50% 0 0;
+  background: linear-gradient(to top, rgba(5, 7, 9, 0.66), rgba(5, 7, 9, 0));
   pointer-events: none;
 }
 
-.shotNum {
+.mediaNum {
   position: absolute;
-  left: clamp(20px, 2vw, 30px);
-  bottom: clamp(14px, 1.6vw, 24px);
+  left: clamp(18px, 2vw, 28px);
+  bottom: clamp(12px, 1.4vw, 20px);
   z-index: 1;
   font-family: var(--font-display);
-  font-size: clamp(56px, 6vw, 92px);
+  font-size: clamp(40px, 4.2vw, 64px);
   font-weight: 500;
   line-height: 1;
   letter-spacing: -0.04em;
   color: var(--white);
 }
 
-/* ----------------------------------------------------------------- list */
-
-.list {
-  border-top: 1px solid var(--hair);
+.mediaCount {
+  font-size: 0.36em;
+  letter-spacing: 0.04em;
+  color: rgba(255, 255, 255, 0.7);
 }
 
-.row {
-  --mine: calc(1 - clamp(0, var(--i) - var(--a), 1) - clamp(0, var(--a) - var(--i), 1));
-  border-bottom: 1px solid var(--hair);
-}
-
-/* Number, then the copy; the whole row answers a click. */
-.item {
-  position: relative;
-  display: grid;
-  grid-template-columns: clamp(48px, 5vw, 76px) minmax(0, 1fr);
-  gap: 0 clamp(14px, 2vw, 28px);
-  padding: clamp(24px, 2.6vw, 34px) clamp(10px, 1.4vw, 20px) clamp(24px, 2.6vw, 34px) 0;
-  transition: background 0.4s var(--ease);
-}
-
-/* An accent rule down the left edge marks the row the frame is showing. */
-.item::before {
-  content: '';
-  position: absolute;
-  top: -1px;
-  bottom: -1px;
-  left: calc(-1 * clamp(10px, 1.4vw, 20px));
-  width: 2px;
-  background: var(--accent);
-  transform: scaleY(var(--mine));
-  transform-origin: top;
-  transition: transform 0.5s var(--ease-out);
-}
-
-/* On a phone the row's own photograph stands beside its copy. */
-.thumb {
-  display: none;
-}
-
-.num {
-  padding-top: 6px;
-  font-family: var(--font-mono);
-  font-size: 13px;
-  letter-spacing: 0.16em;
-  color: color-mix(in srgb, var(--accent) calc(var(--mine) * 100%), var(--fg-dim));
-  transition: color 0.4s var(--ease);
-}
-
-.copy {
+.body {
   display: flex;
   flex-direction: column;
   align-items: flex-start;
-  min-width: 0;
+  padding: clamp(20px, 2.2vw, 32px);
 }
 
 .title {
@@ -149,7 +185,7 @@
 
 .text {
   margin: 8px 0 0;
-  max-width: 62ch;
+  max-width: 64ch;
   font-size: var(--fs-sm);
   line-height: 1.65;
   color: var(--fg-muted);
@@ -168,26 +204,27 @@
   margin-top: 18px;
 }
 
-/* The link is the row's one target; this stretches it over the row. */
-.cta::after {
-  content: '';
-  position: absolute;
-  inset: 0;
+/* A new panel comes in: the photograph settles from a slight zoom and the
+   text rises into place. */
+.panel[data-on='true'] .media {
+  animation: photoIn 0.8s var(--ease-out) both;
 }
 
-.cta:focus-visible {
-  outline: none;
+.panel[data-on='true'] .body {
+  animation: textIn 0.5s var(--ease-out) 0.08s both;
 }
 
-.item:has(.cta:focus-visible) {
-  outline: 2px solid var(--accent);
-  outline-offset: 2px;
-  border-radius: var(--radius);
+@keyframes photoIn {
+  from {
+    opacity: 0;
+    transform: scale(1.04);
+  }
 }
 
-@media (hover: hover) {
-  .item:hover {
-    background: var(--paper);
+@keyframes textIn {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
   }
 }
 
@@ -223,38 +260,51 @@
 
 /* ------------------------------------------------------------ responsive */
 
-/* Below the width where the frame and the list sit comfortably side by side,
-   the frame goes and each row shows its own photograph. */
-@media (max-width: 999px) {
-  .layout {
+/* One column: the names become a row that scrolls sideways above the panel,
+   as in the systems slider, so the panel they change stays in view. */
+@media (max-width: 900px) {
+  .showcase {
     grid-template-columns: 1fr;
   }
-  .stage {
+  .tabs {
+    display: flex;
+    gap: 8px;
+    min-width: 0;
+    overflow-x: auto;
+    padding-bottom: 4px;
+    scrollbar-width: none;
+    -webkit-overflow-scrolling: touch;
+  }
+  .tabs::-webkit-scrollbar {
     display: none;
   }
-  .item {
-    grid-template-columns: clamp(84px, 22vw, 140px) minmax(0, 1fr);
-    gap: 8px clamp(14px, 3vw, 24px);
-    padding-right: 0;
+  .tab {
+    flex: 0 0 auto;
+    width: min(64vw, 240px);
+    grid-template-columns: auto minmax(0, 1fr);
+    gap: 10px;
+    padding: 12px 14px;
   }
-  .item::before {
-    left: -8px;
+  .tabArrow {
+    display: none;
   }
-  .thumb {
-    display: block;
-    grid-row: 1 / span 2;
-    align-self: start;
-    overflow: hidden;
-    aspect-ratio: 1;
-    border-radius: var(--radius);
-    background: var(--paper-sunk);
+  .tabName {
+    font-size: 15px;
   }
-  .thumbImg {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
+  .media {
+    aspect-ratio: 16 / 10;
   }
-  .num {
-    padding-top: 0;
+  /* Nothing sits beside the panel here, so it takes its own height rather
+     than the longest one's, which left a short panel with an empty foot.
+     A tap is input, so what moves below it is not a layout shift. */
+  .panel[hidden] {
+    display: none;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .panel[data-on='true'] .media,
+  .panel[data-on='true'] .body {
+    animation: none;
   }
 }
