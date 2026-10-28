@@ -1,7 +1,7 @@
 import Image from 'next/image';
 import { INDUSTRIES_COPY } from '@/lib/homepage';
 import { ArrowRight } from './Icons';
-import IndustryPanels from './IndustryPanels';
+import ActiveIndex from './ActiveIndex';
 import styles from './Industries.module.css';
 
 /**
@@ -44,10 +44,11 @@ export default function Industries() {
           </div>
         </div>
 
-        <IndustryPanels className={styles.grid}>
+        <ActiveIndex as="ul" className={styles.grid}>
           {cards.map((card, i) => (
             <li
               key={card.num}
+              data-index={i}
               style={{ '--i': i } as React.CSSProperties}
               data-reveal="up"
               data-reveal-delay={(i % 3) * 80}
@@ -81,7 +82,7 @@ export default function Industries() {
               </article>
             </li>
           ))}
-        </IndustryPanels>
+        </ActiveIndex>
 
         {/* ------------------------------------------------ value chain */}
         <div className={styles.chain} data-reveal="up">

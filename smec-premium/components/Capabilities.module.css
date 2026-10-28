@@ -11,85 +11,147 @@
   justify-items: start;
 }
 
-/* ----------------------------------------------------------------- cards */
+/* --------------------------------------------------------------- layout */
 
-.grid {
+/* The frame of photographs on the left, the numbered list on the right.
+   ActiveIndex sets --a, the row the reader is on; each row and each
+   photograph carries its own index as --i. */
+.layout {
   display: grid;
-  grid-template-columns: repeat(2, minmax(0, 1fr));
-  gap: clamp(14px, 1.6vw, 22px);
+  grid-template-columns: minmax(0, 0.8fr) minmax(0, 1.2fr);
+  gap: clamp(32px, 5vw, 80px);
+  align-items: start;
 }
 
-.grid > li {
-  min-width: 0;
+/* ---------------------------------------------------------------- frame */
+
+/* It stays in view while the list scrolls past it. */
+.stage {
+  position: sticky;
+  top: calc(var(--header-h-shrunk) + 28px);
 }
 
-/* Photo on the left, copy on the right — images 11–12 — at every width. */
-.card {
+.frame {
   position: relative;
-  display: grid;
-  grid-template-columns: minmax(0, 0.42fr) minmax(0, 1fr);
-  height: 100%;
+  aspect-ratio: 4 / 5;
   overflow: hidden;
-  border: 1px solid var(--hair);
   border-radius: var(--radius-lg);
-  background: var(--paper);
-  transition: border-color 0.4s var(--ease), box-shadow 0.4s var(--ease),
-    transform 0.4s var(--ease);
-}
-
-.card:hover,
-.card:focus-within {
-  border-color: var(--accent);
-  box-shadow: 0 16px 40px rgba(10, 12, 15, 0.08);
-}
-
-.media {
-  position: relative;
-  overflow: hidden;
   background: var(--paper-sunk);
 }
 
-.img {
+/* Every photograph is in the frame; the one for the reader's row shows. */
+.shot {
+  --mine: calc(1 - clamp(0, var(--i) - var(--a), 1) - clamp(0, var(--a) - var(--i), 1));
   position: absolute;
   inset: 0;
+  opacity: var(--mine);
+  transition: opacity 0.6s var(--ease);
+}
+
+.shotImg {
   width: 100%;
   height: 100%;
   object-fit: cover;
 }
 
-.body {
-  display: flex;
-  flex-direction: column;
-  align-items: flex-start;
-  padding: clamp(18px, 2vw, 30px);
+/* The row's number, large, over a fade at the foot of its photograph. */
+.shot::after {
+  content: '';
+  position: absolute;
+  inset: 55% 0 0;
+  background: linear-gradient(to top, rgba(5, 7, 9, 0.72), rgba(5, 7, 9, 0));
+  pointer-events: none;
+}
+
+.shotNum {
+  position: absolute;
+  left: clamp(20px, 2vw, 30px);
+  bottom: clamp(14px, 1.6vw, 24px);
+  z-index: 1;
+  font-family: var(--font-display);
+  font-size: clamp(56px, 6vw, 92px);
+  font-weight: 500;
+  line-height: 1;
+  letter-spacing: -0.04em;
+  color: var(--white);
+}
+
+/* ----------------------------------------------------------------- list */
+
+.list {
+  border-top: 1px solid var(--hair);
+}
+
+.row {
+  --mine: calc(1 - clamp(0, var(--i) - var(--a), 1) - clamp(0, var(--a) - var(--i), 1));
+  border-bottom: 1px solid var(--hair);
+}
+
+/* Number, then the copy; the whole row answers a click. */
+.item {
+  position: relative;
+  display: grid;
+  grid-template-columns: clamp(48px, 5vw, 76px) minmax(0, 1fr);
+  gap: 0 clamp(14px, 2vw, 28px);
+  padding: clamp(24px, 2.6vw, 34px) clamp(10px, 1.4vw, 20px) clamp(24px, 2.6vw, 34px) 0;
+  transition: background 0.4s var(--ease);
+}
+
+/* An accent rule down the left edge marks the row the frame is showing. */
+.item::before {
+  content: '';
+  position: absolute;
+  top: -1px;
+  bottom: -1px;
+  left: calc(-1 * clamp(10px, 1.4vw, 20px));
+  width: 2px;
+  background: var(--accent);
+  transform: scaleY(var(--mine));
+  transform-origin: top;
+  transition: transform 0.5s var(--ease-out);
+}
+
+/* On a phone the row's own photograph stands beside its copy. */
+.thumb {
+  display: none;
 }
 
 .num {
-  margin-bottom: 10px;
+  padding-top: 6px;
   font-family: var(--font-mono);
-  font-size: 12px;
+  font-size: 13px;
   letter-spacing: 0.16em;
-  color: var(--accent);
+  color: color-mix(in srgb, var(--accent) calc(var(--mine) * 100%), var(--fg-dim));
+  transition: color 0.4s var(--ease);
+}
+
+.copy {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  min-width: 0;
 }
 
 .title {
-  font-size: var(--fs-h4);
+  font-size: var(--fs-h3);
   font-weight: 500;
-  letter-spacing: -0.015em;
-  line-height: 1.25;
+  letter-spacing: -0.025em;
+  line-height: 1.15;
 }
 
 .tagline {
-  margin: 8px 0 0;
-  font-size: var(--fs-sm);
+  margin: 10px 0 0;
+  font-size: var(--fs-body);
   font-weight: 500;
+  line-height: 1.45;
   color: var(--fg);
 }
 
 .text {
-  margin: 10px 0 0;
+  margin: 8px 0 0;
+  max-width: 62ch;
   font-size: var(--fs-sm);
-  line-height: 1.62;
+  line-height: 1.65;
   color: var(--fg-muted);
 }
 
@@ -103,11 +165,10 @@
 }
 
 .cta {
-  margin-top: auto;
-  padding-top: 18px;
+  margin-top: 18px;
 }
 
-/* The link is the card's one target; this stretches it over the card. */
+/* The link is the row's one target; this stretches it over the row. */
 .cta::after {
   content: '';
   position: absolute;
@@ -118,9 +179,16 @@
   outline: none;
 }
 
-.card:has(.cta:focus-visible) {
+.item:has(.cta:focus-visible) {
   outline: 2px solid var(--accent);
-  outline-offset: 3px;
+  outline-offset: 2px;
+  border-radius: var(--radius);
+}
+
+@media (hover: hover) {
+  .item:hover {
+    background: var(--paper);
+  }
 }
 
 /* ---------------------------------------------------------------- prompt */
@@ -155,81 +223,38 @@
 
 /* ------------------------------------------------------------ responsive */
 
-@media (max-width: 1100px) {
-  .grid {
+/* Below the width where the frame and the list sit comfortably side by side,
+   the frame goes and each row shows its own photograph. */
+@media (max-width: 999px) {
+  .layout {
     grid-template-columns: 1fr;
   }
-  .card {
-    grid-template-columns: minmax(0, 0.32fr) minmax(0, 1fr);
+  .stage {
+    display: none;
   }
-}
-
-@media (max-width: 560px) {
-  .card {
-    grid-template-columns: 96px minmax(0, 1fr);
+  .item {
+    grid-template-columns: clamp(84px, 22vw, 140px) minmax(0, 1fr);
+    gap: 8px clamp(14px, 3vw, 24px);
+    padding-right: 0;
   }
-  /* A phone shows a square thumbnail at the card's top, not a full-height
-     strip — the copy is long enough that a strip would stretch the photo. */
-  .media {
+  .item::before {
+    left: -8px;
+  }
+  .thumb {
+    display: block;
+    grid-row: 1 / span 2;
     align-self: start;
+    overflow: hidden;
     aspect-ratio: 1;
-    margin: 18px 0 0 16px;
     border-radius: var(--radius);
+    background: var(--paper-sunk);
   }
-  .body {
-    padding: 18px 16px 18px 14px;
+  .thumbImg {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
   }
-}
-
-/* ----------------------------------------------------------------- hover */
-
-/* The card rises, an accent rule draws along its top, and the photo leans in
-   as a band of light crosses it. Hover-capable pointers only, so a tap never
-   leaves a card stuck mid-hover; keyboard focus draws the rule too. Under
-   reduced motion nothing moves and the border still turns. */
-.card::before {
-  content: '';
-  position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  z-index: 1;
-  height: 2px;
-  background: var(--accent);
-  transform: scaleX(0);
-  transform-origin: left;
-  transition: transform 0.6s var(--ease-out);
-  pointer-events: none;
-}
-
-.card:has(.cta:focus-visible)::before {
-  transform: scaleX(1);
-}
-
-.media::after {
-  content: '';
-  position: absolute;
-  inset: 0;
-  background: linear-gradient(105deg, transparent 30%, rgba(255, 255, 255, 0.28) 50%, transparent 70%);
-  translate: -100% 0;
-  pointer-events: none;
-}
-
-@media (hover: hover) {
-  .card:hover::before {
-    transform: scaleX(1);
-  }
-}
-
-@media (hover: hover) and (prefers-reduced-motion: no-preference) {
-  .card:hover {
-    transform: translateY(-6px);
-  }
-  .card:hover .img {
-    --zoom: 1.05;
-  }
-  .card:hover .media::after {
-    translate: 100% 0;
-    transition: translate 1.1s var(--ease-out);
+  .num {
+    padding-top: 0;
   }
 }

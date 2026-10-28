@@ -298,7 +298,7 @@
    side by side, as on the premium build. The panel under the pointer, or
    holding keyboard focus, opens to about two and a half shares of the row
    and shows her focus line, text and link; the others close up and recede.
-   IndustryPanels sets --k (the open panel) and --o (1 while one is open);
+   ActiveIndex sets --a (the open panel) and --o (1 while one is open);
    each panel carries its own index as --i.
 
    Nothing here changes layout. Every panel keeps the same box, a full open
@@ -320,12 +320,15 @@
     display: block;
     height: clamp(470px, 38vw, 560px);
     container-type: inline-size;
+    /* The last panels' full-width boxes reach past the row. Clipping each one
+       to its window does not stop that widening the page; this does. */
+    overflow: clip;
   }
 
   .grid > li {
     /* 1 on the open panel, and 1 on every panel after it. */
-    --mine: calc(var(--o) * (1 - clamp(0, var(--i) - var(--k), 1) - clamp(0, var(--k) - var(--i), 1)));
-    --after: clamp(0, var(--i) - var(--k), 1);
+    --mine: calc(var(--o) * (1 - clamp(0, var(--i) - var(--a), 1) - clamp(0, var(--a) - var(--i), 1)));
+    --after: clamp(0, var(--i) - var(--a), 1);
     /* How wide it shows, where that starts, and how much of the full-width
        box is trimmed off each side to show it. */
     --w: calc(var(--w0) + var(--o) * (var(--s) - var(--w0)) + var(--mine) * (var(--e) - var(--s)));

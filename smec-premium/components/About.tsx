@@ -5,8 +5,10 @@ import styles from './About.module.css';
 
 /**
  * About SMEC — Engineering & Delivery (image 19): the two engineering bases,
- * each with the office it works from, then her four-step delivery sequence as
- * one compact horizontal line beneath them.
+ * each a full photograph of the office it works from with its entity and
+ * text over a dark fade, then her four-step delivery sequence as one
+ * horizontal line, drawn across as it scrolls in, each step lighting up as
+ * the line reaches it.
  */
 export default function About() {
   const {
@@ -63,7 +65,7 @@ export default function About() {
                     alt={base.image.alt}
                     width={base.image.width}
                     height={base.image.height}
-                    sizes="(max-width: 900px) 92vw, 44vw"
+                    sizes="(max-width: 900px) 92vw, 46vw"
                     className={`${styles.img} drift`}
                     loading="lazy"
                   />
@@ -90,17 +92,28 @@ export default function About() {
           <h3 className={styles.blockTitle} data-reveal="up">
             {lifecycleTitle}
           </h3>
-          <ol className={styles.steps}>
-            {lifecycle.map((stage, i) => (
-              <li key={stage.step} className={styles.step} data-reveal="up" data-reveal-delay={i * 90}>
-                <span className={styles.stepIndex} aria-hidden="true">
-                  {String(i + 1).padStart(2, '0')}
-                </span>
-                <span className={styles.stepName}>{stage.step}</span>
-                <span className={styles.stepNote}>{stage.note}</span>
-              </li>
-            ))}
-          </ol>
+          <div className={styles.timeline}>
+            <span className={styles.track} aria-hidden="true">
+              <span className={styles.trackFill} data-reveal="line" />
+            </span>
+            <ol className={styles.steps}>
+              {lifecycle.map((stage, i) => (
+                <li
+                  key={stage.step}
+                  className={styles.step}
+                  data-reveal="up"
+                  data-reveal-delay={250 + i * 380}
+                >
+                  <span className={styles.node} aria-hidden="true" />
+                  <span className={styles.stepIndex} aria-hidden="true">
+                    {String(i + 1).padStart(2, '0')}
+                  </span>
+                  <span className={styles.stepName}>{stage.step}</span>
+                  <span className={styles.stepNote}>{stage.note}</span>
+                </li>
+              ))}
+            </ol>
+          </div>
         </div>
 
         <div className={styles.ctas} data-reveal="up">

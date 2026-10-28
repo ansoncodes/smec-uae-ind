@@ -33,111 +33,104 @@
   color: var(--fg-muted);
 }
 
-/* ----------------------------------------------------------------- cards */
+/* ------------------------------------------------------------------ rows */
 
-/* Two by two, as image 15. */
-.grid {
+/* Image 15's four platforms, one wide row each. */
+.rows {
   display: grid;
-  grid-template-columns: repeat(2, minmax(0, 1fr));
-  gap: clamp(14px, 1.8vw, 26px);
+  gap: clamp(56px, 7vw, 112px);
 }
 
-.grid > li {
-  min-width: 0;
-}
-
-.card {
+.item {
   position: relative;
-  display: flex;
-  flex-direction: column;
-  height: 100%;
+  display: grid;
+  grid-template-columns: minmax(0, 1.12fr) minmax(0, 0.88fr);
+  gap: clamp(28px, 5vw, 84px);
+  align-items: center;
+}
+
+/* The visual and the text change sides from row to row. */
+.row:nth-child(even) .visual {
+  order: 2;
+}
+
+/* The key visuals are dark renders, so each sits in a dark screen with a
+   narrow bezel, and the page around them stays light. */
+.screen {
   overflow: hidden;
-  border: 1px solid var(--hair);
-  border-radius: 10px;
-  background: var(--paper-raised);
-  transition: border-color 0.4s var(--ease), box-shadow 0.4s var(--ease),
-    transform 0.4s var(--ease);
-}
-
-.card:hover,
-.card:focus-within {
-  border-color: var(--accent);
-  box-shadow: 0 18px 44px rgba(10, 12, 15, 0.1);
-}
-
-/* The key visuals are dark renders; they sit edge to edge on a dark ground
-   so the frame never shows a pale seam while one loads. */
-.media {
-  position: relative;
   aspect-ratio: 16 / 9;
-  overflow: hidden;
+  padding: clamp(6px, 0.7vw, 10px);
+  border: 1px solid rgba(10, 12, 15, 0.85);
+  border-radius: 14px;
   background: #0b1530;
+  box-shadow: 0 26px 64px rgba(10, 12, 15, 0.18);
+  transition: border-color 0.6s var(--ease), box-shadow 0.6s var(--ease), scale 0.6s var(--ease);
 }
 
 .img {
   width: 100%;
   height: 100%;
   object-fit: cover;
-  transition: transform 0.9s var(--ease);
+  border-radius: 8px;
 }
 
 .body {
   display: flex;
-  flex: 1;
   flex-direction: column;
   align-items: flex-start;
-  padding: clamp(20px, 2.2vw, 32px);
 }
 
 .num {
   font-family: var(--font-mono);
-  font-size: 12px;
+  font-size: 13px;
   letter-spacing: 0.16em;
   color: var(--accent);
 }
 
 .name {
-  margin-top: 8px;
-  font-size: var(--fs-h3);
+  margin-top: 10px;
+  font-size: clamp(30px, 3.4vw, 48px);
   font-weight: 500;
-  letter-spacing: -0.025em;
+  letter-spacing: -0.035em;
+  line-height: 1.02;
 }
 
 .focus {
-  margin: 4px 0 0;
+  margin: 8px 0 0;
   font-size: var(--fs-sm);
   color: var(--fg-dim);
 }
 
 .tagline {
-  margin: 16px 0 0;
-  font-size: var(--fs-body);
+  margin: 22px 0 0;
+  font-size: var(--fs-lead);
   font-weight: 500;
-  line-height: 1.45;
+  line-height: 1.4;
   color: var(--fg);
 }
 
 .text {
-  margin: 8px 0 0;
+  margin: 10px 0 0;
+  max-width: 54ch;
   font-size: var(--fs-sm);
-  line-height: 1.65;
+  line-height: 1.7;
   color: var(--fg-muted);
 }
 
 .tags {
   --sep-space: 16px;
   row-gap: 2px;
-  margin: 14px 0 0;
+  margin: 16px 0 0;
   font-size: 12.5px;
   line-height: 1.5;
   color: var(--fg-dim);
 }
 
 .cta {
-  margin-top: auto;
-  padding-top: 20px;
+  margin-top: 22px;
 }
 
+/* The link is the row's one target; this stretches it over the row. */
 .cta::after {
   content: '';
   position: absolute;
@@ -148,9 +141,10 @@
   outline: none;
 }
 
-.card:has(.cta:focus-visible) {
+.item:has(.cta:focus-visible) {
   outline: 2px solid var(--accent);
-  outline-offset: 3px;
+  outline-offset: 10px;
+  border-radius: var(--radius-lg);
 }
 
 /* ---------------------------------------------------------------- prompt */
@@ -161,7 +155,7 @@
   align-items: center;
   justify-content: space-between;
   gap: 20px clamp(24px, 4vw, 60px);
-  margin-top: clamp(30px, 3.6vw, 52px);
+  margin-top: clamp(48px, 5.6vw, 84px);
   padding: clamp(22px, 2.6vw, 36px);
   border-radius: var(--radius-lg);
   background: var(--ink);
@@ -184,63 +178,41 @@
   color: var(--steel-300);
 }
 
-@media (max-width: 760px) {
-  .grid {
-    grid-template-columns: 1fr;
+/* ------------------------------------------------------------------ motion */
+
+/* The screen floats against the scroll by up to 22px, and on hover or focus
+   it glows and leans forward. Under reduced motion only the glow remains. */
+@media (prefers-reduced-motion: no-preference) {
+  .screen {
+    translate: 0 calc(clamp(-1, var(--p, 0), 1) * -22px);
   }
 }
 
-/* ----------------------------------------------------------------- hover */
-
-/* The card rises, an accent rule draws along its top, and the render leans
-   in as a band of light crosses it. The renders are designed pieces rather
-   than photographs, so they stay out of the scroll parallax. Hover-capable
-   pointers only, so a tap never leaves a card stuck mid-hover; keyboard
-   focus draws the rule too. Under reduced motion nothing moves and the
-   border still turns. */
-.card::before {
-  content: '';
-  position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  z-index: 1;
-  height: 2px;
-  background: var(--accent);
-  transform: scaleX(0);
-  transform-origin: left;
-  transition: transform 0.6s var(--ease-out);
-  pointer-events: none;
-}
-
-.card:has(.cta:focus-visible)::before {
-  transform: scaleX(1);
-}
-
-.media::after {
-  content: '';
-  position: absolute;
-  inset: 0;
-  background: linear-gradient(105deg, transparent 30%, rgba(255, 255, 255, 0.16) 50%, transparent 70%);
-  translate: -100% 0;
-  pointer-events: none;
+.item:focus-within .screen {
+  border-color: var(--accent);
+  box-shadow: 0 30px 80px rgba(18, 87, 253, 0.26), 0 0 0 1px var(--accent);
 }
 
 @media (hover: hover) {
-  .card:hover::before {
-    transform: scaleX(1);
+  .item:hover .screen {
+    border-color: var(--accent);
+    box-shadow: 0 30px 80px rgba(18, 87, 253, 0.26), 0 0 0 1px var(--accent);
   }
 }
 
 @media (hover: hover) and (prefers-reduced-motion: no-preference) {
-  .card:hover {
-    transform: translateY(-6px);
+  .item:hover .screen {
+    scale: 1.015;
   }
-  .card:hover .img {
-    transform: scale(1.04);
+}
+
+/* ------------------------------------------------------------ responsive */
+
+@media (max-width: 900px) {
+  .item {
+    grid-template-columns: 1fr;
   }
-  .card:hover .media::after {
-    translate: 100% 0;
-    transition: translate 1.1s var(--ease-out);
+  .row:nth-child(even) .visual {
+    order: 0;
   }
 }

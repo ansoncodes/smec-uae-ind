@@ -11,9 +11,10 @@ const ICONS: Record<TrainingIcon, (p: { className?: string }) => React.JSX.Eleme
 };
 
 /**
- * Technical Training & Workforce Development — her text, then the four
- * training cards, the "tailored to" topics and the call to action of
- * image 21. There is no training page yet, so the action is an enquiry.
+ * Technical Training & Workforce Development — her text, then the four kinds
+ * of training as open, numbered columns between hairlines, the "tailored to"
+ * topics and the call to action of image 21. There is no training page yet,
+ * so the action is an enquiry.
  */
 export default function Training() {
   const { label, title, lead, intro, cards, topicsTitle, topics, cta, audience } = TRAINING_COPY;
@@ -40,18 +41,23 @@ export default function Training() {
           </div>
         </div>
 
-        <ul className={styles.cards}>
+        <ol className={styles.cards}>
           {cards.map((card, i) => {
             const Icon = ICONS[card.icon];
             return (
-              <li key={card.title} className={styles.card} data-reveal="up" data-reveal-delay={i * 80}>
-                <Icon className={styles.icon} />
+              <li key={card.title} className={styles.card} data-reveal="up" data-reveal-delay={i * 90}>
+                <div className={styles.cardHead}>
+                  <span className={styles.cardNum} aria-hidden="true">
+                    {String(i + 1).padStart(2, '0')}
+                  </span>
+                  <Icon className={styles.icon} />
+                </div>
                 <h3 className={styles.cardTitle}>{card.title}</h3>
                 <p className={styles.cardBody}>{card.body}</p>
               </li>
             );
           })}
-        </ul>
+        </ol>
 
         <div className={styles.foot} data-reveal="up">
           <div className={styles.topicsBlock}>

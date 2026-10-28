@@ -25,28 +25,69 @@
   color: var(--fg-muted);
 }
 
-/* ----------------------------------------------------------------- cards */
+/* --------------------------------------------------------------- columns */
 
+/* Four open columns between hairlines, rather than four boxes. */
 .cards {
   display: grid;
   grid-template-columns: repeat(4, minmax(0, 1fr));
-  gap: clamp(12px, 1.4vw, 20px);
+  border-top: 1px solid var(--hair);
+  border-bottom: 1px solid var(--hair);
 }
 
 .card {
+  position: relative;
   display: flex;
   flex-direction: column;
   gap: 10px;
   min-width: 0;
-  padding: clamp(20px, 2.2vw, 30px);
-  border: 1px solid var(--hair);
-  border-radius: 10px;
-  background: var(--paper-raised);
+  padding: clamp(24px, 2.6vw, 36px) clamp(18px, 2vw, 30px) clamp(26px, 3vw, 40px);
+}
+
+.card + .card {
+  border-left: 1px solid var(--hair);
+}
+
+/* An accent rule draws along the top of the column under the pointer. */
+.card::before {
+  content: '';
+  position: absolute;
+  top: -1px;
+  left: 0;
+  right: 0;
+  height: 2px;
+  background: var(--accent);
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform 0.6s var(--ease-out);
+}
+
+.cardHead {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 12px;
+  margin-bottom: clamp(18px, 2.6vw, 38px);
+}
+
+/* Large outline numerals, filled in on hover. */
+.cardNum {
+  font-family: var(--font-display);
+  font-size: clamp(42px, 4.2vw, 64px);
+  font-weight: 500;
+  line-height: 0.9;
+  letter-spacing: -0.045em;
+  color: transparent;
+  -webkit-text-stroke: 1px var(--fg-dim);
+  transition: color 0.5s var(--ease), -webkit-text-stroke-color 0.5s var(--ease);
 }
 
 .icon {
-  margin-bottom: 6px;
+  flex: none;
+  width: 28px;
+  height: 28px;
   color: var(--accent);
+  transition: rotate 0.7s var(--ease), translate 0.5s var(--ease);
 }
 
 .cardTitle {
@@ -62,6 +103,23 @@
   color: var(--fg-muted);
 }
 
+@media (hover: hover) {
+  .card:hover::before {
+    transform: scaleX(1);
+  }
+  .card:hover .cardNum {
+    color: var(--accent);
+    -webkit-text-stroke-color: var(--accent);
+  }
+}
+
+@media (hover: hover) and (prefers-reduced-motion: no-preference) {
+  .card:hover .icon {
+    rotate: -12deg;
+    translate: 0 -3px;
+  }
+}
+
 /* ------------------------------------------------------------------ foot */
 
 /* The action column takes the button's own width, so its long label is never
@@ -72,8 +130,6 @@
   gap: 28px clamp(28px, 5vw, 80px);
   align-items: end;
   margin-top: clamp(32px, 3.8vw, 54px);
-  padding-top: clamp(26px, 3vw, 38px);
-  border-top: 1px solid var(--hair);
 }
 
 .topicsTitle {
@@ -88,14 +144,30 @@
   gap: 8px;
 }
 
+/* Outlined pills that fill with the accent under the pointer. */
 .topics li {
-  padding: 8px 14px;
-  border: 1px solid var(--hair);
+  padding: 9px 16px;
+  border: 1px solid var(--paper-hair);
   border-radius: 999px;
-  background: var(--paper-raised);
   font-size: 13.5px;
   line-height: 1.3;
   color: var(--fg);
+  transition: background 0.35s var(--ease), border-color 0.35s var(--ease), color 0.35s var(--ease),
+    translate 0.35s var(--ease);
+}
+
+@media (hover: hover) {
+  .topics li:hover {
+    border-color: var(--accent);
+    background: var(--accent);
+    color: var(--white);
+  }
+}
+
+@media (hover: hover) and (prefers-reduced-motion: no-preference) {
+  .topics li:hover {
+    translate: 0 -2px;
+  }
 }
 
 .action {
@@ -118,6 +190,12 @@
   .cards {
     grid-template-columns: repeat(2, minmax(0, 1fr));
   }
+  .card:nth-child(3) {
+    border-left: 0;
+  }
+  .card:nth-child(n + 3) {
+    border-top: 1px solid var(--hair);
+  }
 }
 
 @media (max-width: 900px) {
@@ -130,6 +208,10 @@
 @media (max-width: 560px) {
   .cards {
     grid-template-columns: 1fr;
+  }
+  .card + .card {
+    border-left: 0;
+    border-top: 1px solid var(--hair);
   }
   .action > a {
     width: 100%;
