@@ -1,13 +1,17 @@
+import Image from 'next/image';
 import { WHO_WE_ARE_COPY } from '@/lib/homepage';
 import styles from './WhoWeAre.module.css';
 
 /**
  * "Who we are?" — her crawlable company description, placed directly under
  * the hero and its credentials band as the document asks. Three paragraphs,
- * set as plain text in the server HTML, with the first one leading.
+ * set as plain text in the server HTML, with the first one leading. On a wide
+ * screen a photograph of SMEC's panel work stands under the heading; on a
+ * narrow one it follows the text, so the description still comes first.
  */
 export default function WhoWeAre() {
   const [lead, ...rest] = WHO_WE_ARE_COPY.paragraphs;
+  const { image } = WHO_WE_ARE_COPY;
 
   return (
     <section className={styles.section} data-tone="light" id="who-we-are" aria-labelledby="who-title">
@@ -38,6 +42,20 @@ export default function WhoWeAre() {
               </p>
             ))}
           </div>
+
+          <figure className={styles.media} data-reveal="fade">
+            <div className={styles.frame} data-parallax>
+              <Image
+                src={image.src}
+                alt={image.alt}
+                width={image.width}
+                height={image.height}
+                sizes="(max-width: 900px) 92vw, 36vw"
+                className={`${styles.img} drift`}
+                loading="lazy"
+              />
+            </div>
+          </figure>
         </div>
       </div>
     </section>

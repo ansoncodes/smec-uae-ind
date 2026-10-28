@@ -50,6 +50,13 @@ export const WHO_WE_ARE_COPY = {
     'Our engineering capabilities cover PLC, SCADA and control-system integration, brownfield automation upgrades, SCR/VFD systems, drilling monitoring, safety systems, industrial IoT, remote asset monitoring, predictive maintenance and digital twin technologies.',
     'Working with oil and gas operators, drilling contractors, EPC companies and OEMs, SMEC supports engineering design, equipment integration, panel manufacturing, factory acceptance testing (FAT), site installation and commissioning, with regional project coordination in the UAE and engineering and manufacturing support from India.',
   ],
+  // Engineering Solutions/Workshop (9).jpg — generated?
+  image: {
+    src: '/images/engineering-panel-wiring.webp',
+    alt: 'An engineer in SMEC coveralls and work gloves wiring terminal blocks inside an open control cabinet, below a row of PLC modules, with tool chests in the workshop behind him',
+    width: 800,
+    height: 800,
+  } satisfies Img,
 };
 
 /* ------------------------------------------------ engineering solutions */
