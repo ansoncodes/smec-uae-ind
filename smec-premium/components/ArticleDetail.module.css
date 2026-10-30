@@ -60,13 +60,33 @@
 
 /* ---------------------------------------------------------------- cover */
 
+/* The frame takes the artwork's own proportions (set inline from its size),
+   so the artwork fills it exactly: nothing cropped, no empty plate beside
+   it. */
 .cover {
   position: relative;
   overflow: hidden;
   border: 1px solid var(--ink-hair);
   border-radius: var(--radius);
-  aspect-ratio: 4 / 3;
+  aspect-ratio: var(--cover-ratio, 4 / 3);
   background: #0e1216;
+}
+
+.coverArt {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+/* A small portrait stands at the size it was drawn, at the end of its column,
+   and the headline takes the room it gives up. */
+.headGrid[data-cover='portrait'] {
+  grid-template-columns: minmax(0, 1fr) auto;
+}
+
+.headGrid[data-cover='portrait'] .cover {
+  width: min(100%, var(--cover-w));
 }
 
 /* The plate behind the artwork used to be a second, blurred copy of the
@@ -77,11 +97,6 @@
   background:
     radial-gradient(120% 90% at 50% 0%, rgba(18, 87, 253, 0.14), transparent 62%),
     linear-gradient(180deg, #11161c, #0b0e12);
-}
-
-.coverInner {
-  position: absolute;
-  inset: 0;
 }
 
 .coverImage {
@@ -260,7 +275,8 @@
 /* -------------------------------------------------------------- responsive */
 
 @media (max-width: 980px) {
-  .headGrid {
+  .headGrid,
+  .headGrid[data-cover='portrait'] {
     grid-template-columns: 1fr;
   }
   .moreGrid {

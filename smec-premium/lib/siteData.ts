@@ -746,7 +746,9 @@ export const SOCIAL_GROUPS: SocialGroup[] = [
 export const COPYRIGHT =
   '“SMEC” is a registered trademark of SMEC Automation Pvt. Ltd. © 2026 SMEC All rights reserved';
 
-export const LEGAL_LINKS = [
-  { label: 'Terms & Conditions', href: 'https://smecoilandgas.com/privacy-policy' },
-  { label: 'Privacy Notice', href: 'https://smecoilandgas.com/privacy-policy' },
-];
+/**
+ * The footer's legal links. "Terms & Conditions" used to open the privacy
+ * page too (software test report, footer Bug_003): neither this site nor the
+ * old one has any terms. It comes back with SMEC's terms text.
+ */
+export const LEGAL_LINKS = [{ label: 'Privacy Notice', href: '/privacy-policy/' }];

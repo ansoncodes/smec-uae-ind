@@ -1,6 +1,7 @@
 import Link from 'next/link';
 import Breadcrumb from '@/components/ui/Breadcrumb';
 import { CONTACT } from '@/lib/siteData';
+import { articleCard } from '@/lib/articles';
 import { regionForPath, rfqHref } from '@/lib/regions';
 import { breadcrumbTrail, publishableSections, type SpecPage } from '@/lib/spec';
 import type { GlossaryTerm } from '@/lib/glossary';
@@ -41,7 +42,7 @@ export default function SpecPageView({
   childrenTitle?: string;
   related?: SpecPage[];
   /** Articles filed under a resource collection. */
-  articles?: { url: string; article: { title: string; subtitle?: string } }[];
+  articles?: { url: string; slug: string; article: { title: string; subtitle?: string } }[];
   /** Terms defined on this page, each linking to the page that owns it. */
   glossary?: GlossaryTerm[];
   /** A page that does something as well as say something — the RFQ form. */
@@ -62,7 +63,10 @@ export default function SpecPageView({
   const evidence = evidenceFor(page.url);
   const section = page.breadcrumb[1] ?? 'SMEC Oil & Gas';
   const isDraft = page.status === 'draft';
-  const showDraftNote = isDraft && process.env.NEXT_PUBLIC_SITE_ENV !== 'production';
+  // A note for whoever is writing the page, so it shows on a development
+  // server only. Every deployed build, the staging site included, leaves it
+  // out (software test report Bug_016 to Bug_028); the page stays noindex.
+  const showDraftNote = isDraft && process.env.NODE_ENV === 'development';
   // A page about the India company starts its RFQ on the India desk.
   const rfq = rfqHref(regionForPath(page.url));
 
@@ -156,16 +160,17 @@ export default function SpecPageView({
                   <h2 className={styles.blockTitle}>In this collection</h2>
                 </div>
                 <ul className={styles.cards}>
-                  {articles.map((entry) => (
-                    <li key={entry.url}>
-                      <Link className={styles.card} href={entry.url}>
-                        <span className={styles.cardTitle}>{entry.article.title}</span>
-                        {entry.article.subtitle ? (
-                          <span className={styles.cardNote}>{entry.article.subtitle}</span>
-                        ) : null}
-                      </Link>
-                    </li>
-                  ))}
+                  {articles.map((entry) => {
+                    const card = articleCard(entry.slug, entry.article.title, entry.article.subtitle);
+                    return (
+                      <li key={entry.url}>
+                        <Link className={styles.card} href={entry.url}>
+                          <span className={styles.cardTitle}>{card.title}</span>
+                          {card.note ? <span className={styles.cardNote}>{card.note}</span> : null}
+                        </Link>
+                      </li>
+                    );
+                  })}
                 </ul>
               </section>
             ) : null}

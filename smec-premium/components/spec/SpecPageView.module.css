@@ -52,9 +52,13 @@
   color: var(--ink);
 }
 
+/* The blocks, FAQs and cards take the tone they sit in: paper on these
+   pages, ink under a product page, where a hard-coded paper colour left the
+   answers dark grey on black and the related cards white on white (software
+   test report Bug_029 to Bug_042). */
 .block {
   padding-block: clamp(26px, 3vw, 44px);
-  border-top: 1px solid var(--paper-hair-soft);
+  border-top: 1px solid var(--hair-soft);
 }
 
 .block:first-child {
@@ -125,8 +129,8 @@
   display: block;
   height: 100%;
   padding: 20px;
-  background: var(--paper-raised);
-  border: 1px solid var(--paper-hair-soft);
+  background: var(--surface);
+  border: 1px solid var(--hair-soft);
   border-radius: var(--radius-lg);
   color: inherit;
   text-decoration: none;
@@ -148,7 +152,7 @@
   display: block;
   font-size: 14px;
   line-height: 1.6;
-  color: var(--steel-500);
+  color: var(--fg-dim);
 }
 
 /* A link off the site, so it is set apart from the numbered blocks. Semantic
@@ -197,7 +201,7 @@
 }
 
 .faq {
-  border-top: 1px solid var(--paper-hair-soft);
+  border-top: 1px solid var(--hair-soft);
 }
 
 .faq summary {
@@ -210,7 +214,7 @@
   margin: 0 0 18px;
   max-width: 72ch;
   line-height: 1.75;
-  color: var(--steel-600, #4a5560);
+  color: var(--fg-muted);
 }
 
 .close {

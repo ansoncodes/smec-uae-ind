@@ -3,6 +3,7 @@ import Link from 'next/link';
 import { localHref } from '@/lib/routes';
 import { type Article } from '@/lib/siteData';
 import { articleBody, isByline, type Block } from '@/lib/articles';
+import { articleCover } from '@/lib/articles/covers';
 import { INSIGHTS } from '@/lib/experience';
 import { ArrowRight } from './Icons';
 import styles from './ArticleDetail.module.css';
@@ -37,22 +38,25 @@ function renderBlock(block: Block, i: number) {
 }
 
 /**
- * Article page: a dark masthead carrying the headline over the piece's own
+ * Article page: a dark masthead carrying the headline beside the piece's own
  * artwork, the body set as a single measured column on the paper ground, then
  * three more to read. Copy comes from the matching post via `lib/articles`.
  *
- * The posters are a mix of portrait and landscape, so each is shown whole on
- * a blurred copy of itself rather than cropped.
+ * The artwork's frame takes the artwork's own shape, so nothing is cropped and
+ * no empty plate shows beside it, and a small portrait is never drawn larger
+ * than it was made (see `lib/articles/covers`).
  */
 export default function ArticleDetail({ article, slug }: { article: Article; slug: string }) {
   const content = articleBody(slug);
   const current = INSIGHTS.find((item) => item.slug === slug);
   const more = INSIGHTS.filter((item) => item.slug !== slug).slice(0, 3);
+  const cover = articleCover(slug, article);
+  const portrait = cover.height > cover.width;
 
   return (
     <>
       <header className={`${styles.head} grain`}>
-        <div className={`container ${styles.headGrid}`}>
+        <div className={`container ${styles.headGrid}`} data-cover={portrait ? 'portrait' : 'wide'}>
           <div className={styles.headCopy}>
             <p className={styles.kicker}>
               <span className={styles.kickerRule} aria-hidden="true" />
@@ -74,17 +78,24 @@ export default function ArticleDetail({ article, slug }: { article: Article; slu
             ) : null}
           </div>
 
-          <div className={styles.cover}>
-            <div className={styles.coverInner}>
-              <Image
-                src={article.image}
-                alt={article.alt}
-                fill
-                priority
-                sizes="(max-width: 980px) 92vw, 46vw"
-                className={styles.coverImage}
-              />
-            </div>
+          <div
+            className={styles.cover}
+            style={
+              {
+                '--cover-ratio': `${cover.width} / ${cover.height}`,
+                '--cover-w': `${cover.width}px`,
+              } as React.CSSProperties
+            }
+          >
+            <Image
+              src={cover.src}
+              alt={cover.alt}
+              width={cover.width}
+              height={cover.height}
+              priority
+              sizes={portrait ? `${cover.width}px` : '(max-width: 980px) 92vw, 46vw'}
+              className={styles.coverArt}
+            />
           </div>
         </div>
       </header>
